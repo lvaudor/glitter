@@ -1,0 +1,13 @@
+Package: recitR
+Type: Package
+Title: Make the use of Wikidata easier.
+Version: 0.1.0
+Author: Lise Vaudor
+Maintainer: Lise Vaudor <lise.vaudor@ens-lyon.fr>
+Description: This package aims at making the use of Linked Open Data (e.g. Wikidata) easier.
+    Blablablabla.
+Depends: WikidataR, dplyr, stringr, purrr, SPARQL
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1

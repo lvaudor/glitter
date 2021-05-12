@@ -1,0 +1,90 @@
+---
+title: "recitR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{riverbed}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo = TRUE, message=FALSE, warning=FALSE
+)
+```
+
+```{r setup}
+library(recitR)
+```
+
+# Functions to explore Wikidata items or properties
+
+## WikidataR to get Wikidata IDs
+
+```{r}
+WikidataR::find_item("Metro Lyon")
+WikidataR::find_property("date")
+WikidataR::find_property("part of")
+```
+
+## recitR to format Wikidata items or properties for use and exploration in R
+
+- `get_thing()` works with Wikidata ID
+
+All the following functions:
+
+- `get_label()` 
+- `get_description()` 
+- `get_claims()`
+- `get_info()`
+
+work with Wikidata ID or R "thing" (item or property) as obtained through `get_thing()`.
+
+Function `get_info()` builds on all three preceding functions to return all three results: label, description, and claims.
+
+```{r}
+MetroLyon=get_thing("Q1552")
+get_label(MetroLyon)
+get_description(MetroLyon)
+get_claims("Q1872405", with_labels=TRUE) %>% head()
+```
+
+
+# Functions to send SPARQL requests
+
+-`send_sparql()` sends a SPARQL query to specified endpoint (for now only works with Wikidata endpoint) 
+
+Example: query for the items that are part of the Lyon subway network:
+
+```{r}
+query='SELECT ?item ?itemLabel ?coords ?date
+{
+  ?item wdt:P361 wd:Q1552;
+        wdt:P625 ?coords.
+  OPTIONAL{?item wdt:P1619 ?date.}
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
+} ORDER BY ?itemLabel
+'
+tib=send_sparql(query)
+tib
+```
+
+
+# Functions to clean data retrieved from SPARQL endpoints
+
+-`transform_wikidata_coords()` get the coordinates as latitude (`lat`) and longitude (`lng`) based on the Wikidata formatting of spatial coordinates ("Point(..... ....)").
+
+```{r}
+tib=tib %>% transform_wikidata_coords("coords")
+```
+
+Such lat and lng columns make the use of leaflet straightforward:
+
+```{r}
+leaflet::leaflet(tib) %>%
+  leaflet::addTiles() %>%
+  leaflet::addMarkers(popup=~itemLabel)
+```
+
