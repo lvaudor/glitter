@@ -15,9 +15,15 @@
 #' tib=send_sparql(query)
 #' transform_wikidata_coords(tib, "coords")
 transform_wikidata_coords=function(data,coord_column, prefix=""){
+  f=function(x){
+    if(is.na(x[1])){x=c(NA,NA)}
+    return(x)
+  }
   result=data[[coord_column]] %>%
     stringr::str_extract("(?<=Point\\()[\\d\\.\\-\\s]*") %>%
-    stringr::str_split(" ")
+    stringr::str_split(" ") %>%
+    purrr::map(f)
+
   lat=result %>%
     purrr::map_chr(purrr::pluck,2) %>%
     as.numeric()

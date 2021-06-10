@@ -2,11 +2,13 @@
 
 export("%>%")
 export(clean_wikidata_table)
+export(get_claim)
 export(get_claims)
 export(get_description)
 export(get_info)
 export(get_label)
 export(get_thing)
+export(get_triplets)
 export(send_sparql)
 export(transform_wikidata_coords)
 importFrom(magrittr,"%>%")
