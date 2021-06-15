@@ -80,27 +80,44 @@ get_one_claim=function(res){
 }
 
 #' Get claims regarding one Wikidata thing
-#' @param id a Wikidata ID, either of an item ("Qxxxxx") or of a property ("Pxxxxx"), or the item itself.
-#' @param with_labels whether the labels for Wikidata items should be included in the result
+#' @param id a Wikidata ID, either of an item ("wd:Qxxxxx") or of a property ("wdt:Pxxxxx"), or the item itself.
 #' @export
 #' @examples
-#' thing=get_thing("Q431603")
-#' get_claims(thing, with_labels=TRUE)
+#' get_claims("wd:Q431603")
 get_claims=function(id, with_labels=FALSE){
-  if(class(id)=="character"){thing=get_thing(id)}else{thing=id}
-  claims=thing %>%
-    purrr::map("claims") %>%
-    .[[1]] %>%
-    purrr::map("mainsnak") %>%
-    purrr::map_df(get_one_claim)  %>%
-    bind_rows()
-  if(with_labels){
-    claims=claims %>%
-      mutate(propertyLabel=purrr::map_chr(property,get_label)) %>%
-      mutate(value_for_label=case_when(type=="wikibase-entityid"~value,
-                                       TRUE~NA_character_)) %>%
-      mutate(valueLabel=purrr::map_chr(value_for_label,get_label))
-  }
+  claims=add_triplets(query=NA,
+                     subject=id,
+                     verb="?prop",
+                     object="?val",
+                     label=c("?val")) %>%
+    add_triplets(subject="?item",
+                 verb="wikibase:directClaim",
+                 object="?prop") %>%
+    build_sparql() %>%
+    send_sparql() %>%
+    left_join(wd_properties,by=c("item"="id")) %>%
+    select(property=item,
+           propertyLabel=label,
+           value=val,
+           valueLabel=valLabel,
+           propertyType=type,
+           propertyDescription=description,
+           propertyAltLabel=altLabel)
+  # get_claims=function(thing)
+  # if(class(id)=="character"){thing=get_thing(id)}else{thing=id}
+  # claims=thing %>%
+  #   purrr::map("claims") %>%
+  #   .[[1]] %>%
+  #   purrr::map("mainsnak") %>%
+  #   purrr::map_df(get_one_claim)  %>%
+  #   bind_rows()
+  # if(with_labels){
+  #   claims=claims %>%
+  #     mutate(propertyLabel=purrr::map_chr(property,get_label)) %>%
+  #     mutate(value_for_label=case_when(type=="wikibase-entityid"~value,
+  #                                      TRUE~NA_character_)) %>%
+  #     mutate(valueLabel=purrr::map_chr(value_for_label,get_label))
+  # }
   return(claims)
 }
 
@@ -140,45 +157,30 @@ get_claim=function(id, property_name="P31"){
 #' @param subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "Q456"))
 #' @param verb the property (for instance "wdt:P190")
 #' @param object an anonymous variable (for instance, and by default, "?object") or item (for instance "Q456"))
-#' @param explicit T or F, whether or not to include all non-anonymous elements in results table
+#' @param label a vector of variables for which to include a label column (defaults to NA)
+#' @param limit
+#' @param within_box if provided, rectangular bounding box for the triplet query.
+#' Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))
+#' @param within_distance if provided, circular bounding box for the triplet query.
+#' Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
+#' The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.
 #' @export
 #' @examples
-#' get_triplets(subject="?subject",verb="wdt:P17",object="wd:Q35", limit=10)
-#' get_triplets(subject="wd:Q456", verb="wdt:P17", object="?country")
-#' get_triplets(subject="wd:Q456", verb="?prop", object="wd:Q142")
-#' get_triplets(subject="wd:Q456", verb="wdt:P1082", object="?pop")
-#' purrr::map_df(paste0("wd:",c("Q90","Q456","Q23482")),get_triplets,verb="wdt:P1082",explicit=TRUE)
-get_triplets=function(subject="?subject",verb="?verb",object="?object",limit=10,send_query=TRUE,explicit=FALSE){
-  limit=as.character(limit)
-  is_anonymous=function(query_var){
-    if(stringr::str_sub(query_var,1,1)=="?"){return(TRUE)}else{return(FALSE)}
-  }
-  vars=""
-  if(is_anonymous(subject)){vars=paste0(vars," ",subject," ",subject,"Label")}
-  if(is_anonymous(   verb)){vars=paste0(vars," ",   verb," ",   verb,"Label")}
-  if(is_anonymous( object)){vars=paste0(vars," ", object," ", object,"Label")}
-  query=glue::glue('SELECT {vars}
-  WHERE
-  {{
-    {subject} {verb} {object}.
-    SERVICE wikibase:label {{ bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }}
-  }}
-  LIMIT {limit}')
-  if(!send_query){result=query}else{
-    result=WikidataQueryServiceR::query_wikidata(query)
-  }
-  if(explicit){
-    result=result %>%
-      dplyr::mutate(verb=verb)
-    if(!is_anonymous(subject)){
-      result=result %>%
-        dplyr::mutate(subject=subject)
-    }
-    if(!is_anonymous(object)){
-      result=result %>%
-        dplyr::mutate(object=object)
-    }
-  }
-  return(result)
+#' get_triplets(subject="?city",verb="wdt:P31/wdt:P279*",object="wd:Q515", label=c("?city"), limit=10)
+get_triplets=function(subject,verb,object,optional=FALSE, label=NA, limit=NA,
+                      within_box=c(NA,NA),
+                      within_distance=c(NA,NA)){
+    query=add_triplets(query=NA,
+                       subject=subject,
+                       verb=verb,
+                       object=object,
+                       optional=optional,
+                       label=label,
+                       limit=limit,
+                       within_box=within_box,
+                       within_distance=within_distance)
+    tib=query %>%
+      build_sparql() %>%
+      send_sparql()
+    return(tib)
 }
-

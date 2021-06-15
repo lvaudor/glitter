@@ -12,7 +12,7 @@
 #'   SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
 #' } ORDER BY ?itemLabel
 #' '
-#' tib=send_sparql(query)
+#' tib=send_query(query)
 #' transform_wikidata_coords(tib, "coords")
 transform_wikidata_coords=function(data,coord_column, prefix=""){
   f=function(x){

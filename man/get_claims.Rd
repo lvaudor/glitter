@@ -7,14 +7,11 @@
 get_claims(id, with_labels = FALSE)
 }
 \arguments{
-\item{id}{a Wikidata ID, either of an item ("Qxxxxx") or of a property ("Pxxxxx"), or the item itself.}
-
-\item{with_labels}{whether the labels for Wikidata items should be included in the result}
+\item{id}{a Wikidata ID, either of an item ("wd:Qxxxxx") or of a property ("wdt:Pxxxxx"), or the item itself.}
 }
 \description{
 Get claims regarding one Wikidata thing
 }
 \examples{
-thing=get_thing("Q431603")
-get_claims(thing, with_labels=TRUE)
+get_claims("wd:Q431603")
 }

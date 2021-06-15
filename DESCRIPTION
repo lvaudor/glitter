@@ -6,7 +6,13 @@ Author: Lise Vaudor
 Maintainer: Lise Vaudor <lise.vaudor@ens-lyon.fr>
 Description: This package aims at making the use of Linked Open Data (e.g. Wikidata) easier.
     Blablablabla.
-Depends: WikidataR, dplyr, stringr, purrr, SPARQL
+Depends: 
+    WikidataR,
+    dplyr,
+    stringr,
+    purrr,
+    SPARQL,
+    R (>= 2.10)
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
