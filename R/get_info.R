@@ -167,7 +167,10 @@ get_claim=function(id, property_name="P31"){
 #' @export
 #' @examples
 #' get_triplets(subject="?city",verb="wdt:P31/wdt:P279*",object="wd:Q515", label=c("?city"), limit=10)
-get_triplets=function(subject,verb,object,optional=FALSE, label=NA, limit=NA,
+get_triplets=function(subject="?subject",
+                      verb="?verb",
+                      object="?object",
+                      optional=FALSE, label=NA, limit=NA,
                       within_box=c(NA,NA),
                       within_distance=c(NA,NA)){
     query=add_triplets(query=NA,

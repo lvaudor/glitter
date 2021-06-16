@@ -17,6 +17,6 @@ clean_wikidata_table=function(wikitib){
     mutate(across(where(is.character),
                   stringr::str_replace,
                   pattern="http://www.wikidata.org/entity/",
-                  replacement=""))
+                  replacement="wd:"))
   return(result)
 }
