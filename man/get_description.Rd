@@ -15,6 +15,6 @@ get_description(id, language = "en")
 Get description of Wikidata thing
 }
 \examples{
-thing=get_thing("Q431603")
+thing=get_thing("wd:Q431603")
 get_description(thing)
 }

@@ -12,7 +12,8 @@ get_triplets(
   label = NA,
   limit = NA,
   within_box = c(NA, NA),
-  within_distance = c(NA, NA)
+  within_distance = c(NA, NA),
+  track = NA
 )
 }
 \arguments{
@@ -29,10 +30,13 @@ get_triplets(
 \item{within_box}{if provided, rectangular bounding box for the triplet query. Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))}
 
 \item{within_distance}{if provided, circular bounding box for the triplet query. Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers. The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.}
+
+\item{track}{element to add as a column in result to track which item the information refers to}
 }
 \description{
 Get triplets with subject verb object.
 }
 \examples{
 get_triplets(subject="?city",verb="wdt:P31/wdt:P279*",object="wd:Q515", label=c("?city"), limit=10)
+get_triplets(subject="wd:Q355",verb="wdt:P625",object="?coords", track="object")
 }

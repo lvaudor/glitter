@@ -4,7 +4,7 @@
 \alias{get_claim}
 \title{Get claims regarding one Wikidata thing}
 \usage{
-get_claim(id, property_name = "P31")
+get_claim(id, property_name = "wd:P31")
 }
 \arguments{
 \item{id}{a Wikidata ID, either of an item ("Qxxxxx") or of a property ("Pxxxxx"), or the item itself.}
@@ -15,6 +15,5 @@ get_claim(id, property_name = "P31")
 Get claims regarding one Wikidata thing
 }
 \examples{
-Lisieux=get_thing("Q188743")
-get_claim(Lisieux, "P625")
+get_claim("wd:Q188743", "wd:P625")
 }

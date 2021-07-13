@@ -15,6 +15,5 @@ get_label(id, language = "en")
 Get label of Wikidata thing
 }
 \examples{
-thing=get_thing("Q431603")
-get_label(thing)
+get_label("wd:Q431603")
 }

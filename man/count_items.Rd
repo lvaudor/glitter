@@ -13,5 +13,6 @@ count_items(classes)
 Get counts of items directly in classes
 }
 \examples{
-count_items("wd:Q7930989")
+classes=c("wd:Q627272","wd:Q99527517")
+count_items(classes)
 }

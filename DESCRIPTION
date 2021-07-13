@@ -17,3 +17,7 @@ License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
+Imports: 
+    tidygraph,
+    igraph,
+    ggraph

@@ -23,6 +23,8 @@ add_triplets(
 
 \item{object}{an anonymous variable (for instance, and by default, "?object") or item (for instance "Q456"))}
 
+\item{optional}{whether the triplet is optional (other results are sent back even if this particular triplet is missing)}
+
 \item{label}{a vector of variables for which to include a label column (defaults to NA)}
 
 \item{limit}{the max number of items sent back}

@@ -1,0 +1,77 @@
+#' Build the graph of sub/superclasses
+#' @param id the id of class
+#' @export
+#' @examples
+#' tib_g=build_graph_classes("wd:Q627272")
+build_graph_classes=function(id){
+  subclasses=subclasses_of(id,include_self=TRUE)
+  subclasses_start=subclasses
+  while(nrow(subclasses_start)!=0){
+    subclasses_end=purrr::map_df(unique(subclasses_start$classes),subclasses_of)  %>%
+      unique()
+    if(nrow(subclasses_end)>0){
+      subclasses=dplyr::bind_rows(subclasses,
+                                  subclasses_end)
+    }
+    subclasses_start=subclasses_end
+  }
+  superclasses=superclasses_of(id,include_self=FALSE)
+  superclasses_start=superclasses
+  while(nrow(superclasses_start)!=0){
+    superclasses_end=purrr::map_df(unique(superclasses_start$classes),superclasses_of)  %>%
+      unique()
+    if(nrow(superclasses_end)>0){
+      superclasses=dplyr::bind_rows(superclasses,
+                                    superclasses_end)
+    }
+    superclasses_start=superclasses_end
+  }
+
+  table_edges=bind_rows(subclasses %>%
+                          dplyr::mutate(type=dplyr::case_when(from==to~"og",
+                                                              from!=to~"sub")),
+                        superclasses %>%
+                          dplyr::mutate(type="sup"))
+  table_nodes=table_edges %>%
+    dplyr::select(type,classes, classesLabel) %>%
+    unique() %>%
+    dplyr::mutate(n=count_items(classes))%>%
+    dplyr::mutate(id=1:dplyr::n())
+  table_edges=table_edges %>%
+    dplyr::select(from_wd=from,
+                  to_wd=to) %>%
+    dplyr::left_join(table_nodes %>% dplyr::select(id,classes),
+                     by=c("to_wd"="classes")) %>%
+    dplyr::mutate(to=id) %>%
+    dplyr::select(-id) %>%
+    dplyr::left_join(table_nodes %>% dplyr::select(id,classes),
+                     by=c("from_wd"="classes")) %>%
+    dplyr::mutate(from=id) %>%
+    dplyr::select(-id) %>%
+    dplyr::select(from,to) %>%
+    na.omit() %>%
+    dplyr::filter(from!=to)
+  tib_g=tidygraph::tbl_graph(nodes=table_nodes,
+                             edges=table_edges)
+  return(tib_g)
+}
+
+#' Show the graph of sub/superclasses
+#' @param id the id of class
+#' @param layout layout of the graph for instance "kk" or "sugiyama"
+#' @export
+#' @examples
+#' tib_g=build_graph_classes("wd:Q627272")
+#' show_graph_classes(tib_g,layout="kk")
+#' show_graph_classes(tib_g,layout="sugiyama")
+show_graph_classes=function(tib_g,n_min=10,layout="kk"){
+  tib_g_light=tib_g %>%
+    dplyr::filter(n>n_min)
+  g=ggraph::ggraph(tib_g_light, layout=layout) +
+    ggraph::geom_edge_link(arrow = ggplot2::arrow(length = unit(4, 'mm'))) +
+    ggraph::geom_node_label( ggplot2::aes(label=classesLabel,size=log(n),fill=type),alpha=0.5)+
+    ggplot2::coord_flip()
+  return(g)
+}
+
+

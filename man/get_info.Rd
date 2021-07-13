@@ -15,6 +15,5 @@ get_info(id, language = "en", with_labels = FALSE)
 Get description of Wikidata thing
 }
 \examples{
-thing=get_thing("Q431603")
-get_info(thing)
+get_info("wd:Q431603")
 }
