@@ -25,6 +25,8 @@ add_triplets(
 
 \item{label}{a vector of variables for which to include a label column (defaults to NA)}
 
+\item{limit}{the max number of items sent back}
+
 \item{within_box}{if provided, rectangular bounding box for the triplet query.
 Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))}
 

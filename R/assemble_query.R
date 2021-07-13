@@ -22,8 +22,9 @@ build_sparql=function(query_parts){
 #' @param subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "Q456"))
 #' @param verb the property (for instance "wdt:P190")
 #' @param object an anonymous variable (for instance, and by default, "?object") or item (for instance "Q456"))
+#' @param optional whether the triplet is optional (other results are sent back even if this particular triplet is missing)
 #' @param label a vector of variables for which to include a label column (defaults to NA)
-#' @param limit
+#' @param limit the max number of items sent back
 #' @param within_box if provided, rectangular bounding box for the triplet query.
 #' Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))
 #' @param within_distance if provided, circular bounding box for the triplet query.

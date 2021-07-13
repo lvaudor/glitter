@@ -14,7 +14,7 @@
 send_sparql=function(query,endpoint="Wiki"){
   if(endpoint=="Wiki"){
     tib <- WikidataQueryServiceR::query_wikidata(query)
-    return(tib)
   }
-  return(NULL)
+  if(nrow(tib)==0){tib=NULL}
+  return(tib)
 }

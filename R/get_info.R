@@ -6,9 +6,10 @@
 #' get_thing("Q431603")
 get_thing=function(id){
   if(is.na(id)){return(NA)}
-  QorP=stringr::str_sub(id,1,1)
-  if(QorP=="Q"){thing=WikidataR::get_item(id)}
-  if(QorP=="P"){thing=WikidataR::get_property(id)}
+  QorP=stringr::str_extract(id,"(?<=\\:).")
+  id_short=stringr::str_extract(id,"(?<=\\:).*")
+  if(QorP=="Q"){thing=WikidataR::get_item(id_short)}
+  if(QorP=="P"){thing=WikidataR::get_property(id_short)}
   return(thing)
 }
 
@@ -17,16 +18,17 @@ get_thing=function(id){
 #' @param language language of label, defaults to English ("en")
 #' @export
 #' @examples
-#' thing=get_thing("Q431603")
-#' get_label(thing)
+#' get_label("wd:Q431603")
 get_label=function(id, language="en"){
   if(is.na(id)){return(NA)}
   if(class(id)=="character"){thing=get_thing(id)}else{thing=id}
-  label=thing %>%
-    purrr::map("labels") %>%
+  info=thing %>%
+    purrr::map("labels")
+  if(language %in% names(info[[1]])) {
+    label=info %>%
     purrr::map(language) %>%
     purrr::map_chr("value")
-
+  }else{return(NA)}
   return(label)
 }
 
@@ -35,7 +37,7 @@ get_label=function(id, language="en"){
 #' @param language language of description, defaults to English ("en")
 #' @export
 #' @examples
-#' thing=get_thing("Q431603")
+#' thing=get_thing("wd:Q431603")
 #' get_description(thing)
 get_description=function(id,language="en"){
   if(class(id)=="character"){thing=get_thing(id)}else{thing=id}
@@ -47,7 +49,7 @@ get_description=function(id,language="en"){
 }
 
 #' Format information about one claim (for use in get_claims)
-#' @param res
+#' @param res result
 get_one_claim=function(res){
   datavalue=res$datavalue
   type=unique(datavalue$type)
@@ -103,21 +105,6 @@ get_claims=function(id, with_labels=FALSE){
            propertyType=type,
            propertyDescription=description,
            propertyAltLabel=altLabel)
-  # get_claims=function(thing)
-  # if(class(id)=="character"){thing=get_thing(id)}else{thing=id}
-  # claims=thing %>%
-  #   purrr::map("claims") %>%
-  #   .[[1]] %>%
-  #   purrr::map("mainsnak") %>%
-  #   purrr::map_df(get_one_claim)  %>%
-  #   bind_rows()
-  # if(with_labels){
-  #   claims=claims %>%
-  #     mutate(propertyLabel=purrr::map_chr(property,get_label)) %>%
-  #     mutate(value_for_label=case_when(type=="wikibase-entityid"~value,
-  #                                      TRUE~NA_character_)) %>%
-  #     mutate(valueLabel=purrr::map_chr(value_for_label,get_label))
-  # }
   return(claims)
 }
 
@@ -126,13 +113,12 @@ get_claims=function(id, with_labels=FALSE){
 #' @param language language of description, defaults to English ("en")
 #' @export
 #' @examples
-#' thing=get_thing("Q431603")
-#' get_info(thing)
+#' get_info("wd:Q431603")
 get_info=function(id,language="en",with_labels=FALSE){
   if(class(id)=="character"){thing=get_thing(id)}else{thing=id}
   label=get_label(thing)
   description=get_description(thing)
-  claims=get_claims(thing, with_labels=with_labels)
+  claims=get_claims(id, with_labels=with_labels)
   result=list(label=label,
               description=description,
               claims=claims)
@@ -144,11 +130,11 @@ get_info=function(id,language="en",with_labels=FALSE){
 #' @param property_name the name of property to get
 #' @export
 #' @examples
-#' Lisieux=get_thing("Q188743")
-#' get_claim(Lisieux, "P625")
-get_claim=function(id, property_name="P31"){
+#' get_claim("wd:Q188743", "wd:P625")
+get_claim=function(id, property_name="wd:P31"){
   claims=get_claims(id)
   that_claim=claims %>%
+    clean_wikidata_table() %>%
     dplyr::filter(property==property_name)
   return(that_claim)
 }
@@ -158,21 +144,21 @@ get_claim=function(id, property_name="P31"){
 #' @param verb the property (for instance "wdt:P190")
 #' @param object an anonymous variable (for instance, and by default, "?object") or item (for instance "Q456"))
 #' @param label a vector of variables for which to include a label column (defaults to NA)
-#' @param limit
-#' @param within_box if provided, rectangular bounding box for the triplet query.
-#' Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))
-#' @param within_distance if provided, circular bounding box for the triplet query.
-#' Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
-#' The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.
+#' @param limit the max number of items sent back
+#' @param within_box if provided, rectangular bounding box for the triplet query. Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))
+#' @param within_distance if provided, circular bounding box for the triplet query. Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers. The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.
+#' @param track element to add as a column in result to track which item the information refers to
 #' @export
 #' @examples
 #' get_triplets(subject="?city",verb="wdt:P31/wdt:P279*",object="wd:Q515", label=c("?city"), limit=10)
+#' get_triplets(subject="wd:Q355",verb="wdt:P625",object="?coords", track="object")
 get_triplets=function(subject="?subject",
                       verb="?verb",
                       object="?object",
                       optional=FALSE, label=NA, limit=NA,
                       within_box=c(NA,NA),
-                      within_distance=c(NA,NA)){
+                      within_distance=c(NA,NA),
+                      track=NA){
     query=add_triplets(query=NA,
                        subject=subject,
                        verb=verb,
@@ -185,5 +171,16 @@ get_triplets=function(subject="?subject",
     tib=query %>%
       build_sparql() %>%
       send_sparql()
+    if(!is.na(track)){
+      track = switch(track,
+                     "subject"=subject,
+                     "object"=object,
+                     "verb"=verb)
+      if(is.null(tib)){
+        tib=tibble::tibble(tracking=NA)
+      }
+      tib=tib %>%
+        mutate(tracking=rep(track,nrow(tib)))
+    }
     return(tib)
 }

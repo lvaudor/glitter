@@ -6,6 +6,9 @@
 \usage{
 get_one_claim(res)
 }
+\arguments{
+\item{res}{result}
+}
 \description{
 Format information about one claim (for use in get_claims)
 }
