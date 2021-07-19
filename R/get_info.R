@@ -159,18 +159,20 @@ get_triplets=function(subject="?subject",
                       within_box=c(NA,NA),
                       within_distance=c(NA,NA),
                       track=NA){
-    query=add_triplets(query=NA,
-                       subject=subject,
-                       verb=verb,
-                       object=object,
-                       optional=optional,
-                       label=label,
-                       limit=limit,
-                       within_box=within_box,
-                       within_distance=within_distance)
-    tib=query %>%
-      build_sparql() %>%
-      send_sparql()
+    if(is.na(subject)|is.na(verb)|is.na(object)){tib=NULL}else{
+      query=add_triplets(query=NA,
+                         subject=subject,
+                         verb=verb,
+                         object=object,
+                         optional=optional,
+                         label=label,
+                         limit=limit,
+                         within_box=within_box,
+                         within_distance=within_distance)
+      tib=query %>%
+        build_sparql() %>%
+        send_sparql()
+    }
     if(!is.na(track)){
       track = switch(track,
                      "subject"=subject,
