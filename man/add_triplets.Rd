@@ -40,9 +40,18 @@ The center can also be provided as a variable (for instance, "?location") for th
 Compose query parts for triplets with subject verb object.
 }
 \examples{
-add_triplets(subject="?city",verb="wdt:P31/wdt:P279*",object="wd:Q515", label=c("?city"), limit=10) \%>\%
-add_triplets(subject="?city",verb="wdt:P1082",object="?pop",optional=TRUE) \%>\%
-add_triplets(subject="?city",verb="wdt:P625",object="?coords",within_box=list(southwest=c(3,43),northeast=c(7,47))) \%>\%
+add_triplets(subject="?city",
+verb="wdt:P31/wdt:P279*",
+object="wd:Q515",
+ label=c("?city"),
+  limit=10) \%>\%
+add_triplets(subject="?city",
+verb="wdt:P1082",object="?pop",
+optional=TRUE) \%>\%
+add_triplets(subject="?city",
+verb="wdt:P625",object="?coords",
+within_box=list(southwest=c(3,43),
+northeast=c(7,47))) \%>\%
 build_sparql() \%>\%
 send_sparql()
 }

@@ -2,7 +2,7 @@
 title: "recitR"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{riverbed}
+  %\VignetteIndexEntry{recitR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -123,7 +123,7 @@ leaflet::leaflet(stations_metro_Lyon) %>%
 ```
 
 
-## Example 2 : cities around Lyon
+# Example 2 : cities around Lyon
 
 Now, let's imagine that we are interested in the cities in a 200km radius around Lyon.
 
@@ -142,20 +142,30 @@ add_triplets(subject="?city", verb="wdt:P31/wdt:P279*", object="wd:Q515", label=
 Now, let's get the location ("wdt:P625") of the cities
 
 ```{r}
-add_triplets(subject="?city",verb="wdt:P31/wdt:P279*",object="wd:Q515",
-                             label=c("?city"), limit=10) %>%
-  add_triplets(subject="?city",verb="wdt:P625",object="?coords") %>% 
+add_triplets(subject="?city",
+             verb="wdt:P31/wdt:P279*",
+             object="wd:Q515",
+             label=c("?city"),
+             limit=10) %>%
+  add_triplets(subject="?city",
+               verb="wdt:P625",
+               object="?coords") %>% 
   build_sparql() %>% 
   send_sparql()
 ```
 
-We can refine this query, stating that we want cities in a radius of 10km around Lyon (which has lat-long coordinates ~ 45.76 and 4.84). We will use the argument `within_distance`:
+We can refine this query, stating that we want cities (or items of subclasses of city) in a radius of 5km around Lyon (which has lat-long coordinates ~ 45.76 and 4.84). We will use the argument `within_distance`:
 
 
 ```{r}
-cities_around_Lyon=add_triplets(subject="?city",verb="wdt:P31/wdt:P279*",object="wd:Q486972", label="?city") %>% 
-  add_triplets(subject="?city",verb="wdt:P625",object="?coords",
-               within_distance=list(center=c(long=4.84,lat=45.76), radius=10)) %>% 
+cities_around_Lyon=add_triplets(subject="?city",
+                                verb="wdt:P31/wdt:P279*",
+                                object="wd:Q486972", label="?city") %>% 
+  add_triplets(subject="?city",
+               verb="wdt:P625",
+               object="?coords",
+               within_distance=list(center=c(long=4.84,lat=45.76),
+                                    radius=5)) %>% 
             build_sparql() %>%
             send_sparql()
 head(cities_around_Lyon)
@@ -163,11 +173,17 @@ head(cities_around_Lyon)
 
 Actually, rather than getting Lyon's long-lat coordinates "by hand" we could get them directly through our query, which means we have to add a triplet about Lyon ("wd:456") and its coordinates:
 
-```{r}
-add_triplets(subject="?city",verb="wdt:P31/wdt:P279*",object="wd:Q486972", label="?city") %>% 
-  add_triplets(subject="?city",verb="wdt:P625",object="?coords",
-               within_distance=list(center="?coordLyon", radius=10)) %>% 
-  add_triplets(subject="wd:Q456",verb="wdt:P625",object="?coordLyon") %>% 
+```{r, eval=FALSE}
+add_triplets(subject="wd:Q456",
+               verb="wdt:P625",
+               object="?coordLyon") %>% 
+  add_triplets(subject="?city",
+               verb="wdt:P625",
+               object="?coords",
+               within_distance=list(center="?coordLyon", radius=2)) %>%   add_triplets(subject="?city",
+             verb="wdt:P31/wdt:P279*",
+             object="wd:Q486972",
+             label="?city") %>%
   build_sparql() %>% 
   send_sparql()
 ```
