@@ -38,5 +38,6 @@ Get triplets with subject verb object.
 }
 \examples{
 get_triplets(subject="?city",verb="wdt:P31/wdt:P279*",object="wd:Q515", label=c("?city"), limit=10)
-get_triplets(subject="wd:Q355",verb="wdt:P625",object="?coords", track="object")
+get_triplets(subject="wd:Q355",verb="wdt:P625",object="?coords")
+get_triplets(subject="wd:Q355",verb="wdt:P625",object="?coords", track="subject")
 }

@@ -14,7 +14,7 @@
 #'clean_tib %>% head()
 clean_wikidata_table=function(wikitib){
   result=wikitib %>%
-    mutate(across(where(is.character),
+    dplyr::mutate(dplyr::across(tidyselect:::where(is.character),
                   stringr::str_replace,
                   pattern="http://www.wikidata.org/entity/",
                   replacement="wd:"))

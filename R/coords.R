@@ -30,7 +30,7 @@ transform_wikidata_coords=function(data,coord_column, prefix=""){
   lng=result %>%
     purrr::map_chr(purrr::pluck,1) %>%
     as.numeric()
-  tib_coords=tibble(lat=lat,
+  tib_coords=tibble::tibble(lat=lat,
                     lng=lng) %>%
     dplyr::rename_with(.fn = ~ paste0(prefix, .x))
   tib_result=data %>%

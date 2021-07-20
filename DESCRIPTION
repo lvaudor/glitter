@@ -12,7 +12,7 @@ Depends:
     stringr,
     purrr,
     SPARQL,
-    R (>= 2.10)
+    R (>= 3.5.0)
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
@@ -20,4 +20,5 @@ RoxygenNote: 7.1.1
 Imports: 
     tidygraph,
     igraph,
-    ggraph
+    ggraph,
+    magrittr

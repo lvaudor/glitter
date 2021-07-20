@@ -97,8 +97,8 @@ get_claims=function(id, with_labels=FALSE){
                  object="?prop") %>%
     build_sparql() %>%
     send_sparql() %>%
-    left_join(wd_properties,by=c("item"="id")) %>%
-    select(property=item,
+    dplyr::left_join(wd_properties,by=c("item"="id")) %>%
+    dplyr::select(property=item,
            propertyLabel=label,
            value=val,
            valueLabel=valLabel,
@@ -151,7 +151,8 @@ get_claim=function(id, property_name="wd:P31"){
 #' @export
 #' @examples
 #' get_triplets(subject="?city",verb="wdt:P31/wdt:P279*",object="wd:Q515", label=c("?city"), limit=10)
-#' get_triplets(subject="wd:Q355",verb="wdt:P625",object="?coords", track="object")
+#' get_triplets(subject="wd:Q355",verb="wdt:P625",object="?coords")
+#' get_triplets(subject="wd:Q355",verb="wdt:P625",object="?coords", track="subject")
 get_triplets=function(subject="?subject",
                       verb="?verb",
                       object="?object",
