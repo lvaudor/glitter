@@ -16,6 +16,9 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
+if (!require("remotes")) install.packages("remotes")
+if (!require("sf")) install.packages("sf")
+remotes::install_github("lvaudor/recitR")
 library(recitR)
 ```
 
@@ -97,6 +100,14 @@ stations_metro_Lyon=add_triplets(subject="?stations",verb="wdt:P361",object="wd:
 
 head(stations_metro_Lyon)
 ```
+
+This tibble can be easily transform into a Simple feature collection (sfc) :
+
+```{r}
+stations_metro_Lyon.shp=sf::st_as_sf(stations_metro_Lyon, wkt = "coords")
+plot(stations_metro_Lyon.shp$coords)
+```
+
 
 `recitR` provides functions to clean and transform "raw" Wikidata tibbles into tibbles that are easier to use in R.
 

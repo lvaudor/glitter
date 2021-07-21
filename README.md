@@ -11,7 +11,7 @@ remotes::install_github("lvaudor/recitR")
 
 ## Documentation
 
-You can access the documentation regarding package riverbed  [on this site](http://perso.ens-lyon.fr/lise.vaudor/Rpackages/recitR/)
+You can access the documentation regarding package recitR  [on this site](http://perso.ens-lyon.fr/lise.vaudor/Rpackages/recitR/)
 
 
 
