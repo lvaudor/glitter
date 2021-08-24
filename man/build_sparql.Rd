@@ -13,8 +13,8 @@ build_sparql(query_parts)
 Assemble query parts into a query.
 }
 \examples{
-query=add_triplets(subject="?city",verb="wdt:P31",object="wd:Q515", limit=10) \%>\%
-add_triplets(subject="?city",verb="wdt:P1082",object="?pop") \%>\%
+add_triplets(subject="?city",verb="wdt:P31",object="wd:Q515", limit=10) \%>\%
+add_triplets(subject="?city",verb="wdt:P1082",object="?pop", label="?city", language="en") \%>\%
 build_sparql() \%>\%
 send_sparql()
 }
