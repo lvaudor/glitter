@@ -7,7 +7,7 @@
 get_info(id, language = "en", with_labels = FALSE)
 }
 \arguments{
-\item{id}{a Wikidata ID, either of an item ("Qxxxxx") or of a property ("Pxxxxx"), or the item itself.}
+\item{id}{a Wikidata ID, either of an item ("wd:Qxxxxx") or of a property ("wd:Pxxxxx"), or the item itself.}
 
 \item{language}{language of description, defaults to English ("en")}
 }

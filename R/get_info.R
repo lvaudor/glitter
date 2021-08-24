@@ -1,9 +1,9 @@
 #' Get Wikidata item or property
 #' Get unformatted info from Wikidata based on an item or property id.
-#' @param id a Wikidata ID, either of an item ("Qxxxxx") or of a property ("Pxxxxx")
+#' @param id a Wikidata ID, either of an item ("wd:Qxxxxx") or of a property ("wd:Pxxxxx")
 #' @export
 #' @examples
-#' get_thing("Q431603")
+#' get_thing("wd:Q431603")
 get_thing=function(id){
   if(is.na(id)){return(NA)}
   QorP=stringr::str_extract(id,"(?<=\\:).")
@@ -19,6 +19,7 @@ get_thing=function(id){
 #' @export
 #' @examples
 #' get_label("wd:Q431603")
+#' get_label("wd:Q431603", language="fr")
 get_label=function(id, language="en"){
   if(is.na(id)){return(NA)}
   if(class(id)=="character"){thing=get_thing(id)}else{thing=id}
@@ -26,10 +27,9 @@ get_label=function(id, language="en"){
     purrr::map("labels")
   if(language %in% names(info[[1]])) {
     label=info %>%
-    purrr::map(language) %>%
-    purrr::map_chr("value")
+      purrr::map(language) %>%
+      purrr::map_chr("value")
   }else{return(NA)}
-  return(label)
 }
 
 #' Get description of Wikidata thing
@@ -37,8 +37,8 @@ get_label=function(id, language="en"){
 #' @param language language of description, defaults to English ("en")
 #' @export
 #' @examples
-#' thing=get_thing("wd:Q431603")
-#' get_description(thing)
+#' get_description("wd:Q431603")
+#' get_description("wd:Q431603", language="es")
 get_description=function(id,language="en"){
   if(class(id)=="character"){thing=get_thing(id)}else{thing=id}
   description=thing %>%
@@ -88,10 +88,10 @@ get_one_claim=function(res){
 #' get_claims("wd:Q431603")
 get_claims=function(id, with_labels=FALSE){
   claims=add_triplets(query=NA,
-                     subject=id,
-                     verb="?prop",
-                     object="?val",
-                     label=c("?val")) %>%
+                      subject=id,
+                      verb="?prop",
+                      object="?val",
+                      label=c("?val")) %>%
     add_triplets(subject="?item",
                  verb="wikibase:directClaim",
                  object="?prop") %>%
@@ -109,7 +109,7 @@ get_claims=function(id, with_labels=FALSE){
 }
 
 #' Get description of Wikidata thing
-#' @param id a Wikidata ID, either of an item ("Qxxxxx") or of a property ("Pxxxxx"), or the item itself.
+#' @param id a Wikidata ID, either of an item ("wd:Qxxxxx") or of a property ("wd:Pxxxxx"), or the item itself.
 #' @param language language of description, defaults to English ("en")
 #' @export
 #' @examples
