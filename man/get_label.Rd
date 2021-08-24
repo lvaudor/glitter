@@ -16,4 +16,5 @@ Get label of Wikidata thing
 }
 \examples{
 get_label("wd:Q431603")
+get_label("wd:Q431603", language="fr")
 }
