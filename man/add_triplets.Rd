@@ -11,9 +11,11 @@ add_triplets(
   object,
   optional = FALSE,
   label = NA,
+  filter = NA,
   limit = NA,
   within_box = c(NA, NA),
-  within_distance = c(NA, NA)
+  within_distance = c(NA, NA),
+  language = "en"
 )
 }
 \arguments{
@@ -27,6 +29,8 @@ add_triplets(
 
 \item{label}{a vector of variables for which to include a label column (defaults to NA)}
 
+\item{filter}{the filters to apply}
+
 \item{limit}{the max number of items sent back}
 
 \item{within_box}{if provided, rectangular bounding box for the triplet query.
@@ -35,6 +39,8 @@ Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))}
 \item{within_distance}{if provided, circular bounding box for the triplet query.
 Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
 The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.}
+
+\item{language}{the language in which the labels will be provided (defaults to "en" for English)}
 }
 \description{
 Compose query parts for triplets with subject verb object.
