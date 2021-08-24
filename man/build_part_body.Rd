@@ -32,6 +32,3 @@ build_part_body(
 \description{
 Builds the "body" part of a query.
 }
-\examples{
-build_part_body(query=NA,subject="?city",verb="wdt:P625",object="?coords", within_box=list(c(-125,35),c(-120,30)))
-}

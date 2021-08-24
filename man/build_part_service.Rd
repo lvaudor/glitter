@@ -12,6 +12,3 @@ build_part_service(query = NA, language = "en")
 \description{
 Builds the "service" part of a query.
 }
-\examples{
-build_part_service(query=NA, language="fr")
-}

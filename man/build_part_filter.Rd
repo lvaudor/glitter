@@ -14,6 +14,3 @@ build_part_filter(query = NA, expressions)
 \description{
 Builds the "filter" part of a query.
 }
-\examples{
-build_part_filter(query, c("?pop >= 3000","?country==wd:Q142"))
-}

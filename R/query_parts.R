@@ -9,8 +9,6 @@ is_variable=function(query_var){
 #' @param verb the property (for instance "wdt:P190")
 #' @param object an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))
 #' @param label whether to get the label associated with the mentioned item
-#' @examples
-#' build_part_select(query=NA,subject="?city",verb="wdt:P625",object="?coords", label="?city")
 build_part_select=function(query=NA,subject,verb,object,label=NA){
   if(!is.na(query[1])){
     part_select=query$select
@@ -36,8 +34,6 @@ build_part_select=function(query=NA,subject,verb,object,label=NA){
 #' @param optional whether to make the statement optional (defaults to FALSE)
 #' @param within_box if provided, north-west and south-east coordinates of bounding box for the triplet query.
 #' @param within_distance if provided, north-west and south-east coordinates of bounding box for the triplet query.
-#' @examples
-#' build_part_body(query=NA,subject="?city",verb="wdt:P625",object="?coords", within_box=list(c(-125,35),c(-120,30)))
 build_part_body=function(query=NA,subject,verb,object,optional=FALSE,
                          within_box=c(NA,NA),within_distance=c(NA,NA)){
   if(!is.na(query[1])){
@@ -82,8 +78,6 @@ build_part_body=function(query=NA,subject,verb,object,optional=FALSE,
 
 #' Builds the "service" part of a query.
 #' @param query a list with elements of the query
-#' @examples
-#' build_part_service(query=NA, language="fr")
 build_part_service=function(query=NA, language="en"){
   if(!is.na(query[1])){
     part_service=query$service
@@ -99,8 +93,6 @@ build_part_service=function(query=NA, language="en"){
 #' Builds the "filter" part of a query.
 #' @param query a list with elements of the query*
 #' @param expressions the vector of filtering expressions to apply
-#' @examples
-#' build_part_filter(query, c("?pop >= 3000","?country==wd:Q142"))
 build_part_filter=function(query=NA, expressions){
   if(!is.na(query[1])){
     part_filter=query$filter
@@ -120,8 +112,6 @@ build_part_filter=function(query=NA, expressions){
 
 #' Builds the "limit" part of a query.
 #' @param query a list with elements of the query
-#' @examples
-#' build_part_limit(query=NA, limit=5)
 build_part_limit=function(query,limit=NA){
   if(!is.na(query[1])){
     part_limit=query$limit

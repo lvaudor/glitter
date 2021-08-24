@@ -12,6 +12,3 @@ build_part_limit(query, limit = NA)
 \description{
 Builds the "limit" part of a query.
 }
-\examples{
-build_part_limit(query=NA, limit=5)
-}

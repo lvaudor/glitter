@@ -20,6 +20,3 @@ build_part_select(query = NA, subject, verb, object, label = NA)
 \description{
 Builds the "select" part of a query.
 }
-\examples{
-build_part_select(query=NA,subject="?city",verb="wdt:P625",object="?coords", label="?city")
-}
