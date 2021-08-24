@@ -1,6 +1,6 @@
 Package: recitR
 Type: Package
-Title: Make the use of Wikidata easier.
+Title: Make the use of Wikidata easier
 Version: 0.1.0
 Author: Lise Vaudor
 Maintainer: Lise Vaudor <lise.vaudor@ens-lyon.fr>
@@ -26,3 +26,4 @@ Imports:
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+
