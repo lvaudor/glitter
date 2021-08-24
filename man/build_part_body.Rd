@@ -2,7 +2,7 @@
 % Please edit documentation in R/query_parts.R
 \name{build_part_body}
 \alias{build_part_body}
-\title{Builds the body part of a query.}
+\title{Builds the "body" part of a query.}
 \usage{
 build_part_body(
   query = NA,
@@ -30,9 +30,8 @@ build_part_body(
 \item{within_distance}{if provided, north-west and south-east coordinates of bounding box for the triplet query.}
 }
 \description{
-Builds the body part of a query.
+Builds the "body" part of a query.
 }
 \examples{
-recitR::build_part_body(query=NA,subject="?city",verb="wdt:P625",object="?coords",
-within_box=list(c(-125,35),c(-120,30)))
+build_part_body(query=NA,subject="?city",verb="wdt:P625",object="?coords", within_box=list(c(-125,35),c(-120,30)))
 }
