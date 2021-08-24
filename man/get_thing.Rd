@@ -8,12 +8,12 @@ Get unformatted info from Wikidata based on an item or property id.}
 get_thing(id)
 }
 \arguments{
-\item{id}{a Wikidata ID, either of an item ("Qxxxxx") or of a property ("Pxxxxx")}
+\item{id}{a Wikidata ID, either of an item ("wd:Qxxxxx") or of a property ("wd:Pxxxxx")}
 }
 \description{
 Get Wikidata item or property
 Get unformatted info from Wikidata based on an item or property id.
 }
 \examples{
-get_thing("Q431603")
+get_thing("wd:Q431603")
 }
