@@ -25,6 +25,6 @@ query='SELECT ?item ?itemLabel ?coords ?date
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
 } ORDER BY ?itemLabel
 '
-tib=send_query(query)
+tib=send_sparql(query)
 transform_wikidata_coords(tib, "coords")
 }
