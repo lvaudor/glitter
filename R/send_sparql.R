@@ -1,5 +1,6 @@
 #' Send SPARQL query to endpoint and get tibble as a result
 #' @param query a string corresponding to a SPARQL query
+#' @param endpoint a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
 #' @export
 #' @examples
 #'metro_query='SELECT ?item ?itemLabel ?coords
@@ -11,10 +12,17 @@
 #'} ORDER BY ?itemLabel
 #''
 #'send_sparql(query=metro_query)
-send_sparql=function(query,endpoint="Wiki"){
-  if(endpoint=="Wiki"){
+send_sparql=function(query,endpoint="Wikidata"){
+  if(endpoint=="Wikidata"){
     tib <- WikidataQueryServiceR::query_wikidata(query)
+  }
+  if(endpoint=="dataBNF"){
+    tib <- SPARQL::SPARQL(url="https://data.bnf.fr/sparql",
+                          query=query,
+                          curl_args=list(useragent='User Agent Example'))
+    tib <- tib$results
   }
   if(nrow(tib)==0){tib=NULL}
   return(tib)
 }
+

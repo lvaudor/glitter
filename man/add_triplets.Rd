@@ -9,6 +9,8 @@ add_triplets(
   subject,
   verb,
   object,
+  prefixes = NULL,
+  endpoint = "Wikidata",
   optional = FALSE,
   label = NA,
   filter = NA,
@@ -24,6 +26,8 @@ add_triplets(
 \item{verb}{the property (for instance "wdt:P190")}
 
 \item{object}{an anonymous variable (for instance, and by default, "?object") or item (for instance "Q456"))}
+
+\item{endpoint}{the string referring to the endpoint}
 
 \item{optional}{whether the triplet is optional (other results are sent back even if this particular triplet is missing)}
 

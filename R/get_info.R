@@ -30,6 +30,7 @@ get_label=function(id, language="en"){
       purrr::map(language) %>%
       purrr::map_chr("value")
   }else{return(NA)}
+  return(label)
 }
 
 #' Get description of Wikidata thing

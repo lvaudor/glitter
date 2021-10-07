@@ -4,10 +4,12 @@
 \alias{send_sparql}
 \title{Send SPARQL query to endpoint and get tibble as a result}
 \usage{
-send_sparql(query, endpoint = "Wiki")
+send_sparql(query, endpoint = "Wikidata")
 }
 \arguments{
 \item{query}{a string corresponding to a SPARQL query}
+
+\item{endpoint}{a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"}
 }
 \description{
 Send SPARQL query to endpoint and get tibble as a result

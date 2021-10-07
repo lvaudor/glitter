@@ -3,6 +3,7 @@
 export("%>%")
 export(add_triplets)
 export(build_graph_classes)
+export(build_part_prefixes)
 export(build_sparql)
 export(clean_wikidata_table)
 export(count_items)

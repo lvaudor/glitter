@@ -2,14 +2,17 @@
 
 #' Assemble query parts into a query.
 #' @param query_parts a list with elements of the query
+#' @endpoint
 #' @export
 #' @examples
 #' add_triplets(subject="?city",verb="wdt:P31",object="wd:Q515", limit=10) %>%
 #' add_triplets(subject="?city",verb="wdt:P1082",object="?pop", label="?city", language="en") %>%
 #' build_sparql() %>%
 #' send_sparql()
-build_sparql=function(query_parts){
-  query=paste0("SELECT ", paste0(query_parts$select,collapse=" "),"\n",
+build_sparql=function(query_parts,endpoint="Wikidata"){
+  if(endpoint!="Wikidata"){query_parts$service=""}
+  query=paste0(query_parts$prefixes,"\n",
+               "SELECT ", paste0(query_parts$select,collapse=" "),"\n",
                "WHERE{\n",
                query_parts$body,"\n",
                query_parts$filter,"\n",
@@ -50,16 +53,18 @@ build_sparql=function(query_parts){
 #' build_sparql() %>%
 #' send_sparql()
 add_triplets=function(query=NA,subject,verb,object,
+                      prefixes=NULL,
                       optional=FALSE, label=NA,
                       filter=NA,
                       limit=NA,
                       within_box=c(NA,NA),
                       within_distance=c(NA,NA),
                       language="en"){
-  query_parts=list(select=build_part_select(query,subject,verb,object,label),
+  query_parts=list(prefixes=build_part_prefixes(query,prefixes),
+                   select=build_part_select(query,subject,verb,object,label),
                    body=build_part_body(query,subject,verb,object,optional,
                                         within_box=within_box, within_distance=within_distance),
-                   service=build_part_service(query, language),
+                   service=build_part_service(query,language),
                    filter=build_part_filter(query, filter),
                    limit=build_part_limit(query,limit))
   return(query_parts)

@@ -17,7 +17,7 @@ URL: https://perso.ens-lyon.fr/lise.vaudor/Rpackages/recitR/, https://github.com
 BugReports: https://github.com/lvaudor/recitR/issues
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Imports: 
     tidygraph,
     igraph,
@@ -26,4 +26,3 @@ Imports:
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-
