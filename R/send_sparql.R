@@ -14,7 +14,7 @@
 #'send_sparql(query=metro_query)
 send_sparql=function(query,endpoint="Wikidata"){
   if(endpoint=="Wikidata"){
-    tib <- WikidataQueryServiceR::query_wikidata(query)
+    tib <- quietly(WikidataQueryServiceR::query_wikidata)(query)$result
   }
   if(endpoint=="dataBNF"){
     tib <- SPARQL::SPARQL(url="https://data.bnf.fr/sparql",
