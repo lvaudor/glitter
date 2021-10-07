@@ -1,0 +1,41 @@
+---
+title: "recitR for other endpoints"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{recitR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo = TRUE, message=FALSE, warning=FALSE
+)
+```
+
+```{r setup}
+#remotes::install_github("lvaudor/recitR")
+library(recitR)
+```
+
+
+```{r}
+query=add_triplets(subject="?oeuvre",verb="dcterms:creator", object="?auteur",
+                   prefixes=c(bio="http://vocab.org/bio/0.1/",
+                              dcterms="http://purl.org/dc/terms/",
+                              foaf="http://xmlns.com/foaf/0.1/"),
+                   limit=10) %>% 
+  add_triplets(subject="?auteur",verb="bio:death",object="?mort")%>%
+  add_triplets(subject="?auteur",verb="foaf:familyName",object="?nom") %>% 
+  build_sparql(endpoint="other")%>% 
+  send_sparql(endpoint="dataBNF")
+
+```
+
+- autres services que label dans WD?
+- autres endpoints ont services?
+
+- possibilité d'extraire des bases lexicographiques de Wikidata
+

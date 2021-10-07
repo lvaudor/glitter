@@ -1,0 +1,202 @@
+---
+title: "recitR for Wikidata"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{recitR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo = TRUE, message=FALSE, warning=FALSE
+)
+```
+
+```{r setup}
+if (!require("remotes")) install.packages("remotes")
+if (!require("sf")) install.packages("sf")
+remotes::install_github("lvaudor/recitR")
+library(recitR)
+```
+
+
+# Find items and properties to build your query
+
+To find the identifiers of items and properties of interest, you can:
+
+- browse [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) 
+- use package `WikidataR` (functions `find_item()`,`find_property()`).
+
+Then `recitR` functions might be used to start exploring data.
+
+# Example 1: Lyon Metro
+
+Imagine you are interested in the Wikidata available regarding the **Lyon Metro network**.
+
+Let's try and see if there are Wikidata about it:
+
+```{r}
+find_item("Metro Lyon")
+```
+
+So you'd be interested, for instance, in all the subway stations that are part of this network.
+
+```{r}
+find_property("part of")
+```
+
+So you're looking for all the stations that are part of ("wd:P361") the Lyon metro network ("wd:Q1552").
+
+You could access this information through:
+
+```{r}
+stations=get_triplets(subject="?items",verb="wdt:P361",object="wd:Q1552")
+stations %>% head()
+```
+
+Notice that we do not have values yet for the stations (that's what we're looking for) hence the use of "?" at the beginning ot the subject string.
+
+To also get the labels for stations, we can use the argument `label`:
+
+```{r}
+parts_metro_Lyon=get_triplets(subject="?items",verb="wdt:P361",object="wd:Q1552", label="?items")
+parts_metro_Lyon %>% head()
+```
+
+For now, we get 50 items, not only stations but also other types of items such as metro lines. Let's have a look at the item "Place Guichard - Bourse du Travail" (Q59855) which we know correspond to a station.
+
+The function `get_claims()` of package `recitR` enables you to see all the direct wikidata properties (and their values) based on an item's id. 
+
+```{r}
+get_claims("wd:Q599865")
+```
+
+Property "wdt:P31" should enable us to collect only stations ("wd:Q928830") instead of all parts of the Lyon Metro network.
+
+We can enrich and refine our query incrementally with `add_triplets()` before sending it (whereas `get_triplets()` was a shortcut to build and send simple requests) :
+
+```{r}
+stations_metro_Lyon=add_triplets(subject="?stations",verb="wdt:P361",object="wd:Q1552", label="?stations") %>% 
+  add_triplets(subject="?stations",verb="wdt:P31",object="wd:Q928830") %>% 
+  build_sparql() %>% 
+  send_sparql()
+
+head(stations_metro_Lyon)
+```
+
+We now get 42 stations that are part of the Lyon metro network.
+
+If we wanted to get other properties and associated values for these stations (for instance their location ("wdt:P625")) we could proceed this way:
+
+```{r}
+stations_metro_Lyon=add_triplets(subject="?stations",verb="wdt:P361",object="wd:Q1552", label="?stations") %>% 
+  add_triplets(subject="?stations",verb="wdt:P31",object="wd:Q928830") %>% 
+  add_triplets(subject="?stations",verb="wdt:P625",object="?coords") %>% 
+  build_sparql() %>% 
+  send_sparql()
+
+head(stations_metro_Lyon)
+```
+
+This tibble can be easily transform into a Simple feature collection (sfc) :
+
+```{r}
+stations_metro_Lyon.shp=sf::st_as_sf(stations_metro_Lyon, wkt = "coords")
+plot(stations_metro_Lyon.shp$coords)
+```
+
+
+`recitR` provides functions to clean and transform "raw" Wikidata tibbles into tibbles that are easier to use in R.
+
+Function `clean_wikidata_table()` lightens some columns with wikidata-formatted URIs:
+
+```{r}
+stations_metro_Lyon=clean_wikidata_table(stations_metro_Lyon)
+```
+
+
+Function `transform_wikidata_coords()` get the coordinates as longitude (`lng`) and latitude (`lat`) based on the Wikidata WKT formatting of spatial coordinates ("Point(*lng* *lat*)").
+
+```{r}
+stations_metro_Lyon=stations_metro_Lyon %>% 
+  transform_wikidata_coords("coords")
+```
+
+The resulting table may then be used easily with (for instance) package `leaflet`:
+
+```{r}
+leaflet::leaflet(stations_metro_Lyon) %>%
+  leaflet::addTiles() %>%
+  leaflet::addCircles(popup=~stationsLabel)
+```
+
+
+# Example 2 : cities around Lyon
+
+Now, let's imagine that we are interested in the cities in a 200km radius around Lyon.
+
+```{r}
+find_item("Lyon")
+find_item("city")
+```
+
+We could start exploring Wikidata with this query which finds all items that are instances ("wdt:P31") of "city" or of any subclass ("wdt:P279") of "city" . This query might return many items so that it seems reasonable to limit the number of items retrieved for now with the argument `limit`
+
+```{r}
+add_triplets(subject="?city", verb="wdt:P31/wdt:P279*", object="wd:Q515", label="?city",limit=10) %>% 
+  build_sparql() %>% 
+  send_sparql()
+```
+Now, let's get the location ("wdt:P625") of the cities
+
+```{r}
+add_triplets(subject="?city",
+             verb="wdt:P31/wdt:P279*",
+             object="wd:Q515",
+             label=c("?city"),
+             limit=10) %>%
+  add_triplets(subject="?city",
+               verb="wdt:P625",
+               object="?coords") %>% 
+  build_sparql() %>% 
+  send_sparql()
+```
+
+We can refine this query, stating that we want cities (or items of subclasses of city) in a radius of 5km around Lyon (which has lat-long coordinates ~ 45.76 and 4.84). We will use the argument `within_distance`:
+
+
+```{r}
+cities_around_Lyon=add_triplets(subject="?city",
+                                verb="wdt:P31/wdt:P279*",
+                                object="wd:Q486972", label="?city") %>% 
+  add_triplets(subject="?city",
+               verb="wdt:P625",
+               object="?coords",
+               within_distance=list(center=c(long=4.84,lat=45.76),
+                                    radius=5)) %>% 
+            build_sparql() %>%
+            send_sparql()
+head(cities_around_Lyon)
+```
+
+Actually, rather than getting Lyon's long-lat coordinates "by hand" we could get them directly through our query, which means we have to add a triplet about Lyon ("wd:456") and its coordinates:
+
+```{r, eval=FALSE}
+add_triplets(subject="wd:Q456",
+               verb="wdt:P625",
+               object="?coordLyon") %>% 
+  add_triplets(subject="?city",
+               verb="wdt:P625",
+               object="?coords",
+               within_distance=list(center="?coordLyon", radius=2)) %>%   add_triplets(subject="?city",
+             verb="wdt:P31/wdt:P279*",
+             object="wd:Q486972",
+             label="?city") %>%
+  build_sparql() %>% 
+  send_sparql()
+```
+
+
