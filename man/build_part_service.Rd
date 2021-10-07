@@ -4,12 +4,10 @@
 \alias{build_part_service}
 \title{Builds the "service" part of a query.}
 \usage{
-build_part_service(query = NA, endpoint = "Wikidata", language = "en")
+build_part_service(query = NA, language = "en")
 }
 \arguments{
 \item{query}{a list with elements of the query}
-
-\item{endpoint}{the endpoint}
 
 \item{language}{the language in which to label variables}
 }

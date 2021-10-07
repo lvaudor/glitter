@@ -4,7 +4,7 @@
 \alias{build_sparql}
 \title{Assemble query parts into a query.}
 \usage{
-build_sparql(query_parts)
+build_sparql(query_parts, endpoint = "Wikidata")
 }
 \arguments{
 \item{query_parts}{a list with elements of the query}
