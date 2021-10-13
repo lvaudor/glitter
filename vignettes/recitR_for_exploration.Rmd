@@ -19,21 +19,17 @@ knitr::opts_chunk$set(
 library(recitR)
 ```
 
-
 ```{r}
-query=add_triplets(subject="?oeuvre",verb="dcterms:creator", object="?auteur",
-                   prefixes=c(bio="http://vocab.org/bio/0.1/",
-                              dcterms="http://purl.org/dc/terms/",
-                              foaf="http://xmlns.com/foaf/0.1/"),
-                   limit=10) %>% 
-  add_triplets(subject="?auteur",verb="bio:death",object="?mort")%>%
-  add_triplets(subject="?auteur",verb="foaf:familyName",object="?nom") %>%
-  send(endpoint="dataBNF")
+
+'SELECT DISTINCT ?class
+WHERE {
+  ?s a ?class .
+}
+LIMIT 25
+OFFSET 0
+'
+
+result=get_triplets(s="?s",v="a",o="?class", label=c("?s","?class")) limit=25)
 
 ```
-
-- autres services que label dans WD?
-- autres endpoints ont services?
-
-- possibilité d'extraire des bases lexicographiques de Wikidata
 
