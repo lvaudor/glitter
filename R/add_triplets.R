@@ -35,6 +35,7 @@ add_triplets=function(query=NA,subject,verb,object,
                                         within_box=within_box, within_distance=within_distance),
                    service=build_part_service(query,language),
                    filter=build_part_filter(query, filter),
-                   limit=build_part_limit(query,limit))
+                   limit=build_part_limit(query,limit),
+                   group_by="")
   return(query_parts)
 }
