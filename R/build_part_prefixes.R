@@ -3,7 +3,7 @@
 #' @param prefixes
 #' @export
 build_part_prefixes=function(query=NA, prefixes=NULL){
-  if(!is.na(query[1])){
+  if(!is.null(query)){
     part_prefixes=query$prefixes
   }else{
     part_prefixes=""

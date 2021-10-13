@@ -3,7 +3,7 @@
 #' @param query a list with elements of the query*
 #' @param expressions the vector of filtering expressions to apply
 build_part_filter=function(query=NA, expressions){
-  if(!is.na(query[1])){
+  if(!is.null(query)){
     part_filter=query$filter
   }else{
     part_filter=c()

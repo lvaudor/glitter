@@ -4,8 +4,8 @@
 #' @param verb the property (for instance "wdt:P190")
 #' @param object an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))
 #' @param label whether to get the label associated with the mentioned item
-build_part_select=function(query=NA,subject,verb,object,label=NA){
-  if(!is.na(query[1])){
+build_part_select=function(query=NA,subject=NULL,verb=NULL,object=NULL,label=NA){
+  if(!is.null(query)){
     part_select=query$select
   }else{
     part_select=c()

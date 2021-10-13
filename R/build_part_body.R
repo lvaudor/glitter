@@ -1,15 +1,15 @@
 #' Builds the "body" part of a query.
 #' @param query a list with elements of the query
-#' @param subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "Q456"))
+#' @param subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))
 #' @param verb the property (for instance "wdt:P190")
-#' @param object an anonymous variable (for instance, and by default, "?object") or item (for instance "Q456"))
+#' @param object an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))
 #' @param required whether the existence of a value for the triplet is required or not (defaults to TRUE).
 #'   If set to FALSE, then other triplets in the query are returned even if this particular triplet is missing)
 #' @param within_box if provided, north-west and south-east coordinates of bounding box for the triplet query.
 #' @param within_distance if provided, north-west and south-east coordinates of bounding box for the triplet query.
 build_part_body=function(query=NA,subject,verb,object,required=TRUE,
                          within_box=c(NA,NA),within_distance=c(NA,NA)){
-  if(!is.na(query[1])){
+  if(!is.null(query)){
     part_body=query$body
   }else{
     part_body=""
