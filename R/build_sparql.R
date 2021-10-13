@@ -16,7 +16,8 @@ build_sparql=function(query_parts,endpoint="Wikidata"){
                query_parts$filter,"\n",
                query_parts$service,"\n",
                "}\n",
-               query_parts$limit,
-               query_parts$group_by)
+               query_parts$group_by,"\n",
+               query_parts$order_by,"\n",
+               query_parts$limit)
   return(query)
 }
