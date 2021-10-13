@@ -2,11 +2,7 @@
 #' @param query a list with elements of the query
 #' @param language the language in which to label variables
 build_part_service=function(query=NA,language="en"){
-  if(!is.na(query[1])){
-    part_service=query$service
-  }else{
-    part_service=""
-  }
+  part_service=""
   part_service_to_add=paste0(
       'SERVICE wikibase:label { bd:serviceParam wikibase:language "',
       language,
