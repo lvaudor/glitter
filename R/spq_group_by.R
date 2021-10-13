@@ -3,7 +3,7 @@
 #' @param vars a vector with the names of the variables used for grouping
 #' @export
 #' @examples
-#' add_triplets(s="?s",v="a",o="?class", limit=3) %>%
+#' add_triplets(t="?s a ?class", limit=3) %>%
 #' spq_group_by("?class") %>%
 #' send()
 spq_group_by=function(query,vars){
