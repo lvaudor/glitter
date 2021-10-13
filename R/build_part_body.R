@@ -3,10 +3,11 @@
 #' @param subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "Q456"))
 #' @param verb the property (for instance "wdt:P190")
 #' @param object an anonymous variable (for instance, and by default, "?object") or item (for instance "Q456"))
-#' @param optional whether to make the statement optional (defaults to FALSE)
+#' @param required whether the existence of a value for the triplet is required or not (defaults to TRUE).
+#'   If set to FALSE, then other triplets in the query are returned even if this particular triplet is missing)
 #' @param within_box if provided, north-west and south-east coordinates of bounding box for the triplet query.
 #' @param within_distance if provided, north-west and south-east coordinates of bounding box for the triplet query.
-build_part_body=function(query=NA,subject,verb,object,optional=FALSE,
+build_part_body=function(query=NA,subject,verb,object,required=TRUE,
                          within_box=c(NA,NA),within_distance=c(NA,NA)){
   if(!is.na(query[1])){
     part_body=query$body
@@ -14,7 +15,7 @@ build_part_body=function(query=NA,subject,verb,object,optional=FALSE,
     part_body=""
   }
   new_triplet=glue::glue("{subject} {verb} {object}.")
-  if(optional){
+  if(!required){
     new_triplet=paste0("OPTIONAL {",new_triplet,"}")
   }
   if(!is.na(within_box[[1]][1])){
