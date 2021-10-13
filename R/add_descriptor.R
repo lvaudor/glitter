@@ -6,8 +6,7 @@
 #' @examples
 #' add_triplets(subject="wd:Q331676",verb="wdt:P1843",object="?statement") %>%
 #' add_descriptor(name="?lang", formula="LANG(?statement)") %>%
-#' build_sparql() %>%
-#' send_sparql()
+#' send()
 add_descriptor=function(query,name,formula){
   former_select=query$select
   new_select=glue::glue("{former_select} ({formula} as {name})")

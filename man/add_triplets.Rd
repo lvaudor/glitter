@@ -51,6 +51,5 @@ Compose query parts for triplets with subject verb object.
 add_triplets(s="?city",v="wdt:P31/wdt:P279*",o="wd:Q515",label=c("?city"),limit=10) \%>\%
 add_triplets(s="?city",v="wdt:P1082",o="?pop", required=FALSE) \%>\%
 add_triplets(s="?city",v="wdt:P625",o="?coords",within_box=list(southwest=c(3,43),northeast=c(7,47))) \%>\%
-build_sparql() \%>\%
-send_sparql()
+send()
 }

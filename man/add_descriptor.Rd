@@ -19,6 +19,5 @@ Builds the "select" part of a query.
 \examples{
 add_triplets(subject="wd:Q331676",verb="wdt:P1843",object="?statement") \%>\%
 add_descriptor(name="?lang", formula="LANG(?statement)") \%>\%
-build_sparql() \%>\%
-send_sparql()
+send()
 }

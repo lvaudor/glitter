@@ -96,8 +96,7 @@ get_claims=function(id, with_labels=FALSE){
     add_triplets(subject="?item",
                  verb="wikibase:directClaim",
                  object="?prop") %>%
-    build_sparql() %>%
-    send_sparql() %>%
+    send() %>%
     dplyr::left_join(wd_properties,by=c("item"="id")) %>%
     dplyr::select(property=item,
            propertyLabel=label,
@@ -174,8 +173,7 @@ get_triplets=function(subject="?subject",
                          within_box=within_box,
                          within_distance=within_distance)
       tib=query %>%
-        build_sparql() %>%
-        send_sparql()
+        send()
     }
     if(!is.na(track)){
       track = switch(track,
