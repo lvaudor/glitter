@@ -53,16 +53,16 @@ So you're looking for all the stations that are part of ("wd:P361") the Lyon met
 You could access this information through:
 
 ```{r}
-stations=get_triplets(subject="?items",verb="wdt:P361",object="wd:Q1552")
+stations=get_triplets(s="?items",v="wdt:P361",o="wd:Q1552")
 stations %>% head()
 ```
 
-Notice that we do not have values yet for the stations (that's what we're looking for) hence the use of "?" at the beginning ot the subject string.
+Notice that we do not have values yet for the stations (that's what we're looking for) hence the use of "?" at the beginning of the subject string.
 
 To also get the labels for stations, we can use the argument `label`:
 
 ```{r}
-parts_metro_Lyon=get_triplets(subject="?items",verb="wdt:P361",object="wd:Q1552", label="?items")
+parts_metro_Lyon=get_triplets(s="?items",v="wdt:P361",o="wd:Q1552", label="?items")
 parts_metro_Lyon %>% head()
 ```
 
@@ -79,11 +79,10 @@ Property "wdt:P31" should enable us to collect only stations ("wd:Q928830") inst
 We can enrich and refine our query incrementally with `add_triplets()` before sending it (whereas `get_triplets()` was a shortcut to build and send simple requests) :
 
 ```{r}
-stations_metro_Lyon=add_triplets(subject="?stations",verb="wdt:P361",object="wd:Q1552", label="?stations") %>% 
-  add_triplets(subject="?stations",verb="wdt:P31",object="wd:Q928830") %>% 
+stations_metro_Lyon=add_triplets(s="?stations",v="wdt:P361",o="wd:Q1552", label="?stations") %>% 
+  add_triplets(s="?stations",v="wdt:P31",o="wd:Q928830") %>% 
   build_sparql() %>% 
   send_sparql()
-
 head(stations_metro_Lyon)
 ```
 
@@ -92,12 +91,11 @@ We now get 42 stations that are part of the Lyon metro network.
 If we wanted to get other properties and associated values for these stations (for instance their location ("wdt:P625")) we could proceed this way:
 
 ```{r}
-stations_metro_Lyon=add_triplets(subject="?stations",verb="wdt:P361",object="wd:Q1552", label="?stations") %>% 
-  add_triplets(subject="?stations",verb="wdt:P31",object="wd:Q928830") %>% 
-  add_triplets(subject="?stations",verb="wdt:P625",object="?coords") %>% 
+stations_metro_Lyon=add_triplets(s="?stations",v="wdt:P361",o="wd:Q1552", label="?stations") %>% 
+  add_triplets(s="?stations",v="wdt:P31",o="wd:Q928830") %>% 
+  add_triplets(s="?stations",v="wdt:P625",o="?coords") %>% 
   build_sparql() %>% 
   send_sparql()
-
 head(stations_metro_Lyon)
 ```
 
@@ -146,21 +144,21 @@ find_item("city")
 We could start exploring Wikidata with this query which finds all items that are instances ("wdt:P31") of "city" or of any subclass ("wdt:P279") of "city" . This query might return many items so that it seems reasonable to limit the number of items retrieved for now with the argument `limit`
 
 ```{r}
-add_triplets(subject="?city", verb="wdt:P31/wdt:P279*", object="wd:Q515", label="?city",limit=10) %>% 
+add_triplets(s="?city", v="wdt:P31/wdt:P279*", o="wd:Q515", label="?city",limit=10) %>% 
   build_sparql() %>% 
   send_sparql()
 ```
 Now, let's get the location ("wdt:P625") of the cities
 
 ```{r}
-add_triplets(subject="?city",
-             verb="wdt:P31/wdt:P279*",
-             object="wd:Q515",
+add_triplets(s="?city",
+             v="wdt:P31/wdt:P279*",
+             o="wd:Q515",
              label=c("?city"),
              limit=10) %>%
-  add_triplets(subject="?city",
-               verb="wdt:P625",
-               object="?coords") %>% 
+  add_triplets(s="?city",
+               v="wdt:P625",
+               o="?coords") %>% 
   build_sparql() %>% 
   send_sparql()
 ```
@@ -169,12 +167,12 @@ We can refine this query, stating that we want cities (or items of subclasses of
 
 
 ```{r}
-cities_around_Lyon=add_triplets(subject="?city",
-                                verb="wdt:P31/wdt:P279*",
-                                object="wd:Q486972", label="?city") %>% 
-  add_triplets(subject="?city",
-               verb="wdt:P625",
-               object="?coords",
+cities_around_Lyon=add_triplets(s="?city",
+                                v="wdt:P31/wdt:P279*",
+                                o="wd:Q486972", label="?city") %>% 
+  add_triplets(s="?city",
+               v="wdt:P625",
+               o="?coords",
                within_distance=list(center=c(long=4.84,lat=45.76),
                                     radius=5)) %>% 
             build_sparql() %>%
@@ -185,18 +183,17 @@ head(cities_around_Lyon)
 Actually, rather than getting Lyon's long-lat coordinates "by hand" we could get them directly through our query, which means we have to add a triplet about Lyon ("wd:456") and its coordinates:
 
 ```{r, eval=FALSE}
-add_triplets(subject="wd:Q456",
-               verb="wdt:P625",
-               object="?coordLyon") %>% 
-  add_triplets(subject="?city",
-               verb="wdt:P625",
-               object="?coords",
-               within_distance=list(center="?coordLyon", radius=2)) %>%   add_triplets(subject="?city",
-             verb="wdt:P31/wdt:P279*",
-             object="wd:Q486972",
+add_triplets(s="wd:Q456",
+               v="wdt:P625",
+               o="?coordLyon") %>% 
+  add_triplets(s="?city",
+               v="wdt:P625",
+               o="?coords",
+               within_distance=list(center="?coordLyon", radius=2)) %>%   add_triplets(s="?city",
+             v="wdt:P31/wdt:P279*",
+             o="wd:Q486972",
              label="?city") %>%
   build_sparql() %>% 
   send_sparql()
 ```
-
 

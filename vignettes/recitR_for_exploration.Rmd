@@ -1,5 +1,5 @@
 ---
-title: "recitR for other endpoints"
+title: "recitR for exploration"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{recitR}
@@ -16,7 +16,6 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-#remotes::install_github("lvaudor/recitR")
 library(recitR)
 ```
 
