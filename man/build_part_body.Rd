@@ -17,11 +17,11 @@ build_part_body(
 \arguments{
 \item{query}{a list with elements of the query}
 
-\item{subject}{an anonymous variable (for instance, and by default, "?subject") or item (for instance "Q456"))}
+\item{subject}{an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))}
 
 \item{verb}{the property (for instance "wdt:P190")}
 
-\item{object}{an anonymous variable (for instance, and by default, "?object") or item (for instance "Q456"))}
+\item{object}{an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))}
 
 \item{required}{whether the existence of a value for the triplet is required or not (defaults to TRUE).
 If set to FALSE, then other triplets in the query are returned even if this particular triplet is missing)}

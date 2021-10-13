@@ -17,11 +17,11 @@ get_triplets(
 )
 }
 \arguments{
-\item{subject}{an anonymous variable (for instance, and by default, "?subject") or item (for instance "Q456"))}
+\item{subject}{an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))}
 
 \item{verb}{the property (for instance "wdt:P190")}
 
-\item{object}{an anonymous variable (for instance, and by default, "?object") or item (for instance "Q456"))}
+\item{object}{an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))}
 
 \item{label}{a vector of variables for which to include a label column (defaults to NA)}
 

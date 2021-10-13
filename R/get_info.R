@@ -140,9 +140,9 @@ get_claim=function(id, property_name="wd:P31"){
 }
 
 #' Get triplets with subject verb object.
-#' @param subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "Q456"))
+#' @param subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))
 #' @param verb the property (for instance "wdt:P190")
-#' @param object an anonymous variable (for instance, and by default, "?object") or item (for instance "Q456"))
+#' @param object an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))
 #' @param label a vector of variables for which to include a label column (defaults to NA)
 #' @param limit the max number of items sent back
 #' @param within_box if provided, rectangular bounding box for the triplet query. Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))
