@@ -4,7 +4,13 @@
 \alias{build_part_select}
 \title{Builds the "select" part of a query.}
 \usage{
-build_part_select(query = NA, subject, verb, object, label = NA)
+build_part_select(
+  query = NULL,
+  subject = NULL,
+  verb = NULL,
+  object = NULL,
+  label = NA
+)
 }
 \arguments{
 \item{query}{a list with elements of the query}
