@@ -5,10 +5,11 @@
 \title{Compose query parts for triplets with subject verb object.}
 \usage{
 add_triplets(
-  query = NA,
-  subject,
-  verb,
-  object,
+  query = NULL,
+  triplet = NULL,
+  subject = NULL,
+  verb = NULL,
+  object = NULL,
   prefixes = NULL,
   required = TRUE,
   label = NA,
@@ -20,11 +21,13 @@ add_triplets(
 )
 }
 \arguments{
-\item{subject}{an anonymous variable (for instance, and by default, "?subject") or item (for instance "Q456"))}
+\item{triplet}{the triplet statement (replaces arguments subject verb and object)}
+
+\item{subject}{an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))}
 
 \item{verb}{the property (for instance "wdt:P190")}
 
-\item{object}{an anonymous variable (for instance, and by default, "?object") or item (for instance "Q456"))}
+\item{object}{an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))}
 
 \item{required}{whether the existence of a value for the triplet is required or not (defaults to TRUE).
 If set to FALSE, then other triplets in the query are returned even if this particular triplet is missing)}

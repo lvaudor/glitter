@@ -1,8 +1,9 @@
 
 #' Compose query parts for triplets with subject verb object.
-#' @param subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "Q456"))
+#' @param triplet the triplet statement (replaces arguments subject verb and object)
+#' @param subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))
 #' @param verb the property (for instance "wdt:P190")
-#' @param object an anonymous variable (for instance, and by default, "?object") or item (for instance "Q456"))
+#' @param object an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))
 #' @param required whether the existence of a value for the triplet is required or not (defaults to TRUE).
 #'   If set to FALSE, then other triplets in the query are returned even if this particular triplet is missing)
 #' @param label a vector of variables for which to include a label column (defaults to NA)
@@ -16,11 +17,15 @@
 #' @param language the language in which the labels will be provided (defaults to "en" for English)
 #' @export
 #' @examples
-#' add_triplets(s="?city",v="wdt:P31/wdt:P279*",o="wd:Q515",label=c("?city"),limit=10) %>%
-#' add_triplets(s="?city",v="wdt:P1082",o="?pop", required=FALSE) %>%
-#' add_triplets(s="?city",v="wdt:P625",o="?coords",within_box=list(southwest=c(3,43),northeast=c(7,47))) %>%
+#' add_triplets(t="?city wdt:P31/wdt:P279* wd:Q515",label=c("?city"),limit=10) %>%
+#' add_triplets(t="?city wdt:P1082 ?pop", required=FALSE) %>%
+#' add_triplets(t="?city wdt:P625 ?coords",within_box=list(southwest=c(3,43),northeast=c(7,47))) %>%
 #' send()
-add_triplets=function(query=NA,subject,verb,object,
+add_triplets=function(query=NULL,
+                      triplet=NULL,
+                      subject=NULL,
+                      verb=NULL,
+                      object=NULL,
                       prefixes=NULL,
                       required=TRUE,
                       label=NA,
@@ -29,13 +34,15 @@ add_triplets=function(query=NA,subject,verb,object,
                       within_box=c(NA,NA),
                       within_distance=c(NA,NA),
                       language="en"){
+  elts=decompose_triplet(triplet=triplet,subject=subject,verb=verb,object=object)
   query_parts=list(prefixes=build_part_prefixes(query,prefixes),
-                   select=build_part_select(query,subject,verb,object,label),
-                   body=build_part_body(query,subject,verb,object,required,
+                   select=build_part_select(query,elts$subject,elts$verb,elts$object,label),
+                   body=build_part_body(query,elts$subject,elts$verb,elts$object,required,
                                         within_box=within_box, within_distance=within_distance),
                    service=build_part_service(query,language),
                    filter=build_part_filter(query, filter),
                    limit=build_part_limit(query,limit),
-                   group_by="")
+                   group_by="",
+                   order_by="")
   return(query_parts)
 }
