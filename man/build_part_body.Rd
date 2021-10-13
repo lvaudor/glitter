@@ -9,7 +9,7 @@ build_part_body(
   subject,
   verb,
   object,
-  optional = FALSE,
+  required = TRUE,
   within_box = c(NA, NA),
   within_distance = c(NA, NA)
 )
@@ -23,7 +23,8 @@ build_part_body(
 
 \item{object}{an anonymous variable (for instance, and by default, "?object") or item (for instance "Q456"))}
 
-\item{optional}{whether to make the statement optional (defaults to FALSE)}
+\item{required}{whether the existence of a value for the triplet is required or not (defaults to TRUE).
+If set to FALSE, then other triplets in the query are returned even if this particular triplet is missing)}
 
 \item{within_box}{if provided, north-west and south-east coordinates of bounding box for the triplet query.}
 

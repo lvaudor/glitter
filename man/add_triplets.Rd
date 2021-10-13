@@ -10,7 +10,7 @@ add_triplets(
   verb,
   object,
   prefixes = NULL,
-  optional = FALSE,
+  required = TRUE,
   label = NA,
   filter = NA,
   limit = NA,
@@ -26,7 +26,8 @@ add_triplets(
 
 \item{object}{an anonymous variable (for instance, and by default, "?object") or item (for instance "Q456"))}
 
-\item{optional}{whether the triplet is optional (other results are sent back even if this particular triplet is missing)}
+\item{required}{whether the existence of a value for the triplet is required or not (defaults to TRUE).
+If set to FALSE, then other triplets in the query are returned even if this particular triplet is missing)}
 
 \item{label}{a vector of variables for which to include a label column (defaults to NA)}
 
@@ -47,18 +48,9 @@ The center can also be provided as a variable (for instance, "?location") for th
 Compose query parts for triplets with subject verb object.
 }
 \examples{
-add_triplets(subject="?city",
-verb="wdt:P31/wdt:P279*",
-object="wd:Q515",
- label=c("?city"),
-  limit=10) \%>\%
-add_triplets(subject="?city",
-verb="wdt:P1082",object="?pop",
-optional=TRUE) \%>\%
-add_triplets(subject="?city",
-verb="wdt:P625",object="?coords",
-within_box=list(southwest=c(3,43),
-northeast=c(7,47))) \%>\%
+add_triplets(s="?city",v="wdt:P31/wdt:P279*",o="wd:Q515",label=c("?city"),limit=10) \%>\%
+add_triplets(s="?city",v="wdt:P1082",o="?pop", required=FALSE) \%>\%
+add_triplets(s="?city",v="wdt:P625",o="?coords",within_box=list(southwest=c(3,43),northeast=c(7,47))) \%>\%
 build_sparql() \%>\%
 send_sparql()
 }
