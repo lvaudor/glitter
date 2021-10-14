@@ -8,6 +8,8 @@ build_sparql(query_parts, endpoint = "Wikidata")
 }
 \arguments{
 \item{query_parts}{a list with elements of the query}
+
+\item{endpoint}{SPARQL endpoint to send the query to}
 }
 \description{
 Assemble query parts into a query.

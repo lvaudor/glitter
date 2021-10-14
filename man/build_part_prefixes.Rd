@@ -8,6 +8,8 @@ build_part_prefixes(query = NA, prefixes = NULL)
 }
 \arguments{
 \item{query}{a list with elements of the query}
+
+\item{prefixes}{a vector of prefixes}
 }
 \description{
 Builds the "prefixes" part of a query.
