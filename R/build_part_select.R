@@ -5,11 +5,9 @@
 #' @param object an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))
 #' @param label whether to get the label associated with the mentioned item
 build_part_select=function(query=NULL,subject=NULL,verb=NULL,object=NULL,label=NA){
-  if(!is.null(query)){
-    part_select=query$select
-  }else{
-    part_select=c()
-  }
+
+  if(!is.null(query)){part_select=query$select}else{part_select=c()}
+
   for(element in list(subject,verb,object)){
     if(is_variable(element)){
       part_select=c(part_select, element)
