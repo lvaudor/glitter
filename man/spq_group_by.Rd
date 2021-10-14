@@ -15,7 +15,8 @@ spq_group_by(query, vars)
 Builds the "select" part of a query.
 }
 \examples{
-add_triplets(t="?s a ?class", limit=3) \%>\%
+add_triplets(t="?s a ?class") \%>\%
 spq_group_by("?class") \%>\%
+spq_head(n=3) \%>\%
 send()
 }

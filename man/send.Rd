@@ -15,7 +15,8 @@ send(query_parts, endpoint = "Wikidata")
 Assemble query parts into a sparql query and send it to endpoint to get a tibble as a result.
 }
 \examples{
-add_triplets(subject="?city",verb="wdt:P31",object="wd:Q515", limit=10) \%>\%
+add_triplets(subject="?city",verb="wdt:P31",object="wd:Q515") \%>\%
 add_triplets(subject="?city",verb="wdt:P1082",object="?pop", label="?city", language="en") \%>\%
+spq_head(n=5) \%>\%
 send()
 }
