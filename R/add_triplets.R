@@ -7,7 +7,6 @@
 #' @param required whether the existence of a value for the triplet is required or not (defaults to TRUE).
 #'   If set to FALSE, then other triplets in the query are returned even if this particular triplet is missing)
 #' @param label a vector of variables for which to include a label column (defaults to NA)
-#' @param filter the filters to apply
 #' @param within_box if provided, rectangular bounding box for the triplet query.
 #'   Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))
 #' @param within_distance if provided, circular bounding box for the triplet query.
@@ -45,17 +44,20 @@ add_triplets=function(query=NULL,
                       prefixes=NULL,
                       required=TRUE,
                       label=NA,
-                      filter=NA,
                       within_box=c(NA,NA),
                       within_distance=c(NA,NA),
                       language="en"){
   elts=decompose_triplet(triplet=triplet,subject=subject,verb=verb,object=object)
   query_parts=list(prefixes=build_part_prefixes(query,prefixes),
-                   select=build_part_select(query,elts$subject,elts$verb,elts$object,label),
-                   body=build_part_body(query,elts$subject,elts$verb,elts$object,required,
+                   select=build_part_select(query,
+                                            elts$subject,elts$verb,elts$object,
+                                            label),
+                   body=build_part_body(query,
+                                        elts$subject,elts$verb,elts$object,
+                                        required,
                                         within_box=within_box, within_distance=within_distance),
                    service=build_part_service(query,language),
-                   filter=build_part_filter(query, filter),
+                   filter=query$filter,
                    limit="",
                    group_by="",
                    order_by="")
