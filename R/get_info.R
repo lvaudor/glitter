@@ -150,7 +150,6 @@ get_claim=function(id, property_name="wd:P31"){
 #' @param track element to add as a column in result to track which item the information refers to
 #' @export
 #' @examples
-#' get_triplets(s="?city",v="wdt:P31/wdt:P279*",o="wd:Q515", label=c("?city"), limit=10)
 #' get_triplets(s="wd:Q355",v="wdt:P625",o="?coords")
 #' get_triplets(s="wd:Q355",v="wdt:P625",o="?coords", track="subject")
 get_triplets=function(subject="?subject",
@@ -162,16 +161,16 @@ get_triplets=function(subject="?subject",
                       within_box=c(NA,NA),
                       within_distance=c(NA,NA),
                       track=NA){
-    if(is.na(subject)|is.na(verb)|is.na(object)){tib=NULL}else{
-      query=add_triplets(query=NA,
+    if(is.null(subject)|is.null(verb)|is.null(object)){tib=NULL}else{
+      query=add_triplets(query=NULL,
                          subject=subject,
                          verb=verb,
                          object=object,
                          required=required,
                          label=label,
-                         limit=limit,
                          within_box=within_box,
                          within_distance=within_distance)
+      if(!is.na(limit)){query=query %>% spq_head(n=limit)}
       tib=query %>%
         send()
     }
