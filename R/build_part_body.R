@@ -9,15 +9,25 @@
 #' @param within_distance if provided, north-west and south-east coordinates of bounding box for the triplet query.
 build_part_body=function(query=NA,subject,verb,object,required=TRUE,
                          within_box=c(NA,NA),within_distance=c(NA,NA)){
-  if(!is.null(query)){
-    part_body=query$body
+
+  if(!is.null(query)){part_body=query$body}else{part_body=""}
+
+  if(verb=="%in%"){
+    # if the triplet is not a regular RDF triplet but a statement of the type
+    # subject %in% object (where object is a vector of elements)
+    values=paste(purrr::map_chr(object,as_value),collapse="\n")
+    new_triplet=glue::glue("VALUES {{subject}}{\n{{values}}\n}",
+                           .open="{{",.close="}}")
   }else{
-    part_body=""
+    # if the triplet is a regular RDF triplet
+    new_triplet=glue::glue("{subject} {verb} {object}.")
   }
-  new_triplet=glue::glue("{subject} {verb} {object}.")
+
+  # when arg required=FALSE set triplet as optional
   if(!required){
     new_triplet=paste0("OPTIONAL {",new_triplet,"}")
   }
+  # when arg within_box is provided use service wikibase:box
   if(!is.na(within_box[[1]][1])){
     new_triplet=paste0("SERVICE wikibase:box {\n",
                        new_triplet,"\n",
@@ -29,6 +39,7 @@ build_part_body=function(query=NA,subject,verb,object,required=TRUE,
                        ")'^^geo:wktLiteral.\n}"
     )
   }
+  # when arg within_distance is provided use service wikibase:around
   if(!is.na(within_distance[[1]][1])){
     if(length(within_distance$center)==1 & is.character(within_distance$center)){
       center=paste0(within_distance$center,".\n")
@@ -44,6 +55,7 @@ build_part_body=function(query=NA,subject,verb,object,required=TRUE,
                        "'.\n}"
     )
   }
+  # add new triplet to the body of the query
   part_body=glue::glue("{part_body}\n
                        {new_triplet}")
   return(part_body)

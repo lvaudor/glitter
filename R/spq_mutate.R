@@ -4,7 +4,8 @@
 #' @param description formula
 #' @export
 #' @examples
-#' add_triplets(s="wd:Q331676",v="wdt:P1843",o="?statement") %>%
+#' # common name of a plant species in different languages
+#' add_triplets(t="wd:Q331676 wdt:P1843 ?statement") %>%
 #' spq_mutate(c("?lang"="LANG(?statement)")) %>%
 #' send()
 spq_mutate=function(query,vars){
