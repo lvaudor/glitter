@@ -1,6 +1,6 @@
 #' Builds the "prefixes" part of a query.
 #' @param query a list with elements of the query
-#' @param prefixes
+#' @param prefixes a vector of prefixes
 #' @export
 build_part_prefixes=function(query=NA, prefixes=NULL){
   if(!is.null(query)){

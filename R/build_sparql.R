@@ -1,6 +1,6 @@
 #' Assemble query parts into a query.
 #' @param query_parts a list with elements of the query
-#' @endpoint
+#' @param endpoint SPARQL endpoint to send the query to
 #' @export
 #' @examples
 #' add_triplets(subject="?city",verb="wdt:P31",object="wd:Q515") %>%
