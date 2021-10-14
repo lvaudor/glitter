@@ -3,8 +3,9 @@
 #' @endpoint
 #' @export
 #' @examples
-#' add_triplets(subject="?city",verb="wdt:P31",object="wd:Q515", limit=10) %>%
+#' add_triplets(subject="?city",verb="wdt:P31",object="wd:Q515") %>%
 #' add_triplets(subject="?city",verb="wdt:P1082",object="?pop", label="?city", language="en") %>%
+#' spq_head() %>%
 #' build_sparql() %>%
 #' cat()
 build_sparql=function(query_parts,endpoint="Wikidata"){
