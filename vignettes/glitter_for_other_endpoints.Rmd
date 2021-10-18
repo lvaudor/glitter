@@ -1,8 +1,8 @@
 ---
-title: "recitR for other endpoints"
+title: "glitter for other endpoints"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{recitR}
+  %\VignetteIndexEntry{glitter}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,21 +16,79 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-#remotes::install_github("lvaudor/recitR")
-library(recitR)
+#remotes::install_github("lvaudor/glitter")
+library(glitter)
+```
+
+# dataBNF
+
+## Explorer les données
+
+```{r}
+tib=add_triplets(t="?s ?p ?o") %>% 
+  spq_head(10) %>% 
+  send(endpoint="dataBNF")
+
+knitr::kable(tib)
+```
+
+## Dates biographiques d'un auteur
+
+```{r}
+tib=add_triplets(t="?auteur foaf:birthday ?jour") %>% 
+  add_triplets(t="?auteur bio:birth ?date1") %>% 
+  add_triplets(t="?auteur bio:death ?date2") %>% 
+  add_triplets(t="?auteur foaf:name ?nom", required=FALSE) %>% 
+  spq_arrange("?jour") %>% 
+  spq_head(n=10) %>% 
+  spq_prefix(c(foaf="http://xmlns.com/foaf/0.1/",
+               bio="http://vocab.org/bio/0.1/")) %>% 
+  send(endpoint="dataBNF")
+
+
+knitr::kable(tib)
+```
+
+## Toutes les éditions de l'oeuvre Les Fleurs du Mal de Baudelaire
+
+```{r}
+tib=add_triplets(t="<http://data.bnf.fr/ark:/12148/cb11947965f> foaf:focus ?Oeuvre") %>% 
+  add_triplets(t="?edition rdarelationships:workManifested ?Oeuvre") %>% 
+  add_triplets(t="?edition dcterms:date ?date", required=FALSE) %>% 
+  add_triplets(t="?edition dcterms:title ?titre") %>% 
+  add_triplets(t="?edition dcterms:publisher ?editeur") %>% 
+  spq_head(n=20) %>% 
+  spq_prefix(c(dcterms="http://purl.org/dc/terms/")) %>% 
+  spq_prefix(c(foaf="http://xmlns.com/foaf/0.1/")) %>% 
+  spq_prefix(c(rdarelationships="http://rdvocab.info/RDARelationshipsWEMI/")) %>% 
+  send("dataBNF")
+
+
+knitr::kable(tib)
+```
+
+## Lien à un document numérisé dans Galliga
+
+```{r}
+tib=add_triplets(t="<http://data.bnf.fr/ark:/12148/cb42712156j#about> rdarelationships:electronicReproduction ?URLGallica") %>% 
+  add_triplets(t="<http://data.bnf.fr/ark:/12148/cb42712156j#about> dcterms:title ?title") %>% 
+  spq_prefix() %>% 
+  build_sparql(endpoint="dataBNF") %>% cat()
+  send(endpoint="dataBNF")
 ```
 
 
+
+
 ```{r}
-query=add_triplets(subject="?oeuvre",verb="dcterms:creator", object="?auteur",
-                   prefixes=c(bio="http://vocab.org/bio/0.1/",
-                              dcterms="http://purl.org/dc/terms/",
-                              foaf="http://xmlns.com/foaf/0.1/"),
-                   limit=10) %>% 
-  add_triplets(subject="?auteur",verb="bio:death",object="?mort")%>%
-  add_triplets(subject="?auteur",verb="foaf:familyName",object="?nom") %>%
+tib=add_triplets(t="?oeuvre dcterms:creator ?auteur") %>% 
+  add_triplets(t="?auteur bio:death ?mort")%>%
+  add_triplets(t="?auteur foaf:familyName ?nom") %>%
+  spq_prefix(auto=TRUE)%>%
+  spq_head(n=10) %>% 
   send(endpoint="dataBNF")
 
+knitr::kable(tib)
 ```
 
 - autres services que label dans WD?
