@@ -1,10 +1,10 @@
-Package: recitR
+Package: glitter
 Type: Package
-Title: Make the use of Wikidata easier
+Title: glitter makes SPARQL
 Version: 0.1.0
 Author: Lise Vaudor
 Maintainer: Lise Vaudor <lise.vaudor@ens-lyon.fr>
-Description: This package aims at making the query of Wikidata from R possible without the knowledge of SPARQL.
+Description: This package aims at writing and sending SPARQL queries. It makes the exploration and use of Linked Open Data (Wikidata in particular) easier for those who do not know SPARQL.
 Depends: 
     WikidataR,
     dplyr,

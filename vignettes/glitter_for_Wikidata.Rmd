@@ -1,5 +1,5 @@
 ---
-title: "recitR for Wikidata"
+title: "glitter for Wikidata"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{recitR}
@@ -16,10 +16,11 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
+#if (!require("sf")) install.packages("sf")
+
 if (!require("remotes")) install.packages("remotes")
-if (!require("sf")) install.packages("sf")
-remotes::install_github("lvaudor/recitR")
-library(recitR)
+if(!require("glitter")) remotes::install_github("lvaudor/glitter")
+library(glitter)
 ```
 
 
@@ -53,7 +54,7 @@ So you're looking for all the stations that are part of ("wd:P361") the Lyon met
 You could access this information through:
 
 ```{r}
-stations=get_triplets(s="?items",v="wdt:P361",o="wd:Q1552")
+stations=get_triplets(t="?items wdt:P361 wd:Q1552")
 stations %>% head()
 ```
 
@@ -62,7 +63,7 @@ Notice that we do not have values yet for the stations (that's what we're lookin
 To also get the labels for stations, we can use the argument `label`:
 
 ```{r}
-parts_metro_Lyon=get_triplets(s="?items",v="wdt:P361",o="wd:Q1552", label="?items")
+parts_metro_Lyon=get_triplets(t="?items wdt:P361 wd:Q1552", label="?items")
 parts_metro_Lyon %>% head()
 ```
 
@@ -79,10 +80,9 @@ Property "wdt:P31" should enable us to collect only stations ("wd:Q928830") inst
 We can enrich and refine our query incrementally with `add_triplets()` before sending it (whereas `get_triplets()` was a shortcut to build and send simple requests) :
 
 ```{r}
-stations_metro_Lyon=add_triplets(s="?stations",v="wdt:P361",o="wd:Q1552", label="?stations") %>% 
-  add_triplets(s="?stations",v="wdt:P31",o="wd:Q928830") %>% 
-  build_sparql() %>% 
-  send_sparql()
+stations_metro_Lyon=add_triplets(t="?stations wdt:P361 wd:Q1552", label="?stations") %>% 
+  add_triplets(t="?stations wdt:P31 wd:Q928830") %>% 
+  send()
 head(stations_metro_Lyon)
 ```
 
@@ -91,17 +91,16 @@ We now get 42 stations that are part of the Lyon metro network.
 If we wanted to get other properties and associated values for these stations (for instance their location ("wdt:P625")) we could proceed this way:
 
 ```{r}
-stations_metro_Lyon=add_triplets(s="?stations",v="wdt:P361",o="wd:Q1552", label="?stations") %>% 
-  add_triplets(s="?stations",v="wdt:P31",o="wd:Q928830") %>% 
-  add_triplets(s="?stations",v="wdt:P625",o="?coords") %>% 
-  build_sparql() %>% 
-  send_sparql()
+stations_metro_Lyon=add_triplets(t="?stations wdt:P361 wd:Q1552", label="?stations") %>% 
+  add_triplets(t="?stations wdt:P31 wd:Q928830") %>% 
+  add_triplets(t="?stations wdt:P625 ?coords") %>% 
+  send()
 head(stations_metro_Lyon)
 ```
 
 This tibble can be easily transform into a Simple feature collection (sfc) :
 
-```{r}
+```{r, eval=FALSE}
 stations_metro_Lyon.shp=sf::st_as_sf(stations_metro_Lyon, wkt = "coords")
 plot(stations_metro_Lyon.shp$coords)
 ```
@@ -144,56 +143,41 @@ find_item("city")
 We could start exploring Wikidata with this query which finds all items that are instances ("wdt:P31") of "city" or of any subclass ("wdt:P279") of "city" . This query might return many items so that it seems reasonable to limit the number of items retrieved for now with the argument `limit`
 
 ```{r}
-add_triplets(s="?city", v="wdt:P31/wdt:P279*", o="wd:Q515", label="?city",limit=10) %>% 
-  build_sparql() %>% 
-  send_sparql()
+add_triplets(t="?city wdt:P31/wdt:P279* wd:Q515", label="?city") %>%
+  spq_head(n=10) %>% 
+  send()
 ```
 Now, let's get the location ("wdt:P625") of the cities
 
 ```{r}
-add_triplets(s="?city",
-             v="wdt:P31/wdt:P279*",
-             o="wd:Q515",
-             label=c("?city"),
-             limit=10) %>%
-  add_triplets(s="?city",
-               v="wdt:P625",
-               o="?coords") %>% 
-  build_sparql() %>% 
-  send_sparql()
+add_triplets(t="?city wdt:P31/wdt:P279* wd:Q515",
+             label=c("?city"))
+  add_triplets(t="?city wdt:P625 ?coords") %>%
+  spq_head(n=10) %>% 
+  send()
 ```
 
 We can refine this query, stating that we want cities (or items of subclasses of city) in a radius of 5km around Lyon (which has lat-long coordinates ~ 45.76 and 4.84). We will use the argument `within_distance`:
 
 
 ```{r}
-cities_around_Lyon=add_triplets(s="?city",
-                                v="wdt:P31/wdt:P279*",
-                                o="wd:Q486972", label="?city") %>% 
-  add_triplets(s="?city",
-               v="wdt:P625",
-               o="?coords",
+cities_around_Lyon=add_triplets(t="?city wdt:P31/wdt:P279* wd:Q486972",
+                                label="?city") %>% 
+  add_triplets(t="?city wdt:P625 ?coords",
                within_distance=list(center=c(long=4.84,lat=45.76),
                                     radius=5)) %>% 
-            build_sparql() %>%
-            send_sparql()
+  send()
 head(cities_around_Lyon)
 ```
 
 Actually, rather than getting Lyon's long-lat coordinates "by hand" we could get them directly through our query, which means we have to add a triplet about Lyon ("wd:456") and its coordinates:
 
 ```{r, eval=FALSE}
-add_triplets(s="wd:Q456",
-               v="wdt:P625",
-               o="?coordLyon") %>% 
-  add_triplets(s="?city",
-               v="wdt:P625",
-               o="?coords",
-               within_distance=list(center="?coordLyon", radius=2)) %>%   add_triplets(s="?city",
-             v="wdt:P31/wdt:P279*",
-             o="wd:Q486972",
+add_triplets(t="wd:Q456 wdt:P625 ?coordLyon") %>% 
+  add_triplets(t="?city wdt:P625 ?coords",
+               within_distance=list(center="?coordLyon", radius=2)) %>%
+  add_triplets(t="?city wdt:P31/wdt:P279* wd:Q486972",
              label="?city") %>%
-  build_sparql() %>% 
-  send_sparql()
+  build_sparql() %>% cat()
 ```
 
