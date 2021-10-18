@@ -1,16 +1,20 @@
-prefixes=rbind(
-  tibble(prefix="foaf",
+usual_prefixes=rbind(
+  tibble(name="foaf",
          url="http://xmlns.com/foaf/0.1/"),
-  tibble(prefix="rdfs",
+  tibble(name="rdfs",
          url="http://www.w3.org/2000/01/rdf-schema"),
-  tibble(prefix="bio",
+  tibble(name="bio",
          url="http://vocab.org/bio/0.1/"),
-  tibble(prefix="dcterms",
+  tibble(name="dcterms",
          url="http://purl.org/dc/terms/"),
-  tibble(prefix="xsd",
+  tibble(name="xsd",
          url="http://www.w3.org/2001/XMLSchema#"),
-  tibble(prefix="isni",
-         url="http://isni.org/ontology#"))
+  tibble(name="isni",
+         url="http://isni.org/ontology#"),
+  tibble(name="rdarelationships",
+         url="http://rdvocab.info/RDARelationshipsWEMI/")
+)
+usethis::use_data(usual_prefixes,overwrite=TRUE)
 
 # ogc:  http://www.opengis.net/
 #   geo:  http://www.opengis.net/ont/geosparql#
@@ -23,3 +27,4 @@ prefixes=rbind(
 # rdf:   http://www.w3.org/1999/02/22-rdf-syntax-ns#
 # rdfs: http://www.w3.org/2000/01/rdf-schema#
 # owl:  http://www.w3.org/2002/07/owl#
+
