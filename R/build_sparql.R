@@ -10,7 +10,18 @@
 #' cat()
 build_sparql=function(query_parts,endpoint="Wikidata"){
   if(endpoint!="Wikidata"){query_parts$service=""}
-  query=paste0(query_parts$prefixes,"\n",
+
+  # are uri correct and do they correspond to provided prefixes?
+  uri_ok=purrr::map_lgl(query_parts$uris,is_uri_correct,
+                        prefixes=query_parts$prefixes,
+                        endpoint=endpoint)
+  # prefixes
+  if(nrow(query_parts$prefixes)>0){
+    part_prefixes=glue::glue("PREFIX {query_parts$prefixes$name}: <{query_parts$prefixes$url}>") %>%
+      paste0(collapse="\n")
+  }
+
+  query=paste0(part_prefixes,"\n",
                "SELECT ", paste0(query_parts$select,collapse=" "),"\n",
                "WHERE{\n",
                query_parts$body,"\n",
