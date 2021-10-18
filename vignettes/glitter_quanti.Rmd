@@ -1,0 +1,141 @@
+---
+title: "glitter : build me a quantitative dataset"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{glitter}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+library(glitter)
+library(ggplot2)
+```
+
+# Get data
+
+## novels
+
+```{r}
+items=add_triplets(t="?item wdt:P31 wd:Q7725634") %>%
+  add_triplets(t="?item wdt:P136 wd:Q8261") %>%
+  #add_triplets(t="?item wdt:P495 wd:Q142") %>%
+  add_triplets(t="?item wdt:P577 ?publidate") %>%
+  spq_filter("?publidate >= '1980-01-01T00:00:00Z'^^xsd:dateTime && ?publidate <= '2020-01-01T00:00:00Z'^^xsd:dateTime") %>% 
+  spq_group_by(c("?publidate")) %>%
+  spq_summarise(c("?nitems"="count(?item)")) %>%
+  send()
+novels=items %>% 
+  mutate(year=lubridate::year(publidate)) %>% 
+  select(-publidate) %>% 
+  group_by(year) %>% 
+  summarise(n=sum(nitems)) %>% 
+  arrange(year) %>% 
+  mutate(novel=n/n())
+```
+
+## movies
+
+```{r}
+items=add_triplets(t="?item wdt:P31 wd:Q11424") %>%
+  #add_triplets(t="?item wdt:P495 wd:Q142") %>%
+  add_triplets(t="?item wdt:P577 ?publidate") %>%
+  spq_filter("?publidate >= '1980-01-01T00:00:00Z'^^xsd:dateTime && ?publidate <= '2020-01-01T00:00:00Z'^^xsd:dateTime") %>% 
+  spq_group_by(c("?publidate")) %>%
+  spq_summarise(c("?nitems"="count(?item)")) %>%
+  send()
+movies=items %>% 
+  mutate(year=lubridate::year(publidate)) %>% 
+  select(-publidate) %>% 
+  group_by(year) %>% 
+  summarise(n=sum(nitems)) %>% 
+  arrange(year) %>% 
+  mutate(movie=n/n())
+```
+
+## music
+
+```{r}
+items=add_triplets(t="?item wdt:P31 wd:Q482994") %>%
+  #add_triplets(t="?item wdt:P495 wd:Q142") %>%
+  add_triplets(t="?item wdt:P577 ?publidate") %>%
+  spq_filter("?publidate >= '1980-01-01T00:00:00Z'^^xsd:dateTime && ?publidate <= '2020-01-01T00:00:00Z'^^xsd:dateTime") %>% 
+  spq_group_by(c("?publidate")) %>%
+  spq_summarise(c("?nitems"="count(?item)")) %>%
+  send()
+music=items %>% 
+  mutate(year=lubridate::year(publidate)) %>% 
+  select(-publidate) %>% 
+  group_by(year) %>% 
+  summarise(n=sum(nitems)) %>% 
+  arrange(year)%>% 
+  mutate(music=n/n())
+```
+
+## TV shows
+
+```{r}
+items=add_triplets(t="?item wdt:P31 wd:Q5398426", label="?item") %>%
+  #add_triplets(t="?item wdt:P495 wd:Q142") %>%
+  add_triplets(t="?item wdt:P580 ?start") %>%
+  add_triplets(t="?item wdt:P582 ?end", required=FALSE) %>%
+  spq_filter("?start >= '1980-01-01T00:00:00Z'^^xsd:dateTime && ?end <= '2022-01-01T00:00:00Z'^^xsd:dateTime") %>%
+  send()
+tvshows=items %>% 
+  mutate(start=lubridate::year(start),
+         end=lubridate::year(end)) %>%
+  filter(end>=start) %>% 
+  mutate(year=purrr::map2(.x=start,.y=end,seq,by=1)) %>% 
+  tidyr::unnest(cols=c(year)) %>% 
+  group_by(year) %>% 
+  summarise(tvshow=n()) %>% 
+  arrange(year)
+```
+
+## comics
+
+```{r}
+items=add_triplets(t="?item wdt:P31/wdt:P279* wd:Q1004") %>%
+  #add_triplets(t="?item wdt:P495 wd:Q142") %>%
+  add_triplets(t="?item wdt:P577 ?publidate") %>%
+  spq_filter("?publidate >= '1980-01-01T00:00:00Z'^^xsd:dateTime && ?publidate <= '2020-01-01T00:00:00Z'^^xsd:dateTime") %>% 
+  spq_group_by(c("?publidate")) %>%
+  spq_summarise(c("?nitems"="count(?item)")) %>%
+  send()
+comics=items %>% 
+  mutate(year=lubridate::year(publidate)) %>% 
+  select(-publidate) %>% 
+  group_by(year) %>% 
+  summarise(n=sum(nitems)) %>% 
+  arrange(year)%>% 
+  mutate(comics=n/n())
+```
+
+
+# Culture
+
+```{r}
+culture_large=novels %>% select(-n) %>% 
+  left_join(movies %>% select(-n),by=c("year")) %>% 
+  left_join(music %>% select(-n),by=c("year")) %>% 
+  left_join(tvshows,by=c("year")) %>% 
+  left_join(comics %>% select(-n),by=c("year"))
+
+culture=culture_large %>% 
+  tidyr::pivot_longer(cols=c(-year), names_to="type", values_to="n") %>% 
+  group_by(type) %>% 
+  mutate(ntype=sum(n, na.rm=TRUE)) %>% 
+  mutate(prop=n/ntype)
+
+ggplot(culture,aes(x=year,y=prop,col=type))+geom_path()
+```
+
+```{r}
+library(FactoMineR)
+
+PCAdat=culture_large %>% filter(year>=1960) 
+rownames(PCAdat)=PCAdat$year
+pca=PCA(PCAdat, quanti.sup=1)
+#explor::explor(pca)
+```
+
