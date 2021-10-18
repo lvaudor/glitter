@@ -88,16 +88,12 @@ get_one_claim=function(res){
 #' @examples
 #' get_claims("wd:Q431603")
 get_claims=function(id, with_labels=FALSE){
-  claims=add_triplets(query=NA,
-                      subject=id,
-                      verb="?prop",
-                      object="?val",
+  claims=add_triplets(query=NULL,
+                      t=glue::glue("{id} ?prop ?val"),
                       label=c("?val")) %>%
-    add_triplets(subject="?item",
-                 verb="wikibase:directClaim",
-                 object="?prop") %>%
+    add_triplets(t="?item wikibase:directClaim ?prop") %>%
     send() %>%
-    dplyr::left_join(wd_properties,by=c("item"="id")) %>%
+    dplyr::left_join(wd_properties,by=c("prop"="id")) %>%
     dplyr::select(property=item,
            propertyLabel=label,
            value=val,
@@ -139,51 +135,3 @@ get_claim=function(id, property_name="wd:P31"){
   return(that_claim)
 }
 
-#' Get triplets with subject verb object.
-#' @param subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))
-#' @param verb the property (for instance "wdt:P190")
-#' @param object an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))
-#' @param label a vector of variables for which to include a label column (defaults to NA)
-#' @param limit the max number of items sent back
-#' @param within_box if provided, rectangular bounding box for the triplet query. Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))
-#' @param within_distance if provided, circular bounding box for the triplet query. Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers. The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.
-#' @param track element to add as a column in result to track which item the information refers to
-#' @export
-#' @examples
-#' get_triplets(s="wd:Q355",v="wdt:P625",o="?coords")
-#' get_triplets(s="wd:Q355",v="wdt:P625",o="?coords", track="subject")
-get_triplets=function(subject="?subject",
-                      verb="?verb",
-                      object="?object",
-                      required=TRUE,
-                      label=NA,
-                      limit=NA,
-                      within_box=c(NA,NA),
-                      within_distance=c(NA,NA),
-                      track=NA){
-    if(is.null(subject)|is.null(verb)|is.null(object)){tib=NULL}else{
-      query=add_triplets(query=NULL,
-                         subject=subject,
-                         verb=verb,
-                         object=object,
-                         required=required,
-                         label=label,
-                         within_box=within_box,
-                         within_distance=within_distance)
-      if(!is.na(limit)){query=query %>% spq_head(n=limit)}
-      tib=query %>%
-        send()
-    }
-    if(!is.na(track)){
-      track = switch(track,
-                     "subject"=subject,
-                     "object"=object,
-                     "verb"=verb)
-      if(is.null(tib)){
-        tib=tibble::tibble(tracking=NA)
-      }
-      tib=tib %>%
-        mutate(tracking=rep(track,nrow(tib)))
-    }
-    return(tib)
-}
