@@ -1,4 +1,4 @@
 library(testthat)
-library(recitR)
+library(glitter)
 
-test_check("recitR")
+test_check("glitter")
