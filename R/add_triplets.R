@@ -1,4 +1,3 @@
-
 #' Compose query parts for triplets with subject verb object.
 #' @param triplet the triplet statement (replaces arguments subject verb and object)
 #' @param subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))
@@ -47,19 +46,34 @@ add_triplets=function(query=NULL,
                       within_box=c(NA,NA),
                       within_distance=c(NA,NA),
                       language="en"){
+
   elts=decompose_triplet(triplet=triplet,subject=subject,verb=verb,object=object)
-  query_parts=list(prefixes=build_part_prefixes(query,prefixes),
-                   select=build_part_select(query,
-                                            elts$subject,elts$verb,elts$object,
-                                            label),
-                   body=build_part_body(query,
-                                        elts$subject,elts$verb,elts$object,
-                                        required,
-                                        within_box=within_box, within_distance=within_distance),
-                   service=build_part_service(query,language),
-                   filter=query$filter,
-                   limit="",
-                   group_by="",
-                   order_by="")
-  return(query_parts)
+
+  if(is.null(query)){
+    query=list(prefixes=NULL,
+               uris=NULL,
+               select=NULL,
+               body="",
+               service="",
+               filter="",
+               limit="",
+               group_by="",
+               order_by="")
+  }
+
+  # uris
+  velts=unlist(elts) %>% unname()
+  query$uris=unique(c(query$uris,velts[purrr::map_lgl(velts,is_uri)]))
+  # select
+  query$select=build_part_select(query,
+                                 elts$subject,elts$verb,elts$object,
+                                 label)
+  # body
+  query$body=build_part_body(query,
+                             elts$subject,elts$verb,elts$object,
+                             required,
+                             within_box=within_box, within_distance=within_distance)
+  # service
+  query$service=build_part_service(query,language)
+  return(query)
 }
