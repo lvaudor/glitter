@@ -12,10 +12,10 @@ build_part_body=function(query=NA,subject,verb,object,required=TRUE,
 
   if(!is.null(query)){part_body=query$body}else{part_body=""}
 
-  if(verb=="%in%"){
+  if(verb=="is"){
     # if the triplet is not a regular RDF triplet but a statement of the type
-    # subject %in% object (where object is a vector of elements)
-    values=paste(purrr::map_chr(object,as_value),collapse="\n")
+    # subject is any of the objects (where objects is obj1|obj2|obj3)
+    values=paste(as_values(object),collapse="\n")
     new_triplet=glue::glue("VALUES {{subject}}{\n{{values}}\n}",
                            .open="{{",.close="}}")
   }else{
@@ -56,7 +56,6 @@ build_part_body=function(query=NA,subject,verb,object,required=TRUE,
     )
   }
   # add new triplet to the body of the query
-  part_body=glue::glue("{part_body}\n
-                       {new_triplet}")
+  part_body=glue::glue("{part_body}\n{new_triplet}")
   return(part_body)
 }
