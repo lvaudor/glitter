@@ -17,11 +17,10 @@ build_sparql=function(query_parts,endpoint="Wikidata"){
                         endpoint=endpoint)
   # prefixes
   if(nrow(query_parts$prefixes)>0){
-    part_prefixes=glue::glue("PREFIX {query_parts$prefixes$name}: <{query_parts$prefixes$url}>") %>%
-      paste0(collapse="\n")
-  }
+    part_prefixes=glue::glue("PREFIX {query_parts$prefixes$name}: <{query_parts$prefixes$url}>\n")
+  }else{part_prefixes=""}
 
-  query=paste0(part_prefixes,"\n",
+  query=paste0(part_prefixes,
                "SELECT ", paste0(query_parts$select,collapse=" "),"\n",
                "WHERE{\n",
                query_parts$body,"\n",

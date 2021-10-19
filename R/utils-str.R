@@ -23,7 +23,7 @@ is_uri=function(string){
 
 is_uri_correct=function(string,prefixes="",endpoint="Wikidata"){
   if(endpoint=="Wikidata"){
-    prefixes=c(prefixes,"wd","wdt","ps","pq")
+    prefixes=usual_prefixes %>% filter(type=="Wikidata")
   }
   prefix=stringr::str_extract(string,"^.*(?=:)")
   if(stringr::str_detect(prefix,"^<http")){

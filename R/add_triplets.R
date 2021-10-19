@@ -50,7 +50,7 @@ add_triplets=function(query=NULL,
   elts=decompose_triplet(triplet=triplet,subject=subject,verb=verb,object=object)
 
   if(is.null(query)){
-    query=list(prefixes=NULL,
+    query=list(prefixes=tibble(name=NULL,url=NULL),
                uris=NULL,
                select=NULL,
                body="",
