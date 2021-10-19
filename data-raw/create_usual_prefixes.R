@@ -1,4 +1,4 @@
-usual_prefixes=readr::read_csv2("data-raw/usual_prefixes.csv")
+usual_prefixes=readr::read_csv("data-raw/usual_prefixes.csv")
 usethis::use_data(usual_prefixes,overwrite=TRUE)
 
 # ogc:  http://www.opengis.net/
