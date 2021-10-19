@@ -63,7 +63,7 @@ add_triplets=function(query=NULL,
 
   # uris
   velts=unlist(elts) %>% unname()
-  query$uris=unique(c(query$uris,velts[purrr::map_lgl(velts,is_uri)]))
+  query$uris=unique(c(query$uris,purrr::map(velts,as_uri) %>% unlist()))
   # select
   query$select=build_part_select(query,
                                  elts$subject,elts$verb,elts$object,

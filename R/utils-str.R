@@ -21,6 +21,24 @@ is_uri=function(string){
   return(FALSE)
 }
 
+#' transforms paths into uris
+#' @param string
+#' @examples
+#' glitter:::as_uri("wdt:P31/wdt:P279*")
+#' glitter:::as_uri("?item")
+as_uri=function(string){
+  if(is_uri(string)){
+    result=string
+    if(stringr::str_detect(string,"\\/")){
+      result=stringr::str_split(string,"\\/") %>% unlist()
+    }
+  }else{
+    result=NULL
+  }
+  return(result)
+}
+
+
 is_uri_correct=function(string,prefixes="",endpoint="Wikidata"){
   if(endpoint=="Wikidata"){
     prefixes=usual_prefixes %>% filter(type=="Wikidata")
