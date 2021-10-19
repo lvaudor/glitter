@@ -2,7 +2,7 @@
 title: "glitter for other endpoints"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{glitter}
+  %\VignetteIndexEntry{glitter for other endpoints}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

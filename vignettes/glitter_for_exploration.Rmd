@@ -1,8 +1,8 @@
 ---
-title: "recitR for exploration"
+title: "glitter for exploration"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{recitR}
+  %\VignetteIndexEntry{glitter for exploration}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

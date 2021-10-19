@@ -2,7 +2,7 @@
 title: "glitter : build me a quantitative dataset"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{glitter}
+  %\VignetteIndexEntry{glitter : build me a quantitative dataset}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

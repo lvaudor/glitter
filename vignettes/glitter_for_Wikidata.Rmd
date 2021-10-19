@@ -2,7 +2,7 @@
 title: "glitter for Wikidata"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{recitR}
+  %\VignetteIndexEntry{glitter for Wikidata}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
