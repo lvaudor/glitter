@@ -1,5 +1,5 @@
 #' Assemble query parts into a query.
-#' @param query_parts a list with elements of the query
+#' @param query a list with elements of the query
 #' @param endpoint SPARQL endpoint to send the query to
 #' @export
 #' @examples
@@ -8,27 +8,32 @@
 #' spq_head() %>%
 #' build_sparql() %>%
 #' cat()
-build_sparql=function(query_parts,endpoint="Wikidata"){
-  if(endpoint!="Wikidata"){query_parts$service=""}
+build_sparql=function(query,endpoint="Wikidata"){
+  if(endpoint!="Wikidata"){query$service=""}
 
-  # are uri correct and do they correspond to provided prefixes?
-  uri_ok=purrr::map_lgl(query_parts$uris,is_uri_correct,
-                        prefixes=query_parts$prefixes,
-                        endpoint=endpoint)
+  query=query %>%
+    spq_prefix(auto=TRUE, prefixes=NULL)
+
+  # are prefixes correct and do they correspond to provided prefixes?
+  purrr::map_lgl(query$prefixed,
+                 glitter:::is_prefix_correct,
+                 prefixes=query$prefixes,
+                 endpoint=endpoint)
   # prefixes
-  if(nrow(query_parts$prefixes)>0){
-    part_prefixes=glue::glue("PREFIX {query_parts$prefixes$name}: <{query_parts$prefixes$url}>\n")
+  if(nrow(query$prefixes)>0){
+    part_prefixes=glue::glue("PREFIX {query$prefixes$name}: <{query$prefixes$url}>") %>%
+      paste0(collapse="\n")
   }else{part_prefixes=""}
 
-  query=paste0(part_prefixes,
-               "SELECT ", paste0(query_parts$select,collapse=" "),"\n",
+  query=paste0(part_prefixes,"\n",
+               "SELECT ", paste0(query$select,collapse=" "),"\n",
                "WHERE{\n",
-               query_parts$body,"\n",
-               query_parts$filter,"\n",
-               query_parts$service,"\n",
+               query$body,"\n",
+               query$filter,"\n",
+               query$service,"\n",
                "}\n",
-               query_parts$group_by,"\n",
-               query_parts$order_by,"\n",
-               query_parts$limit)
+               query$group_by,"\n",
+               query$order_by,"\n",
+               query$limit)
   return(query)
 }
