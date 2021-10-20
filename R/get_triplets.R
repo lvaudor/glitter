@@ -11,7 +11,7 @@
 #' @examples
 #' get_triplets(s="wd:Q456",v="wdt:P625",o="?coords")
 #' get_triplets(t="wd:Q456 wdt:P625 ?coords")
-#' get_triplets(t="wd:Q456 wdt:P625 ?coords", keep_track="subject")
+#' get_triplets("wd:Q456 wdt:P625 ?coords", keep_track="subject")
 get_triplets=function(triplet=NULL,
                       subject=NULL,
                       verb=NULL,
