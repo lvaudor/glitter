@@ -3,15 +3,22 @@
 #' @param prefixes a vector of prefixes
 #' @export
 spq_prefix=function(query=NULL,auto=TRUE, prefixes=NULL){
-  if(!is.data.frame(prefixes)){
+  if(!is.null(prefixes)){auto=FALSE}
+  if(!is.data.frame(prefixes) & !is.null(prefixes)){
     prefixes=tibble::tibble(name=names(prefixes),
-                            url=prefixes)
+                            url=prefixes,
+                            type="user")
   }
-  if(auto){
+  if(auto==TRUE){
     prefixes_auto=usual_prefixes %>%
-      filter(name %in% (query$uris %>% str_extract("^.*(?=:)")))
+      filter(name %in% (query$prefixed %>% str_extract("^.*(?=:)")))
     prefixes=bind_rows(prefixes,prefixes_auto)
   }
-  query$prefixes=prefixes %>% unique()
+  prefixes=prefixes %>%
+    select(name,url) %>%
+    unique()
+
+
+  query$prefixes=bind_rows(query$prefixes,prefixes)
   return(query)
 }
