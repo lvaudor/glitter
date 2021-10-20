@@ -13,8 +13,8 @@ Depends:
     SPARQL,
     R (>= 3.5.0)
 License: GPL-2
-URL: https://perso.ens-lyon.fr/lise.vaudor/Rpackages/recitR/, https://github.com/lvaudor/recitR
-BugReports: https://github.com/lvaudor/recitR/issues
+URL: https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/, https://github.com/lvaudor/glitter
+BugReports: https://github.com/lvaudor/glitter/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2
