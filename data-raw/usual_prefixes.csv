@@ -5,7 +5,7 @@ Wikidata,ps,
 Wikidata,pq,
 Wikidata,wikibase,
 generic,foaf,http://xmlns.com/foaf/0.1/
-generic,rdfs,http://www.w3.org/2000/01/rdf-schema
+generic,rdfs,http://www.w3.org/2000/01/rdf-schema#
 generic,bio,http://vocab.org/bio/0.1/
 generic,dcterms,http://purl.org/dc/terms/
 generic,xsd,http://www.w3.org/2001/XMLSchema#
@@ -13,3 +13,5 @@ generic,isni,http://isni.org/ontology#
 generic,rdarelationships,http://rdvocab.info/RDARelationshipsWEMI/
 generic,owl,http://www.w3.org/2002/07/owl#
 generic,rdf,http://www.w3.org/1999/02/22-rdf-syntax-ns#
+generic,skos,http://www.w3.org/2004/02/skos/core#
+dataBNF,bnf-onto,http://data.bnf.fr/ontology/bnf-onto/
