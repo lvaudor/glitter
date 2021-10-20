@@ -1,10 +1,11 @@
-#' Builds the "order by" part of a query.
+#' Arrange results by variable value
 #' @param query a list with elements of the query
 #' @param vars variables by which to arrange
 #' @export
 #' @examples
-#' add_triplets(s="?item",v="wdt:P31",o="wd:Q5",label="?item") %>%
-#' add_triplets(s="?item",v="wdt:P19/wdt:P131*",o="wd:Q60") %>%
+#' tib=spq_init() %>%
+#' add_triplets("?item wdt:P31 wd:Q5",label="?item") %>%
+#' add_triplets("?item wdt:P19/wdt:P131*",o="wd:Q60") %>%
 #' add_triplets(s="?item",v="wikibase:sitelinks",o="?sitelinks") %>%
 #' spq_arrange(c("DESC(?sitelinks)")) %>%
 #' spq_head(n=3) %>%

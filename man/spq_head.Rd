@@ -2,7 +2,7 @@
 % Please edit documentation in R/spq_head.R
 \name{spq_head}
 \alias{spq_head}
-\title{Builds the "limit" part of a query.}
+\title{Return the first lines of results}
 \usage{
 spq_head(query, n = 5)
 }
@@ -12,7 +12,7 @@ spq_head(query, n = 5)
 \item{n}{the maximum number of lines to return (defaults to 5)}
 }
 \description{
-Builds the "limit" part of a query.
+Return the first lines of results
 }
 \examples{
 add_triplets(s="?item",v="wdt:P31",o="wd:Q5",label="?item") \%>\%

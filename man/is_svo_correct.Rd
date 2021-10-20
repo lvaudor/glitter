@@ -10,5 +10,9 @@ is_svo_correct(string)
 checks whether subject/verb/object is stated correctly
 }
 \examples{
-glitter:::is_svo_correct("elem")
+glitter:::is_svo_correct("elem") #FALSE
+glitter:::is_svo_correct("a") #TRUE
+glitter:::is_svo_correct("is") #TRUE
+glitter:::is_svo_correct("'0000000121012885'") #TRUE
+glitter:::is_svo_correct(".") #TRUE
 }

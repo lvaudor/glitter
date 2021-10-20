@@ -2,12 +2,15 @@
 % Please edit documentation in R/utils-str.R
 \name{is_variable}
 \alias{is_variable}
-\title{checks whether subject/object is a variable}
+\title{checks whether element is a variable ("?...")}
 \usage{
 is_variable(string)
 }
+\arguments{
+\item{string}{a string}
+}
 \description{
-checks whether subject/object is a variable
+checks whether element is a variable ("?...")
 }
 \examples{
 glitter:::is_svo_correct("elem")

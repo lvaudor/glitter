@@ -1,0 +1,245 @@
+---
+title: "glitter for dataBNF"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{glitter for dataBNF}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo = TRUE, message=FALSE, warning=FALSE
+)
+```
+
+```{r setup}
+#remotes::install_github("lvaudor/glitter")
+library(glitter)
+```
+
+Cette vignette reprend l'ensemble des exemples proposés sur [le SPARQL endpoint de la BNF](https://data.bnf.fr/sparql/) et les "traduit" en commandes `glitter` pour que les utilisateurs de R puissent les exécuter directement depuis R.
+
+Pour limiter la taille et le temps d'exécution de cette vignette chaque jeu de données en résultat et limité à 10 lignes maximum à l'aide de `spq_head(n=10)`.
+
+# Explorer les données
+
+```{r explordata}
+tib=spq_init() %>% 
+  add_triplets("?s ?p ?o") %>% 
+  spq_head(10) %>% 
+  send(endpoint="dataBNF")
+
+knitr::kable(tib)
+```
+
+# Dates biographiques d'un auteur
+
+```{r dates_biog}
+tib=spq_init() %>% 
+  add_triplets("?auteur foaf:birthday ?jour") %>% 
+  add_triplets("?auteur bio:birth ?date1") %>% 
+  add_triplets("?auteur bio:death ?date2") %>% 
+  add_triplets("?auteur foaf:name ?nom", required=FALSE) %>% 
+  spq_arrange("?jour") %>% 
+  spq_prefix() %>% 
+  spq_head(n=10) %>% 
+  send(endpoint="dataBNF")
+
+knitr::kable(tib)
+```
+
+# Toutes les éditions de l'oeuvre Les Fleurs du Mal de Baudelaire
+
+```{r fleurs_du_mal}
+tib=spq_init() %>% 
+  add_triplets("<http://data.bnf.fr/ark:/12148/cb11947965f> foaf:focus ?Oeuvre") %>% 
+  add_triplets("?edition rdarelationships:workManifested ?Oeuvre") %>% 
+  add_triplets("?edition dcterms:date ?date", required=FALSE) %>% 
+  add_triplets("?edition dcterms:title ?titre") %>% 
+  add_triplets("?edition dcterms:publisher ?editeur") %>% 
+  spq_head(n=10) %>% 
+  spq_prefix() %>% 
+  send("dataBNF")
+
+
+knitr::kable(tib)
+```
+
+# Lien à un document numérisé dans Galliga
+
+```{r doc_num_gallica}
+tib=spq_init() %>% 
+  add_triplets("<http://data.bnf.fr/ark:/12148/cb42712156j#about> rdarelationships:electronicReproduction ?URLGallica") %>% 
+  add_triplets("<http://data.bnf.fr/ark:/12148/cb42712156j#about> dcterms:title ?title") %>% 
+  spq_prefix() %>%
+  send(endpoint="dataBNF")
+
+knitr::kable(tib)
+```
+
+# Expositions virtuelles de la BNF
+
+
+```{r expo_virtuelles_bnf}
+tib=spq_init() %>% 
+  add_triplets("?exposition a <http://data.bnf.fr/ontology/bnf-onto/ExpositionVirtuelle>") %>% 
+  add_triplets("?exposition dcterms:title ?titre") %>% 
+  add_triplets("?exposition dcterms:subject ?sujet") %>% 
+  spq_head(n=30) %>% 
+  send(endpoint="dataBNF")
+
+knitr::kable(tib)
+```
+
+# Retrouver un nom de personne à partir d'un ISNI
+
+```{r nom_from_isni}
+tib=spq_init() %>% 
+  add_triplets("?person isni:identifierValid '0000000121012885'") %>% 
+  add_triplets("?person foaf:focus ?identity") %>% 
+  add_triplets("?identity foaf:familyName ?nom") %>% 
+  add_triplets("?identity foaf:givenName ?prenom") %>% 
+  send(endpoint="dataBNF")
+
+knitr::kable(tib)
+```
+
+
+# Identifiant ARK d'une notice à partir du numéro FRBNF
+
+```{r ark_from_frbnf}
+tib=spq_init() %>% 
+  add_triplets(t="?pidArk bnf-onto:FRBNF '11992081'^^xsd:integer") %>% 
+  spq_head(n=10) %>% 
+  send(e="dataBNF")
+
+knitr::kable(tib)
+```
+
+# Retrouver une oeuvre à partir d'un ISBN
+
+```{r oeuvre_from_isbn}
+tib=spq_init() %>% 
+  add_triplets("?work rdfs:label ?title") %>% 
+  add_triplets("?work dcterms:creator ?creator") %>% 
+  add_triplets("?manifestation bnf-onto:isbn '2-7028-4777-3'") %>% 
+  add_triplets("?manifestation rdarelationships:workManifested ?work") %>% 
+  add_triplets("?creator foaf:name ?name") %>% 
+  spq_head(n=10) %>% 
+  send(e="dataBNF")
+
+knitr::kable(tib)
+```
+
+# Tous les auteurs morts avant 1924
+
+```{r auteurs_morts_avant_1024}
+tib=spq_init() %>% 
+  add_triplets("?oeuvre dcterms:creator ?auteur") %>% 
+  add_triplets("?auteur bio:death ?mort") %>% 
+  add_triplets("?auteur foaf:familyName ?nom") %>%
+  spq_filter("xsd:integer(?mort)<'1924'^^xsd:integer") %>% 
+  spq_group_by(c("?auteur","?nom","?mort")) %>% 
+  spq_arrange("desc(xsd:integer(?mort))") %>% 
+  spq_head(n=10) %>% 
+  send(e="dataBNF")
+
+knitr::kable(tib)
+```
+
+# Images dans data.bnf.fr
+
+```{r images_databnf}
+tib=add_triplets(t="?image dcterms:type <http://purl.org/dc/dcmitype/StillImage>") %>%
+  spq_head(n=10) %>% 
+  send(e="dataBNF")
+
+knitr::kable(tib)
+```
+
+
+# Ouvrages adaptés pour la jeunesse
+
+```{r ouvrages_jeunesse}
+tib=spq_init() %>% 
+  add_triplets("?manifestation bnf-onto:ouvrageJeunesse 'true'^^xsd:boolean") %>% 
+  add_triplets(". rdarelationships:workManifested ?oeuvre") %>% 
+  add_triplets(". rdfs:seeAlso ?uri") %>% 
+  spq_group_by(c("?uri","?oeuvre")) %>% 
+  spq_head(n=10) %>% 
+  send(e="dataBNF")
+
+knitr::kable(tib)
+```
+
+# Portraits d'auteur, issus de Gallica
+
+```{r}
+tib=spq_init() %>% 
+  add_triplets("?auteur rdf:type skos:Concept") %>% 
+  add_triplets(". foaf:focus ?person") %>% 
+  add_triplets("?doc rdarelationships:electronicReproduction ?url") %>% 
+  add_triplets(". dcterms:subject ?auteur") %>% 
+  add_triplets(". dcterms:subject <http://data.bnf.fr/ark:/12148/cb11932843f>") %>% 
+  spq_head(n=10) %>% 
+  spq_group_by(c("?auteur","?url")) %>% 
+  send(e="dataBNF")
+
+knitr::kable(tib)
+```
+
+# Termes spécifiques d'un sujet (RAMEAU)
+
+```{r}
+tib=spq_init() %>% 
+  add_triplets("?sujet1 skos:prefLabel ?label") %>% 
+  add_triplets(". skos:narrower ?uri2") %>% 
+  add_triplets("?uri2 skos:prefLabel ?label2") %>% 
+  add_triplets("?uri2 skos:narrower ?uri3", required=FALSE) %>% 
+  add_triplets("?uri3 skos:prefLabel ?label3", required=FALSE) %>% 
+  spq_head(n=10) %>% 
+  send(e="dataBNF")
+
+knitr::kable(tib)
+```
+
+# Sujets RAMEAU de type nom commun
+
+```{r}
+tib=spq_init() %>% 
+  add_triplets("?sujet dcterms:isPartOf <http://data.bnf.fr/vocabulary/rameau/r166>") %>% 
+  add_triplets(". skos:prefLabel ?label") %>% 
+  spq_head(n=10) %>% 
+  send(e="dataBNF")
+
+knitr::kable(tib)
+```
+
+# Alignement entre les sujets RAMEAU et lieux
+
+```{r rameau_et_lieux}
+tib=spq_init() %>% 
+  add_triplets("?c a <http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing>") %>% 
+  add_triplets("?lieu foaf:focus ?c") %>% 
+  add_triplets("?lieu skos:closeMatch ?concept") %>% 
+  spq_group_by(c("?lieu","?concept","?c")) %>% 
+  spq_head(n=100) %>% 
+  send(e="dataBNF")
+
+knitr::kable(tib)
+```
+
+# Liens vers wikipedia pour les auteurs
+
+```{r}
+tib=spq_init() %>% 
+  add_triplets("?ConceptA foaf:focus ?auteur") %>% 
+  add_triplets("?oeuvre dcterms:creator ?auteur") %>% 
+  add_triplets("?ConceptA rdfs:seeAlso ?wikipedia") %>% 
+  spq_filter("regex(?wikipedia,'wikipedia')") %>% 
+  spq_head(n=10) %>% 
+  send(e="dataBNF")
+```

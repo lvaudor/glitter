@@ -2,7 +2,7 @@
 % Please edit documentation in R/spq_arrange.R
 \name{spq_arrange}
 \alias{spq_arrange}
-\title{Builds the "order by" part of a query.}
+\title{Arrange results by variable value}
 \usage{
 spq_arrange(query, vars)
 }
@@ -12,7 +12,7 @@ spq_arrange(query, vars)
 \item{vars}{variables by which to arrange}
 }
 \description{
-Builds the "order by" part of a query.
+Arrange results by variable value
 }
 \examples{
 add_triplets(s="?item",v="wdt:P31",o="wd:Q5",label="?item") \%>\%

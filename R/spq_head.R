@@ -1,4 +1,4 @@
-#' Builds the "limit" part of a query.
+#' Return the first lines of results
 #' @param query a list with elements of the query
 #' @param n the maximum number of lines to return (defaults to 5)
 #' @export

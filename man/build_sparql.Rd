@@ -2,17 +2,17 @@
 % Please edit documentation in R/build_sparql.R
 \name{build_sparql}
 \alias{build_sparql}
-\title{Assemble query parts into a query.}
+\title{Assemble query parts into a proper SPARQL query}
 \usage{
-build_sparql(query_parts, endpoint = "Wikidata")
+build_sparql(query, endpoint = "Wikidata")
 }
 \arguments{
-\item{query_parts}{a list with elements of the query}
+\item{query}{a list with elements of the query}
 
 \item{endpoint}{SPARQL endpoint to send the query to}
 }
 \description{
-Assemble query parts into a query.
+Assemble query parts into a proper SPARQL query
 }
 \examples{
 add_triplets(subject="?city",verb="wdt:P31",object="wd:Q515") \%>\%

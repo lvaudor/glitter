@@ -1,4 +1,4 @@
-#' Builds the "select" part of a query.
+#' Group the results by one or more variables
 #' @param query a list with elements of the query
 #' @param vars a vector with the names of the variables used for grouping
 #' @export

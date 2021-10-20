@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_triplets.R
 \name{add_triplets}
 \alias{add_triplets}
-\title{Compose query parts for triplets with subject verb object.}
+\title{Add a triplet statement to a query}
 \usage{
 add_triplets(
   query = NULL,
@@ -42,7 +42,7 @@ The center can also be provided as a variable (for instance, "?location") for th
 \item{language}{the language in which the labels will be provided (defaults to "en" for English)}
 }
 \description{
-Compose query parts for triplets with subject verb object.
+Add a triplet statement to a query
 }
 \examples{
 # find the cities

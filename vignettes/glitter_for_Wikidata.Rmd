@@ -82,8 +82,9 @@ Property "wdt:P31" should enable us to collect only stations ("wd:Q928830") inst
 We can enrich and refine our query incrementally with `add_triplets()` before sending it (whereas `get_triplets()` was a shortcut to build and send simple requests) :
 
 ```{r}
-stations_metro_Lyon=add_triplets(t="?stations wdt:P361 wd:Q1552", label="?stations") %>% 
-  add_triplets(t="?stations wdt:P31 wd:Q928830") %>% 
+stations_metro_Lyon=spq_init() %>% 
+  add_triplets("?stations wdt:P361 wd:Q1552", label="?stations") %>% 
+  add_triplets("?stations wdt:P31 wd:Q928830") %>% 
   send()
 head(stations_metro_Lyon)
 ```
@@ -93,9 +94,10 @@ We now get 42 stations that are part of the Lyon metro network.
 If we wanted to get other properties and associated values for these stations (for instance their location ("wdt:P625")) we could proceed this way:
 
 ```{r}
-stations_metro_Lyon=add_triplets(t="?stations wdt:P361 wd:Q1552", label="?stations") %>% 
-  add_triplets(t="?stations wdt:P31 wd:Q928830") %>% 
-  add_triplets(t="?stations wdt:P625 ?coords") %>% 
+stations_metro_Lyon=spq_init() %>% 
+  add_triplets("?stations wdt:P361 wd:Q1552", label="?stations") %>% 
+  add_triplets("?stations wdt:P31 wd:Q928830") %>% 
+  add_triplets("?stations wdt:P625 ?coords") %>% 
   send()
 head(stations_metro_Lyon)
 ```

@@ -1,4 +1,4 @@
-#' Builds the "select" part of a query.
+#' Create and modify variables in the results
 #' @param query a list with elements of the query
 #' @param name name of variable
 #' @param description formula

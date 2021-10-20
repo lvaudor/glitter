@@ -1,4 +1,4 @@
-#' Builds the "prefixes" part of a query.
+#' Add prefixes to the query
 #' @param query a list with elements of the query
 #' @param prefixes a vector of prefixes
 #' @export
@@ -11,7 +11,8 @@ spq_prefix=function(query=NULL,auto=TRUE, prefixes=NULL){
   }
   if(auto==TRUE){
     prefixes_auto=usual_prefixes %>%
-      filter(name %in% (query$prefixed %>% str_extract("^.*(?=:)")))
+      filter(name %in% (query$prefixed %>% str_extract("^.*(?=:)"))) %>%
+      filter(type!="Wikidata")
     prefixes=bind_rows(prefixes,prefixes_auto)
   }
   prefixes=prefixes %>%

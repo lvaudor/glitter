@@ -2,9 +2,9 @@
 % Please edit documentation in R/spq_prefix.R
 \name{spq_prefix}
 \alias{spq_prefix}
-\title{Builds the "prefixes" part of a query.}
+\title{Add prefixes to the query}
 \usage{
-spq_prefix(query = NULL, prefixes = NULL)
+spq_prefix(query = NULL, auto = TRUE, prefixes = NULL)
 }
 \arguments{
 \item{query}{a list with elements of the query}
@@ -12,5 +12,5 @@ spq_prefix(query = NULL, prefixes = NULL)
 \item{prefixes}{a vector of prefixes}
 }
 \description{
-Builds the "prefixes" part of a query.
+Add prefixes to the query
 }

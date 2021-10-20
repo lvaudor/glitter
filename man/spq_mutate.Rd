@@ -2,7 +2,7 @@
 % Please edit documentation in R/spq_mutate.R
 \name{spq_mutate}
 \alias{spq_mutate}
-\title{Builds the "select" part of a query.}
+\title{Create and modify variables in the results}
 \usage{
 spq_mutate(query, vars)
 }
@@ -14,7 +14,7 @@ spq_mutate(query, vars)
 \item{description}{formula}
 }
 \description{
-Builds the "select" part of a query.
+Create and modify variables in the results
 }
 \examples{
 # common name of a plant species in different languages

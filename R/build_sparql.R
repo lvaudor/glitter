@@ -1,4 +1,4 @@
-#' Assemble query parts into a query.
+#' Assemble query parts into a proper SPARQL query
 #' @param query a list with elements of the query
 #' @param endpoint SPARQL endpoint to send the query to
 #' @export
@@ -16,7 +16,7 @@ build_sparql=function(query,endpoint="Wikidata"){
 
   # are prefixes correct and do they correspond to provided prefixes?
   purrr::map_lgl(query$prefixed,
-                 glitter:::is_prefix_correct,
+                 glitter:::is_prefix_known,
                  prefixes=query$prefixes,
                  endpoint=endpoint)
   # prefixes

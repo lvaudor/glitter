@@ -1,5 +1,5 @@
-#' checks whether subject/object is a variable
-#' @param string
+#' Checks whether element is a variable ("?...")
+#' @param string a string
 #' @examples
 #' glitter:::is_svo_correct("elem")
 is_variable=function(string){
@@ -7,8 +7,8 @@ is_variable=function(string){
   if(stringr::str_sub(string,1,1)=="?"){return(TRUE)}else{return(FALSE)}
 }
 
-#' checks whether subject/verb/object is an item
-#' @param string
+#' Checks whether element is prefixed ("prefix::id")
+#' @param string a string
 #' @examples
 #' glitter:::is_prefixed("elem") #returns FALSE
 #' glitter:::is_prefixed("wd:Q456") #returns TRUE
@@ -21,8 +21,8 @@ is_prefixed=function(string){
   return(FALSE)
 }
 
-#' checks whether string is a url
-#' @param string
+#' Checks whether element is a url ("<http_blah_>")
+#' @param string a string
 #' @examples
 #' is_url("<http://qsdqsdfqsdfqs.html>")
 is_url=function(string){
@@ -30,9 +30,7 @@ is_url=function(string){
   return(FALSE)
 }
 
-
-
-#' checks whether string is a value
+#' Checks whether element is a value ("'blah'" or '"blah"')
 #' @param string
 #' @examples
 #' glitter:::is_value("'blabla'") #TRUE
@@ -44,30 +42,13 @@ is_value=function(string){
   return(FALSE)
 }
 
-#' transforms paths into uris
+
+#' Checks whether the element has a known prefix
 #' @param string
 #' @examples
-#' glitter:::keep_prefixed("wdt:P31/wdt:P279*") # wdt:P31 wdt:P279*
-#' glitter:::keep_prefixed("?item") # NULL
-#' glitter:::keep_prefixed("<http://qdsfqsdfqsfqsdf.html>") # NULL
-#' glitter:::keep_prefixed("wd:P343") # "wd:P343"
-#' glitter:::keep_prefixed("'11992081'^^xsd:integer") # xsd:integer
-keep_prefixed=function(string){
-  if(is_prefixed(string)){
-    prefixed=string
-    if(stringr::str_detect(string,"\\/")){
-      prefixed=stringr::str_split(string,"\\/") %>% unlist()
-    }
-    prefixed=stringr::str_extract(prefixed,
-                                  "[^\\^]*$")
-  }else{
-    prefixed=NULL
-  }
-  return(prefixed)
-}
-
-
-is_prefix_correct=function(string,prefixes="",endpoint="Wikidata"){
+#' glitter:::is_prefix_known("wd:Q343",endpoint="Wikidata") # TRUE
+#' #glitter:::is_prefix_known("blop:blabla",endpoint="other", prefixes=usual_prefixes) #returns error message
+is_prefix_known=function(string,prefixes="",endpoint="Wikidata"){
   if(endpoint=="Wikidata"){
     prefixes=usual_prefixes %>% filter(type=="Wikidata")
   }
@@ -96,7 +77,7 @@ as_values=function(string){
 }
 
 
-#' checks whether subject/verb/object is stated correctly
+#' Checks whether subject/verb/object is stated correctly
 #' @param string
 #' @examples
 #' glitter:::is_svo_correct("elem") #FALSE
@@ -113,4 +94,27 @@ is_svo_correct=function(string){
   return(FALSE)
 }
 
-#add_triplets(t="?item wdt:P31 wd:Q11424")
+
+
+#' keep only prefixed elements and decompose paths
+#' @param string
+#' @examples
+#' glitter:::keep_prefixed("wdt:P31/wdt:P279*") # wdt:P31 wdt:P279*
+#' glitter:::keep_prefixed("?item") # NULL
+#' glitter:::keep_prefixed("<http://qdsfqsdfqsfqsdf.html>") # NULL
+#' glitter:::keep_prefixed("wd:P343") # "wd:P343"
+#' glitter:::keep_prefixed("'11992081'^^xsd:integer") # xsd:integer
+keep_prefixed=function(string){
+  if(is_prefixed(string)){
+    prefixed=string
+    if(stringr::str_detect(string,"\\/")){
+      prefixed=stringr::str_split(string,"\\/") %>% unlist()
+    }
+    prefixed=stringr::str_extract(prefixed,
+                                  "[^\\^]*$")
+  }else{
+    prefixed=NULL
+  }
+  return(prefixed)
+}
+

@@ -2,7 +2,7 @@
 % Please edit documentation in R/spq_summarise.R
 \name{spq_summarise}
 \alias{spq_summarise}
-\title{Builds the "select" part of a query.}
+\title{Summarise each group of results to fewer results}
 \usage{
 spq_summarise(query, vars)
 }
@@ -12,13 +12,14 @@ spq_summarise(query, vars)
 \item{vars}{a vector with the names of the variables used for grouping}
 }
 \description{
-Builds the "select" part of a query.
+Summarise each group of results to fewer results
 }
 \examples{
-add_triplets(s="?item",v="wdt:P361",o="wd:Q297853") \%>\%
-add_triplets(s="?item",v="wdt:P1082",o="?folkm_ngd") \%>\%
-add_triplets(s="?area",v="wdt:P31",o="wd:Q1907114",label="?area") \%>\%
-add_triplets(s="?area",v="wdt:P527",o="?item") \%>\%
+result=spq_init() \%>\%
+add_triplets("?item wdt:P361 wd:Q297853") \%>\%
+add_triplets("?item wdt:P1082 ?folkm_ngd") \%>\%
+add_triplets("?area wdt:P31 wd:Q1907114",label="?area") \%>\%
+add_triplets("?area wdt:P527 ?item") \%>\%
 spq_group_by(c("?area","?areaLabel")) \%>\%
 spq_summarise(c("?total_folkm"="sum(?folkm_ngd)")) \%>\%
 send()
