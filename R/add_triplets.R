@@ -1,4 +1,4 @@
-#' Compose query parts for triplets with subject verb object.
+#' Add a triplet statement to a query
 #' @param triplet the triplet statement (replaces arguments subject verb and object)
 #' @param subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))
 #' @param verb the property (for instance "wdt:P190")
@@ -50,19 +50,9 @@ add_triplets=function(query=NULL,
   elts=decompose_triplet(triplet=triplet,subject=subject,verb=verb,object=object)
   if(elts[1]=="."){elts[1]=query$previous_subject}
 
-  if(is.null(query)){
-    query=list(prefixes=tibble(name=NULL,url=NULL),
-               prefixed=NULL,
-               previous_subject=NULL,
-               select=NULL,
-               body="",
-               service="",
-               filter="",
-               limit="",
-               group_by="",
-               order_by="")
-  }
-  # previous subject
+  if(is.null(query)){query=spq_init()}
+
+    # previous subject
   query$previous_subject=elts[1]$subject
   # prefixed elements
   velts=unlist(elts) %>% unname()

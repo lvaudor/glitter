@@ -10,7 +10,7 @@
 build_part_body=function(query=NA,subject,verb,object,required=TRUE,
                          within_box=c(NA,NA),within_distance=c(NA,NA)){
 
-  if(!is.null(query)){part_body=query$body}else{part_body=""}
+  part_body=query$body
 
   if(verb=="is"){
     # if the triplet is not a regular RDF triplet but a statement of the type
