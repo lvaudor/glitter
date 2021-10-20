@@ -6,7 +6,7 @@
 decompose_triplet=function(triplet, subject,verb,object){
   # decompose triplet if necessary: get three elements subject-verb-object as a list
   if(!is.null(triplet)){
-    elements=stringr::str_split(triplet,"\\s") %>% unlist()
+    elements=stringr::str_split(triplet,"\\s+") %>% unlist()
     elements=list(subject=elements[1],
                   verb=elements[2],
                   object=elements[3])
@@ -18,7 +18,7 @@ decompose_triplet=function(triplet, subject,verb,object){
   # tests for syntax error in subject verb and object
   elements_correct=purrr::map_lgl(elements,is_svo_correct)
   if(!all(elements_correct)){
-      stop("At least one element among subject, verb or object is incorrectly stated.")
+      stop(glue::glue("Element {elements[!elements_correct][1]} is incorrectly stated."))
   }
   return(elements)
 }
