@@ -48,10 +48,12 @@ add_triplets=function(query=NULL,
                       language="en"){
 
   elts=decompose_triplet(triplet=triplet,subject=subject,verb=verb,object=object)
+  if(elts[1]=="."){elts[1]=query$previous_subject}
 
   if(is.null(query)){
     query=list(prefixes=tibble(name=NULL,url=NULL),
-               uris=NULL,
+               prefixed=NULL,
+               previous_subject=NULL,
                select=NULL,
                body="",
                service="",
@@ -60,10 +62,11 @@ add_triplets=function(query=NULL,
                group_by="",
                order_by="")
   }
-
-  # uris
+  # previous subject
+  query$previous_subject=elts[1]$subject
+  # prefixed elements
   velts=unlist(elts) %>% unname()
-  query$uris=unique(c(query$uris,purrr::map(velts,as_uri) %>% unlist()))
+  query$prefixed=unique(c(query$prefixed,purrr::map(velts,keep_prefixed) %>% unlist()))
   # select
   query$select=build_part_select(query,
                                  elts$subject,elts$verb,elts$object,
