@@ -1,8 +1,8 @@
 ---
-title: "glitter for Wikidata"
+title: "glitter"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{glitter for Wikidata}
+  %\VignetteIndexEntry{glitter}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -23,6 +23,8 @@ if(!require("glitter")) remotes::install_github("lvaudor/glitter")
 library(glitter)
 ```
 
+This first vignette shows how to use `glitter` to extract data from the **Wikidata SPARQL endpoint**.
+
 
 # Find items and properties to build your query
 
@@ -31,7 +33,7 @@ To find the identifiers of items and properties of interest, you can:
 - browse [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) 
 - use package `WikidataR` (functions `find_item()`,`find_property()`).
 
-Then `recitR` functions might be used to start exploring data.
+Then `glitter` functions might be used to start exploring data.
 
 # Example 1: Lyon Metro
 
@@ -69,7 +71,7 @@ parts_metro_Lyon %>% head()
 
 For now, we get 50 items, not only stations but also other types of items such as metro lines. Let's have a look at the item "Place Guichard - Bourse du Travail" (Q59855) which we know correspond to a station.
 
-The function `get_claims()` of package `recitR` enables you to see all the direct wikidata properties (and their values) based on an item's id. 
+The function `get_claims()` of package `glitter` enables you to see all the direct wikidata properties (and their values) based on an item's id. 
 
 ```{r}
 get_claims("wd:Q599865")
@@ -106,7 +108,7 @@ plot(stations_metro_Lyon.shp$coords)
 ```
 
 
-`recitR` provides functions to clean and transform "raw" Wikidata tibbles into tibbles that are easier to use in R.
+`glitter` provides functions to clean and transform "raw" Wikidata tibbles into tibbles that are easier to use in R.
 
 Function `clean_wikidata_table()` lightens some columns with wikidata-formatted URIs:
 
