@@ -1,0 +1,15 @@
+reference:
+- title: "Main functions"
+  desc: "These are the core functions of the glitter package."
+- contents:
+  - add_triplets
+  - spq_init()
+  - send()
+- title: "General handling of query"
+  desc: "These functions apply to the query before it is sent to the SPARQL endpoint."
+- contents:
+  - starts_with("spq")
+- title: "Syntax auxiliaries"
+  desc: "These functions help translate R syntax into SPARQL language"
+- contents:
+  - starts_with("is_")

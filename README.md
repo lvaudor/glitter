@@ -1,4 +1,4 @@
-# glitter
+# glitter <img src="man/figures/logo_small.png" align="right"/>
 
 `glitter` makes SPARQL...
 
