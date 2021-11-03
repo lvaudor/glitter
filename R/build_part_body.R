@@ -12,9 +12,9 @@ build_part_body=function(query=NA,subject,verb,object,required=TRUE,
 
   part_body=query$body
 
-  if(verb=="is"){
+  if(verb %in% c(".","a","is","==","%in%")){
     # if the triplet is not a regular RDF triplet but a statement of the type
-    # subject is any of the objects (where objects is obj1|obj2|obj3)
+    # subject is any of the objects
     values=paste(as_values(object),collapse="\n")
     new_triplet=glue::glue("VALUES {{subject}}{\n{{values}}\n}",
                            .open="{{",.close="}}")
