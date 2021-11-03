@@ -6,9 +6,12 @@
 \usage{
 as_values(string)
 }
+\arguments{
+\item{string}{a string}
+}
 \description{
 transforms subject-verb-object arguments into a vector of values if needed
 }
 \examples{
-object="wd:Q456|wd:Q23482"
+object="{c(wd:Q456,wd:Q23482)}"
 }
