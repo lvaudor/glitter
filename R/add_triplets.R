@@ -25,6 +25,7 @@
 #' send()
 #'
 #' # find the individuals of the species
+#' spq_init() %>%
 #' add_triplets(t="?mayor wdt:P31 ?species") %>%
 #' # dog, cat or chicken
 #' add_triplets(t="?species %in% c('wd:144','wd:146', 'wd:780')") %>%
@@ -52,7 +53,7 @@ add_triplets=function(query=NULL,
 
   if(is.null(query)){query=spq_init()}
 
-    # previous subject
+  # previous subject
   query$previous_subject=elts[1]$subject
   # prefixed elements
   velts=unlist(elts) %>% unname()
