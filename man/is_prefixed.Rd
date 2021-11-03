@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-str.R
 \name{is_prefixed}
 \alias{is_prefixed}
-\title{checks whether element is prefixed ("prefix::id")}
+\title{Checks whether element is prefixed ("prefix::id")}
 \usage{
 is_prefixed(string)
 }
@@ -10,7 +10,7 @@ is_prefixed(string)
 \item{string}{a string}
 }
 \description{
-checks whether element is prefixed ("prefix::id")
+Checks whether element is prefixed ("prefix::id")
 }
 \examples{
 glitter:::is_prefixed("elem") #returns FALSE

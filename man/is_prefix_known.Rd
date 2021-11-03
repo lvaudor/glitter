@@ -2,12 +2,15 @@
 % Please edit documentation in R/utils-str.R
 \name{is_prefix_known}
 \alias{is_prefix_known}
-\title{checks whether the element has a known prefix}
+\title{Checks whether the element has a known prefix}
 \usage{
 is_prefix_known(string, prefixes = "", endpoint = "Wikidata")
 }
+\arguments{
+\item{string}{a string}
+}
 \description{
-checks whether the element has a known prefix
+Checks whether the element has a known prefix
 }
 \examples{
 glitter:::is_prefix_known("wd:Q343",endpoint="Wikidata") # TRUE

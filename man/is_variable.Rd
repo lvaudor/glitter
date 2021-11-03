@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-str.R
 \name{is_variable}
 \alias{is_variable}
-\title{checks whether element is a variable ("?...")}
+\title{Checks whether element is a variable ("?...")}
 \usage{
 is_variable(string)
 }
@@ -10,7 +10,7 @@ is_variable(string)
 \item{string}{a string}
 }
 \description{
-checks whether element is a variable ("?...")
+Checks whether element is a variable ("?...")
 }
 \examples{
 glitter:::is_svo_correct("elem")

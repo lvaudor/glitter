@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-str.R
 \name{is_url}
 \alias{is_url}
-\title{checks whether element is a url ("<http_blah_>")}
+\title{Checks whether element is a url ("<http_blah_>")}
 \usage{
 is_url(string)
 }
@@ -10,7 +10,7 @@ is_url(string)
 \item{string}{a string}
 }
 \description{
-checks whether element is a url ("<http_blah_>")
+Checks whether element is a url ("<http_blah_>")
 }
 \examples{
 is_url("<http://qsdqsdfqsdfqs.html>")

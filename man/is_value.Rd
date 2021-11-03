@@ -2,12 +2,15 @@
 % Please edit documentation in R/utils-str.R
 \name{is_value}
 \alias{is_value}
-\title{checks whether element is a value ("'blah'" or '"blah"')}
+\title{Checks whether element is a value ("'blah'" or '"blah"')}
 \usage{
 is_value(string)
 }
+\arguments{
+\item{string}{a string}
+}
 \description{
-checks whether element is a value ("'blah'" or '"blah"')
+Checks whether element is a value ("'blah'" or '"blah"')
 }
 \examples{
 glitter:::is_value("'blabla'") #TRUE

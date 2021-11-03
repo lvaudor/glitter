@@ -6,6 +6,9 @@
 \usage{
 keep_prefixed(string)
 }
+\arguments{
+\item{string}{a string}
+}
 \description{
 keep only prefixed elements and decompose paths
 }
