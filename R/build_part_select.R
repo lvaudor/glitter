@@ -9,13 +9,16 @@ build_part_select=function(query=NULL,subject=NULL,verb=NULL,object=NULL,label=N
   part_select=query$select
 
   for(element in list(subject,verb,object)){
+    # when element is a variable, add it to SELECT list
     if(is_variable(element)){
       part_select=c(part_select, element)
+      # when ?xxx is mentioned in argument `label`, add ?xxxLabel
       if(element %in% label){
         part_select=c(part_select,paste0(element,"Label"))
       }
     }
   }
+  # return all selected variables (as a character vector)
   part_select=unique(part_select)
   return(part_select)
 }
