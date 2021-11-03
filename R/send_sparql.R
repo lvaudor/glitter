@@ -13,21 +13,39 @@
 #''
 #'send_sparql(query=metro_query)
 send_sparql=function(query,endpoint="Wikidata"){
-  if(tolower(endpoint)=="wikidata"){
+  endpoint=tolower(endpoint)
+  endpoints=tibble::tibble(name=c("databnf",
+                                  "symogih",
+                                  "isidore",
+                                  "hal"),
+                           url=c("https://data.bnf.fr/sparql",
+                                 "http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql",
+                                 "https://isidore.science/sparql",
+                                 "http://sparql.archives-ouvertes.fr/sparql"))
+  # if endpoint wikidata, use WikidataQueryServiceR::query_wikidata()
+  if(endpoint=="wikidata"){
     tib <- quietly(WikidataQueryServiceR::query_wikidata)(query)$result
   }
-  if(tolower(endpoint)=="databnf"){
-    tib <- SPARQL::SPARQL(url="https://data.bnf.fr/sparql",
+  # else, use SPARQL::SPARQL()
+  # if endpoint passed as name, get url
+  if(endpoint %in% endpoints$name){
+    url=endpoints %>%
+      dplyr::filter(name==endpoint) %>%
+      dplyr::select(url) %>%
+      pull()
+    tib <- SPARQL::SPARQL(url=url,
                           query=query,
                           curl_args=list(useragent='User Agent Example'))
     tib <- tib$results
   }
-  if(tolower(endpoint)=="symogih"){
-    tib <- SPARQL::SPARQL(url="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql",
+  # else, endpoint must be passed as url
+  if(!(endpoint %in% c("wikidata",endpoints$name))){
+    tib <- SPARQL::SPARQL(url=endpoint,
                           query=query,
                           curl_args=list(useragent='User Agent Example'))
     tib <- tib$results
   }
+  # if returned table has 0 rows replace it with NULL (easier to bind with other results)
   if(nrow(tib)==0){tib=NULL}
   return(tib)
 }
