@@ -49,14 +49,12 @@ is_value=function(string){
 #' glitter:::is_prefix_known("wd:Q343",endpoint="Wikidata") # TRUE
 #' #glitter:::is_prefix_known("blop:blabla",endpoint="other", prefixes=usual_prefixes) #returns error message
 is_prefix_known=function(string,prefixes="",endpoint="Wikidata"){
-  if(endpoint=="Wikidata"){
-    prefixes=usual_prefixes %>% filter(type=="Wikidata")
-  }
+
   prefix=stringr::str_extract(string,"^.*(?=:)")
   if(stringr::str_detect(prefix,"^<http")){
     return(TRUE)
   }
-  if(!(prefix %in% prefixes$name)){
+  if(!(prefix %in% usual_prefixes$name)){
 
     stop(glue::glue("prefix {prefix} is not known. Please provide it through function spq_prefix()."))
   }

@@ -40,7 +40,8 @@ tib=spq_init() %>%
   add_triplets(". sym:hasKnowledgeUnitType ?KUTy") %>% 
   add_triplets("?KUTy rdfs:label ?KUTyLabel") %>% 
   spq_head(n=10) %>% 
-  send(e="SyMoGih")
+  send(e="symogih")
+  
 knitr::kable(tib)
 ```
 

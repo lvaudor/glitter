@@ -45,7 +45,7 @@ tib=spq_init() %>%
   add_triplets("?auteur foaf:name ?nom", required=FALSE) %>% 
   spq_arrange("?jour") %>% 
   spq_prefix() %>% 
-  spq_head(n=10) %>% 
+  spq_head(n=10) %>%
   send(endpoint="dataBNF")
 
 knitr::kable(tib)

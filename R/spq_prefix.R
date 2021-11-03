@@ -20,6 +20,7 @@ spq_prefix=function(query=NULL,auto=TRUE, prefixes=NULL){
     unique()
 
 
-  query$prefixes=bind_rows(query$prefixes,prefixes)
+  query$prefixes=bind_rows(query$prefixes,prefixes) %>%
+    unique()
   return(query)
 }
