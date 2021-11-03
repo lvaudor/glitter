@@ -15,9 +15,10 @@ spq_head(query, n = 5)
 Return the first lines of results
 }
 \examples{
-add_triplets(s="?item",v="wdt:P31",o="wd:Q5",label="?item") \%>\%
-add_triplets(s="?item",v="wdt:P19/wdt:P131*",o="wd:Q60") \%>\%
-add_triplets(s="?item",v="wikibase:sitelinks",o="?sitelinks") \%>\%
+spq_init() \%>\%
+add_triplets("?item wdt:P31 wd:Q5",label="?item") \%>\%
+add_triplets("?item wdt:P19/wdt:P131* wd:Q60") \%>\%
+add_triplets("?item wikibase:sitelinks ?sitelinks") \%>\%
 spq_arrange(c("DESC(?sitelinks)")) \%>\%
 spq_head(n=3) \%>\%
 send()
