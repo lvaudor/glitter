@@ -2,7 +2,7 @@
 % Please edit documentation in R/spq_group_by.R
 \name{spq_group_by}
 \alias{spq_group_by}
-\title{group the results by one or more variables}
+\title{Group the results by one or more variables}
 \usage{
 spq_group_by(query, vars)
 }
@@ -12,10 +12,11 @@ spq_group_by(query, vars)
 \item{vars}{a vector with the names of the variables used for grouping}
 }
 \description{
-group the results by one or more variables
+Group the results by one or more variables
 }
 \examples{
-add_triplets(t="?s a ?class") \%>\%
+spq_init() \%>\%
+add_triplets("?s a ?class") \%>\%
 spq_group_by("?class") \%>\%
 spq_head(n=3) \%>\%
 send()

@@ -4,8 +4,9 @@
 #' @export
 #' @examples
 #' # Corpus of articles with "wikidata" in the title
-#' add_triplets(t="?item wdt:P31 wd:Q13442814") %>%
-#' add_triplets(t="?item rdfs:label ?itemTitle") %>%
+#' spq_init() %>%
+#' add_triplets("?item wdt:P31 wd:Q13442814") %>%
+#' add_triplets("?item rdfs:label ?itemTitle") %>%
 #' spq_filter("CONTAINS(LCASE(?itemTitle),'wikidata')") %>%
 #' spq_filter("LANG(?itemTitle)='en'") %>%
 #' spq_head(n=5) %>%

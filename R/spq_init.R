@@ -1,6 +1,5 @@
 #' Initialize a query object.
 #' @export
-#' @example query_init()
 spq_init=function(){
     query=list(prefixes=tibble(name=NULL,url=NULL),
                prefixed=NULL,

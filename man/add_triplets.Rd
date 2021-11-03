@@ -46,24 +46,26 @@ Add a triplet statement to a query
 }
 \examples{
 # find the cities
-add_triplets(t="?city wdt:P31/wdt:P279* wd:Q515",label=c("?city")) \%>\%
+spq_init() \%>\%
+add_triplets("?city wdt:P31/wdt:P279* wd:Q515",label=c("?city")) \%>\%
 # and their populations
-add_triplets(t="?city wdt:P1082 ?pop", required=FALSE) \%>\%
+add_triplets("?city wdt:P1082 ?pop", required=FALSE) \%>\%
 # in a bounding box
-add_triplets(t="?city wdt:P625 ?coords",within_box=list(southwest=c(3,43),northeast=c(7,47))) \%>\%
+add_triplets("?city wdt:P625 ?coords",within_box=list(southwest=c(3,43),northeast=c(7,47))) \%>\%
 # limit to 10 lines
 spq_head(n=10) \%>\%
 send()
 
 # find the individuals of the species
-add_triplets(t="?mayor wdt:P31 ?species") \%>\%
+spq_init() \%>\%
+add_triplets("?mayor wdt:P31 ?species") \%>\%
 # dog, cat or chicken
-add_triplets(t="?species \%in\% c('wd:144','wd:146', 'wd:780')") \%>\%
+add_triplets("?species \%in\% {c('wd:144','wd:146', 'wd:780')}") \%>\%
 # who occupy the function
-add_triplets(t="?mayor p:P39 ?node") \%>\%
+add_triplets("?mayor p:P39 ?node") \%>\%
 # of mayor
-add_triplets(t="?node ps:P39 wd:Q30185") \%>\%
+add_triplets("?node ps:P39 wd:Q30185") \%>\%
 # of some places
-add_triplets(t="?node pq:P642 ?place") \%>\%
+add_triplets("?node pq:P642 ?place") \%>\%
 send()
 }
