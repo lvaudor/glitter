@@ -1,0 +1,111 @@
+---
+title: "glitter for SyMoGIH"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{glitter for SyMoGIH}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo = TRUE, message=FALSE, warning=FALSE
+)
+```
+
+```{r setup}
+#if (!require("sf")) install.packages("sf")
+if (!require("remotes")) install.packages("remotes")
+if(!require("glitter")) remotes::install_github("lvaudor/glitter")
+library(glitter)
+```
+
+## Rechercher toutes les informations impliquant l'objet "Mathématiques" (Objet abstrait):
+
+- la ressource r est associée à l'objet "Mathématiques (syr: Ab0b213)
+- la ressource r est une partie de i
+- i a une étiquette standard stLabel
+  + et une date standard stDate
+  + et un type KUTy
+- KUTy a pour étiquette KUTyLabel
+
+```{r ressources_maths}
+tib=spq_init() %>% 
+  add_triplets("?r sym:associatesObject syr:AbOb213") %>% 
+  add_triplets("?r sym:isComponentOf ?i") %>% 
+  add_triplets("?i sym:knowledgeUnitStandardLabel ?stLabel") %>% 
+  add_triplets(". sym:knowledgeUnitStandardDate ?stDate") %>% 
+  add_triplets(". sym:hasKnowledgeUnitType ?KUTy") %>% 
+  add_triplets("?KUTy rdfs:label ?KUTyLabel") %>% 
+  spq_head(n=10) %>% 
+  send(e="SyMoGih")
+knitr::kable(tib)
+```
+
+## Structure de la partie abstraite de l'ontologie
+
+```{r}
+tib=spq_init() %>% 
+  add_triplets("?s a ?cl") %>% 
+  add_triplets("?s ?p ?o1") %>% 
+  add_triplets("?o1 a ?cl1", required=FALSE) %>% 
+  spq_group_by(c("?cl","?p","?cl1")) %>% 
+  spq_head(n=10) %>% 
+  spq_summarise(c("?effectif"="COUNT(*)")) %>% 
+  spq_arrange(c("DESC(?effectif)")) %>% 
+  send(e="SyMoGIH")
+
+knitr::kable(tib)
+```
+
+## Structure de la partie instanciée de l'ontologie
+
+```{r}
+tib=spq_init() %>% 
+  add_triplets("?s sym:hasKnowledgeUnitType ?tyin") %>% 
+  add_triplets("?r sym:isComponentOf ?s") %>% 
+  add_triplets("?r sym:hasRoleType ?tyro") %>% 
+  spq_group_by(c("?tyin","?tyro")) %>% 
+  spq_summarise(c("?effectif"="COUNT(*)")) %>% 
+  spq_arrange(c("?tyin","?tyro","DESC(?effectif)")) %>% 
+  spq_head(n=10) %>% 
+  send(e="SyMoGIH")
+```
+
+## Types d'informations et types de rôles, avec effectifs
+
+
+```{r}
+tib=spq_init() %>% 
+  add_triplets("?s sym:hasKnowledgeUnitType ?tyin") %>% 
+  add_triplets("?r sym:isComponentOf ?s") %>% 
+  add_triplets("?r sym:hasRoleType ?tyro") %>% 
+  spq_group_by(c("?tyin","?tyro")) %>% 
+  spq_summarise(c("?effectif"="COUNT(*)")) %>% 
+  spq_arrange(c("?tyin","?tyro","?effectif")) %>% 
+  spq_head(n=10) %>% 
+  send(e="SyMoGIH") 
+
+knitr::kable(tib)
+```
+
+## Le parcours biographique de Gaston,Louis, Henry May (1849 - 1940)
+
+```{r}
+tib=spq_init() %>% 
+  add_triplets("?tyro rdfs:label ?TyRoLabel") %>% 
+  add_triplets("?tyin rdfs:label ?TyInLabel") %>% 
+  add_triplets("?s ?p syr:Actr56241") %>% 
+  add_triplets(". sym:isComponentOf ?info") %>% 
+  add_triplets(". sym:hasRoleType ?tyro") %>% 
+  add_triplets("?info sym:knowledgeUnitStandardLabel ?infoStandardLabel") %>% 
+  add_triplets(". sym:knowledgeUnitStandardDate ?infoStandardDate") %>% 
+  add_triplets(". sym:hasKnowledgeUnitType ?tyin") %>% 
+  spq_arrange("?infoStandardDate") %>% 
+  spq_head(n=10) %>% 
+  send(e="SyMoGIH")
+
+knitr::kable(tib)
+```

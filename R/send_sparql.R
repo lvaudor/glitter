@@ -13,11 +13,17 @@
 #''
 #'send_sparql(query=metro_query)
 send_sparql=function(query,endpoint="Wikidata"){
-  if(endpoint=="Wikidata"){
+  if(tolower(endpoint)=="wikidata"){
     tib <- quietly(WikidataQueryServiceR::query_wikidata)(query)$result
   }
-  if(endpoint=="dataBNF"){
+  if(tolower(endpoint)=="databnf"){
     tib <- SPARQL::SPARQL(url="https://data.bnf.fr/sparql",
+                          query=query,
+                          curl_args=list(useragent='User Agent Example'))
+    tib <- tib$results
+  }
+  if(tolower(endpoint)=="symogih"){
+    tib <- SPARQL::SPARQL(url="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql",
                           query=query,
                           curl_args=list(useragent='User Agent Example'))
     tib <- tib$results

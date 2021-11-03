@@ -2,12 +2,15 @@
 % Please edit documentation in R/utils-str.R
 \name{is_svo_correct}
 \alias{is_svo_correct}
-\title{checks whether subject/verb/object is stated correctly}
+\title{Checks whether subject/verb/object is stated correctly}
 \usage{
 is_svo_correct(string)
 }
+\arguments{
+\item{string}{a string}
+}
 \description{
-checks whether subject/verb/object is stated correctly
+Checks whether subject/verb/object is stated correctly
 }
 \examples{
 glitter:::is_svo_correct("elem") #FALSE
