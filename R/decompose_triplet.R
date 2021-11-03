@@ -6,6 +6,11 @@
 decompose_triplet=function(triplet, subject,verb,object){
   # decompose triplet if necessary: get three elements subject-verb-object as a list
   if(!is.null(triplet)){
+    # if triplet is subject==object then introduce spaces: subject == object
+    if(stringr::str_detect(triplet,"\\s*==\\s*")){
+      triplet=stringr::str_replace(triplet,"\\s*==\\s*"," == ")
+    }
+    # decompose triplet, splitting elements based on spaces
     elements=stringr::str_split(triplet,"\\s+") %>% unlist()
     elements=list(subject=elements[1],
                   verb=elements[2],
