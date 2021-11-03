@@ -6,12 +6,10 @@
 #' @param limit the max number of items sent back
 #' @param within_box if provided, rectangular bounding box for the triplet query. Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))
 #' @param within_distance if provided, circular bounding box for the triplet query. Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers. The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.
-#' @param keep_track element to add as a column in result to track which item the information refers to
 #' @export
 #' @examples
 #' get_triplets(s="wd:Q456",v="wdt:P625",o="?coords")
 #' get_triplets(t="wd:Q456 wdt:P625 ?coords")
-#' get_triplets("wd:Q456 wdt:P625 ?coords", keep_track="subject")
 get_triplets=function(triplet=NULL,
                       subject=NULL,
                       verb=NULL,
@@ -34,16 +32,5 @@ get_triplets=function(triplet=NULL,
   if(!is.na(limit)){query=query %>% spq_head(n=limit)}
 
   tib=query %>% send()
-  if(!is.na(keep_track)){
-    track = switch(keep_track,
-                   "subject"=subject,
-                   "object"=object,
-                   "verb"=verb)
-    if(is.null(tib)){
-      tib=tibble::tibble(tracking=NA)
-    }
-    tib=tib %>%
-      mutate(tracking=rep(track,nrow(tib)))
-  }
   return(tib)
 }
