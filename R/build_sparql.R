@@ -17,7 +17,7 @@ build_sparql=function(query,endpoint="Wikidata"){
   # are prefixes correct and do they correspond to provided prefixes?
   purrr::map_lgl(query$prefixed,
                  glitter:::is_prefix_known,
-                 prefixes=query$prefixes,
+                 prefixes=usual_prefixes,
                  endpoint=endpoint)
   # prefixes
   if(nrow(query$prefixes)>0){
