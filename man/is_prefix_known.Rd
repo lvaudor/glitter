@@ -4,7 +4,7 @@
 \alias{is_prefix_known}
 \title{Checks whether the element has a known prefix}
 \usage{
-is_prefix_known(string, prefixes = "", endpoint = "Wikidata")
+is_prefix_known(string, prefixes, endpoint = "Wikidata")
 }
 \arguments{
 \item{string}{a string}

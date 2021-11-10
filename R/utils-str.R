@@ -84,12 +84,22 @@ as_values=function(string){
   return(string)
 }
 
+#' interprets if element is an R code inclusion of the type {...}#' @param string a string
+#' @examples
+#' truc="0000000121012885"
+#' glitter:::interpret_svo("{truc}") #"0000000121012885"
+interpret_svo=function(string){
+  if(!str_detect(string,"[{}]")){return(string)}
+  string=stringr::str_extract(string,
+                       "(?<=\\{).*(?=\\})")
+  string=get(string, envir=globalenv())
+  return(string)
+}
 
 #' Checks whether subject/verb/object is stated correctly
 #' @param string a string
 #' @examples
 #' glitter:::is_svo_correct("elem") #FALSE
-#' glitter::is_svo_correct("{choices}") #TRUE
 #' glitter:::is_svo_correct("a") #TRUE
 #' glitter:::is_svo_correct("is") #TRUE
 #' glitter:::is_svo_correct("'0000000121012885'") #TRUE
@@ -97,8 +107,6 @@ as_values=function(string){
 is_svo_correct=function(string){
   # if element is a special syntax element
   if(string %in% c(".","a","is","==","%in%")){return(TRUE)}
-  # if element is an R code inclusion of the type {...}
-  if(stringr::str_detect(string,"(?<=\\{).*(?=\\})")){return(TRUE)}
   # if element is a variable
   if(is_variable(string)){return(TRUE)}
   # if element is a prefixed URI
