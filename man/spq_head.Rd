@@ -16,9 +16,9 @@ Return the first lines of results
 }
 \examples{
 spq_init() \%>\%
-add_triplets("?item wdt:P31 wd:Q5",label="?item") \%>\%
-add_triplets("?item wdt:P19/wdt:P131* wd:Q60") \%>\%
-add_triplets("?item wikibase:sitelinks ?sitelinks") \%>\%
+spq_add("?item wdt:P31 wd:Q5",label="?item") \%>\%
+spq_add("?item wdt:P19/wdt:P131* wd:Q60") \%>\%
+spq_add("?item wikibase:sitelinks ?sitelinks") \%>\%
 spq_arrange(c("DESC(?sitelinks)")) \%>\%
 spq_head(n=3) \%>\%
 send()

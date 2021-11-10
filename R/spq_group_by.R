@@ -4,7 +4,7 @@
 #' @export
 #' @examples
 #' spq_init() %>%
-#' add_triplets("?s a ?class") %>%
+#' spq_add("?s a ?class") %>%
 #' spq_group_by("?class") %>%
 #' spq_head(n=3) %>%
 #' send()

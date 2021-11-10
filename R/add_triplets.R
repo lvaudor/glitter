@@ -16,28 +16,28 @@
 #' @examples
 #' # find the cities
 #' spq_init() %>%
-#' add_triplets("?city wdt:P31/wdt:P279* wd:Q515",label=c("?city")) %>%
+#' spq_add("?city wdt:P31/wdt:P279* wd:Q515",label=c("?city")) %>%
 #' # and their populations
-#' add_triplets("?city wdt:P1082 ?pop", required=FALSE) %>%
+#' spq_add("?city wdt:P1082 ?pop", required=FALSE) %>%
 #' # in a bounding box
-#' add_triplets("?city wdt:P625 ?coords",within_box=list(southwest=c(3,43),northeast=c(7,47))) %>%
+#' spq_add("?city wdt:P625 ?coords",within_box=list(southwest=c(3,43),northeast=c(7,47))) %>%
 #' # limit to 10 lines
 #' spq_head(n=10) %>%
 #' send()
 #'
 #' # find the individuals of the species
 #' spq_init() %>%
-#' add_triplets("?mayor wdt:P31 ?species") %>%
+#' spq_add("?mayor wdt:P31 ?species") %>%
 #' # dog, cat or chicken
-#' add_triplets("?species %in% {c('wd:144','wd:146', 'wd:780')}") %>%
+#' spq_add("?species %in% {c('wd:144','wd:146', 'wd:780')}") %>%
 #' # who occupy the function
-#' add_triplets("?mayor p:P39 ?node") %>%
+#' spq_add("?mayor p:P39 ?node") %>%
 #' # of mayor
-#' add_triplets("?node ps:P39 wd:Q30185") %>%
+#' spq_add("?node ps:P39 wd:Q30185") %>%
 #' # of some places
-#' add_triplets("?node pq:P642 ?place") %>%
+#' spq_add("?node pq:P642 ?place") %>%
 #' send()
-add_triplets=function(query=NULL,
+spq_add=function(query=NULL,
                       triplet=NULL,
                       subject=NULL,
                       verb=NULL,
@@ -49,7 +49,7 @@ add_triplets=function(query=NULL,
                       within_distance=c(NA,NA),
                       language="en"){
 
-  elts=decompose_triplet(triplet=triplet,subject=subject,verb=verb,object=object)
+  elts=glitter:::decompose_triplet(triplet=triplet,subject=subject,verb=verb,object=object)
   if(elts[1]=="."){elts[1]=query$previous_subject}
 
   if(is.null(query)){query=spq_init()}

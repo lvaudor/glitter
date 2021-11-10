@@ -3,8 +3,8 @@
 #' @param endpoint a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
 #' @export
 #' @examples
-#' add_triplets(subject="?city",verb="wdt:P31",object="wd:Q515") %>%
-#' add_triplets(subject="?city",verb="wdt:P1082",object="?pop", label="?city", language="en") %>%
+#' spq_add(subject="?city",verb="wdt:P31",object="wd:Q515") %>%
+#' spq_add(subject="?city",verb="wdt:P1082",object="?pop", label="?city", language="en") %>%
 #' spq_head(n=5) %>%
 #' send()
 send=function(query, endpoint="Wikidata"){

@@ -20,7 +20,7 @@ get_triplets=function(triplet=NULL,
                       within_box=c(NA,NA),
                       within_distance=c(NA,NA),
                       keep_track=NA){
-  query=add_triplets(query=NULL,
+  query=spq_add(query=NULL,
                      triplet=triplet,
                      subject=subject,
                      verb=verb,

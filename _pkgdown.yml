@@ -2,7 +2,7 @@ reference:
 - title: "Main functions"
   desc: "These are the core functions of the glitter package."
 - contents:
-  - add_triplets
+  - spq_add()
   - spq_init()
   - send()
 - title: "General handling of query"
