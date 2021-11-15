@@ -25,6 +25,9 @@ build_sparql=function(query,endpoint="Wikidata"){
       paste0(collapse="\n")
   }else{part_prefixes=""}
 
+  if(!is.null(query$group_by)){
+    query$group_by=paste0("GROUP BY ", paste0(query$group_by, collapse=" "),"\n")
+  }
   query=paste0(part_prefixes,"\n",
                "SELECT ", paste0(query$select,collapse=" "),"\n",
                "WHERE{\n",
@@ -32,7 +35,7 @@ build_sparql=function(query,endpoint="Wikidata"){
                query$filter,"\n",
                query$service,"\n",
                "}\n",
-               query$group_by,"\n",
+               query$group_by,
                query$order_by,"\n",
                query$limit)
   return(query)

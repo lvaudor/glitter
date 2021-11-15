@@ -9,8 +9,7 @@
 #' spq_head(n=3) %>%
 #' send()
 spq_group_by=function(query,vars){
-  vars=paste0(vars,collapse=" ")
-  new_select=glue::glue("DISTINCT {vars}")
-  query$select=new_select
+  query$select=vars
+  query$group_by=vars
   return(query)
 }

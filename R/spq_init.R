@@ -9,7 +9,7 @@ spq_init=function(){
                service="",
                filter="",
                limit="",
-               group_by="",
+               group_by=NULL,
                order_by="")
     return(query)
 }

@@ -20,7 +20,7 @@ spq_add("?item wdt:P361 wd:Q297853") \%>\%
 spq_add("?item wdt:P1082 ?folkm_ngd") \%>\%
 spq_add("?area wdt:P31 wd:Q1907114",label="?area") \%>\%
 spq_add("?area wdt:P527 ?item") \%>\%
-spq_group_by(c("?area","?areaLabel")) \%>\%
-spq_summarise(c("?total_folkm"="sum(?folkm_ngd)")) \%>\%
+spq_group_by(c("?area","?areaLabel"))  \%>\%
+spq_summarise(c("?total_folkm"="sum(?folkm_ngd)"))
 send()
 }

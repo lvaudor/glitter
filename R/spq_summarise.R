@@ -8,15 +8,25 @@
 #' spq_add("?item wdt:P1082 ?folkm_ngd") %>%
 #' spq_add("?area wdt:P31 wd:Q1907114",label="?area") %>%
 #' spq_add("?area wdt:P527 ?item") %>%
-#' spq_group_by(c("?area","?areaLabel")) %>%
-#' spq_summarise(c("?total_folkm"="sum(?folkm_ngd)")) %>%
+#' spq_group_by(c("?area","?areaLabel"))  %>%
+#' spq_summarise(c("?total_folkm"="sum(?folkm_ngd)"))
 #' send()
 spq_summarise=function(query,vars){
-  group_vars=stringr::str_extract_all(query$select,"\\?[^\\s]*") %>%
-    unlist() %>%  paste(collapse=" ")
+
+  # Which variables are summarised ?
+  summarised_vars=stringr::str_extract(vars,
+                                       "(?<=\\().*(?=\\))")
+  # if(is.null(query$group_by)){
+  # # If no grouping has been done then consider
+  # # grouping variables to be all the other variables
+  #   query$group_by=stringr::str_extract_all(query$select,"\\?[^\\s\\)]*") %>%
+  #     unlist() %>% unique() %>%
+  #     subset(!(. %in% summarised_vars))
+  # }
+
   summaries=glue::glue("({vars} AS {names(vars)})") %>%
     paste(collapse=" ")
-  query$select=glue::glue("{query$select} {summaries}")
-  query$group_by=glue::glue("GROUP BY {group_vars}")
+
+  query$select=c(query$select,summaries)
   return(query)
 }
