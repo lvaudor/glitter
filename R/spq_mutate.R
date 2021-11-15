@@ -13,7 +13,7 @@ spq_mutate=function(query,vars){
   former_select=query$select
   vars=glue::glue("({vars} AS {names(vars)})") %>%
     paste(collapse=" ")
-  new_select=glue::glue("{former_select} {vars}")
+  new_select=c(former_select,vars)
   query$select=new_select
   return(query)
 }
