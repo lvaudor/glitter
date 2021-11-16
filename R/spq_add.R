@@ -11,7 +11,6 @@
 #' @param within_distance if provided, circular bounding box for the triplet query.
 #'   Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
 #'   The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.
-#' @param language the language in which the labels will be provided (defaults to "en" for English)
 #' @export
 #' @examples
 #' # find the cities
@@ -46,8 +45,7 @@ spq_add=function(query=NULL,
                       required=TRUE,
                       label=NA,
                       within_box=c(NA,NA),
-                      within_distance=c(NA,NA),
-                      language="en"){
+                      within_distance=c(NA,NA)){
 
   elts=glitter:::decompose_triplet(triplet=triplet,subject=subject,verb=verb,object=object)
   if(elts[1]=="."){elts[1]=query$previous_subject}
@@ -68,7 +66,6 @@ spq_add=function(query=NULL,
                              elts$subject,elts$verb,elts$object,
                              required,
                              within_box=within_box, within_distance=within_distance)
-  # service
-  query$service=build_part_service(query,language)
+
   return(query)
 }

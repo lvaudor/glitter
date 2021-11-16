@@ -14,8 +14,7 @@ spq_add(
   required = TRUE,
   label = NA,
   within_box = c(NA, NA),
-  within_distance = c(NA, NA),
-  language = "en"
+  within_distance = c(NA, NA)
 )
 }
 \arguments{
@@ -38,8 +37,6 @@ Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))}
 \item{within_distance}{if provided, circular bounding box for the triplet query.
 Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
 The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.}
-
-\item{language}{the language in which the labels will be provided (defaults to "en" for English)}
 }
 \description{
 Add a triplet statement to a query

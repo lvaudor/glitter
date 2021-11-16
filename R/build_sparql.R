@@ -3,9 +3,11 @@
 #' @param endpoint SPARQL endpoint to send the query to
 #' @export
 #' @examples
-#' spq_add(subject="?city",verb="wdt:P31",object="wd:Q515") %>%
-#' spq_add(subject="?city",verb="wdt:P1082",object="?pop", label="?city", language="en") %>%
-#' spq_head() %>%
+#' spq_init() %>%
+#' spq_add("?city wdt:P31 wd:Q515", label="?city") %>%
+#' spq_add("?city wdt:P1082 ?pop") %>%
+#' spq_language("fr") %>%
+#' spq_head(n=5) %>%
 #' build_sparql() %>%
 #' cat()
 build_sparql=function(query,endpoint="Wikidata"){
