@@ -28,7 +28,7 @@ Pour limiter la taille et le temps d'exécution de cette vignette chaque jeu de 
 
 ```{r explordata}
 tib=spq_init() %>% 
-  add_triplets("?s ?p ?o") %>% 
+  spq_add("?s ?p ?o") %>% 
   spq_head(10) %>% 
   send(endpoint="dataBNF")
 
@@ -39,10 +39,10 @@ knitr::kable(tib)
 
 ```{r dates_biog}
 tib=spq_init() %>% 
-  add_triplets("?auteur foaf:birthday ?jour") %>% 
-  add_triplets("?auteur bio:birth ?date1") %>% 
-  add_triplets("?auteur bio:death ?date2") %>% 
-  add_triplets("?auteur foaf:name ?nom", required=FALSE) %>% 
+  spq_add("?auteur foaf:birthday ?jour") %>% 
+  spq_add("?auteur bio:birth ?date1") %>% 
+  spq_add("?auteur bio:death ?date2") %>% 
+  spq_add("?auteur foaf:name ?nom", required=FALSE) %>% 
   spq_arrange("?jour") %>% 
   spq_prefix() %>% 
   spq_head(n=10) %>%
@@ -54,12 +54,14 @@ knitr::kable(tib)
 # Toutes les éditions de l'oeuvre Les Fleurs du Mal de Baudelaire
 
 ```{r fleurs_du_mal}
+fleurs_du_mal="<http://data.bnf.fr/ark:/12148/cb11947965f>" 
+
 tib=spq_init() %>% 
-  add_triplets("<http://data.bnf.fr/ark:/12148/cb11947965f> foaf:focus ?Oeuvre") %>% 
-  add_triplets("?edition rdarelationships:workManifested ?Oeuvre") %>% 
-  add_triplets("?edition dcterms:date ?date", required=FALSE) %>% 
-  add_triplets("?edition dcterms:title ?titre") %>% 
-  add_triplets("?edition dcterms:publisher ?editeur") %>% 
+  spq_add("{fleurs_du_mal} foaf:focus ?Oeuvre") %>% 
+  spq_add("?edition rdarelationships:workManifested ?Oeuvre") %>% 
+  spq_add("?edition dcterms:date ?date", required=FALSE) %>% 
+  spq_add("?edition dcterms:title ?titre") %>% 
+  spq_add("?edition dcterms:publisher ?editeur") %>% 
   spq_head(n=10) %>% 
   spq_prefix() %>% 
   send("dataBNF")
@@ -71,9 +73,11 @@ knitr::kable(tib)
 # Lien à un document numérisé dans Galliga
 
 ```{r doc_num_gallica}
+doc="<http://data.bnf.fr/ark:/12148/cb42712156j#about>"
+
 tib=spq_init() %>% 
-  add_triplets("<http://data.bnf.fr/ark:/12148/cb42712156j#about> rdarelationships:electronicReproduction ?URLGallica") %>% 
-  add_triplets("<http://data.bnf.fr/ark:/12148/cb42712156j#about> dcterms:title ?title") %>% 
+  spq_add("{doc} rdarelationships:electronicReproduction ?URLGallica") %>% 
+  spq_add("{doc} dcterms:title ?title") %>% 
   spq_prefix() %>%
   send(endpoint="dataBNF")
 
@@ -84,10 +88,12 @@ knitr::kable(tib)
 
 
 ```{r expo_virtuelles_bnf}
+expo="<http://data.bnf.fr/ontology/bnf-onto/ExpositionVirtuelle>"
+
 tib=spq_init() %>% 
-  add_triplets("?exposition a <http://data.bnf.fr/ontology/bnf-onto/ExpositionVirtuelle>") %>% 
-  add_triplets("?exposition dcterms:title ?titre") %>% 
-  add_triplets("?exposition dcterms:subject ?sujet") %>% 
+  spq_add("?exposition a {expo}") %>% 
+  spq_add("?exposition dcterms:title ?titre") %>% 
+  spq_add("?exposition dcterms:subject ?sujet") %>% 
   spq_head(n=30) %>% 
   send(endpoint="dataBNF")
 
@@ -98,10 +104,10 @@ knitr::kable(tib)
 
 ```{r nom_from_isni}
 tib=spq_init() %>% 
-  add_triplets("?person isni:identifierValid '0000000121012885'") %>% 
-  add_triplets("?person foaf:focus ?identity") %>% 
-  add_triplets("?identity foaf:familyName ?nom") %>% 
-  add_triplets("?identity foaf:givenName ?prenom") %>% 
+  spq_add("?person isni:identifierValid '0000000121012885'") %>% 
+  spq_add("?person foaf:focus ?identity") %>% 
+  spq_add("?identity foaf:familyName ?nom") %>% 
+  spq_add("?identity foaf:givenName ?prenom") %>% 
   send(endpoint="dataBNF")
 
 knitr::kable(tib)
@@ -112,7 +118,7 @@ knitr::kable(tib)
 
 ```{r ark_from_frbnf}
 tib=spq_init() %>% 
-  add_triplets(t="?pidArk bnf-onto:FRBNF '11992081'^^xsd:integer") %>% 
+  spq_add("?pidArk bnf-onto:FRBNF '11992081'^^xsd:integer") %>% 
   spq_head(n=10) %>% 
   send(e="dataBNF")
 
@@ -123,11 +129,11 @@ knitr::kable(tib)
 
 ```{r oeuvre_from_isbn}
 tib=spq_init() %>% 
-  add_triplets("?work rdfs:label ?title") %>% 
-  add_triplets("?work dcterms:creator ?creator") %>% 
-  add_triplets("?manifestation bnf-onto:isbn '2-7028-4777-3'") %>% 
-  add_triplets("?manifestation rdarelationships:workManifested ?work") %>% 
-  add_triplets("?creator foaf:name ?name") %>% 
+  spq_add("?work rdfs:label ?title") %>% 
+  spq_add("?work dcterms:creator ?creator") %>% 
+  spq_add("?manifestation bnf-onto:isbn '2-7028-4777-3'") %>% 
+  spq_add("?manifestation rdarelationships:workManifested ?work") %>% 
+  spq_add("?creator foaf:name ?name") %>% 
   spq_head(n=10) %>% 
   send(e="dataBNF")
 
@@ -138,9 +144,9 @@ knitr::kable(tib)
 
 ```{r auteurs_morts_avant_1024}
 tib=spq_init() %>% 
-  add_triplets("?oeuvre dcterms:creator ?auteur") %>% 
-  add_triplets("?auteur bio:death ?mort") %>% 
-  add_triplets("?auteur foaf:familyName ?nom") %>%
+  spq_add("?oeuvre dcterms:creator ?auteur") %>% 
+  spq_add("?auteur bio:death ?mort") %>% 
+  spq_add("?auteur foaf:familyName ?nom") %>%
   spq_filter("xsd:integer(?mort)<'1924'^^xsd:integer") %>% 
   spq_group_by(c("?auteur","?nom","?mort")) %>% 
   spq_arrange("desc(xsd:integer(?mort))") %>% 
@@ -153,7 +159,7 @@ knitr::kable(tib)
 # Images dans data.bnf.fr
 
 ```{r images_databnf}
-tib=add_triplets(t="?image dcterms:type <http://purl.org/dc/dcmitype/StillImage>") %>%
+tib=spq_add(t="?image dcterms:type <http://purl.org/dc/dcmitype/StillImage>") %>%
   spq_head(n=10) %>% 
   send(e="dataBNF")
 
@@ -165,9 +171,9 @@ knitr::kable(tib)
 
 ```{r ouvrages_jeunesse}
 tib=spq_init() %>% 
-  add_triplets("?manifestation bnf-onto:ouvrageJeunesse 'true'^^xsd:boolean") %>% 
-  add_triplets(". rdarelationships:workManifested ?oeuvre") %>% 
-  add_triplets(". rdfs:seeAlso ?uri") %>% 
+  spq_add("?manifestation bnf-onto:ouvrageJeunesse 'true'^^xsd:boolean") %>% 
+  spq_add(". rdarelationships:workManifested ?oeuvre") %>% 
+  spq_add(". rdfs:seeAlso ?uri") %>% 
   spq_group_by(c("?uri","?oeuvre")) %>% 
   spq_head(n=10) %>% 
   send(e="dataBNF")
@@ -179,11 +185,11 @@ knitr::kable(tib)
 
 ```{r}
 tib=spq_init() %>% 
-  add_triplets("?auteur rdf:type skos:Concept") %>% 
-  add_triplets(". foaf:focus ?person") %>% 
-  add_triplets("?doc rdarelationships:electronicReproduction ?url") %>% 
-  add_triplets(". dcterms:subject ?auteur") %>% 
-  add_triplets(". dcterms:subject <http://data.bnf.fr/ark:/12148/cb11932843f>") %>% 
+  spq_add("?auteur rdf:type skos:Concept") %>% 
+  spq_add(". foaf:focus ?person") %>% 
+  spq_add("?doc rdarelationships:electronicReproduction ?url") %>% 
+  spq_add(". dcterms:subject ?auteur") %>% 
+  spq_add(". dcterms:subject <http://data.bnf.fr/ark:/12148/cb11932843f>") %>% 
   spq_head(n=10) %>% 
   spq_group_by(c("?auteur","?url")) %>% 
   send(e="dataBNF")
@@ -195,11 +201,11 @@ knitr::kable(tib)
 
 ```{r}
 tib=spq_init() %>% 
-  add_triplets("?sujet1 skos:prefLabel ?label") %>% 
-  add_triplets(". skos:narrower ?uri2") %>% 
-  add_triplets("?uri2 skos:prefLabel ?label2") %>% 
-  add_triplets("?uri2 skos:narrower ?uri3", required=FALSE) %>% 
-  add_triplets("?uri3 skos:prefLabel ?label3", required=FALSE) %>% 
+  spq_add("?sujet1 skos:prefLabel ?label") %>% 
+  spq_add(". skos:narrower ?uri2") %>% 
+  spq_add("?uri2 skos:prefLabel ?label2") %>% 
+  spq_add("?uri2 skos:narrower ?uri3", required=FALSE) %>% 
+  spq_add("?uri3 skos:prefLabel ?label3", required=FALSE) %>% 
   spq_head(n=10) %>% 
   send(e="dataBNF")
 
@@ -210,8 +216,8 @@ knitr::kable(tib)
 
 ```{r}
 tib=spq_init() %>% 
-  add_triplets("?sujet dcterms:isPartOf <http://data.bnf.fr/vocabulary/rameau/r166>") %>% 
-  add_triplets(". skos:prefLabel ?label") %>% 
+  spq_add("?sujet dcterms:isPartOf <http://data.bnf.fr/vocabulary/rameau/r166>") %>% 
+  spq_add(". skos:prefLabel ?label") %>% 
   spq_head(n=10) %>% 
   send(e="dataBNF")
 
@@ -222,9 +228,9 @@ knitr::kable(tib)
 
 ```{r rameau_et_lieux}
 tib=spq_init() %>% 
-  add_triplets("?c a <http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing>") %>% 
-  add_triplets("?lieu foaf:focus ?c") %>% 
-  add_triplets("?lieu skos:closeMatch ?concept") %>% 
+  spq_add("?c a <http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing>") %>% 
+  spq_add("?lieu foaf:focus ?c") %>% 
+  spq_add("?lieu skos:closeMatch ?concept") %>% 
   spq_group_by(c("?lieu","?concept","?c")) %>% 
   spq_head(n=100) %>% 
   send(e="dataBNF")
@@ -236,10 +242,12 @@ knitr::kable(tib)
 
 ```{r}
 tib=spq_init() %>% 
-  add_triplets("?ConceptA foaf:focus ?auteur") %>% 
-  add_triplets("?oeuvre dcterms:creator ?auteur") %>% 
-  add_triplets("?ConceptA rdfs:seeAlso ?wikipedia") %>% 
+  spq_add("?ConceptA foaf:focus ?auteur") %>% 
+  spq_add("?oeuvre dcterms:creator ?auteur") %>% 
+  spq_add("?ConceptA rdfs:seeAlso ?wikipedia") %>% 
   spq_filter("regex(?wikipedia,'wikipedia')") %>% 
   spq_head(n=10) %>% 
   send(e="dataBNF")
+
+knitr::kable(tib)
 ```

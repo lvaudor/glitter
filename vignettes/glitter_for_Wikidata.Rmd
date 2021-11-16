@@ -56,7 +56,7 @@ So you're looking for all the stations that are part of ("wd:P361") the Lyon met
 You could access this information through:
 
 ```{r}
-stations=get_triplets(t="?items wdt:P361 wd:Q1552")
+stations=get_triplets("?items wdt:P361 wd:Q1552")
 stations %>% head()
 ```
 
@@ -65,7 +65,7 @@ Notice that we do not have values yet for the stations (that's what we're lookin
 To also get the labels for stations, we can use the argument `label`:
 
 ```{r}
-parts_metro_Lyon=get_triplets(t="?items wdt:P361 wd:Q1552", label="?items")
+parts_metro_Lyon=get_triplets("?items wdt:P361 wd:Q1552", label="?items")
 parts_metro_Lyon %>% head()
 ```
 
@@ -79,12 +79,12 @@ get_claims("wd:Q599865")
 
 Property "wdt:P31" should enable us to collect only stations ("wd:Q928830") instead of all parts of the Lyon Metro network.
 
-We can enrich and refine our query incrementally with `add_triplets()` before sending it (whereas `get_triplets()` was a shortcut to build and send simple requests) :
+We can enrich and refine our query incrementally with `spq_add()` before sending it (whereas `get_triplets()` was a shortcut to build and send simple requests) :
 
 ```{r}
 stations_metro_Lyon=spq_init() %>% 
-  add_triplets("?stations wdt:P361 wd:Q1552", label="?stations") %>% 
-  add_triplets("?stations wdt:P31 wd:Q928830") %>% 
+  spq_add("?stations wdt:P361 wd:Q1552", label="?stations") %>% 
+  spq_add("?stations wdt:P31 wd:Q928830") %>% 
   send()
 head(stations_metro_Lyon)
 ```
@@ -95,9 +95,9 @@ If we wanted to get other properties and associated values for these stations (f
 
 ```{r}
 stations_metro_Lyon=spq_init() %>% 
-  add_triplets("?stations wdt:P361 wd:Q1552", label="?stations") %>% 
-  add_triplets("?stations wdt:P31 wd:Q928830") %>% 
-  add_triplets("?stations wdt:P625 ?coords") %>% 
+  spq_add("?stations wdt:P361 wd:Q1552", label="?stations") %>% 
+  spq_add("?stations wdt:P31 wd:Q928830") %>% 
+  spq_add("?stations wdt:P625 ?coords") %>% 
   send()
 head(stations_metro_Lyon)
 ```
@@ -147,16 +147,19 @@ find_item("city")
 We could start exploring Wikidata with this query which finds all items that are instances ("wdt:P31") of "city" or of any subclass ("wdt:P279") of "city" . This query might return many items so that it seems reasonable to limit the number of items retrieved for now with the argument `limit`
 
 ```{r}
-add_triplets(t="?city wdt:P31/wdt:P279* wd:Q515", label="?city") %>%
+spq_init() %>% 
+  spq_add("?city wdt:P31/wdt:P279* wd:Q515", label="?city") %>%
   spq_head(n=10) %>% 
   send()
 ```
+
 Now, let's get the location ("wdt:P625") of the cities
 
 ```{r}
-add_triplets(t="?city wdt:P31/wdt:P279* wd:Q515",
-             label=c("?city"))
-  add_triplets(t="?city wdt:P625 ?coords") %>%
+spq_init() %>% 
+  spq_add("?city wdt:P31/wdt:P279* wd:Q515",
+          label=c("?city")) %>% 
+  spq_add("?city wdt:P625 ?coords") %>%
   spq_head(n=10) %>% 
   send()
 ```
@@ -165,23 +168,27 @@ We can refine this query, stating that we want cities (or items of subclasses of
 
 
 ```{r}
-cities_around_Lyon=add_triplets(t="?city wdt:P31/wdt:P279* wd:Q486972",
-                                label="?city") %>% 
-  add_triplets(t="?city wdt:P625 ?coords",
-               within_distance=list(center=c(long=4.84,lat=45.76),
-                                    radius=5)) %>% 
+cities_around_Lyon=spq_init() %>% 
+  spq_add("?city wdt:P31/wdt:P279* wd:Q486972",
+          label="?city") %>% 
+  spq_add("?city wdt:P625 ?coords",
+          within_distance=list(center=c(long=4.84,lat=45.76),
+                               radius=5)) %>% 
   send()
 head(cities_around_Lyon)
 ```
 
-Actually, rather than getting Lyon's long-lat coordinates "by hand" we could get them directly through our query, which means we have to add a triplet about Lyon ("wd:456") and its coordinates:
+<!-- Actually, rather than getting Lyon's long-lat coordinates "by hand" we could get them directly through our query, which means we have to add a triplet about Lyon ("wd:456") and its coordinates: -->
 
-```{r, eval=FALSE}
-add_triplets(t="wd:Q456 wdt:P625 ?coordLyon") %>% 
-  add_triplets(t="?city wdt:P625 ?coords",
-               within_distance=list(center="?coordLyon", radius=2)) %>%
-  add_triplets(t="?city wdt:P31/wdt:P279* wd:Q486972",
-             label="?city") %>%
-  build_sparql() %>% cat()
-```
+<!-- ```{r, eval=FALSE} -->
+<!-- spq_init() %>%  -->
+<!--   spq_add("wd:Q456 wdt:P625 ?coordLyon") %>%  -->
+<!--   spq_add("?city wdt:P625 ?coords", -->
+<!--           within_distance=list(center="?coordLyon", radius=2)) %>% -->
+<!--   spq_add("?city wdt:P31/wdt:P279* wd:Q486972", -->
+<!--           label="?city") %>% -->
+<!--   send() -->
+<!-- ``` -->  
+
+<!-- This does not work => two triplets unrelated. Maybe add example and modify spq_add() to use {} for reference to R values -->
 
