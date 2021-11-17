@@ -4,10 +4,10 @@
 \alias{is_svo_correct}
 \title{Checks whether subject/verb/object is stated correctly}
 \usage{
-is_svo_correct(string)
+is_svo_correct(vstring)
 }
 \arguments{
-\item{string}{a string}
+\item{vstring}{a string or vector of strings}
 }
 \description{
 Checks whether subject/verb/object is stated correctly
@@ -18,4 +18,5 @@ glitter:::is_svo_correct("a") #TRUE
 glitter:::is_svo_correct("is") #TRUE
 glitter:::is_svo_correct("'0000000121012885'") #TRUE
 glitter:::is_svo_correct(".") #TRUE
+glitter:::is_svo_correct("[]") #TRUE
 }

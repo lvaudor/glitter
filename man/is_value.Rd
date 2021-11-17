@@ -4,10 +4,10 @@
 \alias{is_value}
 \title{Checks whether element is a value ("'blah'" or '"blah"')}
 \usage{
-is_value(string)
+is_value(vstring)
 }
 \arguments{
-\item{string}{a string}
+\item{vstring}{a string or vector of strings}
 }
 \description{
 Checks whether element is a value ("'blah'" or '"blah"')

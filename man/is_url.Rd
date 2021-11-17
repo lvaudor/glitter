@@ -4,14 +4,14 @@
 \alias{is_url}
 \title{Checks whether element is a url ("<http_blah_>")}
 \usage{
-is_url(string)
+is_url(vstring)
 }
 \arguments{
-\item{string}{a string}
+\item{vstring}{a string or vector of strings}
 }
 \description{
 Checks whether element is a url ("<http_blah_>")
 }
 \examples{
-is_url("<http://qsdqsdfqsdfqs.html>")
+glitter:::is_url(c("<http://qsdqsdfqsdfqs.html>","<http blablabla>")) #TRUE
 }

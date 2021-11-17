@@ -2,14 +2,19 @@
 % Please edit documentation in R/utils-str.R
 \name{interpret_svo}
 \alias{interpret_svo}
-\title{interprets if element is an R code inclusion of the type {...}#' @param string a string}
+\title{interprets if element is an R code inclusion of the type {...}}
 \usage{
 interpret_svo(string)
 }
+\arguments{
+\item{string}{a string}
+}
 \description{
-interprets if element is an R code inclusion of the type {...}#' @param string a string
+interprets if element is an R code inclusion of the type {...}
 }
 \examples{
-truc="0000000121012885"
-glitter:::interpret_svo("{truc}") #"0000000121012885"
+obj1="0000000121012885"
+glitter:::interpret_svo("{obj1}")
+obj2=c("wd:Q432","wd:Q576")
+glitter:::interpret_svo("{obj2}")
 }

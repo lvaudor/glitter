@@ -4,14 +4,14 @@
 \alias{is_variable}
 \title{Checks whether element is a variable ("?...")}
 \usage{
-is_variable(string)
+is_variable(vstring)
 }
 \arguments{
-\item{string}{a string}
+\item{vstring}{a string or vector of strings}
 }
 \description{
 Checks whether element is a variable ("?...")
 }
 \examples{
-glitter:::is_svo_correct("elem")
+glitter:::is_variable(c("?elem","?item")) #TRUE
 }

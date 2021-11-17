@@ -4,14 +4,17 @@
 \alias{as_values}
 \title{transforms subject-verb-object arguments into a vector of values if needed}
 \usage{
-as_values(string)
+as_values(vstring)
 }
 \arguments{
-\item{string}{a string}
+\item{vstring}{a string of R code or R vector of strings}
 }
 \description{
 transforms subject-verb-object arguments into a vector of values if needed
 }
 \examples{
 object="{c(wd:Q456,wd:Q23482)}"
+glitter:::as_values(object)
+object=c("wd:Q456","wd:Q23482")
+glitter:::as_values(object)
 }
