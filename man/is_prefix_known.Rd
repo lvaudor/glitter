@@ -4,15 +4,19 @@
 \alias{is_prefix_known}
 \title{Checks whether the element has a known prefix}
 \usage{
-is_prefix_known(string, prefixes, endpoint = "Wikidata")
+is_prefix_known(prefixes_used, prefixes_known, endpoint = "Wikidata")
 }
 \arguments{
-\item{string}{a string}
+\item{prefixes_used}{a string or vector of strings}
+
+\item{prefixes_known}{a tibble detailing known prefixes}
+
+\item{endpoint}{the endpoint considered (defaults to Wikidata)}
 }
 \description{
 Checks whether the element has a known prefix
 }
 \examples{
-glitter:::is_prefix_known("wd:Q343",endpoint="Wikidata") # TRUE
-#glitter:::is_prefix_known("blop:blabla",endpoint="other", prefixes=usual_prefixes) #returns error message
+glitter:::is_prefix_known(prefixes_used=c("wd","wdt"),prefixes_known=usual_prefixes,endpoint="Wikidata") # TRUE
+glitter:::is_prefix_known("blop:blabla", prefixes_known=usual_prefixes,endpoint="other") #returns error message
 }

@@ -17,9 +17,9 @@ build_sparql=function(query,endpoint="Wikidata"){
     spq_prefix(auto=TRUE, prefixes=NULL)
 
   # are prefixes correct and do they correspond to provided prefixes?
-  purrr::map_lgl(query$prefixed,
-                 glitter:::is_prefix_known,
-                 prefixes=usual_prefixes,
+  purrr::map_lgl(query$prefixes_used,
+                 is_prefix_known,
+                 prefixes_known=usual_prefixes,
                  endpoint=endpoint)
   # prefixes
   if(nrow(query$prefixes)>0){
@@ -30,6 +30,11 @@ build_sparql=function(query,endpoint="Wikidata"){
   if(!is.null(query$group_by)){
     query$group_by=paste0("GROUP BY ", paste0(query$group_by, collapse=" "),"\n")
   }
+
+  if(is.null(query$service)){
+    query=spq_language(query,language="en")
+  }
+
   query=paste0(part_prefixes,"\n",
                "SELECT ", paste0(query$select,collapse=" "),"\n",
                "WHERE{\n",

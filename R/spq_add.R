@@ -47,7 +47,7 @@ spq_add=function(query=NULL,
                       within_box=c(NA,NA),
                       within_distance=c(NA,NA)){
 
-  elts=glitter:::decompose_triplet(triplet=triplet,subject=subject,verb=verb,object=object)
+  elts=decompose_triplet(triplet=triplet,subject=subject,verb=verb,object=object)
   if(elts[1]=="."){elts[1]=query$previous_subject}
 
   if(is.null(query)){query=spq_init()}
@@ -55,8 +55,11 @@ spq_add=function(query=NULL,
   # previous subject
   query$previous_subject=elts[1]$subject
   # prefixed elements
-  velts=unlist(elts) %>% unname()
-  query$prefixed=unique(c(query$prefixed,purrr::map(velts,keep_prefixed) %>% unlist()))
+  query$prefixes_used=c(query$prefixes_used,
+                        purrr::map_chr(unname(elts),
+                                       keep_prefix)) %>%
+    na.omit() %>%
+    unique()
   # select
   query$select=build_part_select(query,
                                  elts$subject,elts$verb,elts$object,

@@ -4,10 +4,10 @@
 \alias{is_prefixed}
 \title{Checks whether element is prefixed ("prefix::id")}
 \usage{
-is_prefixed(string)
+is_prefixed(vstring)
 }
 \arguments{
-\item{string}{a string}
+\item{vstring}{a string or vector of strings}
 }
 \description{
 Checks whether element is prefixed ("prefix::id")
