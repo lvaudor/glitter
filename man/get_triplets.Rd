@@ -11,7 +11,7 @@ get_triplets(
   object = NULL,
   required = TRUE,
   label = NA,
-  limit = NA,
+  limit = NULL,
   within_box = c(NA, NA),
   within_distance = c(NA, NA),
   keep_track = NA

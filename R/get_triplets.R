@@ -16,7 +16,7 @@ get_triplets=function(triplet=NULL,
                       object=NULL,
                       required=TRUE,
                       label=NA,
-                      limit=NA,
+                      limit=NULL,
                       within_box=c(NA,NA),
                       within_distance=c(NA,NA),
                       keep_track=NA){
@@ -29,7 +29,7 @@ get_triplets=function(triplet=NULL,
                      label=label,
                      within_box=within_box,
                      within_distance=within_distance)
-  if(!is.na(limit)){query=query %>% spq_head(n=limit)}
+  if(!is.null(limit)){query=query %>% spq_head(n=limit)}
 
   tib=query %>% send()
   return(tib)

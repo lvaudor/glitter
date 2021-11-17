@@ -1,15 +1,18 @@
 #' Initialize a query object.
 #' @export
 spq_init=function(){
-    query=list(prefixes=tibble(name=NULL,url=NULL),
-               prefixed=NULL,
+    query=list(prefixes_available=tibble(name=NULL,url=NULL),
+               prefixes_used=NULL,
                previous_subject=NULL,
                select=NULL,
                body="",
-               service="",
-               filter="",
-               limit="",
+               service=NULL,
+               filter=NULL,
+               limit=NULL,
                group_by=NULL,
-               order_by="")
+               order_by=NULL)
     return(query)
 }
+
+# filter ------------------------------------------------------------------
+
