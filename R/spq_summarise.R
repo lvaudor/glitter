@@ -16,13 +16,14 @@ spq_summarise=function(query,vars){
   # Which variables are summarised ?
   summarised_vars=stringr::str_extract(vars,
                                        "(?<=\\().*(?=\\))")
-  # if(is.null(query$group_by)){
-  # # If no grouping has been done then consider
-  # # grouping variables to be all the other variables
-  #   query$group_by=stringr::str_extract_all(query$select,"\\?[^\\s\\)]*") %>%
-  #     unlist() %>% unique() %>%
-  #     subset(!(. %in% summarised_vars))
-  # }
+
+  # If no grouping has been done
+  if(is.null(query$group_by)){
+    # then GROUP BY summary variables
+    query$group_by=names(vars)
+    # and remove all other selected variables
+    query$select=NULL
+  }
 
   summaries=glue::glue("({vars} AS {names(vars)})") %>%
     paste(collapse=" ")
