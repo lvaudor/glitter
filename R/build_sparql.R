@@ -19,11 +19,11 @@ build_sparql=function(query,endpoint="Wikidata"){
   # are prefixes correct and do they correspond to provided prefixes?
   purrr::map_lgl(query$prefixes_used,
                  is_prefix_known,
-                 prefixes_known=usual_prefixes,
+                 prefixes_known=bind_rows(query$prefixes_provided,usual_prefixes),
                  endpoint=endpoint)
   # prefixes
-  if(nrow(query$prefixes)>0){
-    part_prefixes=glue::glue("PREFIX {query$prefixes$name}: <{query$prefixes$url}>") %>%
+  if(nrow(query$prefixes_provided)>0){
+    part_prefixes=glue::glue("PREFIX {query$prefixes_provided$name}: <{query$prefixes_provided$url}>") %>%
       paste0(collapse="\n")
   }else{part_prefixes=""}
 

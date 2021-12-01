@@ -2,6 +2,9 @@
 #' @param query a list with elements of the query
 #' @param prefixes a vector of prefixes
 #' @export
+#' @examples
+#' spq_init() %>%
+#' spq_prefix(prefixes=c(dbo="http://dbpedia.org/ontology/"))
 spq_prefix=function(query=NULL,auto=TRUE, prefixes=NULL){
   if(!is.null(prefixes)){auto=FALSE}
   if(!is.data.frame(prefixes) & !is.null(prefixes)){
@@ -11,7 +14,7 @@ spq_prefix=function(query=NULL,auto=TRUE, prefixes=NULL){
   }
   if(auto==TRUE){
     prefixes_auto=usual_prefixes %>%
-      filter(name %in% (query$prefixed %>% str_extract("^.*(?=:)"))) %>%
+      filter(name %in% query$prefixes_used) %>%
       filter(type!="Wikidata")
     prefixes=bind_rows(prefixes,prefixes_auto)
   }
@@ -19,8 +22,8 @@ spq_prefix=function(query=NULL,auto=TRUE, prefixes=NULL){
     select(name,url) %>%
     unique()
 
-
-  query$prefixes=bind_rows(query$prefixes,prefixes) %>%
+  query$prefixes_provided=bind_rows(query$prefixes_provided,
+                                    prefixes) %>%
     unique()
   return(query)
 }

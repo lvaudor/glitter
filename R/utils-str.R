@@ -104,6 +104,8 @@ is_prefix_known=function(prefixes_used,prefixes_known, endpoint="Wikidata"){
 #' glitter:::as_values(object)
 #' object=c("wd:Q456","wd:Q23482")
 #' glitter:::as_values(object)
+#' object=c("wd:Q7732")
+#' glitter:::as_values(object)
 as_values=function(vstring){
   if(length(vstring)>1){
     result=vstring
@@ -115,14 +117,17 @@ as_values=function(vstring){
       str_extract("(?<=^\\{).*(?=\\}$)")
       # if remaining string contains c(...)
     if(str_detect(result,"(?<=^c\\().*(?=\\)$)")){
-        result %<>%
+        result=result %>%
           str_extract("(?<=^c\\().*(?=\\)$)") %>%
           str_split(",") %>%
           unlist()
     }else{
         # object corresponds to name
-        result=get(result)}
+        result=get(result)
     }
+  }else{
+    result=vstring
+  }
   return(result)
 }
 
