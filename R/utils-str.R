@@ -138,11 +138,19 @@ as_values=function(vstring){
 #' glitter:::interpret_svo("{obj1}")
 #' obj2=c("wd:Q432","wd:Q576")
 #' glitter:::interpret_svo("{obj2}")
+#' obj3="'Cristiano_Ronaldo'@en"
+#' glitter:::interpret_svo(obj3)
 interpret_svo=function(string){
-  if(!str_detect(string,"[{}]")){return(string)}
+  if(str_detect(string,"[\'\"]")){
+    string=str_replace(string,"_"," ")
+    return(string)
+  }
+  if(!str_detect(string,"[{}]")){
+    return(string)
+  }
   string=stringr::str_extract(string,
                        "(?<=\\{).*(?=\\})")
-  string=get(string, envir=globalenv())
+  string=get(string, envir=parent.env(environment()))
   return(string)
 }
 

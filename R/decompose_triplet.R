@@ -10,8 +10,17 @@ decompose_triplet=function(triplet, subject,verb,object){
     if(stringr::str_detect(triplet,"\\s*==\\s*")){
       triplet=stringr::str_replace(triplet,"\\s*==\\s*"," == ")
     }
+    # if one part of triplet is of the type 'Cristiano_Ronaldo'@en
+    if(stringr::str_detect(triplet,"[\'\"].*[\'\"]")){
+      part_pb=stringr::str_extract(triplet,"[\'\"].*[\'\"]")
+      part_ok=stringr::str_replace_all(part_pb,"\\s","_")
+      triplet=stringr::str_replace(triplet,part_pb,part_ok)
+    }
+
     # decompose triplet, splitting elements based on spaces
     elements=stringr::str_split(triplet,"\\s+") %>% unlist()
+
+
     elements=list(subject=elements[1],
                   verb=elements[2],
                   object=elements[3])
