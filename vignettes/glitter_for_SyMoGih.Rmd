@@ -24,7 +24,7 @@ library(glitter)
 
 ## Rechercher toutes les informations impliquant l'objet "Mathématiques" (Objet abstrait):
 
-- la ressource r est associée à l'objet "Mathématiques (syr: Ab0b213)
+- la ressource r est associée à l'objet "Mathématiques" (syr: Ab0b213)
 - la ressource r est une partie de i
 - i a une étiquette standard stLabel
   + et une date standard stDate
@@ -32,7 +32,9 @@ library(glitter)
 - KUTy a pour étiquette KUTyLabel
 
 ```{r ressources_maths}
-tib=spq_init() %>% 
+tib=spq_init() %>%
+  spq_prefix(prefixes=c(sym="http://symogih.org/ontology/",
+                        syr="http://symogih.org/resource/")) %>% 
   spq_add("?r sym:associatesObject syr:AbOb213") %>% 
   spq_add("?r sym:isComponentOf ?i") %>% 
   spq_add("?i sym:knowledgeUnitStandardLabel ?stLabel") %>% 
@@ -40,7 +42,7 @@ tib=spq_init() %>%
   spq_add(". sym:hasKnowledgeUnitType ?KUTy") %>% 
   spq_add("?KUTy rdfs:label ?KUTyLabel") %>% 
   spq_head(n=10) %>% 
-  send(e="symogih")
+  send(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
   
 knitr::kable(tib)
 ```
@@ -48,7 +50,9 @@ knitr::kable(tib)
 ## Structure de la partie abstraite de l'ontologie
 
 ```{r}
-tib=spq_init() %>% 
+tib=spq_init() %>%
+  spq_prefix(prefixes=c(sym="http://symogih.org/ontology/",
+                        syr="http://symogih.org/resource/")) %>%  
   spq_add("?s a ?cl") %>% 
   spq_add("?s ?p ?o1") %>% 
   spq_add("?o1 a ?cl1", required=FALSE) %>% 
@@ -56,7 +60,7 @@ tib=spq_init() %>%
   spq_head(n=10) %>% 
   spq_summarise(c("?effectif"="COUNT(*)")) %>% 
   spq_arrange(c("DESC(?effectif)")) %>% 
-  send(e="SyMoGIH")
+  send(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
 
 knitr::kable(tib)
 ```
@@ -64,7 +68,9 @@ knitr::kable(tib)
 ## Structure de la partie instanciée de l'ontologie
 
 ```{r}
-tib=spq_init() %>% 
+tib=spq_init() %>%
+  spq_prefix(prefixes=c(sym="http://symogih.org/ontology/",
+                        syr="http://symogih.org/resource/")) %>% 
   spq_add("?s sym:hasKnowledgeUnitType ?tyin") %>% 
   spq_add("?r sym:isComponentOf ?s") %>% 
   spq_add("?r sym:hasRoleType ?tyro") %>% 
@@ -72,7 +78,7 @@ tib=spq_init() %>%
   spq_summarise(c("?effectif"="COUNT(*)")) %>% 
   spq_arrange(c("?tyin","?tyro","DESC(?effectif)")) %>% 
   spq_head(n=10) %>% 
-  send(e="SyMoGIH")
+  send(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
 ```
 
 ## Types d'informations et types de rôles, avec effectifs
@@ -80,14 +86,16 @@ tib=spq_init() %>%
 
 ```{r}
 tib=spq_init() %>% 
+  spq_prefix(prefixes=c(sym="http://symogih.org/ontology/",
+                        syr="http://symogih.org/resource/")) %>% 
   spq_add("?s sym:hasKnowledgeUnitType ?tyin") %>% 
   spq_add("?r sym:isComponentOf ?s") %>% 
   spq_add("?r sym:hasRoleType ?tyro") %>% 
   spq_group_by(c("?tyin","?tyro")) %>% 
   spq_summarise(c("?effectif"="COUNT(*)")) %>% 
   spq_arrange(c("?tyin","?tyro","?effectif")) %>% 
-  spq_head(n=10) %>% 
-  send(e="SyMoGIH") 
+  spq_head(n=10) %>%
+  send(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
 
 knitr::kable(tib)
 ```
@@ -96,6 +104,8 @@ knitr::kable(tib)
 
 ```{r}
 tib=spq_init() %>% 
+  spq_prefix(prefixes=c(sym="http://symogih.org/ontology/",
+                        syr="http://symogih.org/resource/")) %>% 
   spq_add("?tyro rdfs:label ?TyRoLabel") %>% 
   spq_add("?tyin rdfs:label ?TyInLabel") %>% 
   spq_add("?s ?p syr:Actr56241") %>% 
@@ -106,7 +116,7 @@ tib=spq_init() %>%
   spq_add(". sym:hasKnowledgeUnitType ?tyin") %>% 
   spq_arrange("?infoStandardDate") %>% 
   spq_head(n=10) %>% 
-  send(e="SyMoGIH")
+  send(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
 
 knitr::kable(tib)
 ```

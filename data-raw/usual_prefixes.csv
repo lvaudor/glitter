@@ -20,8 +20,6 @@ generic,ore,http://www.openarchives.org/ore/terms/
 generic,geo,http://www.w3.org/2003/01/geo/wgs84_pos#
 generic,sioc,http://rdfs.org/sioc/ns#
 dataBNF,bnf-onto,http://data.bnf.fr/ontology/bnf-onto/
-SyMoGih,sym,http://symogih.org/ontology/
-SyMoGih,syr,http://symogih.org/resource/
 hal,hal,http://data.archives-ouvertes.fr/schema/
 hal,haldoctype,https://data.archives-ouvertes.fr/doctype/
 hal,haldoc,https://data.archives-ouvertes.fr/document/

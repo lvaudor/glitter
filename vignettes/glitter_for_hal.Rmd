@@ -24,12 +24,12 @@ On s'intéresse à ce document: haldoc:inria-00362381.
 ## Rechercher toutes les informations associées à ce document
 
 ```{r}
-tib=spq_init() %>% 
+tib_info=spq_init() %>% 
   spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
   spq_add("?version ?p ?object") %>%                               # ?version a des prop. ?p les liant à ?object
   send(e="hal")
 
-tib
+head(tib_info)
 ```
 
 ## Rechercher l’URI, le titre, le lien vers le PDF et les auteurs de [toutes les versions de] ce document
@@ -63,13 +63,15 @@ tib_doc_autConcat
 On peut également **agréger/résumer** les résultats renvoyés par la requête, par exemple en **recherchant le nombre d’auteurs d’un document** (par version)
 
 ```{r}
-tib=spq_init() %>% 
+tib_nbAutDoc=spq_init() %>% 
   spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
   spq_add("?version dcterms:creator ?creator") %>%                 # ?version a pour créateur ?creator
   spq_add("?creator hal:person ?person") %>%                       # ?creator est une personne ?person
   spq_group_by("?version") %>%                                     # Groupe par ?version
   spq_summarise(c("?nbperson"="count(distinct ?person)")) %>%      # Résume: ?nbperson = nb de ?person dist.  
   send(e="hal")
+
+tib_nbAutDoc
 ```
 
 ## Rechercher l’URI et les types (et l'étiquette associée) de [toutes les versions de] ce document
@@ -95,6 +97,8 @@ query_docTypeFr=query_docType %>%
   spq_filter("lang(?label)='fr'")     # Filtre pour garder les étiquettes en français
 
 tib_docTypeFr=send(query_docTypeFr,"hal")
+
+tib_docTypeFr
 ```
 
 
@@ -111,13 +115,12 @@ query_foAut=spq_init() %>%
   spq_add("?document dcterms:hasVersion ?version") %>%  # ?document a des versions ?version
   spq_add("?version dcterms:creator ?creator") %>%      # ?version a pour créateur ?creator
   spq_add("?creator hal:person {fabien_gandon}") %>%    # ?creator est fabien_gandon ({déf. de l'objet dans R})
-  spq_add(". dcterms:type ?type") %>%                   # ?version a pour type ?type
+  spq_add("?version dcterms:type ?type") %>%            # ?version a pour type ?type
   spq_add("?type skos:prefLabel ?label") %>%            # ?type a pour étiquette ?label
   spq_filter("lang(?label)='fr'")                       # Filtre pour garder les ?label en français
-
 tib_foAut=send(query_foAut,"hal")
 
-tib_foAut
+head(tib_foAut)
 ```
 
 ## Enrichir/simplifier la requête
@@ -130,7 +133,7 @@ query_foAutNbDoc=query_foAut %>%
   spq_group_by(c("?type","?label")) %>%                      # Groupe par ?type et ?label
   spq_summarise(c("?nbdoc"="count(distinct ?document)"))     # Résume: ?nbdoc = nb de ?document dist.
 
-tib_foAutNbDoc=send(query_foAut,"hal")
+tib_foAutNbDoc=send(query_foAutNbDoc,"hal")
 
 tib_foAutNbDoc
 ```
@@ -149,7 +152,7 @@ tib_foAutNbDocOrd
 On peut également s'intéresser aux **dates** de publication. Par exemple ici, on récupère la date de publication, l'année correspondante, et on résume l'information en calculant le nombre de documents par année.
 
 ```{r}
-tib=spq_init() %>% 
+tib_dat=spq_init() %>% 
   spq_add("?document dcterms:hasVersion ?version") %>% 
   spq_add("?version dcterms:creator ?creator") %>%
   spq_add(". dcterms:issued ?date") %>%                      # ?version est sortie à ?date
@@ -160,7 +163,7 @@ tib=spq_init() %>%
   spq_arrange(c("?year")) %>% 
   send(e="hal")
 
-tib
+tib_dat
 ```
 
 # Recherche par auteur
@@ -181,7 +184,7 @@ tib_aut
 
 ## Enrichir/résumer les données
 
-... en comptant le nombre de documents par année:
+... en comptant le **nombre de documents par année**:
 
 ```{r}
 query_autNbDocYear=query_aut %>% 
