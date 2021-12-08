@@ -201,7 +201,7 @@ keep_prefix=function(vstring){
       prefixed=stringr::str_split(string,"\\/") %>% unlist()
     }
     prefix=stringr::str_extract(prefixed,
-                                "[a-zA-Z0-9]*(?=\\:)") %>%
+                                "[^\\s^\\^]*(?=\\:)") %>%
       unique()
   }else{
     prefix=NA
@@ -209,5 +209,25 @@ keep_prefix=function(vstring){
   prefixes=purrr::map_chr(vstring,keep_prefix_1elem) %>%
     unique()
   return(prefixes)
+}
+
+
+#' get full specification of variables (as in SELECT part of SPARQL query) based on variable names
+#' @param vars the selected variables (formula and name)
+#' @examples
+#' glitter:::get_varformula(c("?author","?document","(year(?date) AS ?year)"))
+get_varformula=function(selected) {
+  elems_one_var=function(var){
+    if(stringr::str_detect(var,"\\(.* AS .*\\)")){
+      formula=stringr::str_extract(var,"(?<=\\().*(?= AS )")
+      name=stringr::str_extract(var,"(?<= AS ).*(?=\\))")
+    }else{
+      formula=var
+      name=var
+    }
+    return(tibble::tibble(full=var,name=name,formula=formula))
+  }
+  result=purrr::map_df(selected,elems_one_var)
+  return(result)
 }
 
