@@ -14,3 +14,7 @@ spq_prefix(query = NULL, auto = TRUE, prefixes = NULL)
 \description{
 Add prefixes to the query
 }
+\examples{
+spq_init() \%>\%
+spq_prefix(prefixes=c(dbo="http://dbpedia.org/ontology/"))
+}

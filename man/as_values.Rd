@@ -17,4 +17,6 @@ object="{c(wd:Q456,wd:Q23482)}"
 glitter:::as_values(object)
 object=c("wd:Q456","wd:Q23482")
 glitter:::as_values(object)
+object=c("wd:Q7732")
+glitter:::as_values(object)
 }

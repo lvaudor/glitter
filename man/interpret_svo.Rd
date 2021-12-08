@@ -17,4 +17,6 @@ obj1="0000000121012885"
 glitter:::interpret_svo("{obj1}")
 obj2=c("wd:Q432","wd:Q576")
 glitter:::interpret_svo("{obj2}")
+obj3="'Cristiano_Ronaldo'@en"
+glitter:::interpret_svo(obj3)
 }
