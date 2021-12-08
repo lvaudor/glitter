@@ -1,0 +1,251 @@
+---
+title: "glitter for HAL"
+author: "Lise Vaudor"
+date: "04/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(glitter)
+```
+
+
+```{r}
+library(glitter)
+```
+
+Cette vignette reprend les **requêtes proposées (dans le langage SPARQL)** dans [cette présentation](https://fr.slideshare.net/lespetitescases/dcouverte-du-sparql-endpoint-de-hal) de **Gautier Poupeau** et vous montre comment les formuler dans R à l'aide du package glitter.  
+
+# Recherche par document
+
+On s'intéresse à ce document: haldoc:inria-00362381.
+
+## Rechercher toutes les informations associées à ce document
+
+```{r}
+tib=spq_init() %>% 
+  spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
+  spq_add("?version ?p ?object") %>%                               # ?version a des prop. ?p les liant à ?object
+  send(e="hal")
+
+tib
+```
+
+## Rechercher l’URI, le titre, le lien vers le PDF et les auteurs de [toutes les versions de] ce document
+
+```{r}
+query_doc=spq_init() %>% 
+  spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
+  spq_add("?version dcterms:title ?title") %>%                     # ?version a pour titre ?titre
+  spq_add(". dcterms:creator ?creator") %>%                        # ...... et pour créateur ?creator
+  spq_add(". ore:aggregates ?pdf") %>%                             # ...... et ce lien vers un ?pdf
+  spq_add("?creator hal:person ?person") %>%                       # ?creator est une personne ?person
+  spq_add("?person foaf:name ?name")                               # ?person a pour nom ?name
+
+tib_doc=send(query_doc,"hal")
+
+tib_doc
+```
+
+Remarque: on peut concaténer les réponses d’une variable (ici les auteurs par exemple):
+
+```{r}
+query_doc_autConcat=query_doc %>% 
+  spq_group_by(c("?version","?title","?pdf")) %>%             # Groupe les résultats par ?version, ?title, ?pdf
+  spq_summarise(c("?authors"="GROUP_CONCAT(?name,',')"))      # Concatène les noms d'auteur dans ?authors
+
+tib_doc_autConcat=send(query_doc_autConcat,"hal")
+
+tib_doc_autConcat
+```
+
+On peut également **agréger/résumer** les résultats renvoyés par la requête, par exemple en **recherchant le nombre d’auteurs d’un document** (par version)
+
+```{r}
+tib=spq_init() %>% 
+  spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
+  spq_add("?version dcterms:creator ?creator") %>%                 # ?version a pour créateur ?creator
+  spq_add("?creator hal:person ?person") %>%                       # ?creator est une personne ?person
+  spq_group_by("?version") %>%                                     # Groupe par ?version
+  spq_summarise(c("?nbperson"="count(distinct ?person)")) %>%      # Résume: ?nbperson = nb de ?person dist.  
+  send(e="hal")
+```
+
+## Rechercher l’URI et les types (et l'étiquette associée) de [toutes les versions de] ce document
+
+On cherche les types associés aux versions de documents. Ces types sont associés à des étiquettes (dans plusieurs langues) qui permettent de comprendre de quoi il s'agit "en langage ordinaire".
+
+```{r}
+query_docType=spq_init() %>% 
+  spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
+  spq_add("?version dcterms:type ?type") %>%                       # ?version est un document de type ?type
+  spq_add("?type skos:prefLabel ?label")                           # ?type a pour étiquette ?label
+
+tib_docType=send(query_docType,"hal")
+
+tib_docType
+```
+
+
+On peut **filtrer les résultats** pour n'afficher que la ligne de résultats pour laquelle l'étiquette est en français :
+
+```{r}
+query_docTypeFr=query_docType %>% 
+  spq_filter("lang(?label)='fr'")     # Filtre pour garder les étiquettes en français
+
+tib_docTypeFr=send(query_docTypeFr,"hal")
+```
+
+
+# Recherche par forme-auteur
+
+## Afficher les documents associés à une forme-auteur
+
+Considérons une des "forme-auteur" de Fabien Gandon, [https://data.archives-ouvertes.fr/author/827904](https://data.archives-ouvertes.fr/author/827904) (vu dans les résultats des requêtes précédentes).
+
+```{r}
+fabien_gandon="<https://data.archives-ouvertes.fr/author/827904>" # fabien_gandon = cette forme auteur
+
+query_foAut=spq_init() %>% 
+  spq_add("?document dcterms:hasVersion ?version") %>%  # ?document a des versions ?version
+  spq_add("?version dcterms:creator ?creator") %>%      # ?version a pour créateur ?creator
+  spq_add("?creator hal:person {fabien_gandon}") %>%    # ?creator est fabien_gandon ({déf. de l'objet dans R})
+  spq_add(". dcterms:type ?type") %>%                   # ?version a pour type ?type
+  spq_add("?type skos:prefLabel ?label") %>%            # ?type a pour étiquette ?label
+  spq_filter("lang(?label)='fr'")                       # Filtre pour garder les ?label en français
+
+tib_foAut=send(query_foAut,"hal")
+
+tib_foAut
+```
+
+## Enrichir/simplifier la requête
+
+On peut **résumer les résultats requêtés** par exemple en affichant le nombre de documents par type (et étiquette associée):
+
+
+```{r}
+query_foAutNbDoc=query_foAut %>% 
+  spq_group_by(c("?type","?label")) %>%                      # Groupe par ?type et ?label
+  spq_summarise(c("?nbdoc"="count(distinct ?document)"))     # Résume: ?nbdoc = nb de ?document dist.
+
+tib_foAutNbDoc=send(query_foAut,"hal")
+
+tib_foAutNbDoc
+```
+
+On peut afficher ces résultats en **ordonnant** les lignes selon le nombre de documents décroissant:
+
+```{r}
+query_foAutNbDocOrd=query_foAutNbDoc%>% 
+  spq_arrange("desc(?nbdoc)")        # Ordonne par ordre décroissant de ?nbdoc
+
+tib_foAutNbDocOrd=send(query_foAutNbDocOrd,"hal")
+
+tib_foAutNbDocOrd
+```
+
+On peut également s'intéresser aux **dates** de publication. Par exemple ici, on récupère la date de publication, l'année correspondante, et on résume l'information en calculant le nombre de documents par année.
+
+```{r}
+tib=spq_init() %>% 
+  spq_add("?document dcterms:hasVersion ?version") %>% 
+  spq_add("?version dcterms:creator ?creator") %>%
+  spq_add(". dcterms:issued ?date") %>%                      # ?version est sortie à ?date
+  spq_add("?creator hal:person {fabien_gandon}") %>% 
+  spq_mutate(c("?year"="year(?date)"))%>%                    # Crée ?year = année de ?date
+  spq_group_by(c("?year")) %>%                               # Groupe par ?year
+  spq_summarise(c("?nbdoc"="count(distinct ?document)")) %>% # Résume: ?nbdoc= nb de ?document dist.
+  spq_arrange(c("?year")) %>% 
+  send(e="hal")
+
+tib
+```
+
+# Recherche par auteur
+
+Une personne=un IdHAL=plusieurs formes-auteur
+
+## Afficher les URIs de toutes les formes-auteur associées à la forme « Fabien Gandon » via l’IdHAL
+
+```{r}
+query_aut=spq_init() %>% 
+  spq_add("{fabien_gandon} ore:isAggregatedBy ?o") %>% # {fabien gandon} correspond à ?o
+  spq_add("?forme ore:isAggregatedBy ?o")              # ?forme correspond à ?o
+
+tib_aut=send(query_aut,"hal")
+
+tib_aut
+```
+
+## Enrichir/résumer les données
+
+... en comptant le nombre de documents par année:
+
+```{r}
+query_autNbDocYear=query_aut %>% 
+  spq_add("?version dcterms:creator ?creator") %>%      # ?version a pour créateur ?creator
+  spq_add("?creator hal:person ?forme") %>%             # ?creator est une personne ?forme
+  spq_add("?version dcterms:issued ?date") %>%          # ?version a été publié à ?date
+  spq_add("?document dcterms:hasVersion ?version") %>%  # ?document a pour versions ?version
+  spq_mutate(c("?year"="year(?date)")) %>%              # Ajoute ?year qui correspond à l'année de ?date
+  spq_group_by(c("?year")) %>%                          # Groupe par ?year
+  spq_arrange("?year") %>%                              # Ordonne par ordre décroissant de ?year
+  spq_summarise(c("?nbdoc"="count(distinct ?document)"))# Résume: ?nbdoc=nb de ?document dist.
+
+tib_autNbDocYear=send(query_autNbDocYear,"hal")
+
+tib_autNbDocYear
+```
+
+<!--  select DISTINCT ?idhal ?identifiant where { <https://data.archives-ouvertes.fr/author/827904> ore:isAggregatedBy ?idhal. ?forme ore:isAggregatedBy ?idhal. ?forme owl:sameAs ?identifiant } -->
+
+<!-- Faire une recherche dans une chaîne de caractères exple afficher les identifiants ORCID distincts liés à toutes les formes liées à « Fabien Gandon » URI utile Forme auteur : https://data.archives-ouvertes.fr/author/827904 select DISTINCT ?idhal ?orcid where { <https://data.archives-ouvertes.fr/author/827904> ore:isAggregatedBy ?idhal. ?forme ore:isAggregatedBy ?idhal. ?forme owl:sameAs ?orcid. FILTER regex(str(?orcid), 'orcid.org') } -->
+
+<!-- # Afficher les identifiants ORCID de tous les membres d’INRIA et pour chaque ORCID, concaténer les différentes URIs des formes associées URI utile INRIA : https://data.archives-ouvertes.fr/structure/300009  -->
+
+
+<!-- Exercice 13 select ?orcid ?name GROUP_CONCAT(str(?forme),',') where { ?forme foaf:member <https://data.archives-ouvertes.fr/structure/300009>; foaf:name ?name; owl:sameAs ?orcid. FILTER regex(str(?orcid),'orcid.org') } GROUP BY ?orcid ?name ORDER BY ?name -->
+
+<!-- # Afficher tous les membres d’INRIA et pour chaque membre, éventuellement l’identifiant ORCID et l’identifiant idHal URI utile INRIA : https://data.archives-ouvertes.fr/structure/300009  -->
+
+
+
+<!-- select DISTINCT ?name ?orcid ?idHal where { ?forme foaf:member <https://data.archives-ouvertes.fr/structure/300009>; foaf:name ?name. OPTIONAL {?forme owl:sameAs ?orcid. FILTER regex(?orcid,'orcid.org')} OPTIONAL {?forme ore:isAggregatedBy ?idHal} } ORDER BY ?name -->
+
+<!-- # Astuce 11 La négation -->
+
+<!-- Afficher les membres qui ont un identifiant idHAL mais pas d’ORCID URI utile INRIA : https://data.archives-ouvertes.fr/structure/300009 select DISTINCT ?idHal ?name where { ?forme foaf:member <https://data.archives-ouvertes.fr/structure/300009>; foaf:name ?name; ore:isAggregatedBy ?idHal FILTER NOT EXISTS {?forme owl:sameAs ?orcid. FILTER regex(?orcid,'orcid.org')} } ORDER BY ?name -->
+
+<!-- # Afficher tous les membres d’INRIA qui n’ont pas d’identifiant idHAL et concaténés par la forme  -->
+
+<!-- URI utile INRIA : https://data.archives-ouvertes.fr/structure/300009 Exercice 14 select ?name, GROUP_CONCAT(str(?forme), '|') where { ?forme foaf:member <https://data.archives-ouvertes.fr/structure/300009>; foaf:name ?name. FILTER NOT EXISTS {?forme ore:isAggregatedBy ?idHal} } GROUP BY ?name ORDER BY ?name -->
+
+<!-- # Afficher tous les domaines des membres d’INRIA et pour chaque domaine le nombre de documents associés ordonné de manière décroissante URI utile INRIA : https://data.archives-ouvertes.fr/structure/300009 Exercice 15 select ?topic ?prefLabel count(DISTINCT ?document) AS ?nbdoc where { ?forme foaf:member <https://data.archives-ouvertes.fr/structure/300009>. ?version hal:topic ?topic; dcterms:creator ?creator. ?creator hal:person ?forme. ?topic skos:prefLabel ?prefLabel. ?document dcterms:hasVersion ?version. FILTER (lang(?prefLabel)='fr') } GROUP BY ?topic ?prefLabel ORDER BY DESC(?nbdoc) -->
+
+<!-- # Afficher tous les co-auteurs de Fabien Gandon et le nombre d’articles pour chacun d’entre eux URI utile idHal de Fabien Gandon : https://data.archives-ouvertes.fr/structure/300009 Exercice 16 select ?name count(DISTINCT ?document) AS ?nbdoc where { ?forme ore:isAggregatedBy <https://data.archives-ouvertes.fr/author/fabien- gandon>. ?version hal:topic ?topic; dcterms:creator ?creator. ?creator hal:person ?forme. ?document dcterms:hasVersion ?version. ?version dcterms:creator ?autresCreator. ?autresCreator hal:person ?autresformes. ?autresformes foaf:name ?name. FILTER (?name !='Fabien Gandon') } GROUP BY ?name ORDER BY DESC(?nbdoc) -->
+
+<!-- # Astuce 12 Limiter les résultats de comptage Afficher tous les co-auteurs de Fabien Gandon et le nombre d’articles pour chacun d’entre eux et ayant plus de 1 document en commun URI utile idHal de Fabien Gandon : https://data.archives-ouvertes.fr/author/fabien-gandon select ?name count(DISTINCT ?document) AS ?nbdoc where { ?forme ore:isAggregatedBy <https://data.archives-ouvertes.fr/author/fabien- gandon>. ?version hal:topic ?topic; dcterms:creator ?creator. ?creator hal:person ?forme. ?document dcterms:hasVersion ?version. ?version dcterms:creator ?autresCreator. ?autresCreator hal:person ?autresformes. ?autresformes foaf:name ?name. FILTER (?name !='Fabien Gandon') } GROUP BY ?name HAVING (count(DISTINCT ?document) > 1) ORDER BY DESC(?nbdoc) -->
+
+<!-- # Modèle pour les personnes IdHAL C’est beau mais malheureusement, ce n’est pas dans le triple store  -->
+
+<!--     36. Modèle pour les structures Exemple : https://data.archives-ouvertes.fr/structure/300009 -->
+
+<!-- # Afficher toutes les organisations et leur terme préférentiel -->
+
+<!-- URI utile Classe Organisation : http://www.w3.org/ns/org#Organization INRIA : https://data.archives-ouvertes.fr/structure/300009 Exercice 17 select ?structure ?prefLabel where { ?structure a org:Organization; skos:prefLabel ?prefLabel. } -->
+
+<!-- Modèle pour les revues https://data.archives-ouvertes.fr/revue/109707 -->
+
+
+<!-- Modèles pour les projets Exemple :  -->
+<!-- https://data.archives-ouvertes.fr/anrProject/1001 https://data.archives-ouvertes.fr/europeanProject/129494 -->
+
+<!-- # Afficher toutes les projets ANR dont sont issues les documents écrits par des membres de l’INRIA URI utile Classe projet : http://www.eurocris.org/ontologies/cerif/1.3/ INRIA : https://data.archives-ouvertes.fr/structure/300009 Exercice 18 select DISTINCT ?projet ?title ?acronym ?startDate where { ?forme foaf:member <https://data.archives-ouvertes.fr/structure/300009>. ?version dcterms:source ?projet; dcterms:creator ?creator. ?creator hal:person ?forme. ?projet a cerif:Project; cerif:title ?title; cerif:startDate ?startDate. OPTIONAL {?projet cerif:acronym ?acronym} FILTER regex(str(?projet),'anrProject') } ORDER BY DESC(?startDate) -->
+
+<!-- # Afficher toutes les projets ANR dont sont issues les documents écrits par des membres de l’INRIA et pour chacun le nombre de documents associés -->
+
+<!-- URI utile Classe projet : http://www.eurocris.org/ontologies/cerif/1.3/ INRIA : https://data.archives-ouvertes.fr/structure/300009  -->
+
+<!-- Exercice 19 select ?projet ?title ?acronym ?startDate count(DISTINCT ?document) AS ?nbdoc where { ?forme foaf:member <https://data.archives-ouvertes.fr/structure/300009>. ?version dcterms:source ?projet; dcterms:creator ?creator. ?creator hal:person ?forme. ?projet a cerif:Project; cerif:title ?title; cerif:startDate ?startDate. OPTIONAL {?projet cerif:acronym ?acronym} FILTER regex(str(?projet),'anrProject') ?document dcterms:hasVersion ?version. } GROUP BY ?projet ?title ?acronym ?startDate ORDER BY DESC(?nbdoc) -->
