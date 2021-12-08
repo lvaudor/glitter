@@ -4,6 +4,7 @@ Wikidata,wdt,http://www.wikidata.org/prop/direct/
 Wikidata,ps,http://www.wikidata.org/prop/statement/
 Wikidata,pq,http://www.wikidata.org/prop/qualifier/
 Wikidata,wikibase,http://wikiba.se/ontology#
+dbpedia,dbo,http://dbpedia.org/ontology/
 generic,foaf,http://xmlns.com/foaf/0.1/
 generic,rdfs,http://www.w3.org/2000/01/rdf-schema#
 generic,bio,http://vocab.org/bio/0.1/

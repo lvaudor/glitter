@@ -1,0 +1,7 @@
+name,url
+wikidata,https://query.wikidata.org/
+dbpedia,https://dbpedia.org/sparql
+databnf,https://data.bnf.fr/sparql
+isidore,https://isidore.science/sparql
+hal,http://sparql.archives-ouvertes.fr/sparql
+symogih,http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql
