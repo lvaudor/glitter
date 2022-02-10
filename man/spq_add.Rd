@@ -18,6 +18,8 @@ spq_add(
 )
 }
 \arguments{
+\item{query}{query}
+
 \item{triplet}{the triplet statement (replaces arguments subject verb and object)}
 
 \item{subject}{an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))}
@@ -25,6 +27,8 @@ spq_add(
 \item{verb}{the property (for instance "wdt:P190")}
 
 \item{object}{an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))}
+
+\item{prefixes}{Custom prefixes}
 
 \item{required}{whether the existence of a value for the triplet is required or not (defaults to TRUE).
 If set to FALSE, then other triplets in the query are returned even if this particular triplet is missing)}
@@ -53,6 +57,7 @@ spq_add("?city wdt:P625 ?coords",within_box=list(southwest=c(3,43),northeast=c(7
 spq_head(n=10) \%>\%
 send()
 
+\dontrun{
 # find the individuals of the species
 spq_init() \%>\%
 spq_add("?mayor wdt:P31 ?species") \%>\%
@@ -65,4 +70,5 @@ spq_add("?node ps:P39 wd:Q30185") \%>\%
 # of some places
 spq_add("?node pq:P642 ?place") \%>\%
 send()
+}
 }

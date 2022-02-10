@@ -9,6 +9,8 @@ spq_prefix(query = NULL, auto = TRUE, prefixes = NULL)
 \arguments{
 \item{query}{a list with elements of the query}
 
+\item{auto}{whether to use built-in prefixes}
+
 \item{prefixes}{a vector of prefixes}
 }
 \description{

@@ -20,7 +20,7 @@ subclasses_of=function(id, include_self=FALSE){
       clean_wikidata_table() %>%
       dplyr::mutate(from=id,
                     to=classes) %>%
-      dplyr::select(from,to,everything())
+      dplyr::select(.data$from,.data$to,dplyr::everything())
   }
   return(classes)
 }
@@ -48,7 +48,7 @@ superclasses_of=function(id, include_self=FALSE){
       clean_wikidata_table()%>%
       dplyr::mutate(from=classes,
                     to=id) %>%
-      dplyr::select(from,to,everything())
+      dplyr::select(.data$from,.data$to,dplyr::everything())
   }
   return(classes)
 }

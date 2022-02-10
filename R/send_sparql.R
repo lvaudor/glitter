@@ -12,25 +12,26 @@
 #'} ORDER BY ?itemLabel
 #''
 #'send_sparql(query=metro_query)
+#' @import SPARQL
 send_sparql=function(query,endpoint="Wikidata"){
   endpoint=tolower(endpoint)
 
   # if endpoint wikidata, use WikidataQueryServiceR::query_wikidata()
   if(endpoint=="wikidata"){
-    tib <- quietly(WikidataQueryServiceR::query_wikidata)(query)$result
+    tib <- purrr::quietly(WikidataQueryServiceR::query_wikidata)(query)$result
   }
   # else, use SPARQL::SPARQL()
   # if endpoint passed as name, get url
   if(endpoint %in% (usual_endpoints %>%
-                    dplyr::filter(name!="wikidata") %>%
-                    dplyr::pull(name))){
+                    dplyr::filter(.data$name!="wikidata") %>%
+                    dplyr::pull(.data$name))){
     url=usual_endpoints %>%
-      dplyr::filter(name==endpoint) %>%
-      dplyr::select(url) %>%
-      pull()
+      dplyr::filter(.data$name == {{ endpoint }}) %>%
+      dplyr::select(.data$url) %>%
+      dplyr::pull()
     tib <- SPARQL::SPARQL(url=url,
                           query=query,
-                          curl_args=list(useragent='User Agent Example'))
+                          curl_args=list(useragent='glitter R package (https://github.com/lvaudor/glitter)'))
     tib <- tib$results
   }
   # else, endpoint must be passed as url
@@ -45,3 +46,4 @@ send_sparql=function(query,endpoint="Wikidata"){
   return(tib)
 }
 
+utils::globalVariables("usual_endpoints")

@@ -10,6 +10,8 @@ get_info(id, language = "en", with_labels = FALSE)
 \item{id}{a Wikidata ID, either of an item ("wd:Qxxxxx") or of a property ("wd:Pxxxxx"), or the item itself.}
 
 \item{language}{language of description, defaults to English ("en")}
+
+\item{with_labels}{Whether to keep labels (Boolean)}
 }
 \description{
 Get description of Wikidata thing

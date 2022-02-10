@@ -1,7 +1,8 @@
 #' Checks whether element is a variable ("?...")
 #' @param vstring a string or vector of strings
+#' @noRd
 #' @examples
-#' glitter:::is_variable(c("?elem","?item")) #TRUE
+#' is_variable(c("?elem","?item")) #TRUE
 is_variable=function(vstring){
   is_variable_1elem=function(string){
       if(is.na(string)|is.null(string)){
@@ -20,10 +21,11 @@ is_variable=function(vstring){
 
 #' Checks whether element is prefixed ("prefix::id")
 #' @param vstring a string or vector of strings
+#' @noRd
 #' @examples
-#' glitter:::is_prefixed("elem") #returns FALSE
-#' glitter:::is_prefixed("wd:Q456") #returns TRUE
-#' glitter:::is_prefixed("<http://qsdfqsdfsqdf>") #returns TRUE
+#' is_prefixed("elem") #returns FALSE
+#' is_prefixed("wd:Q456") #returns TRUE
+#' is_prefixed("<http://qsdfqsdfsqdf>") #returns TRUE
 is_prefixed=function(vstring){
   is_prefixed_1elem=function(string){
     if(stringr::str_detect(string,"^<http.*>$")){
@@ -42,7 +44,8 @@ is_prefixed=function(vstring){
 #' Checks whether element is a url ("<http_blah_>")
 #' @param vstring a string or vector of strings
 #' @examples
-#' glitter:::is_url(c("<http://qsdqsdfqsdfqs.html>","<http blablabla>")) #TRUE
+#' is_url(c("<http://qsdqsdfqsdfqs.html>","<http blablabla>")) #TRUE
+#' @noRd
 is_url=function(vstring){
   is_url_1elem=function(string){
       if(stringr::str_detect(string,"^<http.*>$")){
@@ -57,10 +60,11 @@ is_url=function(vstring){
 
 #' Checks whether element is a value ("'blah'" or '"blah"')
 #' @param vstring a string or vector of strings
+#' @noRd
 #' @examples
-#' glitter:::is_value("'blabla'") #TRUE
-#' glitter:::is_value('"blabla"') #TRUE
-#' glitter:::is_value('blabla') #FALSE
+#' is_value("'blabla'") #TRUE
+#' is_value('"blabla"') #TRUE
+#' is_value('blabla') #FALSE
 is_value=function(vstring){
   is_value_1elem=function(string){
     if(stringr::str_detect(string,"^[\'\"].+[\'\"].*$")){
@@ -78,9 +82,10 @@ is_value=function(vstring){
 #' @param prefixes_used a string or vector of strings
 #' @param prefixes_known a tibble detailing known prefixes
 #' @param endpoint the endpoint considered (defaults to Wikidata)
+#' @noRd
 #' @examples
-#' glitter:::is_prefix_known(prefixes_used=c("wd","wdt"),prefixes_known=usual_prefixes,endpoint="Wikidata") # TRUE
-#' glitter:::is_prefix_known("blop:blabla", prefixes_known=usual_prefixes,endpoint="other") #returns error message
+#' is_prefix_known(prefixes_used=c("wd","wdt"),prefixes_known=usual_prefixes,endpoint="Wikidata") # TRUE
+#' is_prefix_known("blop:blabla", prefixes_known=usual_prefixes,endpoint="other") #returns error message
 is_prefix_known=function(prefixes_used,prefixes_known, endpoint="Wikidata"){
   is_prefix_known_1elem=function(prefix){
     if(stringr::str_detect(prefix,"^<http")){
@@ -101,25 +106,26 @@ is_prefix_known=function(prefixes_used,prefixes_known, endpoint="Wikidata"){
 #' @param vstring a string of R code or R vector of strings
 #' @examples
 #' object="{c(wd:Q456,wd:Q23482)}"
-#' glitter:::as_values(object)
+#' as_values(object)
 #' object=c("wd:Q456","wd:Q23482")
-#' glitter:::as_values(object)
+#' as_values(object)
 #' object=c("wd:Q7732")
-#' glitter:::as_values(object)
+#' as_values(object)
+#' @noRd
 as_values=function(vstring){
   if(length(vstring)>1){
     result=vstring
     return(result)
   }
   # if string is within {...}
-  if(str_detect(vstring,"(?<=^\\{).*(?=\\}$)")){
+  if(stringr::str_detect(vstring,"(?<=^\\{).*(?=\\}$)")){
     result=vstring %>%
-      str_extract("(?<=^\\{).*(?=\\}$)")
+      stringr::str_extract("(?<=^\\{).*(?=\\}$)")
       # if remaining string contains c(...)
-    if(str_detect(result,"(?<=^c\\().*(?=\\)$)")){
+    if(stringr::str_detect(result,"(?<=^c\\().*(?=\\)$)")){
         result=result %>%
-          str_extract("(?<=^c\\().*(?=\\)$)") %>%
-          str_split(",") %>%
+          stringr::str_extract("(?<=^c\\().*(?=\\)$)") %>%
+          stringr::str_split(",") %>%
           unlist()
     }else{
         # object corresponds to name
@@ -133,19 +139,20 @@ as_values=function(vstring){
 
 #' interprets if element is an R code inclusion of the type {...}
 #' @param string a string
+#' @noRd
 #' @examples
 #' obj1="0000000121012885"
-#' glitter:::interpret_svo("{obj1}")
+#' interpret_svo("{obj1}")
 #' obj2=c("wd:Q432","wd:Q576")
-#' glitter:::interpret_svo("{obj2}")
+#' interpret_svo("{obj2}")
 #' obj3="'Cristiano_Ronaldo'@en"
-#' glitter:::interpret_svo(obj3)
+#' interpret_svo(obj3)
 interpret_svo=function(string){
-  if(str_detect(string,"[\'\"]")){
-    string=str_replace(string,"_"," ")
+  if(stringr::str_detect(string,"[\'\"]")){
+    string=stringr::str_replace(string,"_"," ")
     return(string)
   }
-  if(!str_detect(string,"[{}]")){
+  if(!stringr::str_detect(string,"[{}]")){
     return(string)
   }
   string=stringr::str_extract(string,
@@ -156,13 +163,7 @@ interpret_svo=function(string){
 
 #' Checks whether subject/verb/object is stated correctly
 #' @param vstring a string or vector of strings
-#' @examples
-#' glitter:::is_svo_correct("elem") #FALSE
-#' glitter:::is_svo_correct("a") #TRUE
-#' glitter:::is_svo_correct("is") #TRUE
-#' glitter:::is_svo_correct("'0000000121012885'") #TRUE
-#' glitter:::is_svo_correct(".") #TRUE
-#' glitter:::is_svo_correct("[]") #TRUE
+#' @noRd
 is_svo_correct=function(vstring){
   is_svo_correct_1elem=function(string){
       # if element is a special syntax element
@@ -186,16 +187,17 @@ is_svo_correct=function(vstring){
 
 #' keep only prefixes (decomposing paths if necessary)
 #' @param vstring a string or vector of strings
+#' @noRd
 #' @examples
-#' glitter:::keep_prefix("wdt:P31/wdt:P279*") # wdt
-#' glitter:::keep_prefix("?item") # NULL
-#' glitter:::keep_prefix("<http://qdsfqsdfqsfqsdf.html>") # NULL
-#' glitter:::keep_prefix("wd:P343") # "wd:P343"
-#' glitter:::keep_prefix("'11992081'^^xsd:integer") # xsd:integer
-#' glitter:::keep_prefix(c("wd:P343","wdt:P249"))
+#' keep_prefix("wdt:P31/wdt:P279*") # wdt
+#' keep_prefix("?item") # NULL
+#' keep_prefix("<http://qdsfqsdfqsfqsdf.html>") # NULL
+#' keep_prefix("wd:P343") # "wd:P343"
+#' keep_prefix("'11992081'^^xsd:integer") # xsd:integer
+#' keep_prefix(c("wd:P343","wdt:P249"))
 keep_prefix=function(vstring){
   keep_prefix_1elem=function(string)
-  if(glitter:::is_prefixed(string)){
+  if(is_prefixed(string)){
     prefixed=string
     if(stringr::str_detect(string,"\\/")){
       prefixed=stringr::str_split(string,"\\/") %>% unlist()
@@ -214,8 +216,9 @@ keep_prefix=function(vstring){
 
 #' get full specification of variables (as in SELECT part of SPARQL query) based on variable names
 #' @param vars the selected variables (formula and name)
+#' @noRd
 #' @examples
-#' glitter:::get_varformula(c("?author","?document","(year(?date) AS ?year)"))
+#' get_varformula(c("?author","?document","(year(?date) AS ?year)"))
 get_varformula=function(selected) {
   elems_one_var=function(var){
     if(stringr::str_detect(var,"\\(.* AS .*\\)")){

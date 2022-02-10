@@ -1,4 +1,5 @@
 #' Add a triplet statement to a query
+#' @param query query
 #' @param triplet the triplet statement (replaces arguments subject verb and object)
 #' @param subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))
 #' @param verb the property (for instance "wdt:P190")
@@ -11,6 +12,7 @@
 #' @param within_distance if provided, circular bounding box for the triplet query.
 #'   Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
 #'   The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.
+#' @param prefixes Custom prefixes
 #' @export
 #' @examples
 #' # find the cities
@@ -24,6 +26,7 @@
 #' spq_head(n=10) %>%
 #' send()
 #'
+#' \dontrun{
 #' # find the individuals of the species
 #' spq_init() %>%
 #' spq_add("?mayor wdt:P31 ?species") %>%
@@ -36,6 +39,7 @@
 #' # of some places
 #' spq_add("?node pq:P642 ?place") %>%
 #' send()
+#' }
 spq_add=function(query=NULL,
                       triplet=NULL,
                       subject=NULL,
@@ -46,7 +50,6 @@ spq_add=function(query=NULL,
                       label=NA,
                       within_box=c(NA,NA),
                       within_distance=c(NA,NA)){
-
   elts=decompose_triplet(triplet=triplet,subject=subject,verb=verb,object=object)
   if(elts[1]=="."){elts[1]=query$previous_subject}
 
@@ -58,7 +61,7 @@ spq_add=function(query=NULL,
   query$prefixes_used=c(query$prefixes_used,
                         purrr::map_chr(unname(elts),
                                        keep_prefix)) %>%
-    na.omit() %>%
+    stats::na.omit() %>%
     unique()
   # select
   query$select=build_part_select(query,

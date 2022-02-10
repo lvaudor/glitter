@@ -17,9 +17,10 @@ build_sparql=function(query,endpoint="Wikidata"){
     spq_prefix(auto=TRUE, prefixes=NULL)
 
   # are prefixes correct and do they correspond to provided prefixes?
+  prefixes_known = dplyr::bind_rows(query$prefixes_provided,usual_prefixes)
   purrr::map_lgl(query$prefixes_used,
                  is_prefix_known,
-                 prefixes_known=bind_rows(query$prefixes_provided,usual_prefixes),
+                 prefixes_known= prefixes_known,
                  endpoint=endpoint)
   # prefixes
   if(nrow(query$prefixes_provided)>0){
@@ -47,3 +48,5 @@ build_sparql=function(query,endpoint="Wikidata"){
                query$limit)
   return(query)
 }
+
+utils::globalVariables("usual_prefixes")

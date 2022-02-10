@@ -7,9 +7,11 @@
 show_graph_classes(tib_g, n_min = 10, layout = "kk")
 }
 \arguments{
-\item{layout}{layout of the graph for instance "kk" or "sugiyama"}
+\item{tib_g}{tib_g}
 
-\item{id}{the id of class}
+\item{n_min}{minimal number}
+
+\item{layout}{layout of the graph for instance "kk" or "sugiyama"}
 }
 \description{
 Show the graph of sub/superclasses

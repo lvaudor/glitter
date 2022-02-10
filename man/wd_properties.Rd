@@ -16,7 +16,7 @@ A data frame with 8939 rows and 5 variables:
 }
 }
 \source{
-
+Wikidata \url{`r wikidata_url()`}
 }
 \usage{
 wd_properties
