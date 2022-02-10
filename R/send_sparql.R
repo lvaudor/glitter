@@ -17,7 +17,7 @@ send_sparql=function(query,endpoint="Wikidata"){
 
   # if endpoint wikidata, use WikidataQueryServiceR::query_wikidata()
   if(endpoint=="wikidata"){
-    tib <- quietly(WikidataQueryServiceR::query_wikidata)(query)$result
+    tib <- purrr::quietly(WikidataQueryServiceR::query_wikidata)(query)$result
   }
   # else, use SPARQL::SPARQL()
   # if endpoint passed as name, get url

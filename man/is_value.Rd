@@ -13,7 +13,7 @@ is_value(vstring)
 Checks whether element is a value ("'blah'" or '"blah"')
 }
 \examples{
-glitter:::is_value("'blabla'") #TRUE
-glitter:::is_value('"blabla"') #TRUE
-glitter:::is_value('blabla') #FALSE
+is_value("'blabla'") #TRUE
+is_value('"blabla"') #TRUE
+is_value('blabla') #FALSE
 }

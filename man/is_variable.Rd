@@ -13,5 +13,5 @@ is_variable(vstring)
 Checks whether element is a variable ("?...")
 }
 \examples{
-glitter:::is_variable(c("?elem","?item")) #TRUE
+is_variable(c("?elem","?item")) #TRUE
 }

@@ -13,10 +13,10 @@ is_svo_correct(vstring)
 Checks whether subject/verb/object is stated correctly
 }
 \examples{
-glitter:::is_svo_correct("elem") #FALSE
-glitter:::is_svo_correct("a") #TRUE
-glitter:::is_svo_correct("is") #TRUE
-glitter:::is_svo_correct("'0000000121012885'") #TRUE
-glitter:::is_svo_correct(".") #TRUE
-glitter:::is_svo_correct("[]") #TRUE
+is_svo_correct("elem") #FALSE
+is_svo_correct("a") #TRUE
+is_svo_correct("is") #TRUE
+is_svo_correct("'0000000121012885'") #TRUE
+is_svo_correct(".") #TRUE
+is_svo_correct("[]") #TRUE
 }

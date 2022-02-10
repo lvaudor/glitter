@@ -14,9 +14,11 @@
 #'clean_tib %>% head()
 clean_wikidata_table=function(wikitib){
   result=wikitib %>%
-    dplyr::mutate(dplyr::across(tidyselect:::where(is.character),
+    # https://github.com/r-lib/tidyselect/issues/201 regarding using where
+    dplyr::mutate(dplyr::across(where(is.character),
                   stringr::str_replace,
                   pattern="http://www.wikidata.org/entity/",
                   replacement="wd:"))
   return(result)
 }
+utils::globalVariables("where")

@@ -14,9 +14,9 @@ interprets if element is an R code inclusion of the type {...}
 }
 \examples{
 obj1="0000000121012885"
-glitter:::interpret_svo("{obj1}")
+interpret_svo("{obj1}")
 obj2=c("wd:Q432","wd:Q576")
-glitter:::interpret_svo("{obj2}")
+interpret_svo("{obj2}")
 obj3="'Cristiano_Ronaldo'@en"
-glitter:::interpret_svo(obj3)
+interpret_svo(obj3)
 }

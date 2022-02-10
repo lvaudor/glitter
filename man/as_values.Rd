@@ -14,9 +14,9 @@ transforms subject-verb-object arguments into a vector of values if needed
 }
 \examples{
 object="{c(wd:Q456,wd:Q23482)}"
-glitter:::as_values(object)
+as_values(object)
 object=c("wd:Q456","wd:Q23482")
-glitter:::as_values(object)
+as_values(object)
 object=c("wd:Q7732")
-glitter:::as_values(object)
+as_values(object)
 }

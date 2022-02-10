@@ -1,5 +1,6 @@
 #' Build the graph of sub/superclasses
 #' @param id the id of class
+#' @importFrom rlang .data
 #' @export
 #' @examples
 #' tib_g=build_graph_classes("wd:Q627272")
@@ -28,30 +29,30 @@ build_graph_classes=function(id){
   }
 
   table_edges=dplyr::bind_rows(subclasses %>%
-                                 dplyr::mutate(type=dplyr::case_when(from==to~"og",
-                                                                     from!=to~"sub")),
+                                 dplyr::mutate(type=dplyr::case_when(.data$from==.data$to~"og",
+                                                                     .data$from!=.data$to~"sub")),
                         superclasses %>%
                           dplyr::mutate(type="sup"))
   table_nodes=table_edges %>%
-    dplyr::select(type,classes, classesLabel) %>%
+    dplyr::select(.data$type, .data$classes, .data$classesLabel) %>%
     unique() %>%
-    dplyr::mutate(n=count_items(classes))%>%
+    dplyr::mutate(n=count_items(.data$classes))%>%
     dplyr::mutate(id=1:dplyr::n())
   table_edges=table_edges %>%
-    dplyr::select(from_wd=from,
-                  to_wd=to) %>%
+    dplyr::select(from_wd=.data$from,
+                  to_wd=.data$to) %>%
     dplyr::left_join(table_nodes %>%
-                       dplyr::select(id,classes),
+                       dplyr::select(.data$id,.data$classes),
                      by=c("to_wd"="classes")) %>%
     dplyr::mutate(to=id) %>%
     dplyr::select(-id) %>%
-    dplyr::left_join(table_nodes %>% dplyr::select(id,classes),
+    dplyr::left_join(table_nodes %>% dplyr::select(.data$id,.data$classes),
                      by=c("from_wd"="classes")) %>%
     dplyr::mutate(from=id) %>%
-    dplyr::select(-id) %>%
-    dplyr::select(from,to) %>%
-    na.omit() %>%
-    dplyr::filter(from!=to)
+    dplyr::select(-.data$id) %>%
+    dplyr::select(.data$from,.data$to) %>%
+    stats::na.omit() %>%
+    dplyr::filter(.data$from!=.data$to)
   tib_g=tidygraph::tbl_graph(nodes=table_nodes,
                              edges=table_edges)
   return(tib_g)

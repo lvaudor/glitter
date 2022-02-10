@@ -9,7 +9,7 @@
 #' spq_head(n=3) %>%
 #' send()
 spq_group_by=function(query,vars){
-  varformula=glitter:::get_varformula(query$select)
+  varformula=get_varformula(query$select)
   query$select=varformula %>%
     filter(name %in% vars) %>%
     pull(full)

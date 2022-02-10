@@ -13,5 +13,5 @@ is_url(vstring)
 Checks whether element is a url ("<http_blah_>")
 }
 \examples{
-glitter:::is_url(c("<http://qsdqsdfqsdfqs.html>","<http blablabla>")) #TRUE
+is_url(c("<http://qsdqsdfqsdfqs.html>","<http blablabla>")) #TRUE
 }
