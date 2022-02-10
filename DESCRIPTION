@@ -24,7 +24,6 @@ Imports:
     igraph,
     magrittr,
     purrr,
-    RCurl,
     rlang,
     stringr,
     tibble,
