@@ -26,6 +26,7 @@
 #' spq_head(n=10) %>%
 #' send()
 #'
+#' \dontrun{
 #' # find the individuals of the species
 #' spq_init() %>%
 #' spq_add("?mayor wdt:P31 ?species") %>%
@@ -38,6 +39,7 @@
 #' # of some places
 #' spq_add("?node pq:P642 ?place") %>%
 #' send()
+#' }
 spq_add=function(query=NULL,
                       triplet=NULL,
                       subject=NULL,
@@ -48,7 +50,6 @@ spq_add=function(query=NULL,
                       label=NA,
                       within_box=c(NA,NA),
                       within_distance=c(NA,NA)){
-
   elts=decompose_triplet(triplet=triplet,subject=subject,verb=verb,object=object)
   if(elts[1]=="."){elts[1]=query$previous_subject}
 
