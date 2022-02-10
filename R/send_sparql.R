@@ -12,6 +12,7 @@
 #'} ORDER BY ?itemLabel
 #''
 #'send_sparql(query=metro_query)
+#' @import SPARQL
 send_sparql=function(query,endpoint="Wikidata"){
   endpoint=tolower(endpoint)
 
@@ -30,7 +31,7 @@ send_sparql=function(query,endpoint="Wikidata"){
       dplyr::pull()
     tib <- SPARQL::SPARQL(url=url,
                           query=query,
-                          curl_args=list(useragent='User Agent Example'))
+                          curl_args=list(useragent='glitter R package (https://github.com/lvaudor/glitter)'))
     tib <- tib$results
   }
   # else, endpoint must be passed as url

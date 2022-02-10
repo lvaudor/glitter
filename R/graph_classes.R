@@ -59,8 +59,9 @@ build_graph_classes=function(id){
 }
 
 #' Show the graph of sub/superclasses
-#' @param id the id of class
+#' @param tib_g tib_g
 #' @param layout layout of the graph for instance "kk" or "sugiyama"
+#' @param n_min minimal number
 #' @export
 #' @examples
 #' tib_g=build_graph_classes("wd:Q627272")

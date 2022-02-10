@@ -1,4 +1,5 @@
 #' Add a triplet statement to a query
+#' @param query query
 #' @param triplet the triplet statement (replaces arguments subject verb and object)
 #' @param subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))
 #' @param verb the property (for instance "wdt:P190")
@@ -11,6 +12,7 @@
 #' @param within_distance if provided, circular bounding box for the triplet query.
 #'   Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
 #'   The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.
+#' @param prefixes Custom prefixes
 #' @export
 #' @examples
 #' # find the cities

@@ -1,6 +1,7 @@
 #' Add prefixes to the query
 #' @param query a list with elements of the query
 #' @param prefixes a vector of prefixes
+#' @param auto whether to use built-in prefixes
 #' @export
 #' @examples
 #' spq_init() %>%
@@ -20,7 +21,7 @@ spq_prefix=function(query=NULL,auto=TRUE, prefixes=NULL){
   }
   prefixes=prefixes %>%
     dplyr::select(.data$name,.data$url) %>%
-    dplyr::unique()
+    unique()
 
   query$prefixes_provided=dplyr::bind_rows(query$prefixes_provided,
                                     prefixes) %>%

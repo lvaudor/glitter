@@ -8,6 +8,8 @@ get_claims(id, with_labels = FALSE)
 }
 \arguments{
 \item{id}{a Wikidata ID, either of an item ("wd:Qxxxxx") or of a property ("wdt:Pxxxxx"), or the item itself.}
+
+\item{with_labels}{Whether to keep labels (Boolean)}
 }
 \description{
 Get claims regarding one Wikidata thing

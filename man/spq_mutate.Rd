@@ -9,9 +9,7 @@ spq_mutate(query, vars)
 \arguments{
 \item{query}{a list with elements of the query}
 
-\item{name}{name of variable}
-
-\item{description}{formula}
+\item{vars}{formula}
 }
 \description{
 Create and modify variables in the results

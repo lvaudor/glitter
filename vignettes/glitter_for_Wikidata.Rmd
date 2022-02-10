@@ -16,11 +16,8 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-#if (!require("sf")) install.packages("sf")
-
-if (!require("remotes")) install.packages("remotes")
-if(!require("glitter")) remotes::install_github("lvaudor/glitter")
 library(glitter)
+library(WikidataR)
 ```
 
 This first vignette shows how to use `glitter` to extract data from the **Wikidata SPARQL endpoint**.

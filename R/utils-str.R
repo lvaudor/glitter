@@ -108,6 +108,7 @@ is_prefix_known=function(prefixes_used,prefixes_known, endpoint="Wikidata"){
 #' as_values(object)
 #' object=c("wd:Q7732")
 #' as_values(object)
+#' @noRd
 as_values=function(vstring){
   if(length(vstring)>1){
     result=vstring

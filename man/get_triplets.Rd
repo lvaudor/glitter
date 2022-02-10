@@ -13,16 +13,19 @@ get_triplets(
   label = NA,
   limit = NULL,
   within_box = c(NA, NA),
-  within_distance = c(NA, NA),
-  keep_track = NA
+  within_distance = c(NA, NA)
 )
 }
 \arguments{
+\item{triplet}{triplet}
+
 \item{subject}{an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))}
 
 \item{verb}{the property (for instance "wdt:P190")}
 
 \item{object}{an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))}
+
+\item{required}{whether to require this triplet (Boolean)}
 
 \item{label}{a vector of variables for which to include a label column (defaults to NA)}
 

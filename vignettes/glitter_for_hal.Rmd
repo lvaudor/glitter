@@ -2,12 +2,15 @@
 title: "glitter for HAL"
 author: "Lise Vaudor"
 date: "04/11/2021"
-output: html_document
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{glitter for HAL}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(glitter)
 ```
 
 

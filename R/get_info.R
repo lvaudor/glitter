@@ -84,6 +84,7 @@ get_one_claim=function(res){
 
 #' Get claims regarding one Wikidata thing
 #' @param id a Wikidata ID, either of an item ("wd:Qxxxxx") or of a property ("wdt:Pxxxxx"), or the item itself.
+#' @param with_labels Whether to keep labels (Boolean)
 #' @export
 #' @examples
 #' get_claims("wd:Q431603")
@@ -109,6 +110,7 @@ utils::globalVariables("wd_properties")
 #' Get description of Wikidata thing
 #' @param id a Wikidata ID, either of an item ("wd:Qxxxxx") or of a property ("wd:Pxxxxx"), or the item itself.
 #' @param language language of description, defaults to English ("en")
+#' @param with_labels Whether to keep labels (Boolean)
 #' @export
 #' @examples
 #' get_info("wd:Q431603")

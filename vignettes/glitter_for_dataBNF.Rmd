@@ -16,7 +16,6 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-#remotes::install_github("lvaudor/glitter")
 library(glitter)
 ```
 
