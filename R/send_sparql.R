@@ -22,12 +22,12 @@ send_sparql=function(query,endpoint="Wikidata"){
   # else, use SPARQL::SPARQL()
   # if endpoint passed as name, get url
   if(endpoint %in% (usual_endpoints %>%
-                    dplyr::filter(name!="wikidata") %>%
-                    dplyr::pull(name))){
+                    dplyr::filter(.data$name!="wikidata") %>%
+                    dplyr::pull(.data$name))){
     url=usual_endpoints %>%
-      dplyr::filter(name==endpoint) %>%
-      dplyr::select(url) %>%
-      pull()
+      dplyr::filter(.data$name == {{ endpoint }}) %>%
+      dplyr::select(.data$url) %>%
+      dplyr::pull()
     tib <- SPARQL::SPARQL(url=url,
                           query=query,
                           curl_args=list(useragent='User Agent Example'))
@@ -45,3 +45,4 @@ send_sparql=function(query,endpoint="Wikidata"){
   return(tib)
 }
 
+utils::globalVariables("usual_endpoints")

@@ -17,6 +17,7 @@ build_sparql=function(query,endpoint="Wikidata"){
     spq_prefix(auto=TRUE, prefixes=NULL)
 
   # are prefixes correct and do they correspond to provided prefixes?
+  usual_prefixes <- usual_prefixes
   prefixes_known = dplyr::bind_rows(query$prefixes_provided,usual_prefixes)
   purrr::map_lgl(query$prefixes_used,
                  is_prefix_known,

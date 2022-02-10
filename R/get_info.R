@@ -89,20 +89,22 @@ get_one_claim=function(res){
 #' get_claims("wd:Q431603")
 get_claims=function(id, with_labels=FALSE){
   claims=spq_add(query=NULL,
-                      t=glue::glue("{id} ?prop ?val"),
-                      label=c("?val")) %>%
-    spq_add(t="?item wikibase:directClaim ?prop") %>%
+    triplet=glue::glue("{id} ?prop ?val"),
+    label=c("?val")) %>%
+    spq_add(triplet="?item wikibase:directClaim ?prop") %>%
     send() %>%
     dplyr::left_join(wd_properties,by=c("prop"="id")) %>%
-    dplyr::select(property=item,
-           propertyLabel=label,
-           value=val,
-           valueLabel=valLabel,
-           propertyType=type,
-           propertyDescription=description,
-           propertyAltLabel=altLabel)
+    dplyr::select(property=.data$item,
+           propertyLabel=.data$label,
+           value=.data$val,
+           valueLabel=.data$valLabel,
+           propertyType=.data$type,
+           propertyDescription=.data$description,
+           propertyAltLabel=.data$altLabel)
   return(claims)
 }
+
+utils::globalVariables("wd_properties")
 
 #' Get description of Wikidata thing
 #' @param id a Wikidata ID, either of an item ("wd:Qxxxxx") or of a property ("wd:Pxxxxx"), or the item itself.
@@ -131,7 +133,7 @@ get_claim=function(id, property_name="wd:P31"){
   claims=get_claims(id)
   that_claim=claims %>%
     clean_wikidata_table() %>%
-    dplyr::filter(property==property_name)
+    dplyr::filter(.data$property==property_name)
   return(that_claim)
 }
 

@@ -14,16 +14,18 @@ spq_prefix=function(query=NULL,auto=TRUE, prefixes=NULL){
   }
   if(auto==TRUE){
     prefixes_auto=usual_prefixes %>%
-      filter(name %in% query$prefixes_used) %>%
-      filter(type!="Wikidata")
-    prefixes=bind_rows(prefixes,prefixes_auto)
+      dplyr::filter(.data$name %in% query$prefixes_used) %>%
+      dplyr::filter(.data$type!="Wikidata")
+    prefixes=dplyr::bind_rows(prefixes,prefixes_auto)
   }
   prefixes=prefixes %>%
-    select(name,url) %>%
-    unique()
+    dplyr::select(.data$name,.data$url) %>%
+    dplyr::unique()
 
-  query$prefixes_provided=bind_rows(query$prefixes_provided,
+  query$prefixes_provided=dplyr::bind_rows(query$prefixes_provided,
                                     prefixes) %>%
     unique()
   return(query)
 }
+
+utils::globalVariables("usual_prefixes")

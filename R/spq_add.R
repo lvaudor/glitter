@@ -58,7 +58,7 @@ spq_add=function(query=NULL,
   query$prefixes_used=c(query$prefixes_used,
                         purrr::map_chr(unname(elts),
                                        keep_prefix)) %>%
-    na.omit() %>%
+    stats::na.omit() %>%
     unique()
   # select
   query$select=build_part_select(query,

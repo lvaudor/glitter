@@ -11,10 +11,10 @@
 spq_group_by=function(query,vars){
   varformula=get_varformula(query$select)
   query$select=varformula %>%
-    filter(name %in% vars) %>%
-    pull(full)
+    dplyr::filter(.data$name %in% vars) %>%
+    dplyr::pull(.data$full)
   query$group_by=varformula %>%
-    filter(name %in% vars) %>%
-    pull(formula)
+    dplyr::filter(.data$name %in% {{ vars }}) %>%
+    dplyr::pull(.data$formula)
   return(query)
 }
