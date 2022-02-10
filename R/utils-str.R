@@ -1,5 +1,6 @@
 #' Checks whether element is a variable ("?...")
 #' @param vstring a string or vector of strings
+#' @noRd
 #' @examples
 #' is_variable(c("?elem","?item")) #TRUE
 is_variable=function(vstring){
@@ -44,6 +45,7 @@ is_prefixed=function(vstring){
 #' @param vstring a string or vector of strings
 #' @examples
 #' is_url(c("<http://qsdqsdfqsdfqs.html>","<http blablabla>")) #TRUE
+#' @noRd
 is_url=function(vstring){
   is_url_1elem=function(string){
       if(stringr::str_detect(string,"^<http.*>$")){
@@ -58,6 +60,7 @@ is_url=function(vstring){
 
 #' Checks whether element is a value ("'blah'" or '"blah"')
 #' @param vstring a string or vector of strings
+#' @noRd
 #' @examples
 #' is_value("'blabla'") #TRUE
 #' is_value('"blabla"') #TRUE
@@ -136,6 +139,7 @@ as_values=function(vstring){
 
 #' interprets if element is an R code inclusion of the type {...}
 #' @param string a string
+#' @noRd
 #' @examples
 #' obj1="0000000121012885"
 #' interpret_svo("{obj1}")
@@ -159,13 +163,7 @@ interpret_svo=function(string){
 
 #' Checks whether subject/verb/object is stated correctly
 #' @param vstring a string or vector of strings
-#' @examples
-#' is_svo_correct("elem") #FALSE
-#' is_svo_correct("a") #TRUE
-#' is_svo_correct("is") #TRUE
-#' is_svo_correct("'0000000121012885'") #TRUE
-#' is_svo_correct(".") #TRUE
-#' is_svo_correct("[]") #TRUE
+#' @noRd
 is_svo_correct=function(vstring){
   is_svo_correct_1elem=function(string){
       # if element is a special syntax element

@@ -69,7 +69,7 @@ build_graph_classes=function(id){
 #' show_graph_classes(tib_g,layout="sugiyama")
 show_graph_classes=function(tib_g,n_min=10,layout="kk"){
   tib_g_light=tib_g %>%
-    dplyr::filter(dplyr::n > {{ n_min }})
+    dplyr::filter(.data$n > {{ n_min }})
   g=ggraph::ggraph(tib_g_light, layout=layout) +
     ggraph::geom_edge_link(arrow = ggplot2::arrow(length = ggplot2::unit(4, 'mm'))) +
     ggraph::geom_node_label(ggplot2::aes(label=.data$classesLabel,size=log(.data$n),fill=.data$type),alpha=0.5)+
