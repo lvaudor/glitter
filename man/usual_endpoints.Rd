@@ -7,9 +7,9 @@
 \format{
 A data frame with usual SPARQL endpoints and abbreviated names
 \describe{
-  \item{name}{the abbreviated name of the SPARQL endpoint}
-  \item{url}{the full address of the SPARQL endpoint}
-  ...
+\item{name}{the abbreviated name of the SPARQL endpoint}
+\item{url}{the full address of the SPARQL endpoint}
+...
 }
 }
 \usage{

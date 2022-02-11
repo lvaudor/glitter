@@ -7,10 +7,10 @@
 \format{
 A data frame with usual prefixes
 \describe{
-  \item{type}{the type of prefix}
-  \item{name}{the prefix itself}
-  \item{url}{the corresponding ontology}
-  ...
+\item{type}{the type of prefix}
+\item{name}{the prefix itself}
+\item{url}{the corresponding ontology}
+...
 }
 }
 \usage{
