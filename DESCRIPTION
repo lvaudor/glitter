@@ -33,6 +33,7 @@ Imports:
     WikidataR,
     xml2
 Suggests: 
+    httptest2,
     knitr,
     leaflet,
     rmarkdown,
