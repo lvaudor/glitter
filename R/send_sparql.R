@@ -12,38 +12,57 @@
 #'} ORDER BY ?itemLabel
 #''
 #'send_sparql(query=metro_query)
-#' @import SPARQL
 send_sparql=function(query,endpoint="Wikidata"){
   endpoint=tolower(endpoint)
 
   # if endpoint wikidata, use WikidataQueryServiceR::query_wikidata()
   if(endpoint=="wikidata"){
-    tib <- purrr::quietly(WikidataQueryServiceR::query_wikidata)(query)$result
+    return(purrr::quietly(WikidataQueryServiceR::query_wikidata)(query)$result)
   }
-  # else, use SPARQL::SPARQL()
+  # else, use httr2
+
   # if endpoint passed as name, get url
-  if(endpoint %in% (usual_endpoints %>%
-                    dplyr::filter(.data$name!="wikidata") %>%
-                    dplyr::pull(.data$name))){
-    url=usual_endpoints %>%
-      dplyr::filter(.data$name == {{ endpoint }}) %>%
-      dplyr::select(.data$url) %>%
-      dplyr::pull()
-    tib <- SPARQL::SPARQL(url=url,
-                          query=query,
-                          curl_args=list(useragent='glitter R package (https://github.com/lvaudor/glitter)'))
-    tib <- tib$results
+  usual_endpoint_info = usual_endpoints %>%
+                    dplyr::filter(.data$name == endpoint)
+  url = if (nrow(usual_endpoint_info) > 0) {
+    dplyr::pull(usual_endpoint_info, .data$url)
+  } else {
+    endpoint
   }
-  # else, endpoint must be passed as url
-  if(!(endpoint %in% usual_endpoints$name)){
-    tib <- SPARQL::SPARQL(url=endpoint,
-                          query=query,
-                          curl_args=list(useragent='User Agent Example'))
-    tib <- tib$results
-  }
-  # if returned table has 0 rows replace it with NULL (easier to bind with other results)
-  if(nrow(tib)==0){tib=NULL}
-  return(tib)
+
+
+    resp = httr2::request(url) %>%
+    httr2::req_url_query(query = query) %>%
+    httr2::req_method("POST") %>%
+    httr2::req_user_agent("glitter R package (https://github.com/lvaudor/glitter)") %>%
+    httr2::req_retry(max_tries = 3, max_seconds = 120) %>%
+    httr2::req_perform()
+
+    httr2::resp_check_status(resp)
+
+    content = httr2::resp_body_xml(resp)
+    xml2::xml_ns_strip(content)
+
+    # results < result < binding
+
+    parse_result = function(result) {
+      xml2::xml_children(result) %>%
+        purrr::map(parse_binding) %>%
+        dplyr::bind_cols()
+    }
+
+    parse_binding = function(binding) {
+      name = xml2::xml_attr(binding, 'name')
+      value = xml2::xml_text(binding)
+      tibble::tibble(.rows = 1) %>%
+        dplyr::mutate({{name}} := value)
+    }
+
+    content %>%
+      xml2::xml_find_first(".//results") %>%
+      xml2::xml_children() %>%
+      purrr::map_df(parse_result)
+
 }
 
 utils::globalVariables("usual_endpoints")

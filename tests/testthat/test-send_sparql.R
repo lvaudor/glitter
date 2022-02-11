@@ -11,3 +11,15 @@ test_that("send_sparql() returns tibble", {
   x=send_sparql(query=metro_query)
   expect_s3_class(x,"tbl")
 })
+
+test_that("send_sparql() works with other endpoint", {
+tib=spq_init() %>%
+  spq_add("?auteur foaf:birthday ?jour") %>%
+  spq_add("?auteur bio:birth ?date1") %>%
+  spq_add("?auteur bio:death ?date2") %>%
+  spq_add("?auteur foaf:name ?nom", required=FALSE) %>%
+  spq_arrange("?jour") %>%
+  spq_prefix() %>%
+  spq_head(n=10) %>%
+  spq_perform(endpoint="dataBNF")
+})
