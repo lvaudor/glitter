@@ -3,7 +3,7 @@
 >  DSL for SPARQL in R. :sparkles: `glitter` produces ~~sparkle~~ SPARQL! :sparkles:
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/lvaudor/glitter/actions/workflows/check-release.yaml/badge.svg)](https://github.com/lvaudor/glitter/actions/workflows/check-release.yaml/)
+[![R-CMD-check](https://github.com/lvaudor/glitter/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lvaudor/glitter/actions/workflows/R-CMD-check.yaml)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
