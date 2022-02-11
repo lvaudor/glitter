@@ -39,7 +39,7 @@ tib=spq_init() %>%
   spq_add(". sym:hasKnowledgeUnitType ?KUTy") %>% 
   spq_add("?KUTy rdfs:label ?KUTyLabel") %>% 
   spq_head(n=10) %>% 
-  send(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
+  spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
   
 knitr::kable(tib)
 ```
@@ -57,7 +57,7 @@ tib=spq_init() %>%
   spq_head(n=10) %>% 
   spq_summarise(c("?effectif"="COUNT(*)")) %>% 
   spq_arrange(c("DESC(?effectif)")) %>% 
-  send(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
+  spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
 
 knitr::kable(tib)
 ```
@@ -75,7 +75,7 @@ tib=spq_init() %>%
   spq_summarise(c("?effectif"="COUNT(*)")) %>% 
   spq_arrange(c("?tyin","?tyro","DESC(?effectif)")) %>% 
   spq_head(n=10) %>% 
-  send(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
+  spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
 ```
 
 ## Types d'informations et types de rôles, avec effectifs
@@ -92,7 +92,7 @@ tib=spq_init() %>%
   spq_summarise(c("?effectif"="COUNT(*)")) %>% 
   spq_arrange(c("?tyin","?tyro","?effectif")) %>% 
   spq_head(n=10) %>%
-  send(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
+  spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
 
 knitr::kable(tib)
 ```
@@ -113,7 +113,7 @@ tib=spq_init() %>%
   spq_add(". sym:hasKnowledgeUnitType ?tyin") %>% 
   spq_arrange("?infoStandardDate") %>% 
   spq_head(n=10) %>% 
-  send(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
+  spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
 
 knitr::kable(tib)
 ```

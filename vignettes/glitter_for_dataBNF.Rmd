@@ -29,7 +29,7 @@ Pour limiter la taille et le temps d'exécution de cette vignette chaque jeu de 
 tib=spq_init() %>% 
   spq_add("?s ?p ?o") %>% 
   spq_head(10) %>% 
-  send(endpoint="dataBNF")
+  spq_perform(endpoint="dataBNF")
 
 knitr::kable(tib)
 ```
@@ -45,7 +45,7 @@ tib=spq_init() %>%
   spq_arrange("?jour") %>% 
   spq_prefix() %>% 
   spq_head(n=10) %>%
-  send(endpoint="dataBNF")
+  spq_perform(endpoint="dataBNF")
 
 knitr::kable(tib)
 ```
@@ -63,7 +63,7 @@ tib=spq_init() %>%
   spq_add("?edition dcterms:publisher ?editeur") %>% 
   spq_head(n=10) %>% 
   spq_prefix() %>% 
-  send("dataBNF")
+  spq_perform("dataBNF")
 
 
 knitr::kable(tib)
@@ -78,7 +78,7 @@ tib=spq_init() %>%
   spq_add("{doc} rdarelationships:electronicReproduction ?URLGallica") %>% 
   spq_add("{doc} dcterms:title ?title") %>% 
   spq_prefix() %>%
-  send(endpoint="dataBNF")
+  spq_perform(endpoint="dataBNF")
 
 knitr::kable(tib)
 ```
@@ -94,7 +94,7 @@ tib=spq_init() %>%
   spq_add("?exposition dcterms:title ?titre") %>% 
   spq_add("?exposition dcterms:subject ?sujet") %>% 
   spq_head(n=30) %>% 
-  send(endpoint="dataBNF")
+  spq_perform(endpoint="dataBNF")
 
 knitr::kable(tib)
 ```
@@ -107,7 +107,7 @@ tib=spq_init() %>%
   spq_add("?person foaf:focus ?identity") %>% 
   spq_add("?identity foaf:familyName ?nom") %>% 
   spq_add("?identity foaf:givenName ?prenom") %>% 
-  send(endpoint="dataBNF")
+  spq_perform(endpoint="dataBNF")
 
 knitr::kable(tib)
 ```
@@ -119,7 +119,7 @@ knitr::kable(tib)
 tib=spq_init() %>% 
   spq_add("?pidArk bnf-onto:FRBNF '11992081'^^xsd:integer") %>% 
   spq_head(n=10) %>% 
-  send(e="dataBNF")
+  spq_perform(e="dataBNF")
 
 knitr::kable(tib)
 ```
@@ -134,7 +134,7 @@ tib=spq_init() %>%
   spq_add("?manifestation rdarelationships:workManifested ?work") %>% 
   spq_add("?creator foaf:name ?name") %>% 
   spq_head(n=10) %>% 
-  send(e="dataBNF")
+  spq_perform(e="dataBNF")
 
 knitr::kable(tib)
 ```
@@ -150,7 +150,7 @@ tib=spq_init() %>%
   spq_group_by(c("?auteur","?nom","?mort")) %>% 
   spq_arrange("desc(xsd:integer(?mort))") %>% 
   spq_head(n=10) %>% 
-  send(e="dataBNF")
+  spq_perform(e="dataBNF")
 
 knitr::kable(tib)
 ```
@@ -160,7 +160,7 @@ knitr::kable(tib)
 ```{r images_databnf}
 tib=spq_add(t="?image dcterms:type <http://purl.org/dc/dcmitype/StillImage>") %>%
   spq_head(n=10) %>% 
-  send(e="dataBNF")
+  spq_perform(e="dataBNF")
 
 knitr::kable(tib)
 ```
@@ -175,7 +175,7 @@ tib=spq_init() %>%
   spq_add(". rdfs:seeAlso ?uri") %>% 
   spq_group_by(c("?uri","?oeuvre")) %>% 
   spq_head(n=10) %>% 
-  send(e="dataBNF")
+  spq_perform(e="dataBNF")
 
 knitr::kable(tib)
 ```
@@ -191,7 +191,7 @@ tib=spq_init() %>%
   spq_add(". dcterms:subject <http://data.bnf.fr/ark:/12148/cb11932843f>") %>% 
   spq_head(n=10) %>% 
   spq_group_by(c("?auteur","?url")) %>% 
-  send(e="dataBNF")
+  spq_perform(e="dataBNF")
 
 knitr::kable(tib)
 ```
@@ -206,7 +206,7 @@ tib=spq_init() %>%
   spq_add("?uri2 skos:narrower ?uri3", required=FALSE) %>% 
   spq_add("?uri3 skos:prefLabel ?label3", required=FALSE) %>% 
   spq_head(n=10) %>% 
-  send(e="dataBNF")
+  spq_perform(e="dataBNF")
 
 knitr::kable(tib)
 ```
@@ -218,7 +218,7 @@ tib=spq_init() %>%
   spq_add("?sujet dcterms:isPartOf <http://data.bnf.fr/vocabulary/rameau/r166>") %>% 
   spq_add(". skos:prefLabel ?label") %>% 
   spq_head(n=10) %>% 
-  send(e="dataBNF")
+  spq_perform(e="dataBNF")
 
 knitr::kable(tib)
 ```
@@ -232,7 +232,7 @@ tib=spq_init() %>%
   spq_add("?lieu skos:closeMatch ?concept") %>% 
   spq_group_by(c("?lieu","?concept","?c")) %>% 
   spq_head(n=100) %>% 
-  send(e="dataBNF")
+  spq_perform(e="dataBNF")
 
 knitr::kable(tib)
 ```
@@ -246,7 +246,7 @@ tib=spq_init() %>%
   spq_add("?ConceptA rdfs:seeAlso ?wikipedia") %>% 
   spq_filter("regex(?wikipedia,'wikipedia')") %>% 
   spq_head(n=10) %>% 
-  send(e="dataBNF")
+  spq_perform(e="dataBNF")
 
 knitr::kable(tib)
 ```

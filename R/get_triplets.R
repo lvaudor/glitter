@@ -32,6 +32,6 @@ get_triplets=function(triplet=NULL,
                      within_distance=within_distance)
   if(!is.null(limit)){query=query %>% spq_head(n=limit)}
 
-  tib=query %>% send()
+  tib=query %>% spq_perform()
   return(tib)
 }

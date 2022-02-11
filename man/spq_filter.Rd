@@ -22,5 +22,5 @@ spq_add("?item rdfs:label ?itemTitle") \%>\%
 spq_filter("CONTAINS(LCASE(?itemTitle),'wikidata')") \%>\%
 spq_filter("LANG(?itemTitle)='en'") \%>\%
 spq_head(n=5) \%>\%
-send()
+spq_perform()
 }

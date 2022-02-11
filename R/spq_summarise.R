@@ -10,7 +10,7 @@
 #' spq_add("?area wdt:P527 ?item") %>%
 #' spq_group_by(c("?area","?areaLabel"))  %>%
 #' spq_summarise(c("?total_folkm"="sum(?folkm_ngd)")) %>%
-#' send()
+#' spq_perform()
 spq_summarise=function(query,vars){
 
   # Which variables are summarised ?

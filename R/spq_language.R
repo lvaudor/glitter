@@ -7,13 +7,13 @@
 #'  spq_add("?film wdt:P31 wd:Q11424", label="?film") %>%
 #'  spq_language("fr,en") %>%
 #'  spq_head(10) %>%
-#'  send()
+#'  spq_perform()
 #'
 #' tib=spq_init() %>%
 #'  spq_add("?film wdt:P31 wd:Q11424", label="?film") %>%
 #'  spq_language("auto,es,it,de") %>%
 #'  spq_head(10) %>%
-#'  send()
+#'  spq_perform()
 spq_language=function(query=NULL,
                       language="en"){
   language=stringr::str_replace(language,"auto","[AUTO_LANGUAGE]")

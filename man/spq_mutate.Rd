@@ -19,5 +19,5 @@ Create and modify variables in the results
 spq_init() \%>\%
 spq_add("wd:Q331676 wdt:P1843 ?statement") \%>\%
 spq_mutate(c("?lang"="LANG(?statement)")) \%>\%
-send()
+spq_perform()
 }

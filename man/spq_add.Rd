@@ -55,7 +55,7 @@ spq_add("?city wdt:P1082 ?pop", required=FALSE) \%>\%
 spq_add("?city wdt:P625 ?coords",within_box=list(southwest=c(3,43),northeast=c(7,47))) \%>\%
 # limit to 10 lines
 spq_head(n=10) \%>\%
-send()
+spq_perform()
 
 \dontrun{
 # find the individuals of the species
@@ -69,6 +69,6 @@ spq_add("?mayor p:P39 ?node") \%>\%
 spq_add("?node ps:P39 wd:Q30185") \%>\%
 # of some places
 spq_add("?node pq:P642 ?place") \%>\%
-send()
+spq_perform()
 }
 }
