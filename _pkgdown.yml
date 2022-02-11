@@ -27,7 +27,6 @@ reference:
   - build_sparql
 - title: internal
   contents:
-  - as_values
   - build_graph_classes
   - build_part_body
   - build_part_select
@@ -42,9 +41,6 @@ reference:
   - get_one_claim
   - get_thing
   - get_triplets
-  - get_varformula
-  - interpret_svo
-  - keep_prefix
   - send_sparql
   - show_graph_classes
   - subclasses_of
