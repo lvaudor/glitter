@@ -49,22 +49,32 @@ send_sparql=function(query,endpoint="Wikidata"){
 
     # Adapted from https://github.com/wikimedia/WikidataQueryServiceR/blob/accff89a06ad4ac4af1bef369f589175c92837b6/R/query.R#L56
     if (length(content$results$bindings) > 0) {
-        data_frame <- purrr::map_dfr(content$results$bindings, function(binding) {
-          return(purrr::map_chr(binding, ~ .x$value))
-        })
-        datetime_columns <- purrr::map_lgl(content$results$bindings[[1]], function(binding) {
-          if ("type" %in% names(binding)) {
-            return(binding[["type"]] == "http://www.w3.org/2001/XMLSchema#dateTime")
-          } else {
-            return(FALSE)
-          }
-        })
-        data_frame <- dplyr::mutate_if(
-          .tbl = data_frame,
-          .predicate = datetime_columns,
-          .funs = as.POSIXct,
-          format = "%Y-%m-%dT%H:%M:%SZ", tz = "GMT"
+      parse_binding = function(binding, name) {
+        type <- sub(
+          "http://www.w3.org/2001/XMLSchema#", "",
+          binding[["datatype"]] %||% "http://www.w3.org/2001/XMLSchema#character"
         )
+
+        parse = function(x, type) {
+          switch(
+          type,
+          character = x,
+          integer = x, # easier for now as dbpedia can return different things with the same name
+          datetime = anytime::anytime(x)
+        )
+        }
+        value = parse(binding[["value"]], type)
+        tibble::tibble(.rows = 1) %>%
+          dplyr::mutate({{name}} := value)
+      }
+
+      parse_result = function(result) {
+        purrr::map2(result, names(result), parse_binding) %>%
+        dplyr::bind_cols()
+      }
+
+      data_frame <- purrr::map_df(content$results$bindings, parse_result)
+
       } else {
         data_frame <- dplyr::as_tibble(
           matrix(
