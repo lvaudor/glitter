@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="glitter for dataBNF">
 <meta property="og:description" content="glitter">
-<meta property="og:image" content="https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/logo.png">
+<meta property="og:image" content="https://lvaudor.github.io/glitter/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -88,7 +88,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/">glitter</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lvaudor.github.io/glitter/">glitter</a></span><span class="op">)</span></code></pre></div>
 <p>Cette vignette reprend l’ensemble des exemples proposés sur <a href="https://data.bnf.fr/sparql/" class="external-link">le SPARQL endpoint de la BNF</a> et les “traduit” en commandes <code>glitter</code> pour que les utilisateurs de R puissent les exécuter directement depuis R.</p>
 <p>Pour limiter la taille et le temps d’exécution de cette vignette chaque jeu de données en résultat et limité à 10 lignes maximum à l’aide de <code>spq_head(n=10)</code>.</p>
 <div class="section level2">
@@ -901,20 +901,20 @@
 <td align="left"><a href="https://gallica.bnf.fr/ark:/12148/btv1b53057229s" class="external-link uri">https://gallica.bnf.fr/ark:/12148/btv1b53057229s</a></td>
 </tr>
 <tr class="even">
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb15324406x" class="external-link uri">http://data.bnf.fr/ark:/12148/cb15324406x</a></td>
+<td align="left"><a href="https://gallica.bnf.fr/ark:/12148/btv1b53160516b" class="external-link uri">https://gallica.bnf.fr/ark:/12148/btv1b53160516b</a></td>
+</tr>
+<tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb119689622" class="external-link uri">http://data.bnf.fr/ark:/12148/cb119689622</a></td>
 <td align="left"><a href="https://gallica.bnf.fr/ark:/12148/btv1b531804817" class="external-link uri">https://gallica.bnf.fr/ark:/12148/btv1b531804817</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb15324406x" class="external-link uri">http://data.bnf.fr/ark:/12148/cb15324406x</a></td>
 <td align="left"><a href="https://gallica.bnf.fr/ark:/12148/btv1b53160364r" class="external-link uri">https://gallica.bnf.fr/ark:/12148/btv1b53160364r</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb153222402" class="external-link uri">http://data.bnf.fr/ark:/12148/cb153222402</a></td>
 <td align="left"><a href="https://gallica.bnf.fr/ark:/12148/btv1b53160587p" class="external-link uri">https://gallica.bnf.fr/ark:/12148/btv1b53160587p</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb15324406x" class="external-link uri">http://data.bnf.fr/ark:/12148/cb15324406x</a></td>
-<td align="left"><a href="https://gallica.bnf.fr/ark:/12148/btv1b53160516b" class="external-link uri">https://gallica.bnf.fr/ark:/12148/btv1b53160516b</a></td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb15324406x" class="external-link uri">http://data.bnf.fr/ark:/12148/cb15324406x</a></td>

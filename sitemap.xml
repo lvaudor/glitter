@@ -1,138 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/404.html</loc>
+    <loc>https://lvaudor.github.io/glitter/404.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/articles/glitter_for_SyMoGih.html</loc>
+    <loc>https://lvaudor.github.io/glitter/articles/glitter_for_SyMoGih.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/articles/glitter_for_Wikidata.html</loc>
+    <loc>https://lvaudor.github.io/glitter/articles/glitter_for_Wikidata.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/articles/glitter_for_dataBNF.html</loc>
+    <loc>https://lvaudor.github.io/glitter/articles/glitter_for_dataBNF.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/articles/glitter_for_hal.html</loc>
+    <loc>https://lvaudor.github.io/glitter/articles/glitter_for_hal.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/articles/index.html</loc>
+    <loc>https://lvaudor.github.io/glitter/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/authors.html</loc>
+    <loc>https://lvaudor.github.io/glitter/authors.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/index.html</loc>
+    <loc>https://lvaudor.github.io/glitter/index.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/build_graph_classes.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/build_graph_classes.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/build_part_body.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/build_part_body.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/build_part_select.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/build_part_select.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/build_sparql.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/build_sparql.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/clean_wikidata_table.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/clean_wikidata_table.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/count_items.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/count_items.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/decompose_triplet.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/decompose_triplet.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/get_claim.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/get_claim.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/get_claims.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/get_claims.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/get_description.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/get_description.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/get_info.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/get_info.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/get_label.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/get_label.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/get_one_claim.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/get_one_claim.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/get_thing.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/get_thing.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/get_triplets.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/get_triplets.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/index.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/pipe.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/send.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/send.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/send_sparql.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/send_sparql.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/show_graph_classes.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/show_graph_classes.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/spq_add.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/spq_add.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/spq_arrange.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/spq_arrange.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/spq_filter.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/spq_filter.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/spq_group_by.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/spq_group_by.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/spq_head.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/spq_head.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/spq_init.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/spq_init.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/spq_language.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/spq_language.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/spq_mutate.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/spq_mutate.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/spq_prefix.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/spq_prefix.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/spq_select.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/spq_select.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/spq_summarise.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/spq_summarise.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/subclasses_of.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/subclasses_of.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/superclasses_of.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/superclasses_of.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/transform_wikidata_coords.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/transform_wikidata_coords.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/usual_endpoints.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/usual_endpoints.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/usual_prefixes.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/usual_prefixes.html</loc>
   </url>
   <url>
-    <loc>https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference/wd_properties.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/wd_properties.html</loc>
   </url>
 </urlset>

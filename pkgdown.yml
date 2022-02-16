@@ -6,8 +6,8 @@ articles:
   glitter_for_Wikidata: glitter_for_Wikidata.html
   glitter_for_dataBNF: glitter_for_dataBNF.html
   glitter_for_hal: glitter_for_hal.html
-last_built: 2022-02-16T12:45Z
+last_built: 2022-02-16T12:57Z
 urls:
-  reference: https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/reference
-  article: https://perso.ens-lyon.fr/lise.vaudor/Rpackages/glitter/articles
+  reference: https://lvaudor.github.io/glitter/reference
+  article: https://lvaudor.github.io/glitter/articles
 
