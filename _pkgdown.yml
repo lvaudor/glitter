@@ -14,6 +14,7 @@ reference:
   - spq_add
   - spq_init
   - spq_perform
+  - assemble_sparql_query
 - title: "General handling of query"
   desc: "These functions must be used to build the query before it is sent to the SPARQL endpoint. They detail the query and might lighten it e.g. through e.g. spq_head() or spq_summarise(), which might prove useful or even necessary to agree with the server's limits. On the other hand, their dplyr counterparts (filter(), select(), arrange(), mutate(), summarise()) apply to the table obtained as the result of the query."
 - contents:
