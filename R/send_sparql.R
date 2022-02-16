@@ -34,34 +34,47 @@ send_sparql=function(query,endpoint="Wikidata"){
     resp = httr2::request(url) %>%
     httr2::req_url_query(query = query) %>%
     httr2::req_method("POST") %>%
+    httr2::req_headers(Accept = "application/sparql-results+json") %>%
     httr2::req_user_agent("glitter R package (https://github.com/lvaudor/glitter)") %>%
     httr2::req_retry(max_tries = 3, max_seconds = 120) %>%
     httr2::req_perform()
 
     httr2::resp_check_status(resp)
 
-    content = httr2::resp_body_xml(resp)
-    xml2::xml_ns_strip(content)
-
-    # results < result < binding
-
-    parse_result = function(result) {
-      xml2::xml_children(result) %>%
-        purrr::map(parse_binding) %>%
-        dplyr::bind_cols()
+    if (httr2::resp_content_type(resp) != "application/sparql-results+json") {
+      rlang::abort("Not right response type") #TODO:better message, more flexibility
     }
 
-    parse_binding = function(binding) {
-      name = xml2::xml_attr(binding, 'name')
-      value = xml2::xml_text(binding)
-      tibble::tibble(.rows = 1) %>%
-        dplyr::mutate({{name}} := value)
-    }
+    content = httr2::resp_body_json(resp)
 
-    content %>%
-      xml2::xml_find_first(".//results") %>%
-      xml2::xml_children() %>%
-      purrr::map_df(parse_result)
+    # Adapted from https://github.com/wikimedia/WikidataQueryServiceR/blob/accff89a06ad4ac4af1bef369f589175c92837b6/R/query.R#L56
+    if (length(content$results$bindings) > 0) {
+        data_frame <- purrr::map_dfr(content$results$bindings, function(binding) {
+          return(purrr::map_chr(binding, ~ .x$value))
+        })
+        datetime_columns <- purrr::map_lgl(content$results$bindings[[1]], function(binding) {
+          if ("type" %in% names(binding)) {
+            return(binding[["type"]] == "http://www.w3.org/2001/XMLSchema#dateTime")
+          } else {
+            return(FALSE)
+          }
+        })
+        data_frame <- dplyr::mutate_if(
+          .tbl = data_frame,
+          .predicate = datetime_columns,
+          .funs = as.POSIXct,
+          format = "%Y-%m-%dT%H:%M:%SZ", tz = "GMT"
+        )
+      } else {
+        data_frame <- dplyr::as_tibble(
+          matrix(
+            character(),
+            nrow = 0, ncol = length(content$head$vars),
+            dimnames = list(c(), unlist(content$head$vars))
+          )
+        )
+      }
+      return(data_frame)
 
 }
 

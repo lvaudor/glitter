@@ -22,6 +22,7 @@ Imports:
     glue,
     httr2,
     igraph,
+    jsonlite,
     magrittr,
     purrr,
     rlang,
@@ -30,8 +31,7 @@ Imports:
     tidygraph,
     tidyselect,
     WikidataQueryServiceR,
-    WikidataR,
-    xml2
+    WikidataR
 Suggests: 
     httptest2,
     knitr,
