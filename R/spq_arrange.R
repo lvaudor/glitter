@@ -59,7 +59,7 @@
 spq_arrange = function(query , ..., replace = FALSE){
 
   ordering_variables <- purrr::map_chr(
-    rlang::enquos(...),
+    rlang::enexprs(...),
     translate_sparql_arrange
   )
 
@@ -77,7 +77,7 @@ translate_sparql_arrange <- function(x) {
   maybe_sparql_string <- try(rlang::eval_tidy(x), silent = TRUE)
   if (is.spq(maybe_sparql_string)) {
     return(maybe_sparql_string)
-  } else if (!inherits(maybe_sparql_string, "try-error")) {
+  } else if (!inherits(maybe_sparql_string, "try-error") && is.character(maybe_sparql_string)) {
     rlang::abort("Did you mean to pass a string? Use spq() to wrap it.")
   }
 
@@ -89,27 +89,25 @@ translate_sparql_arrange <- function(x) {
     sprintf("ASC(%s)", rlang::enexpr(x) %>% rlang::as_label())
   }
 
+  add_question_mark <- function(x) sprintf("?%s", x)
+
   arranging_expr <- rlang::get_expr(x)
 
-  maybe_sparql_function_call <- try(
-    rlang::eval_tidy(arranging_expr),
-    silent = TRUE
-  )
+  need_uppercase_translation <- grepl("^(desc|asc)\\(", rlang::as_label(arranging_expr))
 
-
-  if (inherits(maybe_sparql_function_call, "try-error")) {
-    # bare variable name e.g. spq_arrange(location)
-    sprintf("?%s", as.character(arranging_expr))
-  } else {
+  arranging_expr = if (need_uppercase_translation) {
     # desc(variable) or asc(variable), translated
     # add the ? to variable (variable = most nested thing)
-    add_question_mark <- function(x) sprintf("?%s", x)
-    stringr::str_replace(
-      maybe_sparql_function_call,
-      "[a-zA-Z0-9]+\\)*$",
-      add_question_mark
-    )
+    rlang::eval_tidy(arranging_expr)
+  } else {
+    rlang::as_label(arranging_expr)
   }
+
+  stringr::str_replace(
+    arranging_expr,
+    "[a-zA-Z0-9]+\\)*$",
+    add_question_mark
+  ) %>% spq()
 
 }
 

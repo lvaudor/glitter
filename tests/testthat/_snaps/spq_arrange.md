@@ -58,3 +58,18 @@
 
     Did you mean to pass a string? Use spq() to wrap it.
 
+# spq_arrange does not error if passing sthg that could be evaluated
+
+    Code
+      var <- c(1, 1)
+      spq_arrange(query, length(var))
+    Output
+      
+      SELECT *
+      WHERE{
+      
+      
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
+      }
+      ORDER BY length(?var)
+

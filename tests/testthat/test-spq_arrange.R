@@ -34,3 +34,11 @@ test_that("spq_arrange errors if passing a string directly", {
     spq_arrange(query, "DESC(xsd:integer(?mort))")
   )
 })
+
+test_that("spq_arrange does not error if passing sthg that could be evaluated", {
+  query <- spq_init()
+  expect_snapshot({
+    var <- c(1, 1)
+    spq_arrange(query, length(var))
+  })
+})
