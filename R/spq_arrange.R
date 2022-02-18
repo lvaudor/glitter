@@ -82,11 +82,11 @@ translate_sparql_arrange <- function(x) {
   }
 
   desc <- function(x) {
-    sprintf("DESC(%s)", rlang::enexpr(x)%>%rlang::as_label())
+    sprintf("DESC(%s)", rlang::enexpr(x) %>% rlang::as_label())
   }
 
   asc <- function(x) {
-    sprintf("ASC(%s)", rlang::enexpr(x)%>%rlang::as_label())
+    sprintf("ASC(%s)", rlang::enexpr(x) %>% rlang::as_label())
   }
 
   arranging_expr <- rlang::get_expr(x)
@@ -102,11 +102,14 @@ translate_sparql_arrange <- function(x) {
     sprintf("?%s", as.character(arranging_expr))
   } else {
     # desc(variable) or asc(variable), translated
-    # add the ? to variable
-    add_question_mark <- function(x) {sprintf("?%s", x)}
-    stringr::str_replace(maybe_sparql_function_call, "[a-zA-Z0-9]+\\)*$", add_question_mark)
+    # add the ? to variable (variable = most nested thing)
+    add_question_mark <- function(x) sprintf("?%s", x)
+    stringr::str_replace(
+      maybe_sparql_function_call,
+      "[a-zA-Z0-9]+\\)*$",
+      add_question_mark
+    )
   }
 
 }
-
 
