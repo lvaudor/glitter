@@ -9,9 +9,9 @@ spq_arrange(query, ..., replace = FALSE)
 \arguments{
 \item{query}{a list with elements of the query}
 
-\item{replace}{whether to replace the pre-existing arranging}
+\item{...}{variables by which to arrange (or a SPARQL string, see examples)}
 
-\item{vars}{variables by which to arrange}
+\item{replace}{whether to replace the pre-existing arranging}
 }
 \description{
 Arrange results by variable value
@@ -30,7 +30,7 @@ spq_init() \%>\%
   spq_add("?item wdt:P31/wdt:P279* wd:Q4022", label = c("?item")) \%>\%
   spq_add("?item wdt:P2043 ?length") \%>\%
   spq_add("?item wdt:P625 ?location") \%>\%
-  spq_arrange("DESC(?length) ?itemLabel") \%>\%
+  spq_arrange(spq("DESC(?length) ?itemLabel")) \%>\%
   spq_head(50)
 
 # descending xsd:integer(mort), R syntax
@@ -49,5 +49,5 @@ spq_init() \%>\%
   spq_add("?auteur foaf:familyName ?nom") \%>\%
   spq_filter("xsd:integer(?mort)<'1924'^^xsd:integer") \%>\%
   spq_group_by(c("?auteur","?nom","?mort")) \%>\%
-  spq_arrange("DESC(xsd:integer(?mort))")
+  spq_arrange(spq("DESC(xsd:integer(?mort))"))
 }

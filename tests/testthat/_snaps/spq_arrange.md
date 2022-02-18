@@ -29,7 +29,7 @@
 # spq_arrange works with SPARQL syntax
 
     Code
-      spq_arrange(query, "DESC(?length) ?itemLabel")
+      spq_arrange(query, spq("DESC(?length) ?itemLabel"))
     Output
       
       SELECT *
@@ -43,7 +43,7 @@
 ---
 
     Code
-      spq_arrange(query, "DESC(xsd:integer(?mort))")
+      spq_arrange(query, spq("DESC(xsd:integer(?mort))"))
     Output
       
       SELECT *

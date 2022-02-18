@@ -1,6 +1,6 @@
 #' Arrange results by variable value
 #' @param query a list with elements of the query
-#' @param vars variables by which to arrange
+#' @param ... variables by which to arrange (or SPARQL strings escaped with `spq()`, see examples)
 #' @param replace whether to replace the pre-existing arranging
 #' @export
 #' @examples
@@ -17,7 +17,7 @@
 #'   spq_add("?item wdt:P31/wdt:P279* wd:Q4022", label = c("?item")) %>%
 #'   spq_add("?item wdt:P2043 ?length") %>%
 #'   spq_add("?item wdt:P625 ?location") %>%
-#'   spq_arrange("DESC(?length) ?itemLabel") %>%
+#'   spq_arrange(spq("DESC(?length) ?itemLabel")) %>%
 #'   spq_head(50)
 #'
 #' # descending xsd:integer(mort), R syntax
@@ -36,7 +36,7 @@
 #'   spq_add("?auteur foaf:familyName ?nom") %>%
 #'   spq_filter("xsd:integer(?mort)<'1924'^^xsd:integer") %>%
 #'   spq_group_by(c("?auteur","?nom","?mort")) %>%
-#'   spq_arrange("DESC(xsd:integer(?mort))")
+#'   spq_arrange(spq("DESC(xsd:integer(?mort))"))
 spq_arrange = function(query , ..., replace = FALSE){
 
   ordering_variables <- purrr::map_chr(
@@ -56,8 +56,10 @@ spq_arrange = function(query , ..., replace = FALSE){
 translate_sparql_arrange <- function(x) {
   # Let users pass strings a la "DESC(?sitelinks)" directly
   maybe_sparql_string <- try(rlang::eval_tidy(x), silent = TRUE)
-  if (is(maybe_sparql_string, "character")) {
+  if (is.spq(maybe_sparql_string)) {
     return(maybe_sparql_string)
+  } else if (!inherits(maybe_sparql_string, "try-error")) {
+    rlang::abort("Did you mean to pass a string? Use spq() to wrap it.")
   }
 
   desc <- function(x) {

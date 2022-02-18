@@ -16,7 +16,7 @@ spq_init=function(){
 }
 
 #' @export
-print.sparqle_query <- function(x) build_sparql(x) %>% cat()
+print.sparqle_query <- function(x, ...) build_sparql(x) %>% cat()
 
 # filter ------------------------------------------------------------------
 
