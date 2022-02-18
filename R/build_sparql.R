@@ -10,10 +10,12 @@
 #' spq_head(n=5) %>%
 #' build_sparql() %>%
 #' cat()
-build_sparql=function(query,endpoint="Wikidata"){
-  if(endpoint!="Wikidata"){query$service=""}
+build_sparql=function(query, endpoint = "Wikidata"){
+  if (endpoint != "Wikidata"){
+    query$service = ""
+  }
 
-  query=query %>%
+  query = query %>%
     spq_prefix(auto=TRUE, prefixes=NULL)
 
   # are prefixes correct and do they correspond to provided prefixes?
