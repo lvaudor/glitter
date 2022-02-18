@@ -56,36 +56,17 @@
 #'   spq_arrange(desc(length)) %>%
 #'   spq_arrange(location, replace = TRUE) %>%
 #'   spq_head(50)
-spq_arrange = function(query , ..., replace = FALSE){
+treat_argument <- function(arg) {
 
-  ordering_variables <- purrr::map_chr(
-    rlang::enexprs(...),
-    translate_sparql_arrange
-  )
+  eval_try <- try(rlang::eval_tidy(arg), silent = TRUE)
+  is_spq <- is.spq(eval_try)
 
-  add_order_to_query(query, ordering_variables, replace)
-}
+  if (is_spq) {
+    return(eval_try)
+  }
 
-#' @details `spq_arrange()` expects arguments like `dplyr::arrange` whereas `spq_arrange_()` expect strings wrapped with `spq()`.
-#' `spq_arrange()` is for "interactive" usage whereas `spq_arrange_()` is for more programmatic
-#' usage (in loops, in packages).
-#' @rdname spq_arrange
-spq_arrange_ = function(query , ..., replace = FALSE){
-
-  ordering_variables <- purrr::map_chr(
-    rlang::enquos(...),
-    obtain_sparql_arrange
-  )
-
-  add_order_to_query(query, ordering_variables, replace)
-
-}
-
-translate_sparql_arrange <- function(x) {
-
-  eval_try <- try(rlang::eval_tidy(x), silent = TRUE)
   if (!inherits(eval_try, "try-error") && is.character(eval_try)) {
-    rlang::abort("For use with characters use spq_arrange_()")
+    rlang::abort("Did you mean to pass a string? Use spq() to wrap it.")
   }
 
   desc <- function(x) {
@@ -98,7 +79,7 @@ translate_sparql_arrange <- function(x) {
 
   add_question_mark <- function(x) sprintf("?%s", x)
 
-  arranging_expr <- rlang::get_expr(x)
+  arranging_expr <- rlang::get_expr(arg)
 
   need_uppercase_translation <- grepl("^(desc|asc)\\(", rlang::as_label(arranging_expr))
 
@@ -117,6 +98,16 @@ translate_sparql_arrange <- function(x) {
   ) %>% spq()
 
 }
+spq_arrange = function(query , ..., replace = FALSE){
+  ordering_variables <- purrr::map_chr(
+    rlang::enquos(...),
+    treat_argument
+  )
+
+  add_order_to_query(query, ordering_variables, replace)
+}
+
+
 
 obtain_sparql_arrange <- function(x) {
   # Let users pass strings a la "DESC(?sitelinks)" directly
@@ -135,5 +126,5 @@ add_order_to_query <- function(query, ordering_variables, replace) {
   } else {
     c(query$order_by, ordering_variables)
   }
- query
+  query
 }
