@@ -56,6 +56,14 @@
 #'   spq_arrange(desc(length)) %>%
 #'   spq_arrange(location, replace = TRUE) %>%
 #'   spq_head(50)
+#'
+#' # Mixing syntaxes
+#' spq_init() %>%
+#'   spq_add("?item wdt:P31/wdt:P279* wd:Q4022", label = c("?item")) %>%
+#'   spq_add("?item wdt:P2043 ?length") %>%
+#'   spq_add("?item wdt:P625 ?location") %>%
+#'   spq_arrange(desc(length), spq("?location")) %>%
+#'   spq_head(50)
 spq_arrange = function(query , ..., replace = FALSE){
   ordering_variables <- purrr::map_chr(
     rlang::enquos(...),
