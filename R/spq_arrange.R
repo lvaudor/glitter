@@ -56,6 +56,22 @@
 #'   spq_arrange(desc(length)) %>%
 #'   spq_arrange(location, replace = TRUE) %>%
 #'   spq_head(50)
+spq_arrange = function(query , ..., replace = FALSE){
+  ordering_variables <- purrr::map_chr(
+    rlang::enquos(...),
+    treat_argument
+  )
+
+  query$order_by = if (replace) {
+    ordering_variables
+  } else {
+    c(query$order_by, ordering_variables)
+  }
+  query
+}
+
+
+
 treat_argument <- function(arg) {
 
   eval_try <- try(rlang::eval_tidy(arg), silent = TRUE)
@@ -98,33 +114,4 @@ treat_argument <- function(arg) {
   ) %>% spq()
 
 }
-spq_arrange = function(query , ..., replace = FALSE){
-  ordering_variables <- purrr::map_chr(
-    rlang::enquos(...),
-    treat_argument
-  )
 
-  add_order_to_query(query, ordering_variables, replace)
-}
-
-
-
-obtain_sparql_arrange <- function(x) {
-  # Let users pass strings a la "DESC(?sitelinks)" directly
-  maybe_sparql_string <- try(rlang::eval_tidy(x), silent = TRUE)
-  if (is.spq(maybe_sparql_string)) {
-    return(maybe_sparql_string)
-  } else if (!inherits(maybe_sparql_string, "try-error")) {
-    rlang::abort("Did you mean to pass a string? Use spq() to wrap it.")
-  }
-}
-
-
-add_order_to_query <- function(query, ordering_variables, replace) {
-  query$order_by = if (replace) {
-    ordering_variables
-  } else {
-    c(query$order_by, ordering_variables)
-  }
-  query
-}
