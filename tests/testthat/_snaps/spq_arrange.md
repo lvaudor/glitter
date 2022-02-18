@@ -54,3 +54,7 @@
       }
       ORDER BY DESC(xsd:integer(?mort))
 
+# spq_arrange errors if passing a string directly
+
+    Did you mean to pass a string? Use spq() to wrap it.
+

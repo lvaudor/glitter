@@ -37,7 +37,7 @@ c_character <- function(...) {
   }
 
   if (!is.character(x)) {
-    abort("Character input expected")
+    rlang::abort("Character input expected")
   }
 
   x
