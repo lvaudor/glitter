@@ -17,7 +17,7 @@
 #'   spq_add("?item wdt:P31/wdt:P279* wd:Q4022", label = c("?item")) %>%
 #'   spq_add("?item wdt:P2043 ?length") %>%
 #'   spq_add("?item wdt:P625 ?location") %>%
-#'   spq_arrange(spq("DESC(?length) ?itemLabel")) %>%
+#'   spq_arrange_(spq("DESC(?length) ?itemLabel")) %>%
 #'   spq_head(50)
 #'
 #' # descending xsd:integer(mort), R syntax
@@ -36,7 +36,7 @@
 #'   spq_add("?auteur foaf:familyName ?nom") %>%
 #'   spq_filter("xsd:integer(?mort)<'1924'^^xsd:integer") %>%
 #'   spq_group_by(c("?auteur","?nom","?mort")) %>%
-#'   spq_arrange(spq("DESC(xsd:integer(?mort))"))
+#'   spq_arrange_(spq("DESC(xsd:integer(?mort))"))
 #'
 #' # Usage of the replace argument
 #' # replace = FALSE (default)
@@ -63,22 +63,29 @@ spq_arrange = function(query , ..., replace = FALSE){
     translate_sparql_arrange
   )
 
-  query$order_by = if (replace) {
-    ordering_variables
-  } else {
-    c(query$order_by, ordering_variables)
-  }
+  add_order_to_query(query, ordering_variables, replace)
+}
 
-  return(query)
+#' @details `spq_arrange()` expects arguments like `dplyr::arrange` whereas `spq_arrange_()` expect strings wrapped with `spq()`.
+#' `spq_arrange()` is for "interactive" usage whereas `spq_arrange_()` is for more programmatic
+#' usage (in loops, in packages).
+#' @rdname spq_arrange
+spq_arrange_ = function(query , ..., replace = FALSE){
+
+  ordering_variables <- purrr::map_chr(
+    rlang::enquos(...),
+    obtain_sparql_arrange
+  )
+
+  add_order_to_query(query, ordering_variables, replace)
+
 }
 
 translate_sparql_arrange <- function(x) {
-  # Let users pass strings a la "DESC(?sitelinks)" directly
-  maybe_sparql_string <- try(rlang::eval_tidy(x), silent = TRUE)
-  if (is.spq(maybe_sparql_string)) {
-    return(maybe_sparql_string)
-  } else if (!inherits(maybe_sparql_string, "try-error") && is.character(maybe_sparql_string)) {
-    rlang::abort("Did you mean to pass a string? Use spq() to wrap it.")
+
+  eval_try <- try(rlang::eval_tidy(x), silent = TRUE)
+  if (!inherits(eval_try, "try-error") && is.character(eval_try)) {
+    rlang::abort("For use with characters use spq_arrange_()")
   }
 
   desc <- function(x) {
@@ -111,3 +118,22 @@ translate_sparql_arrange <- function(x) {
 
 }
 
+obtain_sparql_arrange <- function(x) {
+  # Let users pass strings a la "DESC(?sitelinks)" directly
+  maybe_sparql_string <- try(rlang::eval_tidy(x), silent = TRUE)
+  if (is.spq(maybe_sparql_string)) {
+    return(maybe_sparql_string)
+  } else if (!inherits(maybe_sparql_string, "try-error")) {
+    rlang::abort("Did you mean to pass a string? Use spq() to wrap it.")
+  }
+}
+
+
+add_order_to_query <- function(query, ordering_variables, replace) {
+  query$order_by = if (replace) {
+    ordering_variables
+  } else {
+    c(query$order_by, ordering_variables)
+  }
+ query
+}

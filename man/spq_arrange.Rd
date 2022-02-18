@@ -2,9 +2,12 @@
 % Please edit documentation in R/spq_arrange.R
 \name{spq_arrange}
 \alias{spq_arrange}
+\alias{spq_arrange_}
 \title{Arrange results by variable value}
 \usage{
 spq_arrange(query, ..., replace = FALSE)
+
+spq_arrange_(query, ..., replace = FALSE)
 }
 \arguments{
 \item{query}{a list with elements of the query}
@@ -15,6 +18,11 @@ spq_arrange(query, ..., replace = FALSE)
 }
 \description{
 Arrange results by variable value
+}
+\details{
+\code{spq_arrange()} expects arguments like \code{dplyr::arrange} whereas \code{spq_arrange_()} expect strings wrapped with \code{spq()}.
+\code{spq_arrange()} is for "interactive" usage whereas \code{spq_arrange_()} is for more programmatic
+usage (in loops, in packages).
 }
 \examples{
 # descending length, ascending itemLabel, "R" syntax
@@ -30,7 +38,7 @@ spq_init() \%>\%
   spq_add("?item wdt:P31/wdt:P279* wd:Q4022", label = c("?item")) \%>\%
   spq_add("?item wdt:P2043 ?length") \%>\%
   spq_add("?item wdt:P625 ?location") \%>\%
-  spq_arrange(spq("DESC(?length) ?itemLabel")) \%>\%
+  spq_arrange_(spq("DESC(?length) ?itemLabel")) \%>\%
   spq_head(50)
 
 # descending xsd:integer(mort), R syntax
@@ -49,7 +57,7 @@ spq_init() \%>\%
   spq_add("?auteur foaf:familyName ?nom") \%>\%
   spq_filter("xsd:integer(?mort)<'1924'^^xsd:integer") \%>\%
   spq_group_by(c("?auteur","?nom","?mort")) \%>\%
-  spq_arrange(spq("DESC(xsd:integer(?mort))"))
+  spq_arrange_(spq("DESC(xsd:integer(?mort))"))
 
 # Usage of the replace argument
 # replace = FALSE (default)

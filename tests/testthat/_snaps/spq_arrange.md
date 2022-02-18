@@ -26,10 +26,10 @@
       }
       ORDER BY DESC(xsd:integer(?mort))
 
-# spq_arrange works with SPARQL syntax
+# spq_arrange_ works with SPARQL syntax
 
     Code
-      spq_arrange(query, spq("DESC(?length) ?itemLabel"))
+      spq_arrange_(query, spq("DESC(?length) ?itemLabel"))
     Output
       
       SELECT *
@@ -43,7 +43,7 @@
 ---
 
     Code
-      spq_arrange(query, spq("DESC(xsd:integer(?mort))"))
+      spq_arrange_(query, spq("DESC(xsd:integer(?mort))"))
     Output
       
       SELECT *
@@ -54,7 +54,27 @@
       }
       ORDER BY DESC(xsd:integer(?mort))
 
+# spq_arrange_ works when using objects for spq()
+
+    Code
+      var <- "length"
+      arranging_stuff <- sprintf("DESC(?%s) ?itemLabel", var)
+      spq_arrange_(query, spq(arranging_stuff))
+    Output
+      
+      SELECT *
+      WHERE{
+      
+      
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
+      }
+      ORDER BY DESC(?length) ?itemLabel
+
 # spq_arrange errors if passing a string directly
+
+    For use with characters use spq_arrange_()
+
+# spq_arrange_ errors if passing a string directly
 
     Did you mean to pass a string? Use spq() to wrap it.
 

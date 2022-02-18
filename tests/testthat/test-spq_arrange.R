@@ -5,10 +5,10 @@ test_that("spq_arrange works with R syntax", {
   )
 })
 
-test_that("spq_arrange works with SPARQL syntax", {
+test_that("spq_arrange_ works with SPARQL syntax", {
   query <- spq_init()
   expect_snapshot(
-    spq_arrange(query, spq("DESC(?length) ?itemLabel"))
+    spq_arrange_(query, spq("DESC(?length) ?itemLabel"))
   )
 })
 
@@ -20,19 +20,36 @@ test_that("spq_arrange works with R syntax", {
 })
 
 
-test_that("spq_arrange works with SPARQL syntax", {
+test_that("spq_arrange_ works with SPARQL syntax", {
   query <- spq_init()
   expect_snapshot(
-    spq_arrange(query, spq("DESC(xsd:integer(?mort))"))
+    spq_arrange_(query, spq("DESC(xsd:integer(?mort))"))
   )
+})
+
+test_that("spq_arrange_ works when using objects for spq()", {
+  query <- spq_init()
+  expect_snapshot({
+    var <- "length"
+    arranging_stuff <- sprintf("DESC(?%s) ?itemLabel", var)
+    spq_arrange_(query, spq(arranging_stuff))
+  })
 })
 
 
 test_that("spq_arrange errors if passing a string directly", {
   query <- spq_init()
-  expect_snapshot_error(
+  expect_snapshot_error({
     spq_arrange(query, "DESC(xsd:integer(?mort))")
-  )
+
+  })
+})
+
+test_that("spq_arrange_ errors if passing a string directly", {
+  query <- spq_init()
+  expect_snapshot_error({
+    spq_arrange_(query, "DESC(xsd:integer(?mort))")
+  })
 })
 
 test_that("spq_arrange does not error if passing sthg that could be evaluated", {
