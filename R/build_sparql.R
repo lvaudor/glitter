@@ -8,7 +8,7 @@
 #' spq_add("?city wdt:P1082 ?pop") %>%
 #' spq_language("fr") %>%
 #' spq_head(n=5) %>%
-#' spq_assemble()() %>%
+#' spq_assemble() %>%
 #' cat()
 spq_assemble = function(query,endpoint="Wikidata"){
   if(endpoint!="Wikidata"){query$service=""}
