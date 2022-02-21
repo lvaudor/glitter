@@ -13,7 +13,7 @@ reference:
 - contents:
   - spq_add
   - spq_init
-  - send
+  - spq_perform
 - title: "General handling of query"
   desc: "These functions must be used to build the query before it is sent to the SPARQL endpoint. They detail the query and might lighten it e.g. through e.g. spq_head() or spq_summarise(), which might prove useful or even necessary to agree with the server's limits. On the other hand, their dplyr counterparts (filter(), select(), arrange(), mutate(), summarise()) apply to the table obtained as the result of the query."
 - contents:
@@ -24,7 +24,7 @@ reference:
   - starts_with("is_")
 - title: "Debugging"
 - contents:
-  - build_sparql
+  - assemble_sparql_query
 - title: internal
   contents:
   - build_graph_classes
@@ -49,3 +49,17 @@ reference:
   - usual_endpoints
   - usual_prefixes
   - wd_properties
+
+navbar:
+ components:
+   articles:
+    text: Articles
+    menu:
+    - text: Wikidata
+      href: articles/glitter_for_Wikidata.html
+    - text: dataBNF
+      href: articles/glitter_for_dataBNF.html
+    - text: HAL
+      href: articles/glitter_for_hal.html
+    - text: SyMoGih
+      href: articles/glitter_for_SyMoGih.html

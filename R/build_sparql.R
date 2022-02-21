@@ -8,9 +8,9 @@
 #' spq_add("?city wdt:P1082 ?pop") %>%
 #' spq_language("fr") %>%
 #' spq_head(n=5) %>%
-#' build_sparql() %>%
+#' spq_assemble() %>%
 #' cat()
-build_sparql=function(query,endpoint="Wikidata"){
+spq_assemble = function(query,endpoint="Wikidata"){
   if(endpoint!="Wikidata"){query$service=""}
 
   query=query %>%

@@ -8,7 +8,7 @@
 #' spq_add("?s a ?class") %>%
 #' spq_group_by("?class") %>%
 #' spq_head(n=3) %>%
-#' send()
+#' spq_perform()
 #' }
 spq_group_by=function(query,vars){
   varformula=get_varformula(query$select)

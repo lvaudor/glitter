@@ -9,7 +9,7 @@
 #' spq_add("?item wikibase:sitelinks ?sitelinks") %>%
 #' spq_arrange(c("DESC(?sitelinks)")) %>%
 #' spq_head(n=3) %>%
-#' send()
+#' spq_perform()
 spq_arrange=function(query,vars){
   vars=vars %>%
     paste(collapse=" ")

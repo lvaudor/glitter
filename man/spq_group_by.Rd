@@ -20,6 +20,6 @@ spq_init() \%>\%
 spq_add("?s a ?class") \%>\%
 spq_group_by("?class") \%>\%
 spq_head(n=3) \%>\%
-send()
+spq_perform()
 }
 }

@@ -23,5 +23,5 @@ tib=spq_init() \%>\%
  spq_mutate(c("?year"="year(?date)")) \%>\%
  spq_head(10) \%>\%
  spq_select("-?date") \%>\%
- send()
+ spq_perform()
 }
