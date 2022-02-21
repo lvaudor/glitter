@@ -10,7 +10,7 @@
 #'
 #' spq_perform()
 spq_perform = function(query, endpoint = "Wikidata"){
-  sparql_query = assemble_sparql_query(query = query, endpoint = endpoint)
+  sparql_query = spq_assemble(query = query, endpoint = endpoint)
 
   send_sparql(sparql_query, endpoint = endpoint)
 
