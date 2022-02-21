@@ -48,10 +48,10 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/glitter_for_SyMoGih.html">glitter for SyMoGIH</a>
-    <a class="dropdown-item" href="../articles/glitter_for_Wikidata.html">glitter for Wikidata</a>
-    <a class="dropdown-item" href="../articles/glitter_for_dataBNF.html">glitter for dataBNF</a>
-    <a class="dropdown-item" href="../articles/glitter_for_hal.html">glitter for HAL</a>
+    <a class="dropdown-item" href="../articles/glitter_for_Wikidata.html">Wikidata</a>
+    <a class="dropdown-item" href="../articles/glitter_for_dataBNF.html">dataBNF</a>
+    <a class="dropdown-item" href="../articles/glitter_for_hal.html">HAL</a>
+    <a class="dropdown-item" href="../articles/glitter_for_SyMoGih.html">SyMoGih</a>
   </div>
 </li>
       </ul>
@@ -78,7 +78,7 @@
 <script src="glitter_for_Wikidata_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="glitter_for_Wikidata_files/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="glitter_for_Wikidata_files/leaflet-1.3.1/leaflet.js"></script><link href="glitter_for_Wikidata_files/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="glitter_for_Wikidata_files/proj4-2.6.2/proj4.min.js"></script><script src="glitter_for_Wikidata_files/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="glitter_for_Wikidata_files/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="glitter_for_Wikidata_files/leaflet-binding-2.0.4.1/leaflet.js"></script><div class="row">
+<script src="glitter_for_Wikidata_files/leaflet-binding-2.1.0/leaflet.js"></script><div class="row">
   <main id="main"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>glitter for Wikidata</h1>
             
@@ -197,7 +197,7 @@
 <code class="sourceCode R"><span class="va">stations_metro_Lyon</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?stations wdt:P361 wd:Q1552"</span>, label<span class="op">=</span><span class="st">"?stations"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?stations wdt:P31 wd:Q928830"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stations_metro_Lyon</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span>
 <span class="co">#&gt;   stations                                stationsLabel                     </span>
@@ -215,7 +215,7 @@
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?stations wdt:P361 wd:Q1552"</span>, label<span class="op">=</span><span class="st">"?stations"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?stations wdt:P31 wd:Q928830"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?stations wdt:P625 ?coords"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stations_metro_Lyon</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 3</span></span>
 <span class="co">#&gt;   stations                                stationsLabel                   coords</span>
@@ -243,8 +243,8 @@
 <code class="sourceCode R"><span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html" class="external-link">leaflet</a></span><span class="op">(</span><span class="va">stations_metro_Lyon</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addTiles</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addCircles</a></span><span class="op">(</span>popup<span class="op">=</span><span class="op">~</span><span class="va">stationsLabel</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-5b919c001412f3a0c64d" style="width:700px;height:432.632880098888px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5b919c001412f3a0c64d">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircles","args":[[45.757958333,45.759261111,45.767377777,45.763511111,45.7058,45.7272,45.7543,45.761733333,45.767164,45.770599,45.770613888,45.7665,45.7553,45.7483,45.769038,45.7459,45.7794,45.7855,45.753023,45.7383,45.7455,45.76,45.7516,45.7314,45.770539,45.765528,45.761251,45.7303,45.7795,45.7375,45.7748,45.7195,45.767635,45.768811111,45.743,45.7695,45.764035,45.7475,45.7749,45.716669444,45.71409,45.6966],[4.83405,4.847308333,4.836022222,4.835894444,4.88804,4.83038,4.8463,4.858061111,4.859433,4.873703,4.836366666,4.80542,4.8431,4.82561,4.882184,4.84235,4.80421,4.83293,4.829182,4.88696,4.87136,4.82622,4.85358,4.83366,4.863119,4.901201,4.921998,4.88739,4.8275,4.83736,4.83205,4.88759,4.88978,4.843897222,4.87872,4.85239,4.909215,4.86523,4.80549,4.814544444,4.8041,4.8049],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},["Bellecour","Place Guichard - Bourse du Travail","Hôtel de Ville - Louis Pradel","Cordeliers","Gare de Vénissieux","Stade de Gerland","Saxe - Gambetta","Gare Part-Dieu - Vivier Merle","Brotteaux","République - Villeurbanne","Croix-Paquet","Gorge de Loup","Guillotière - Gabriel Péri","Perrache","Gratte-Ciel","Jean Macé","Gare de Vaise","Cuire","Ampère - Victor Hugo","Laënnec","Monplaisir - Lumière","Vieux Lyon - Cathédrale Saint-Jean","Garibaldi","Debourg","Charpennes - Charles Hernu","Cusset","Vaulx-en-Velin - La Soie","Mermoz - Pinel","Hénon","Place Jean Jaurès","Croix-Rousse","Parilly","Flachet - Alain Gilles","Foch","Grange Blanche","Masséna","Laurent Bonnevay - Astroballe","Sans Souci","Valmy","Gare d'Oullins","Q55598901","Q56300135"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]}],"limits":{"lat":[45.6966,45.7855],"lng":[4.8041,4.921998]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2f45ee08d7d6058c23b0" style="width:700px;height:432.632880098888px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2f45ee08d7d6058c23b0">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircles","args":[[45.757958333,45.759261111,45.767377777,45.763511111,45.7058,45.7272,45.7543,45.761733333,45.767164,45.770599,45.770613888,45.7665,45.7553,45.7483,45.769038,45.7459,45.7794,45.7855,45.753023,45.7383,45.7455,45.76,45.7516,45.7314,45.770539,45.765528,45.761251,45.7303,45.7795,45.7375,45.7748,45.7195,45.767635,45.768811111,45.743,45.7695,45.764035,45.7475,45.7749,45.716669444,45.71409,45.6966],[4.83405,4.847308333,4.836022222,4.835894444,4.88804,4.83038,4.8463,4.858061111,4.859433,4.873703,4.836366666,4.80542,4.8431,4.82561,4.882184,4.84235,4.80421,4.83293,4.829182,4.88696,4.87136,4.82622,4.85358,4.83366,4.863119,4.901201,4.921998,4.88739,4.8275,4.83736,4.83205,4.88759,4.88978,4.843897222,4.87872,4.85239,4.909215,4.86523,4.80549,4.814544444,4.8041,4.8049],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},["Bellecour","Place Guichard - Bourse du Travail","Hôtel de Ville - Louis Pradel","Cordeliers","Gare de Vénissieux","Stade de Gerland","Saxe - Gambetta","Gare Part-Dieu - Vivier Merle","Brotteaux","République - Villeurbanne","Croix-Paquet","Gorge de Loup","Guillotière - Gabriel Péri","Perrache","Gratte-Ciel","Jean Macé","Gare de Vaise","Cuire","Ampère - Victor Hugo","Laënnec","Monplaisir - Lumière","Vieux Lyon - Cathédrale Saint-Jean","Garibaldi","Debourg","Charpennes - Charles Hernu","Cusset","Vaulx-en-Velin - La Soie","Mermoz - Pinel","Hénon","Place Jean Jaurès","Croix-Rousse","Parilly","Flachet - Alain Gilles","Foch","Grange Blanche","Masséna","Laurent Bonnevay - Astroballe","Sans Souci","Valmy","Gare d'Oullins","Q55598901","Q56300135"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]}],"limits":{"lat":[45.6966,45.7855],"lng":[4.8041,4.921998]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="section level2">
 <h2 id="example-2-cities-around-lyon">Example 2 : cities around Lyon<a class="anchor" aria-label="anchor" href="#example-2-cities-around-lyon"></a>
@@ -290,7 +290,7 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?city wdt:P31/wdt:P279* wd:Q515"</span>, label<span class="op">=</span><span class="st">"?city"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 2</span></span>
 <span class="co">#&gt;    city                                     cityLabel                 </span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     </span>
@@ -311,7 +311,7 @@
           label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?city"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?city wdt:P625 ?coords"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 3</span></span>
 <span class="co">#&gt;    city                                     cityLabel                     coords</span>
 <span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
@@ -333,17 +333,17 @@
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?city wdt:P625 ?coords"</span>,
           within_distance<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>center<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>long<span class="op">=</span><span class="fl">4.84</span>,lat<span class="op">=</span><span class="fl">45.76</span><span class="op">)</span>,
                                radius<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cities_around_Lyon</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 3</span></span>
-<span class="co">#&gt;   city                                     cityLabel                      coords</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> http://www.wikidata.org/entity/Q3554954  Vassieux                       Point…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> http://www.wikidata.org/entity/Q3461981  Saint-Clair                    Point…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> http://www.wikidata.org/entity/Q3220585  Neighbourhood of Le Bourg de … Point…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> http://www.wikidata.org/entity/Q20987614 Buers                          Point…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> http://www.wikidata.org/entity/Q16507694 Croix-Luizet                   Point…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> http://www.wikidata.org/entity/Q3208343  La Doua                        Point…</span></code></pre></div>
+<span class="co">#&gt;   city                                     cityLabel         coords             </span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> http://www.wikidata.org/entity/Q2961154  Charpennes-Tonkin Point(4.864 45.776)</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> http://www.wikidata.org/entity/Q8297     Les Brotteaux     Point(4.85027778 4…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> http://www.wikidata.org/entity/Q2904730  Bissardon         Point(4.83879 45.7…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> http://www.wikidata.org/entity/Q3554954  Vassieux          Point(4.86555 45.7…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> http://www.wikidata.org/entity/Q20987614 Buers             Point(4.89223385 4…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> http://www.wikidata.org/entity/Q16507694 Croix-Luizet      Point(4.88347 45.7…</span></code></pre></div>
 <!-- Actually, rather than getting Lyon's long-lat coordinates "by hand" we could get them directly through our query, which means we have to add a triplet about Lyon ("wd:456") and its coordinates: -->
 <!-- ```{r, eval=FALSE} -->
 <!-- spq_init() %>%  -->
@@ -352,7 +352,7 @@
 <!--           within_distance=list(center="?coordLyon", radius=2)) %>% -->
 <!--   spq_add("?city wdt:P31/wdt:P279* wd:Q486972", -->
 <!--           label="?city") %>% -->
-<!--   send() -->
+<!--   spq_perform() -->
 <!-- ``` -->
 <!-- This does not work => two triplets unrelated. Maybe add example and modify spq_add() to use {} for reference to R values -->
 </div>

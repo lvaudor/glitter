@@ -24,10 +24,10 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/glitter_for_SyMoGih.html">glitter for SyMoGIH</a>
-    <a class="dropdown-item" href="../articles/glitter_for_Wikidata.html">glitter for Wikidata</a>
-    <a class="dropdown-item" href="../articles/glitter_for_dataBNF.html">glitter for dataBNF</a>
-    <a class="dropdown-item" href="../articles/glitter_for_hal.html">glitter for HAL</a>
+    <a class="dropdown-item" href="../articles/glitter_for_Wikidata.html">Wikidata</a>
+    <a class="dropdown-item" href="../articles/glitter_for_dataBNF.html">dataBNF</a>
+    <a class="dropdown-item" href="../articles/glitter_for_hal.html">HAL</a>
+    <a class="dropdown-item" href="../articles/glitter_for_SyMoGih.html">SyMoGih</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -74,7 +74,7 @@
 <span class="r-in"><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"wd:Q331676 wdt:P1843 ?statement"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"><span class="fu">spq_mutate</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?lang"</span><span class="op">=</span><span class="st">"LANG(?statement)"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu"><a href="send.html">send</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 11 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    statement           lang </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>

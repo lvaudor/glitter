@@ -34,9 +34,6 @@
     <loc>https://lvaudor.github.io/glitter/reference/build_part_select.html</loc>
   </url>
   <url>
-    <loc>https://lvaudor.github.io/glitter/reference/build_sparql.html</loc>
-  </url>
-  <url>
     <loc>https://lvaudor.github.io/glitter/reference/clean_wikidata_table.html</loc>
   </url>
   <url>
@@ -76,9 +73,6 @@
     <loc>https://lvaudor.github.io/glitter/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>https://lvaudor.github.io/glitter/reference/send.html</loc>
-  </url>
-  <url>
     <loc>https://lvaudor.github.io/glitter/reference/send_sparql.html</loc>
   </url>
   <url>
@@ -89,6 +83,9 @@
   </url>
   <url>
     <loc>https://lvaudor.github.io/glitter/reference/spq_arrange.html</loc>
+  </url>
+  <url>
+    <loc>https://lvaudor.github.io/glitter/reference/spq_assemble.html</loc>
   </url>
   <url>
     <loc>https://lvaudor.github.io/glitter/reference/spq_filter.html</loc>
@@ -107,6 +104,9 @@
   </url>
   <url>
     <loc>https://lvaudor.github.io/glitter/reference/spq_mutate.html</loc>
+  </url>
+  <url>
+    <loc>https://lvaudor.github.io/glitter/reference/spq_perform.html</loc>
   </url>
   <url>
     <loc>https://lvaudor.github.io/glitter/reference/spq_prefix.html</loc>

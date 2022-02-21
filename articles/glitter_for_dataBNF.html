@@ -48,10 +48,10 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/glitter_for_SyMoGih.html">glitter for SyMoGIH</a>
-    <a class="dropdown-item" href="../articles/glitter_for_Wikidata.html">glitter for Wikidata</a>
-    <a class="dropdown-item" href="../articles/glitter_for_dataBNF.html">glitter for dataBNF</a>
-    <a class="dropdown-item" href="../articles/glitter_for_hal.html">glitter for HAL</a>
+    <a class="dropdown-item" href="../articles/glitter_for_Wikidata.html">Wikidata</a>
+    <a class="dropdown-item" href="../articles/glitter_for_dataBNF.html">dataBNF</a>
+    <a class="dropdown-item" href="../articles/glitter_for_hal.html">HAL</a>
+    <a class="dropdown-item" href="../articles/glitter_for_SyMoGih.html">SyMoGih</a>
   </div>
 </li>
       </ul>
@@ -98,14 +98,14 @@
 <code class="sourceCode R"><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s ?p ?o"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
 
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="42%">
 <col width="26%">
-<col width="31%">
+<col width="30%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">s</th>
@@ -178,16 +178,16 @@
   <span class="fu"><a href="../reference/spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="st">"?jour"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
 
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="49%">
-<col width="5%">
-<col width="10%">
-<col width="10%">
-<col width="23%">
+<col width="48%">
+<col width="6%">
+<col width="11%">
+<col width="11%">
+<col width="24%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">auteur</th>
@@ -284,7 +284,7 @@
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?edition dcterms:publisher ?editeur"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span><span class="st">"dataBNF"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="st">"dataBNF"</span><span class="op">)</span>
 
 
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></code></pre></div>
@@ -387,13 +387,13 @@
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"{doc} rdarelationships:electronicReproduction ?URLGallica"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"{doc} dcterms:title ?title"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
 
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="24%">
-<col width="75%">
+<col width="23%">
+<col width="76%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">URLGallica</th>
@@ -416,13 +416,13 @@
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?exposition dcterms:title ?titre"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?exposition dcterms:subject ?sujet"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">30</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
 
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="20%">
-<col width="58%">
+<col width="60%">
 <col width="20%">
 </colgroup>
 <thead><tr class="header">
@@ -593,12 +593,12 @@
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?person foaf:focus ?identity"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?identity foaf:familyName ?nom"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?identity foaf:givenName ?prenom"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
 
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="40%">
+<col width="39%">
 <col width="45%">
 <col width="5%">
 <col width="9%">
@@ -624,7 +624,7 @@
 <code class="sourceCode R"><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?pidArk bnf-onto:FRBNF '11992081'^^xsd:integer"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
 
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></code></pre></div>
 <table class="table">
@@ -647,7 +647,7 @@
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?manifestation rdarelationships:workManifested ?work"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?creator foaf:name ?name"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
 
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></code></pre></div>
 <table class="table">
@@ -686,7 +686,7 @@
   <span class="fu"><a href="../reference/spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?auteur"</span>,<span class="st">"?nom"</span>,<span class="st">"?mort"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="st">"desc(xsd:integer(?mort))"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
 
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></code></pre></div>
 <table class="table">
@@ -755,46 +755,45 @@
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span>t<span class="op">=</span><span class="st">"?image dcterms:type &lt;http://purl.org/dc/dcmitype/StillImage&gt;"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
 
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></code></pre></div>
-<table style="width:100%;" class="table">
-<colgroup>
-<col width="10%">
-<col width="10%">
-<col width="10%">
-<col width="10%">
-<col width="10%">
-<col width="10%">
-<col width="10%">
-<col width="10%">
-<col width="10%">
-<col width="10%">
-</colgroup>
+<table class="table">
 <thead><tr class="header">
 <th align="left">image</th>
-<th align="left">image.1</th>
-<th align="left">image.2</th>
-<th align="left">image.3</th>
-<th align="left">image.4</th>
-<th align="left">image.5</th>
-<th align="left">image.6</th>
-<th align="left">image.7</th>
-<th align="left">image.8</th>
-<th align="left">image.9</th>
 </tr></thead>
-<tbody><tr class="odd">
+<tbody>
+<tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb38492172n#Expression" class="external-link uri">http://data.bnf.fr/ark:/12148/cb38492172n#Expression</a></td>
+</tr>
+<tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb38493336k#Expression" class="external-link uri">http://data.bnf.fr/ark:/12148/cb38493336k#Expression</a></td>
+</tr>
+<tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb38495068v#Expression" class="external-link uri">http://data.bnf.fr/ark:/12148/cb38495068v#Expression</a></td>
+</tr>
+<tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb38495307g#Expression" class="external-link uri">http://data.bnf.fr/ark:/12148/cb38495307g#Expression</a></td>
+</tr>
+<tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb384957632#Expression" class="external-link uri">http://data.bnf.fr/ark:/12148/cb384957632#Expression</a></td>
+</tr>
+<tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb384960819#Expression" class="external-link uri">http://data.bnf.fr/ark:/12148/cb384960819#Expression</a></td>
+</tr>
+<tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb38496454h#Expression" class="external-link uri">http://data.bnf.fr/ark:/12148/cb38496454h#Expression</a></td>
+</tr>
+<tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb38496478h#Expression" class="external-link uri">http://data.bnf.fr/ark:/12148/cb38496478h#Expression</a></td>
+</tr>
+<tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb38496839q#Expression" class="external-link uri">http://data.bnf.fr/ark:/12148/cb38496839q#Expression</a></td>
+</tr>
+<tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb38497766k#Expression" class="external-link uri">http://data.bnf.fr/ark:/12148/cb38497766k#Expression</a></td>
-</tr></tbody>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="section level2">
@@ -807,7 +806,7 @@
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">". rdfs:seeAlso ?uri"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?uri"</span>,<span class="st">"?oeuvre"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
 
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></code></pre></div>
 <table class="table">
@@ -875,7 +874,7 @@
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">". dcterms:subject &lt;http://data.bnf.fr/ark:/12148/cb11932843f&gt;"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?auteur"</span>,<span class="st">"?url"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
 
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></code></pre></div>
 <table class="table">
@@ -942,13 +941,13 @@
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?uri2 skos:narrower ?uri3"</span>, required<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?uri3 skos:prefLabel ?label3"</span>, required<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
 
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></code></pre></div>
-<table class="table">
+<table style="width:100%;" class="table">
 <colgroup>
 <col width="16%">
-<col width="19%">
+<col width="18%">
 <col width="16%">
 <col width="17%">
 <col width="16%">
@@ -965,113 +964,83 @@
 <tbody>
 <tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11962584t" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11962584t</a></td>
-<td align="left">“Vin de <a href="mailto:liqueur%22@fr" class="email">liqueur"@fr</a>
-</td>
+<td align="left">Vin de liqueur</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11981546f" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11981546f</a></td>
-<td align="left">“Vin doux <a href="mailto:naturel%22@fr" class="email">naturel"@fr</a>
-</td>
+<td align="left">Vin doux naturel</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb13173132t" class="external-link uri">http://data.bnf.fr/ark:/12148/cb13173132t</a></td>
-<td align="left">“Vin <a href="mailto:muscat%22@fr" class="email">muscat"@fr</a>
-</td>
+<td align="left">Vin muscat</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb171459940" class="external-link uri">http://data.bnf.fr/ark:/12148/cb171459940</a></td>
-<td align="left">“Cours d’eau – [Localisations géographiques]”<span class="citation">@fr</span>
-</td>
+<td align="left">Cours d’eau – [Localisations géographiques]</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb12010121w" class="external-link uri">http://data.bnf.fr/ark:/12148/cb12010121w</a></td>
-<td align="left">“Cours d’eau – <a href="mailto:Slovaquie%22@fr" class="email">Slovaquie"@fr</a>
-</td>
+<td align="left">Cours d’eau – Slovaquie</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb14490238h" class="external-link uri">http://data.bnf.fr/ark:/12148/cb14490238h</a></td>
-<td align="left">“Ipel ́ (cours d’eau)”<span class="citation">@fr</span>
-</td>
+<td align="left">Ipel ́ (cours d’eau)</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb119572124" class="external-link uri">http://data.bnf.fr/ark:/12148/cb119572124</a></td>
-<td align="left">“Microbiologie <a href="mailto:alimentaire%22@fr" class="email">alimentaire"@fr</a>
-</td>
+<td align="left">Microbiologie alimentaire</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11971015k" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11971015k</a></td>
-<td align="left">“Aliments d’origine animale – <a href="mailto:Microbiologie%22@fr" class="email">Microbiologie"@fr</a>
-</td>
+<td align="left">Aliments d’origine animale – Microbiologie</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11962574h" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11962574h</a></td>
-<td align="left">“Viande – <a href="mailto:Microbiologie%22@fr" class="email">Microbiologie"@fr</a>
-</td>
+<td align="left">Viande – Microbiologie</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb16956726n" class="external-link uri">http://data.bnf.fr/ark:/12148/cb16956726n</a></td>
-<td align="left">“Châteaux – [Localisations géographiques]”<span class="citation">@fr</span>
-</td>
+<td align="left">Châteaux – [Localisations géographiques]</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb12114361t" class="external-link uri">http://data.bnf.fr/ark:/12148/cb12114361t</a></td>
-<td align="left">“Châteaux – <a href="mailto:Belgique%22@fr" class="email">Belgique"@fr</a>
-</td>
+<td align="left">Châteaux – Belgique</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb126504598" class="external-link uri">http://data.bnf.fr/ark:/12148/cb126504598</a></td>
-<td align="left">“Petegem (Belgique) – Vieux <a href="mailto:ch%C3%A2teau%22@fr" class="email">château"@fr</a>
-</td>
+<td align="left">Petegem (Belgique) – Vieux château</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11962584t" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11962584t</a></td>
-<td align="left">“Vin de <a href="mailto:liqueur%22@fr" class="email">liqueur"@fr</a>
-</td>
+<td align="left">Vin de liqueur</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11981546f" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11981546f</a></td>
-<td align="left">“Vin doux <a href="mailto:naturel%22@fr" class="email">naturel"@fr</a>
-</td>
+<td align="left">Vin doux naturel</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb17083009m" class="external-link uri">http://data.bnf.fr/ark:/12148/cb17083009m</a></td>
-<td align="left">“Vin de <a href="mailto:Rasteau%22@fr" class="email">Rasteau"@fr</a>
-</td>
+<td align="left">Vin de Rasteau</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb119572124" class="external-link uri">http://data.bnf.fr/ark:/12148/cb119572124</a></td>
-<td align="left">“Microbiologie <a href="mailto:alimentaire%22@fr" class="email">alimentaire"@fr</a>
-</td>
+<td align="left">Microbiologie alimentaire</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11971015k" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11971015k</a></td>
-<td align="left">“Aliments d’origine animale – <a href="mailto:Microbiologie%22@fr" class="email">Microbiologie"@fr</a>
-</td>
+<td align="left">Aliments d’origine animale – Microbiologie</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb121005705" class="external-link uri">http://data.bnf.fr/ark:/12148/cb121005705</a></td>
-<td align="left">“Lait – <a href="mailto:Microbiologie%22@fr" class="email">Microbiologie"@fr</a>
-</td>
+<td align="left">Lait – Microbiologie</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb171459940" class="external-link uri">http://data.bnf.fr/ark:/12148/cb171459940</a></td>
-<td align="left">“Cours d’eau – [Localisations géographiques]”<span class="citation">@fr</span>
-</td>
+<td align="left">Cours d’eau – [Localisations géographiques]</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb12010121w" class="external-link uri">http://data.bnf.fr/ark:/12148/cb12010121w</a></td>
-<td align="left">“Cours d’eau – <a href="mailto:Slovaquie%22@fr" class="email">Slovaquie"@fr</a>
-</td>
+<td align="left">Cours d’eau – Slovaquie</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb121393336" class="external-link uri">http://data.bnf.fr/ark:/12148/cb121393336</a></td>
-<td align="left">“Morava (cours d’eau)”<span class="citation">@fr</span>
-</td>
+<td align="left">Morava (cours d’eau)</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb16956822j" class="external-link uri">http://data.bnf.fr/ark:/12148/cb16956822j</a></td>
-<td align="left">“Fortifications – [Localisations géographiques]”<span class="citation">@fr</span>
-</td>
+<td align="left">Fortifications – [Localisations géographiques]</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb119813984" class="external-link uri">http://data.bnf.fr/ark:/12148/cb119813984</a></td>
-<td align="left">“Fortifications – <a href="mailto:Chine%22@fr" class="email">Chine"@fr</a>
-</td>
+<td align="left">Fortifications – Chine</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb119610997" class="external-link uri">http://data.bnf.fr/ark:/12148/cb119610997</a></td>
-<td align="left">“Grande Muraille (Chine)”<span class="citation">@fr</span>
-</td>
+<td align="left">Grande Muraille (Chine)</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb16956726n" class="external-link uri">http://data.bnf.fr/ark:/12148/cb16956726n</a></td>
-<td align="left">“Châteaux – [Localisations géographiques]”<span class="citation">@fr</span>
-</td>
+<td align="left">Châteaux – [Localisations géographiques]</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb12114361t" class="external-link uri">http://data.bnf.fr/ark:/12148/cb12114361t</a></td>
-<td align="left">“Châteaux – <a href="mailto:Belgique%22@fr" class="email">Belgique"@fr</a>
-</td>
+<td align="left">Châteaux – Belgique</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb119722606" class="external-link uri">http://data.bnf.fr/ark:/12148/cb119722606</a></td>
-<td align="left">“Seraing (Belgique) – <a href="mailto:Ch%C3%A2teau%22@fr" class="email">Château"@fr</a>
-</td>
+<td align="left">Seraing (Belgique) – Château</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11962584t" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11962584t</a></td>
-<td align="left">“Vin de <a href="mailto:liqueur%22@fr" class="email">liqueur"@fr</a>
-</td>
+<td align="left">Vin de liqueur</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11981546f" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11981546f</a></td>
-<td align="left">“Vin doux <a href="mailto:naturel%22@fr" class="email">naturel"@fr</a>
-</td>
+<td align="left">Vin doux naturel</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb15021114g" class="external-link uri">http://data.bnf.fr/ark:/12148/cb15021114g</a></td>
-<td align="left">“Vin de <a href="mailto:Banyuls%22@fr" class="email">Banyuls"@fr</a>
-</td>
+<td align="left">Vin de Banyuls</td>
 </tr>
 </tbody>
 </table>
@@ -1084,13 +1053,13 @@
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?sujet dcterms:isPartOf &lt;http://data.bnf.fr/vocabulary/rameau/r166&gt;"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">". skos:prefLabel ?label"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
 
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="44%">
-<col width="55%">
+<col width="46%">
+<col width="53%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">sujet</th>
@@ -1099,53 +1068,43 @@
 <tbody>
 <tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11961630x" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11961630x</a></td>
-<td align="left">“Kusaal (langue)”<span class="citation">@fr</span>
-</td>
+<td align="left">Kusaal (langue)</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11971015k" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11971015k</a></td>
-<td align="left">“Aliments d’origine animale – <a href="mailto:Microbiologie%22@fr" class="email">Microbiologie"@fr</a>
-</td>
+<td align="left">Aliments d’origine animale – Microbiologie</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb119793338" class="external-link uri">http://data.bnf.fr/ark:/12148/cb119793338</a></td>
-<td align="left">“Politique et gouvernement – Brésil – 1889-….”<span class="citation">@fr</span>
-</td>
+<td align="left">Politique et gouvernement – Brésil – 1889-….</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb119798716" class="external-link uri">http://data.bnf.fr/ark:/12148/cb119798716</a></td>
-<td align="left">“Charbonniers (cargos)”<span class="citation">@fr</span>
-</td>
+<td align="left">Charbonniers (cargos)</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb119813984" class="external-link uri">http://data.bnf.fr/ark:/12148/cb119813984</a></td>
-<td align="left">“Fortifications – <a href="mailto:Chine%22@fr" class="email">Chine"@fr</a>
-</td>
+<td align="left">Fortifications – Chine</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11981546f" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11981546f</a></td>
-<td align="left">“Vin doux <a href="mailto:naturel%22@fr" class="email">naturel"@fr</a>
-</td>
+<td align="left">Vin doux naturel</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb119834517" class="external-link uri">http://data.bnf.fr/ark:/12148/cb119834517</a></td>
-<td align="left">“Théâtre (genre littéraire) <a href="mailto:jud%C3%A9o-espagnol%22@fr" class="email">judéo-espagnol"@fr</a>
-</td>
+<td align="left">Théâtre (genre littéraire) judéo-espagnol</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb120087934" class="external-link uri">http://data.bnf.fr/ark:/12148/cb120087934</a></td>
-<td align="left">“Abbayes – France – Côtes-d’Armor (France)”<span class="citation">@fr</span>
-</td>
+<td align="left">Abbayes – France – Côtes-d’Armor (France)</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb12010121w" class="external-link uri">http://data.bnf.fr/ark:/12148/cb12010121w</a></td>
-<td align="left">“Cours d’eau – <a href="mailto:Slovaquie%22@fr" class="email">Slovaquie"@fr</a>
-</td>
+<td align="left">Cours d’eau – Slovaquie</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb120815074" class="external-link uri">http://data.bnf.fr/ark:/12148/cb120815074</a></td>
-<td align="left">“Récits de guerre <a href="mailto:allemands%22@fr" class="email">allemands"@fr</a>
-</td>
+<td align="left">Récits de guerre allemands</td>
 </tr>
 </tbody>
 </table>
@@ -1160,10 +1119,10 @@
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?lieu skos:closeMatch ?concept"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?lieu"</span>,<span class="st">"?concept"</span>,<span class="st">"?c"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">100</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
 
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></code></pre></div>
-<table style="width:100%;" class="table">
+<table class="table">
 <colgroup>
 <col width="36%">
 <col width="31%">
@@ -1688,14 +1647,14 @@
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?ConceptA rdfs:seeAlso ?wikipedia"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="st">"regex(?wikipedia,'wikipedia')"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span>
 
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="19%">
+<col width="18%">
 <col width="21%">
-<col width="30%">
+<col width="31%">
 <col width="28%">
 </colgroup>
 <thead><tr class="header">

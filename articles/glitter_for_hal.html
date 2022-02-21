@@ -48,10 +48,10 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/glitter_for_SyMoGih.html">glitter for SyMoGIH</a>
-    <a class="dropdown-item" href="../articles/glitter_for_Wikidata.html">glitter for Wikidata</a>
-    <a class="dropdown-item" href="../articles/glitter_for_dataBNF.html">glitter for dataBNF</a>
-    <a class="dropdown-item" href="../articles/glitter_for_hal.html">glitter for HAL</a>
+    <a class="dropdown-item" href="../articles/glitter_for_Wikidata.html">Wikidata</a>
+    <a class="dropdown-item" href="../articles/glitter_for_dataBNF.html">dataBNF</a>
+    <a class="dropdown-item" href="../articles/glitter_for_hal.html">HAL</a>
+    <a class="dropdown-item" href="../articles/glitter_for_SyMoGih.html">SyMoGih</a>
   </div>
 </li>
       </ul>
@@ -91,9 +91,6 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lvaudor.github.io/glitter/">glitter</a></span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Loading required package: SPARQL</span></code></pre>
-<pre><code><span class="co">## Loading required package: XML</span></code></pre>
-<pre><code><span class="co">## Loading required package: RCurl</span></code></pre>
 <p>Cette vignette reprend les <strong>requêtes proposées (dans le langage SPARQL)</strong> dans <a href="https://fr.slideshare.net/lespetitescases/dcouverte-du-sparql-endpoint-de-hal" class="external-link">cette présentation</a> de <strong>Gautier Poupeau</strong> et vous montre comment les formuler dans R à l’aide du package glitter.</p>
 <div class="section level2">
 <h2 id="recherche-par-document">Recherche par document<a class="anchor" aria-label="anchor" href="#recherche-par-document"></a>
@@ -102,39 +99,27 @@
 <div class="section level3">
 <h3 id="rechercher-toutes-les-informations-associées-à-ce-document">Rechercher toutes les informations associées à ce document<a class="anchor" aria-label="anchor" href="#rechercher-toutes-les-informations-associ%C3%A9es-%C3%A0-ce-document"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tib_info</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"haldoc:inria-00362381 dcterms:hasVersion ?version"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co"># Ce doc a des versions ?version</span>
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?version ?p ?object"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                               <span class="co"># ?version a des prop. ?p les liant à ?object</span>
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"hal"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"hal"</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tib_info</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##                                                         version</span>
-<span class="co">## 1 &lt;https://data.archives-ouvertes.fr/document/inria-00362381v1&gt;</span>
-<span class="co">## 2 &lt;https://data.archives-ouvertes.fr/document/inria-00362381v1&gt;</span>
-<span class="co">## 3 &lt;https://data.archives-ouvertes.fr/document/inria-00362381v1&gt;</span>
-<span class="co">## 4 &lt;https://data.archives-ouvertes.fr/document/inria-00362381v1&gt;</span>
-<span class="co">## 5 &lt;https://data.archives-ouvertes.fr/document/inria-00362381v1&gt;</span>
-<span class="co">## 6 &lt;https://data.archives-ouvertes.fr/document/inria-00362381v1&gt;</span>
-<span class="co">##                                                    p</span>
-<span class="co">## 1  &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt;</span>
-<span class="co">## 2                 &lt;http://purl.org/dc/terms/created&gt;</span>
-<span class="co">## 3                &lt;http://purl.org/dc/terms/modified&gt;</span>
-<span class="co">## 4 &lt;http://www.openarchives.org/ore/terms/aggregates&gt;</span>
-<span class="co">## 5         &lt;http://purl.org/dc/elements/1.1/language&gt;</span>
-<span class="co">## 6          &lt;http://purl.org/dc/elements/1.1/subject&gt;</span>
-<span class="co">##                                                   object</span>
-<span class="co">## 1                    &lt;http://purl.org/spar/fabio/Report&gt;</span>
-<span class="co">## 2                                             1234952543</span>
-<span class="co">## 3                                             1517016687</span>
-<span class="co">## 4 &lt;https://hal.inria.fr/inria-00362381/file/RR-6847.pdf&gt;</span>
-<span class="co">## 5                                                     en</span>
-<span class="co">## 6                                               "XML"@en</span></code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 6 × 3</span></span>
+<span class="co">##   version                                                     p           object</span>
+<span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
+<span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://www… http:…</span>
+<span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… <span style="color: #BB0000;">NA</span>    </span>
+<span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… <span style="color: #BB0000;">NA</span>    </span>
+<span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… https…</span>
+<span class="co">## <span style="color: #BCBCBC;">5</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… inria…</span>
+<span class="co">## <span style="color: #BCBCBC;">6</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… 22</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="rechercher-luri-le-titre-le-lien-vers-le-pdf-et-les-auteurs-de-toutes-les-versions-de-ce-document">Rechercher l’URI, le titre, le lien vers le PDF et les auteurs de [toutes les versions de] ce document<a class="anchor" aria-label="anchor" href="#rechercher-luri-le-titre-le-lien-vers-le-pdf-et-les-auteurs-de-toutes-les-versions-de-ce-document"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">query_doc</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"haldoc:inria-00362381 dcterms:hasVersion ?version"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co"># Ce doc a des versions ?version</span>
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?version dcterms:title ?title"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                     <span class="co"># ?version a pour titre ?titre</span>
@@ -143,101 +128,76 @@
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?creator hal:person ?person"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                       <span class="co"># ?creator est une personne ?person</span>
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?person foaf:name ?name"</span><span class="op">)</span>                               <span class="co"># ?person a pour nom ?name</span>
 
-<span class="va">tib_doc</span><span class="op">=</span><span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span><span class="va">query_doc</span>,<span class="st">"hal"</span><span class="op">)</span>
+<span class="va">tib_doc</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_doc</span>,<span class="st">"hal"</span><span class="op">)</span>
 
 <span class="va">tib_doc</span></code></pre></div>
-<pre><code><span class="co">##                                                         version</span>
-<span class="co">## 1 &lt;https://data.archives-ouvertes.fr/document/inria-00362381v1&gt;</span>
-<span class="co">## 2 &lt;https://data.archives-ouvertes.fr/document/inria-00362381v1&gt;</span>
-<span class="co">## 3 &lt;https://data.archives-ouvertes.fr/document/inria-00362381v1&gt;</span>
-<span class="co">## 4 &lt;https://data.archives-ouvertes.fr/document/inria-00362381v1&gt;</span>
-<span class="co">## 5 &lt;https://data.archives-ouvertes.fr/document/inria-00362381v1&gt;</span>
-<span class="co">##                                                              title</span>
-<span class="co">## 1 "Querying the Semantic Web of Data using SPARQL, RDF and XML"@en</span>
-<span class="co">## 2 "Querying the Semantic Web of Data using SPARQL, RDF and XML"@en</span>
-<span class="co">## 3 "Querying the Semantic Web of Data using SPARQL, RDF and XML"@en</span>
-<span class="co">## 4 "Querying the Semantic Web of Data using SPARQL, RDF and XML"@en</span>
-<span class="co">## 5 "Querying the Semantic Web of Data using SPARQL, RDF and XML"@en</span>
-<span class="co">##                      creator</span>
-<span class="co">## 1 _:genidnodeID://b688018625</span>
-<span class="co">## 2 _:genidnodeID://b688018626</span>
-<span class="co">## 3 _:genidnodeID://b688018623</span>
-<span class="co">## 4 _:genidnodeID://b688018627</span>
-<span class="co">## 5 _:genidnodeID://b688018624</span>
-<span class="co">##                                                      pdf</span>
-<span class="co">## 1 &lt;https://hal.inria.fr/inria-00362381/file/RR-6847.pdf&gt;</span>
-<span class="co">## 2 &lt;https://hal.inria.fr/inria-00362381/file/RR-6847.pdf&gt;</span>
-<span class="co">## 3 &lt;https://hal.inria.fr/inria-00362381/file/RR-6847.pdf&gt;</span>
-<span class="co">## 4 &lt;https://hal.inria.fr/inria-00362381/file/RR-6847.pdf&gt;</span>
-<span class="co">## 5 &lt;https://hal.inria.fr/inria-00362381/file/RR-6847.pdf&gt;</span>
-<span class="co">##                                              person                  name</span>
-<span class="co">## 1  &lt;https://data.archives-ouvertes.fr/author/62909&gt;         Hacène Cherfi</span>
-<span class="co">## 2 &lt;https://data.archives-ouvertes.fr/author/827904&gt;         Fabien Gandon</span>
-<span class="co">## 3 &lt;https://data.archives-ouvertes.fr/author/720457&gt;         Olivier Corby</span>
-<span class="co">## 4 &lt;https://data.archives-ouvertes.fr/author/159177&gt; Khaled Mohamed Khelif</span>
-<span class="co">## 5 &lt;https://data.archives-ouvertes.fr/author/327261&gt;     Leila Kefi-Khelif</span></code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 5 × 6</span></span>
+<span class="co">##   version                                       title creator pdf   person name </span>
+<span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Oliv…</span>
+<span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Leil…</span>
+<span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Fabi…</span>
+<span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Hacè…</span>
+<span class="co">## <span style="color: #BCBCBC;">5</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Khal…</span></code></pre>
 <p>Remarque: on peut concaténer les réponses d’une variable (ici les auteurs par exemple):</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">query_doc_autConcat</span><span class="op">=</span><span class="va">query_doc</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?version"</span>,<span class="st">"?title"</span>,<span class="st">"?pdf"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>             <span class="co"># Groupe les résultats par ?version, ?title, ?pdf</span>
   <span class="fu"><a href="../reference/spq_summarise.html">spq_summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?authors"</span><span class="op">=</span><span class="st">"GROUP_CONCAT(?name,',')"</span><span class="op">)</span><span class="op">)</span>      <span class="co"># Concatène les noms d'auteur dans ?authors</span>
 
-<span class="va">tib_doc_autConcat</span><span class="op">=</span><span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span><span class="va">query_doc_autConcat</span>,<span class="st">"hal"</span><span class="op">)</span>
+<span class="va">tib_doc_autConcat</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_doc_autConcat</span>,<span class="st">"hal"</span><span class="op">)</span>
 
 <span class="va">tib_doc_autConcat</span></code></pre></div>
-<pre><code><span class="co">##                                                         version</span>
-<span class="co">## 1 &lt;https://data.archives-ouvertes.fr/document/inria-00362381v1&gt;</span>
-<span class="co">##                                                              title</span>
-<span class="co">## 1 "Querying the Semantic Web of Data using SPARQL, RDF and XML"@en</span>
-<span class="co">##                                                      pdf</span>
-<span class="co">## 1 &lt;https://hal.inria.fr/inria-00362381/file/RR-6847.pdf&gt;</span>
-<span class="co">##                                                                             authors</span>
-<span class="co">## 1 Hacène Cherfi,Fabien Gandon,Olivier Corby,Khaled Mohamed Khelif,Leila Kefi-Khelif</span></code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 1 × 4</span></span>
+<span class="co">##   version                                                    title pdf   authors</span>
+<span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/inria-00362381… Quer… http… Olivie…</span></code></pre>
 <p>On peut également <strong>agréger/résumer</strong> les résultats renvoyés par la requête, par exemple en <strong>recherchant le nombre d’auteurs d’un document</strong> (par version)</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tib_nbAutDoc</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"haldoc:inria-00362381 dcterms:hasVersion ?version"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co"># Ce doc a des versions ?version</span>
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?version dcterms:creator ?creator"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                 <span class="co"># ?version a pour créateur ?creator</span>
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?creator hal:person ?person"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                       <span class="co"># ?creator est une personne ?person</span>
   <span class="fu"><a href="../reference/spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="st">"?version"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                                     <span class="co"># Groupe par ?version</span>
   <span class="fu"><a href="../reference/spq_summarise.html">spq_summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?nbperson"</span><span class="op">=</span><span class="st">"count(distinct ?person)"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>      <span class="co"># Résume: ?nbperson = nb de ?person dist.  </span>
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"hal"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"hal"</span><span class="op">)</span>
 
 <span class="va">tib_nbAutDoc</span></code></pre></div>
-<pre><code><span class="co">##                                                         version nbperson</span>
-<span class="co">## 1 &lt;https://data.archives-ouvertes.fr/document/inria-00362381v1&gt;        5</span></code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span>
+<span class="co">##   version                                                     nbperson</span>
+<span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
+<span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 5</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="rechercher-luri-et-les-types-et-létiquette-associée-de-toutes-les-versions-de-ce-document">Rechercher l’URI et les types (et l’étiquette associée) de [toutes les versions de] ce document<a class="anchor" aria-label="anchor" href="#rechercher-luri-et-les-types-et-l%C3%A9tiquette-associ%C3%A9e-de-toutes-les-versions-de-ce-document"></a>
 </h3>
 <p>On cherche les types associés aux versions de documents. Ces types sont associés à des étiquettes (dans plusieurs langues) qui permettent de comprendre de quoi il s’agit “en langage ordinaire”.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">query_docType</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"haldoc:inria-00362381 dcterms:hasVersion ?version"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co"># Ce doc a des versions ?version</span>
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?version dcterms:type ?type"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                       <span class="co"># ?version est un document de type ?type</span>
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?type skos:prefLabel ?label"</span><span class="op">)</span>                           <span class="co"># ?type a pour étiquette ?label</span>
 
-<span class="va">tib_docType</span><span class="op">=</span><span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span><span class="va">query_docType</span>,<span class="st">"hal"</span><span class="op">)</span>
+<span class="va">tib_docType</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_docType</span>,<span class="st">"hal"</span><span class="op">)</span>
 
 <span class="va">tib_docType</span></code></pre></div>
-<pre><code><span class="co">##                                                         version</span>
-<span class="co">## 1 &lt;https://data.archives-ouvertes.fr/document/inria-00362381v1&gt;</span>
-<span class="co">## 2 &lt;https://data.archives-ouvertes.fr/document/inria-00362381v1&gt;</span>
-<span class="co">##                                                 type        label</span>
-<span class="co">## 1 &lt;https://data.archives-ouvertes.fr/doctype/Report&gt; "Rapport"@fr</span>
-<span class="co">## 2 &lt;https://data.archives-ouvertes.fr/doctype/Report&gt; "Reports"@en</span></code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 2 × 3</span></span>
+<span class="co">##   version                                                     type         label</span>
+<span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 https://dat… Rapp…</span>
+<span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 https://dat… Repo…</span></code></pre>
 <p>On peut <strong>filtrer les résultats</strong> pour n’afficher que la ligne de résultats pour laquelle l’étiquette est en français :</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">query_docTypeFr</span><span class="op">=</span><span class="va">query_docType</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="st">"lang(?label)='fr'"</span><span class="op">)</span>     <span class="co"># Filtre pour garder les étiquettes en français</span>
 
-<span class="va">tib_docTypeFr</span><span class="op">=</span><span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span><span class="va">query_docTypeFr</span>,<span class="st">"hal"</span><span class="op">)</span>
+<span class="va">tib_docTypeFr</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_docTypeFr</span>,<span class="st">"hal"</span><span class="op">)</span>
 
 <span class="va">tib_docTypeFr</span></code></pre></div>
-<pre><code><span class="co">##                                                         version</span>
-<span class="co">## 1 &lt;https://data.archives-ouvertes.fr/document/inria-00362381v1&gt;</span>
-<span class="co">##                                                 type        label</span>
-<span class="co">## 1 &lt;https://data.archives-ouvertes.fr/doctype/Report&gt; "Rapport"@fr</span></code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 1 × 3</span></span>
+<span class="co">##   version                                                     type         label</span>
+<span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 https://dat… Rapp…</span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -247,7 +207,7 @@
 <h3 id="afficher-les-documents-associés-à-une-forme-auteur">Afficher les documents associés à une forme-auteur<a class="anchor" aria-label="anchor" href="#afficher-les-documents-associ%C3%A9s-%C3%A0-une-forme-auteur"></a>
 </h3>
 <p>Considérons une des “forme-auteur” de Fabien Gandon, <a href="https://data.archives-ouvertes.fr/author/827904" class="external-link">https://data.archives-ouvertes.fr/author/827904</a> (vu dans les résultats des requêtes précédentes).</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fabien_gandon</span><span class="op">=</span><span class="st">"&lt;https://data.archives-ouvertes.fr/author/827904&gt;"</span> <span class="co"># fabien_gandon = cette forme auteur</span>
 
 <span class="va">query_foAut</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
@@ -257,112 +217,71 @@
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?version dcterms:type ?type"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>            <span class="co"># ?version a pour type ?type</span>
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?type skos:prefLabel ?label"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>            <span class="co"># ?type a pour étiquette ?label</span>
   <span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="st">"lang(?label)='fr'"</span><span class="op">)</span>                       <span class="co"># Filtre pour garder les ?label en français</span>
-<span class="va">tib_foAut</span><span class="op">=</span><span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span><span class="va">query_foAut</span>,<span class="st">"hal"</span><span class="op">)</span>
+<span class="va">tib_foAut</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_foAut</span>,<span class="st">"hal"</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tib_foAut</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##                                                    document</span>
-<span class="co">## 1 &lt;https://data.archives-ouvertes.fr/document/hal-01154394&gt;</span>
-<span class="co">## 2 &lt;https://data.archives-ouvertes.fr/document/hal-00191049&gt;</span>
-<span class="co">## 3 &lt;https://data.archives-ouvertes.fr/document/hal-00530371&gt;</span>
-<span class="co">## 4 &lt;https://data.archives-ouvertes.fr/document/hal-03135131&gt;</span>
-<span class="co">## 5 &lt;https://data.archives-ouvertes.fr/document/hal-03376942&gt;</span>
-<span class="co">## 6 &lt;https://data.archives-ouvertes.fr/document/hal-01145755&gt;</span>
-<span class="co">##                                                       version</span>
-<span class="co">## 1 &lt;https://data.archives-ouvertes.fr/document/hal-01154394v1&gt;</span>
-<span class="co">## 2 &lt;https://data.archives-ouvertes.fr/document/hal-00191049v1&gt;</span>
-<span class="co">## 3 &lt;https://data.archives-ouvertes.fr/document/hal-00530371v1&gt;</span>
-<span class="co">## 4 &lt;https://data.archives-ouvertes.fr/document/hal-03135131v1&gt;</span>
-<span class="co">## 5 &lt;https://data.archives-ouvertes.fr/document/hal-03376942v1&gt;</span>
-<span class="co">## 6 &lt;https://data.archives-ouvertes.fr/document/hal-01145755v1&gt;</span>
-<span class="co">##                      creator                                              type</span>
-<span class="co">## 1 _:genidnodeID://b691525305 &lt;https://data.archives-ouvertes.fr/doctype/Other&gt;</span>
-<span class="co">## 2 _:genidnodeID://b687251228 &lt;https://data.archives-ouvertes.fr/doctype/Other&gt;</span>
-<span class="co">## 3 _:genidnodeID://b688884321 &lt;https://data.archives-ouvertes.fr/doctype/Other&gt;</span>
-<span class="co">## 4 _:genidnodeID://b702181486 &lt;https://data.archives-ouvertes.fr/doctype/Other&gt;</span>
-<span class="co">## 5 _:genidnodeID://b703697370 &lt;https://data.archives-ouvertes.fr/doctype/Other&gt;</span>
-<span class="co">## 6 _:genidnodeID://b691490061   &lt;https://data.archives-ouvertes.fr/doctype/Ouv&gt;</span>
-<span class="co">##                                                     label</span>
-<span class="co">## 1                                  "Autre publication"@fr</span>
-<span class="co">## 2                                  "Autre publication"@fr</span>
-<span class="co">## 3                                  "Autre publication"@fr</span>
-<span class="co">## 4                                  "Autre publication"@fr</span>
-<span class="co">## 5                                  "Autre publication"@fr</span>
-<span class="co">## 6 "Ouvrage (y compris édition critique et traduction)"@fr</span></code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 6 × 5</span></span>
+<span class="co">##   document                                           version creator type  label</span>
+<span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/tel-00… https:… nodeID… http… HDR  </span>
+<span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/document/hal-01… https:… nodeID… http… Arti…</span>
+<span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/document/hal-01… https:… nodeID… http… Comm…</span>
+<span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/document/hal-01… https:… nodeID… http… Comm…</span>
+<span class="co">## <span style="color: #BCBCBC;">5</span> https://data.archives-ouvertes.fr/document/hal-01… https:… nodeID… http… Chap…</span>
+<span class="co">## <span style="color: #BCBCBC;">6</span> https://data.archives-ouvertes.fr/document/hal-01… https:… nodeID… http… Comm…</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="enrichirsimplifier-la-requête">Enrichir/simplifier la requête<a class="anchor" aria-label="anchor" href="#enrichirsimplifier-la-requ%C3%AAte"></a>
 </h3>
 <p>On peut <strong>résumer les résultats requêtés</strong> par exemple en affichant le nombre de documents par type (et étiquette associée):</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">query_foAutNbDoc</span><span class="op">=</span><span class="va">query_foAut</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?type"</span>,<span class="st">"?label"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                      <span class="co"># Groupe par ?type et ?label</span>
   <span class="fu"><a href="../reference/spq_summarise.html">spq_summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?nbdoc"</span><span class="op">=</span><span class="st">"count(distinct ?document)"</span><span class="op">)</span><span class="op">)</span>     <span class="co"># Résume: ?nbdoc = nb de ?document dist.</span>
 
-<span class="va">tib_foAutNbDoc</span><span class="op">=</span><span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span><span class="va">query_foAutNbDoc</span>,<span class="st">"hal"</span><span class="op">)</span>
+<span class="va">tib_foAutNbDoc</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_foAutNbDoc</span>,<span class="st">"hal"</span><span class="op">)</span>
 
 <span class="va">tib_foAutNbDoc</span></code></pre></div>
-<pre><code><span class="co">##                                                            type</span>
-<span class="co">## 1            &lt;https://data.archives-ouvertes.fr/doctype/Report&gt;</span>
-<span class="co">## 2               &lt;https://data.archives-ouvertes.fr/doctype/Ouv&gt;</span>
-<span class="co">## 3  &lt;https://data.archives-ouvertes.fr/doctype/ConferencePoster&gt;</span>
-<span class="co">## 4          &lt;https://data.archives-ouvertes.fr/doctype/Preprint&gt;</span>
-<span class="co">## 5             &lt;https://data.archives-ouvertes.fr/doctype/Other&gt;</span>
-<span class="co">## 6          &lt;https://data.archives-ouvertes.fr/doctype/Presconf&gt;</span>
-<span class="co">## 7               &lt;https://data.archives-ouvertes.fr/doctype/Hdr&gt;</span>
-<span class="co">## 8              &lt;https://data.archives-ouvertes.fr/doctype/Douv&gt;</span>
-<span class="co">## 9           &lt;https://data.archives-ouvertes.fr/doctype/Chapter&gt;</span>
-<span class="co">## 10          &lt;https://data.archives-ouvertes.fr/doctype/Article&gt;</span>
-<span class="co">## 11   &lt;https://data.archives-ouvertes.fr/doctype/DoctoralThesis&gt;</span>
-<span class="co">## 12  &lt;https://data.archives-ouvertes.fr/doctype/ConferencePaper&gt;</span>
-<span class="co">##                                                       label nbdoc</span>
-<span class="co">## 1                                              "Rapport"@fr    15</span>
-<span class="co">## 2   "Ouvrage (y compris édition critique et traduction)"@fr     3</span>
-<span class="co">## 3                                               "Poster"@fr    13</span>
-<span class="co">## 4                 "Pré-publication, Document de travail"@fr     2</span>
-<span class="co">## 5                                    "Autre publication"@fr     5</span>
-<span class="co">## 6  "Document associé à des manifestations scientifiques"@fr     2</span>
-<span class="co">## 7                                                  "HDR"@fr     1</span>
-<span class="co">## 8            "Direction d'ouvrage, Proceedings, Dossier"@fr    11</span>
-<span class="co">## 9                                   "Chapitre d'ouvrage"@fr    12</span>
-<span class="co">## 10                              "Article dans une revue"@fr    31</span>
-<span class="co">## 11                                               "Thèse"@fr     1</span>
-<span class="co">## 12                       "Communication dans un congrès"@fr   171</span></code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 12 × 3</span></span>
+<span class="co">##    type                                                       label        nbdoc</span>
+<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="co">## <span style="color: #BCBCBC;"> 1</span> https://data.archives-ouvertes.fr/doctype/Hdr              HDR          1    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 2</span> https://data.archives-ouvertes.fr/doctype/Article          Article dan… 31   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 3</span> https://data.archives-ouvertes.fr/doctype/Other            Autre publi… 5    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 4</span> https://data.archives-ouvertes.fr/doctype/DoctoralThesis   Thèse        1    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 5</span> https://data.archives-ouvertes.fr/doctype/ConferencePoster Poster       13   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 6</span> https://data.archives-ouvertes.fr/doctype/Report           Rapport      15   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 7</span> https://data.archives-ouvertes.fr/doctype/Chapter          Chapitre d'… 12   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 8</span> https://data.archives-ouvertes.fr/doctype/ConferencePaper  Communicati… 171  </span>
+<span class="co">## <span style="color: #BCBCBC;"> 9</span> https://data.archives-ouvertes.fr/doctype/Douv             Direction d… 11   </span>
+<span class="co">## <span style="color: #BCBCBC;">10</span> https://data.archives-ouvertes.fr/doctype/Preprint         Pré-publica… 2    </span>
+<span class="co">## <span style="color: #BCBCBC;">11</span> https://data.archives-ouvertes.fr/doctype/Presconf         Document as… 2    </span>
+<span class="co">## <span style="color: #BCBCBC;">12</span> https://data.archives-ouvertes.fr/doctype/Ouv              Ouvrage (y … 3</span></code></pre>
 <p>On peut afficher ces résultats en <strong>ordonnant</strong> les lignes selon le nombre de documents décroissant:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">query_foAutNbDocOrd</span><span class="op">=</span><span class="va">query_foAutNbDoc</span><span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="st">"desc(?nbdoc)"</span><span class="op">)</span>        <span class="co"># Ordonne par ordre décroissant de ?nbdoc</span>
 
-<span class="va">tib_foAutNbDocOrd</span><span class="op">=</span><span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span><span class="va">query_foAutNbDocOrd</span>,<span class="st">"hal"</span><span class="op">)</span>
+<span class="va">tib_foAutNbDocOrd</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_foAutNbDocOrd</span>,<span class="st">"hal"</span><span class="op">)</span>
 
 <span class="va">tib_foAutNbDocOrd</span></code></pre></div>
-<pre><code><span class="co">##                                                            type</span>
-<span class="co">## 1   &lt;https://data.archives-ouvertes.fr/doctype/ConferencePaper&gt;</span>
-<span class="co">## 2           &lt;https://data.archives-ouvertes.fr/doctype/Article&gt;</span>
-<span class="co">## 3            &lt;https://data.archives-ouvertes.fr/doctype/Report&gt;</span>
-<span class="co">## 4  &lt;https://data.archives-ouvertes.fr/doctype/ConferencePoster&gt;</span>
-<span class="co">## 5           &lt;https://data.archives-ouvertes.fr/doctype/Chapter&gt;</span>
-<span class="co">## 6              &lt;https://data.archives-ouvertes.fr/doctype/Douv&gt;</span>
-<span class="co">## 7             &lt;https://data.archives-ouvertes.fr/doctype/Other&gt;</span>
-<span class="co">## 8               &lt;https://data.archives-ouvertes.fr/doctype/Ouv&gt;</span>
-<span class="co">## 9          &lt;https://data.archives-ouvertes.fr/doctype/Preprint&gt;</span>
-<span class="co">## 10         &lt;https://data.archives-ouvertes.fr/doctype/Presconf&gt;</span>
-<span class="co">## 11              &lt;https://data.archives-ouvertes.fr/doctype/Hdr&gt;</span>
-<span class="co">## 12   &lt;https://data.archives-ouvertes.fr/doctype/DoctoralThesis&gt;</span>
-<span class="co">##                                                       label nbdoc</span>
-<span class="co">## 1                        "Communication dans un congrès"@fr   171</span>
-<span class="co">## 2                               "Article dans une revue"@fr    31</span>
-<span class="co">## 3                                              "Rapport"@fr    15</span>
-<span class="co">## 4                                               "Poster"@fr    13</span>
-<span class="co">## 5                                   "Chapitre d'ouvrage"@fr    12</span>
-<span class="co">## 6            "Direction d'ouvrage, Proceedings, Dossier"@fr    11</span>
-<span class="co">## 7                                    "Autre publication"@fr     5</span>
-<span class="co">## 8   "Ouvrage (y compris édition critique et traduction)"@fr     3</span>
-<span class="co">## 9                 "Pré-publication, Document de travail"@fr     2</span>
-<span class="co">## 10 "Document associé à des manifestations scientifiques"@fr     2</span>
-<span class="co">## 11                                                 "HDR"@fr     1</span>
-<span class="co">## 12                                               "Thèse"@fr     1</span></code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 12 × 3</span></span>
+<span class="co">##    type                                                       label        nbdoc</span>
+<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="co">## <span style="color: #BCBCBC;"> 1</span> https://data.archives-ouvertes.fr/doctype/ConferencePaper  Communicati… 171  </span>
+<span class="co">## <span style="color: #BCBCBC;"> 2</span> https://data.archives-ouvertes.fr/doctype/Article          Article dan… 31   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 3</span> https://data.archives-ouvertes.fr/doctype/Report           Rapport      15   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 4</span> https://data.archives-ouvertes.fr/doctype/ConferencePoster Poster       13   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 5</span> https://data.archives-ouvertes.fr/doctype/Chapter          Chapitre d'… 12   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 6</span> https://data.archives-ouvertes.fr/doctype/Douv             Direction d… 11   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 7</span> https://data.archives-ouvertes.fr/doctype/Other            Autre publi… 5    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 8</span> https://data.archives-ouvertes.fr/doctype/Ouv              Ouvrage (y … 3    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 9</span> https://data.archives-ouvertes.fr/doctype/Preprint         Pré-publica… 2    </span>
+<span class="co">## <span style="color: #BCBCBC;">10</span> https://data.archives-ouvertes.fr/doctype/Presconf         Document as… 2    </span>
+<span class="co">## <span style="color: #BCBCBC;">11</span> https://data.archives-ouvertes.fr/doctype/Hdr              HDR          1    </span>
+<span class="co">## <span style="color: #BCBCBC;">12</span> https://data.archives-ouvertes.fr/doctype/DoctoralThesis   Thèse        1</span></code></pre>
 <p>On peut également s’intéresser aux <strong>dates</strong> de publication. Par exemple ici, on récupère la date de publication, l’année correspondante, et on résume l’information en calculant le nombre de documents par année.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tib_dat</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?document dcterms:hasVersion ?version"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?version dcterms:creator ?creator"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
@@ -372,34 +291,23 @@
   <span class="fu"><a href="../reference/spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?year"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                               <span class="co"># Groupe par ?year</span>
   <span class="fu"><a href="../reference/spq_summarise.html">spq_summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?nbdoc"</span><span class="op">=</span><span class="st">"count(distinct ?document)"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co"># Résume: ?nbdoc= nb de ?document dist.</span>
   <span class="fu"><a href="../reference/spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?year"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"hal"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"hal"</span><span class="op">)</span>
 
 <span class="va">tib_dat</span></code></pre></div>
-<pre><code><span class="co">##    year nbdoc</span>
-<span class="co">## 1  1999     1</span>
-<span class="co">## 2  2000     3</span>
-<span class="co">## 3  2001     5</span>
-<span class="co">## 4  2002    11</span>
-<span class="co">## 5  2003     6</span>
-<span class="co">## 6  2004     7</span>
-<span class="co">## 7  2005     7</span>
-<span class="co">## 8  2006     9</span>
-<span class="co">## 9  2007     5</span>
-<span class="co">## 10 2008     9</span>
-<span class="co">## 11 2009    14</span>
-<span class="co">## 12 2010     6</span>
-<span class="co">## 13 2011    13</span>
-<span class="co">## 14 2012    20</span>
-<span class="co">## 15 2013    27</span>
-<span class="co">## 16 2014    22</span>
-<span class="co">## 17 2015    11</span>
-<span class="co">## 18 2016    14</span>
-<span class="co">## 19 2017    16</span>
-<span class="co">## 20 2018    15</span>
-<span class="co">## 21 2019    18</span>
-<span class="co">## 22 2020    10</span>
-<span class="co">## 23 2021    14</span>
-<span class="co">## 24 2022     1</span></code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 24 × 2</span></span>
+<span class="co">##    year  nbdoc</span>
+<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="co">## <span style="color: #BCBCBC;"> 1</span> 1999  1    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000  3    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 3</span> 2001  5    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 4</span> 2002  11   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 5</span> 2003  6    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 6</span> 2004  7    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 7</span> 2005  7    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 8</span> 2006  9    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 9</span> 2007  5    </span>
+<span class="co">## <span style="color: #BCBCBC;">10</span> 2008  9    </span>
+<span class="co">## <span style="color: #949494;"># … with 14 more rows</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -409,40 +317,32 @@
 <div class="section level3">
 <h3 id="afficher-les-uris-de-toutes-les-formes-auteur-associées-à-la-forme-fabien-gandon-via-lidhal">Afficher les URIs de toutes les formes-auteur associées à la forme « Fabien Gandon » via l’IdHAL<a class="anchor" aria-label="anchor" href="#afficher-les-uris-de-toutes-les-formes-auteur-associ%C3%A9es-%C3%A0-la-forme-fabien-gandon-via-lidhal"></a>
 </h3>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">query_aut</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"{fabien_gandon} ore:isAggregatedBy ?o"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co"># {fabien gandon} correspond à ?o</span>
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?forme ore:isAggregatedBy ?o"</span><span class="op">)</span>              <span class="co"># ?forme correspond à ?o</span>
 
-<span class="va">tib_aut</span><span class="op">=</span><span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span><span class="va">query_aut</span>,<span class="st">"hal"</span><span class="op">)</span>
+<span class="va">tib_aut</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_aut</span>,<span class="st">"hal"</span><span class="op">)</span>
 
 <span class="va">tib_aut</span></code></pre></div>
-<pre><code><span class="co">##                                                          o</span>
-<span class="co">## 1 &lt;https://data.archives-ouvertes.fr/author/fabien-gandon&gt;</span>
-<span class="co">## 2 &lt;https://data.archives-ouvertes.fr/author/fabien-gandon&gt;</span>
-<span class="co">## 3 &lt;https://data.archives-ouvertes.fr/author/fabien-gandon&gt;</span>
-<span class="co">## 4 &lt;https://data.archives-ouvertes.fr/author/fabien-gandon&gt;</span>
-<span class="co">## 5 &lt;https://data.archives-ouvertes.fr/author/fabien-gandon&gt;</span>
-<span class="co">## 6 &lt;https://data.archives-ouvertes.fr/author/fabien-gandon&gt;</span>
-<span class="co">## 7 &lt;https://data.archives-ouvertes.fr/author/fabien-gandon&gt;</span>
-<span class="co">## 8 &lt;https://data.archives-ouvertes.fr/author/fabien-gandon&gt;</span>
-<span class="co">## 9 &lt;https://data.archives-ouvertes.fr/author/fabien-gandon&gt;</span>
-<span class="co">##                                                forme</span>
-<span class="co">## 1  &lt;https://data.archives-ouvertes.fr/author/827904&gt;</span>
-<span class="co">## 2 &lt;https://data.archives-ouvertes.fr/author/1137281&gt;</span>
-<span class="co">## 3 &lt;https://data.archives-ouvertes.fr/author/1088375&gt;</span>
-<span class="co">## 4 &lt;https://data.archives-ouvertes.fr/author/1160933&gt;</span>
-<span class="co">## 5 &lt;https://data.archives-ouvertes.fr/author/1160934&gt;</span>
-<span class="co">## 6 &lt;https://data.archives-ouvertes.fr/author/1161259&gt;</span>
-<span class="co">## 7 &lt;https://data.archives-ouvertes.fr/author/1161368&gt;</span>
-<span class="co">## 8 &lt;https://data.archives-ouvertes.fr/author/1200271&gt;</span>
-<span class="co">## 9 &lt;https://data.archives-ouvertes.fr/author/1088783&gt;</span></code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 9 × 2</span></span>
+<span class="co">##   o                                                      forme                  </span>
+<span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  </span>
+<span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/author/fabien-gandon https://data.archives-…</span>
+<span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/author/fabien-gandon https://data.archives-…</span>
+<span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/author/fabien-gandon https://data.archives-…</span>
+<span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/author/fabien-gandon https://data.archives-…</span>
+<span class="co">## <span style="color: #BCBCBC;">5</span> https://data.archives-ouvertes.fr/author/fabien-gandon https://data.archives-…</span>
+<span class="co">## <span style="color: #BCBCBC;">6</span> https://data.archives-ouvertes.fr/author/fabien-gandon https://data.archives-…</span>
+<span class="co">## <span style="color: #BCBCBC;">7</span> https://data.archives-ouvertes.fr/author/fabien-gandon https://data.archives-…</span>
+<span class="co">## <span style="color: #BCBCBC;">8</span> https://data.archives-ouvertes.fr/author/fabien-gandon https://data.archives-…</span>
+<span class="co">## <span style="color: #BCBCBC;">9</span> https://data.archives-ouvertes.fr/author/fabien-gandon https://data.archives-…</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="enrichirrésumer-les-données">Enrichir/résumer les données<a class="anchor" aria-label="anchor" href="#enrichirr%C3%A9sumer-les-donn%C3%A9es"></a>
 </h3>
 <p>… en comptant le <strong>nombre de documents par année</strong>:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">query_autNbDocYear</span><span class="op">=</span><span class="va">query_aut</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?version dcterms:creator ?creator"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>      <span class="co"># ?version a pour créateur ?creator</span>
   <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?creator hal:person ?forme"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>             <span class="co"># ?creator est une personne ?forme</span>
@@ -453,34 +353,23 @@
   <span class="fu"><a href="../reference/spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="st">"?year"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                              <span class="co"># Ordonne par ordre décroissant de ?year</span>
   <span class="fu"><a href="../reference/spq_summarise.html">spq_summarise</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?nbdoc"</span><span class="op">=</span><span class="st">"count(distinct ?document)"</span><span class="op">)</span><span class="op">)</span><span class="co"># Résume: ?nbdoc=nb de ?document dist.</span>
 
-<span class="va">tib_autNbDocYear</span><span class="op">=</span><span class="fu"><a href="../reference/send.html">send</a></span><span class="op">(</span><span class="va">query_autNbDocYear</span>,<span class="st">"hal"</span><span class="op">)</span>
+<span class="va">tib_autNbDocYear</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_autNbDocYear</span>,<span class="st">"hal"</span><span class="op">)</span>
 
 <span class="va">tib_autNbDocYear</span></code></pre></div>
-<pre><code><span class="co">##    year nbdoc</span>
-<span class="co">## 1  1999     1</span>
-<span class="co">## 2  2000     3</span>
-<span class="co">## 3  2001     5</span>
-<span class="co">## 4  2002    11</span>
-<span class="co">## 5  2003     6</span>
-<span class="co">## 6  2004     7</span>
-<span class="co">## 7  2005     7</span>
-<span class="co">## 8  2006     9</span>
-<span class="co">## 9  2007     5</span>
-<span class="co">## 10 2008     9</span>
-<span class="co">## 11 2009    14</span>
-<span class="co">## 12 2010     6</span>
-<span class="co">## 13 2011    13</span>
-<span class="co">## 14 2012    20</span>
-<span class="co">## 15 2013    27</span>
-<span class="co">## 16 2014    22</span>
-<span class="co">## 17 2015    11</span>
-<span class="co">## 18 2016    14</span>
-<span class="co">## 19 2017    16</span>
-<span class="co">## 20 2018    15</span>
-<span class="co">## 21 2019    18</span>
-<span class="co">## 22 2020    10</span>
-<span class="co">## 23 2021    14</span>
-<span class="co">## 24 2022     1</span></code></pre>
+<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 24 × 2</span></span>
+<span class="co">##    year  nbdoc</span>
+<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
+<span class="co">## <span style="color: #BCBCBC;"> 1</span> 1999  1    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 2</span> 2000  3    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 3</span> 2001  5    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 4</span> 2002  11   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 5</span> 2003  6    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 6</span> 2004  7    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 7</span> 2005  7    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 8</span> 2006  9    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 9</span> 2007  5    </span>
+<span class="co">## <span style="color: #BCBCBC;">10</span> 2008  9    </span>
+<span class="co">## <span style="color: #949494;"># … with 14 more rows</span></span></code></pre>
 <!--  select DISTINCT ?idhal ?identifiant where { <https://data.archives-ouvertes.fr/author/827904> ore:isAggregatedBy ?idhal. ?forme ore:isAggregatedBy ?idhal. ?forme owl:sameAs ?identifiant } -->
 <!-- Faire une recherche dans une chaîne de caractères exple afficher les identifiants ORCID distincts liés à toutes les formes liées à « Fabien Gandon » URI utile Forme auteur : https://data.archives-ouvertes.fr/author/827904 select DISTINCT ?idhal ?orcid where { <https://data.archives-ouvertes.fr/author/827904> ore:isAggregatedBy ?idhal. ?forme ore:isAggregatedBy ?idhal. ?forme owl:sameAs ?orcid. FILTER regex(str(?orcid), 'orcid.org') } -->
 <!-- # Afficher les identifiants ORCID de tous les membres d’INRIA et pour chaque ORCID, concaténer les différentes URIs des formes associées URI utile INRIA : https://data.archives-ouvertes.fr/structure/300009  -->
