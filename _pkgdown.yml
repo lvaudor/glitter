@@ -49,3 +49,17 @@ reference:
   - usual_endpoints
   - usual_prefixes
   - wd_properties
+
+navbar:
+ components:
+   articles:
+    text: Articles
+    menu:
+    - text: Wikidata
+      href: articles/glitter_for_Wikidata.html
+    - text: dataBNF
+      href: articles/glitter_for_dataBNF.html
+    - text: HAL
+      href: articles/glitter_for_hal.html
+    - text: SyMoGih
+      href: articles/glitter_for_SyMoGih.html
