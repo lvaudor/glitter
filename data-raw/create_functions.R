@@ -41,7 +41,8 @@ misc_functions = tibble::tribble(
     "coalesce", "COALESCE",
     "if_else", "IF",
     "same_term", "sameTerm",
-    "runif", "RAND"
+    "runif", "RAND",
+    "Sys.time", "NOW"
   )
 
 usethis::use_data(misc_functions, overwrite = TRUE)
@@ -91,6 +92,20 @@ numeric_functions = tibble::tribble(
     "floor", "floor"
 )
 usethis::use_data(numeric_functions, overwrite = TRUE)
+
+# Functions on date/time ----------------------------------
+datetime_functions = tibble::tribble(
+    ~R, ~SPARQL,
+    "year", "YEAR",
+    "month", "MONTH",
+    "day", "DAY",
+    "hours", "HOURS",
+    "minutes", "MINUTES",
+    "seconds", "SECONDS",
+    "tz", "tz"
+)
+usethis::use_data(datetime_functions, overwrite = TRUE)
+
 # Operators ------------------------------------------------
 operators = tibble::tribble(
     ~R, ~SPARQL,
@@ -103,3 +118,15 @@ operators = tibble::tribble(
   )
 
 usethis::use_data(operators, overwrite = TRUE)
+
+# All ------------------------------------
+all_correspondences <- rbind(
+  set_functions[, c("R", "SPARQL")],
+  term_functions[, c("R", "SPARQL")],
+  misc_functions[, c("R", "SPARQL")],
+  string_functions[, c("R", "SPARQL")],
+  numeric_functions[, c("R", "SPARQL")],
+  datetime_functions[, c("R", "SPARQL")],
+  operators[, c("R", "SPARQL")]
+)
+usethis::use_data(all_correspondences, overwrite = TRUE)

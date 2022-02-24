@@ -34,7 +34,7 @@ wikidata_url <- function() {
 #' }
 "usual_prefixes"
 
-#' Correspondance between R-DSL functions and SPARQL functions/operators.
+#' Correspondence between R-DSL functions and SPARQL functions/operators.
 #' @rdname sparql-dsl
 #' @format A data frame.
 #' \describe{
@@ -57,4 +57,10 @@ wikidata_url <- function() {
 "numeric_functions"
 
 #' @rdname sparql-dsl
+"datetime_functions"
+
+#' @rdname sparql-dsl
 "operators"
+
+#' @rdname sparql-dsl
+"all_correspondences"

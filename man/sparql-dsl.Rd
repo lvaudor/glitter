@@ -7,8 +7,10 @@
 \alias{misc_functions}
 \alias{string_functions}
 \alias{numeric_functions}
+\alias{datetime_functions}
 \alias{operators}
-\title{Correspondance between R-DSL functions and SPARQL functions/operators.}
+\alias{all_correspondences}
+\title{Correspondence between R-DSL functions and SPARQL functions/operators.}
 \format{
 A data frame.
 \describe{
@@ -19,13 +21,17 @@ A data frame.
 
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 15 rows and 2 columns.
 
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 5 rows and 2 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 6 rows and 2 columns.
 
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 13 rows and 3 columns.
 
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 4 rows and 2 columns.
 
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 7 rows and 2 columns.
+
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 6 rows and 2 columns.
+
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 58 rows and 2 columns.
 }
 \usage{
 set_functions
@@ -38,9 +44,13 @@ string_functions
 
 numeric_functions
 
+datetime_functions
+
 operators
+
+all_correspondences
 }
 \description{
-Correspondance between R-DSL functions and SPARQL functions/operators.
+Correspondence between R-DSL functions and SPARQL functions/operators.
 }
 \keyword{datasets}
