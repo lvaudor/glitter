@@ -51,6 +51,7 @@ get_description=function(id,language="en"){
 
 #' Format information about one claim (for use in get_claims)
 #' @param res result
+#' @noRd
 get_one_claim=function(res){
   datavalue=res$datavalue
   type=unique(datavalue$type)
@@ -115,9 +116,8 @@ utils::globalVariables("wd_properties")
 #' @examples
 #' get_info("wd:Q431603")
 get_info=function(id,language="en",with_labels=FALSE){
-  if(class(id)=="character"){thing=get_thing(id)}else{thing=id}
-  label=get_label(thing)
-  description=get_description(thing)
+  label=get_label(id)
+  description=get_description(id)
   claims=get_claims(id, with_labels=with_labels)
   result=list(label=label,
               description=description,

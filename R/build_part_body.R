@@ -7,6 +7,7 @@
 #'   If set to FALSE, then other triplets in the query are returned even if this particular triplet is missing)
 #' @param within_box if provided, north-west and south-east coordinates of bounding box for the triplet query.
 #' @param within_distance if provided, north-west and south-east coordinates of bounding box for the triplet query.
+#' @noRd
 build_part_body=function(query=NA,subject,verb,object,required=TRUE,
                          within_box=c(NA,NA),within_distance=c(NA,NA)){
 
