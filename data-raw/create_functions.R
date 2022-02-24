@@ -1,6 +1,6 @@
 set_functions <- tibble::tribble(
     ~R, ~SPARQL, ~args,
-    "count", "COUNT", list(),
+    "n", "COUNT", list(),
     "sum", "SUM", list(),
     "mean", "AVG", list(),
     "min", "MIN", list(),
