@@ -46,6 +46,10 @@ misc_functions <- tibble::tribble(
 usethis::use_data(misc_functions, overwrite = TRUE)
 
 # Functions on strings --------------------------------------------
+stringr_common_args <- tibble::tibble(
+        R = c("string", "pattern", "negate"),
+        SPARQL = c("", "", NA) # not possible to negate in SPARQL
+      )
 strings_functions <- tibble::tribble(
     ~R, ~SPARQL, ~args,
     "str_length", "STRLEN", list(),
@@ -54,34 +58,25 @@ strings_functions <- tibble::tribble(
     "str_sub", "SUBSTR", list(
       tibble::tibble(
         R = c("string", "start", "end"),
-        SPARQL = c(NULL, NULL, NULL)
+        SPARQL = c("", "", "")
       )
       ),
     "str_to_upper", "UCASE", list(),
     "str_to_lower", "LCASE", list(),
-    "str_starts", "STRSTARTS", list(
-      tibble::tibble(
-        R = c("string", "pattern", "negate"),
-        SPARQL = c(NULL, NULL, NA) # not possible to negate in SPARQL
-      )
-      ),
-    "str_ends", "STRENDS", list(
-      tibble::tibble(
-        R = c("string", "pattern", "negate"),
-        SPARQL = c(NULL, NULL, NA) # not possible to negate in SPARQL
-      )
-      ),
-    "str_detect", "CONTAINS", list(
-      tibble::tibble(
-        R = c("string", "pattern", "negate"),
-        SPARQL = c(NULL, NULL, NA) # not possible to negate in SPARQL
-      )
-      ),
+    "str_starts", "STRSTARTS", list(stringr_common_args),
+    "str_ends", "STRENDS", list(stringr_common_args),
+    "str_detect", "CONTAINS", list(stringr_common_args),
     "str_before", "STRBEFORE", list(),
     "str_after", "STRAFTER", list(),
     "URLencode", "ENCODE_FOR_URI", list(),
     "paste0", "CONCAT", list(),
-    "", "REGEX", list()
+    "str_detect", "REGEX", list(stringr_common_args),
+    "str_replace", "REGEX", list(
+      tibble::tibble(
+        R = c("string", "pattern", "replacement"),
+        SPARQL = c("", "", "")
+      )
+    )
   )
 
 usethis::use_data(strings_functions, overwrite = TRUE)
