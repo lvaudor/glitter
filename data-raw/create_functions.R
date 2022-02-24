@@ -1,3 +1,4 @@
+# Functions on multisets --------------------------------
 set_functions <- tibble::tribble(
     ~R, ~SPARQL, ~args,
     "n", "COUNT", list(),
@@ -11,6 +12,7 @@ set_functions <- tibble::tribble(
 
 usethis::use_data(set_functions, overwrite = TRUE)
 
+# Functions on terms ---------------------------------------------------
 term_functions <- tibble::tribble(
     ~R, ~SPARQL,
     "is.iri", "isIRI",
@@ -32,9 +34,23 @@ term_functions <- tibble::tribble(
 
 usethis::use_data(term_functions, overwrite = TRUE)
 
-var_functions <- tibble::tribble(
+# Functions... miscellaneous --------------------------------------------
+misc_functions <- tibble::tribble(
     ~R, ~SPARQL,
-    "bound", "bound"
+    "bound", "bound",
+    "coalesce", "COALESCE",
+    "if_else", "IF"
   )
 
-usethis::use_data(var_functions, overwrite = TRUE)
+usethis::use_data(misc_functions, overwrite = TRUE)
+
+# Operators ------------------------------------------------
+operators <- tibble::tribble(
+    ~R, ~SPARQL,
+    "==", "=",
+    "%in%", "IN",
+    "|", "||",
+    "||", "||"
+  )
+
+usethis::use_data(operators, overwrite = TRUE)

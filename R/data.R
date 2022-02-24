@@ -38,7 +38,7 @@ wikidata_url <- function() {
 #' @format A data frame.
 #' \describe{
 #'   \item{R}{R-DSL function}
-#'   \item{SPARQL}{SPARQL set function}
+#'   \item{SPARQL}{SPARQL function}
 #'   \item{args}{list-column with R vs SPARQL argument names}
 #' }
 "set_functions"
@@ -47,6 +47,22 @@ wikidata_url <- function() {
 #' @format A data frame.
 #' \describe{
 #'   \item{R}{R-DSL function}
-#'   \item{SPARQL}{SPARQL set function}
+#'   \item{SPARQL}{SPARQL function}
 #' }
 "term_functions"
+
+#' Correspondance between R-DSL functions and SPARQL misc functions.
+#' @format A data frame.
+#' \describe{
+#'   \item{R}{R-DSL function}
+#'   \item{SPARQL}{SPARQL function}
+#' }
+"misc_functions"
+
+#' Correspondance between R-DSL functions and SPARQL term functions.
+#' @format A data frame.
+#' \describe{
+#'   \item{R}{R-DSL operator}
+#'   \item{SPARQL}{SPARQL operator}
+#' }
+"operators"

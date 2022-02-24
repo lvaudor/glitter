@@ -8,7 +8,7 @@
 A data frame.
 \describe{
 \item{R}{R-DSL function}
-\item{SPARQL}{SPARQL set function}
+\item{SPARQL}{SPARQL function}
 \item{args}{list-column with R vs SPARQL argument names}
 }
 }
