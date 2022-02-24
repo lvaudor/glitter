@@ -82,7 +82,7 @@ We can enrich and refine our query incrementally with `spq_add()` before sending
 stations_metro_Lyon=spq_init() %>% 
   spq_add("?stations wdt:P361 wd:Q1552", label="?stations") %>% 
   spq_add("?stations wdt:P31 wd:Q928830") %>% 
-  send()
+  spq_perform()
 head(stations_metro_Lyon)
 ```
 
@@ -95,7 +95,7 @@ stations_metro_Lyon=spq_init() %>%
   spq_add("?stations wdt:P361 wd:Q1552", label="?stations") %>% 
   spq_add("?stations wdt:P31 wd:Q928830") %>% 
   spq_add("?stations wdt:P625 ?coords") %>% 
-  send()
+  spq_perform()
 head(stations_metro_Lyon)
 ```
 
@@ -147,7 +147,7 @@ We could start exploring Wikidata with this query which finds all items that are
 spq_init() %>% 
   spq_add("?city wdt:P31/wdt:P279* wd:Q515", label="?city") %>%
   spq_head(n=10) %>% 
-  send()
+  spq_perform()
 ```
 
 Now, let's get the location ("wdt:P625") of the cities
@@ -158,7 +158,7 @@ spq_init() %>%
           label=c("?city")) %>% 
   spq_add("?city wdt:P625 ?coords") %>%
   spq_head(n=10) %>% 
-  send()
+  spq_perform()
 ```
 
 We can refine this query, stating that we want cities (or items of subclasses of city) in a radius of 5km around Lyon (which has lat-long coordinates ~ 45.76 and 4.84). We will use the argument `within_distance`:
@@ -171,7 +171,7 @@ cities_around_Lyon=spq_init() %>%
   spq_add("?city wdt:P625 ?coords",
           within_distance=list(center=c(long=4.84,lat=45.76),
                                radius=5)) %>% 
-  send()
+  spq_perform()
 head(cities_around_Lyon)
 ```
 
@@ -184,7 +184,7 @@ head(cities_around_Lyon)
 <!--           within_distance=list(center="?coordLyon", radius=2)) %>% -->
 <!--   spq_add("?city wdt:P31/wdt:P279* wd:Q486972", -->
 <!--           label="?city") %>% -->
-<!--   send() -->
+<!--   spq_perform() -->
 <!-- ``` -->  
 
 <!-- This does not work => two triplets unrelated. Maybe add example and modify spq_add() to use {} for reference to R values -->

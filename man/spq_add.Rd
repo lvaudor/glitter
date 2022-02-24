@@ -68,6 +68,6 @@ spq_add("?mayor p:P39 ?node") \%>\%
 spq_add("?node ps:P39 wd:Q30185") \%>\%
 # of some places
 spq_add("?node pq:P642 ?place") \%>\%
-send()
+spq_perform()
 }
 }

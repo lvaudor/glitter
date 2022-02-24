@@ -14,14 +14,16 @@ URL: https://lvaudor.github.io/glitter/,
     https://github.com/lvaudor/glitter
 BugReports: https://github.com/lvaudor/glitter/issues
 Depends: 
-    R (>= 3.5.0),
-    SPARQL
+    R (>= 3.5.0)
 Imports: 
+    anytime,
     dplyr,
     ggplot2,
     ggraph,
     glue,
+    httr2,
     igraph,
+    jsonlite,
     magrittr,
     purrr,
     rlang,
@@ -32,6 +34,7 @@ Imports:
     WikidataQueryServiceR,
     WikidataR
 Suggests: 
+    httptest2,
     knitr,
     leaflet,
     rmarkdown,

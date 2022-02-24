@@ -11,7 +11,7 @@
 #'  spq_mutate(c("?year"="year(?date)")) %>%
 #'  spq_head(10) %>%
 #'  spq_select("-?date") %>%
-#'  send()
+#'  spq_perform()
 spq_select=function(query=NULL,
                     variables){
   prev_vars=query$select

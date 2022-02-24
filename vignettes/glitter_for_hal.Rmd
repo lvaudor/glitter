@@ -30,7 +30,7 @@ On s'intéresse à ce document: haldoc:inria-00362381.
 tib_info=spq_init() %>% 
   spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
   spq_add("?version ?p ?object") %>%                               # ?version a des prop. ?p les liant à ?object
-  send(e="hal")
+  spq_perform(e="hal")
 
 head(tib_info)
 ```
@@ -46,7 +46,7 @@ query_doc=spq_init() %>%
   spq_add("?creator hal:person ?person") %>%                       # ?creator est une personne ?person
   spq_add("?person foaf:name ?name")                               # ?person a pour nom ?name
 
-tib_doc=send(query_doc,"hal")
+tib_doc=spq_perform(query_doc,"hal")
 
 tib_doc
 ```
@@ -58,7 +58,7 @@ query_doc_autConcat=query_doc %>%
   spq_group_by(c("?version","?title","?pdf")) %>%             # Groupe les résultats par ?version, ?title, ?pdf
   spq_summarise(c("?authors"="GROUP_CONCAT(?name,',')"))      # Concatène les noms d'auteur dans ?authors
 
-tib_doc_autConcat=send(query_doc_autConcat,"hal")
+tib_doc_autConcat=spq_perform(query_doc_autConcat,"hal")
 
 tib_doc_autConcat
 ```
@@ -72,7 +72,7 @@ tib_nbAutDoc=spq_init() %>%
   spq_add("?creator hal:person ?person") %>%                       # ?creator est une personne ?person
   spq_group_by("?version") %>%                                     # Groupe par ?version
   spq_summarise(c("?nbperson"="count(distinct ?person)")) %>%      # Résume: ?nbperson = nb de ?person dist.  
-  send(e="hal")
+  spq_perform(e="hal")
 
 tib_nbAutDoc
 ```
@@ -87,7 +87,7 @@ query_docType=spq_init() %>%
   spq_add("?version dcterms:type ?type") %>%                       # ?version est un document de type ?type
   spq_add("?type skos:prefLabel ?label")                           # ?type a pour étiquette ?label
 
-tib_docType=send(query_docType,"hal")
+tib_docType=spq_perform(query_docType,"hal")
 
 tib_docType
 ```
@@ -99,7 +99,7 @@ On peut **filtrer les résultats** pour n'afficher que la ligne de résultats po
 query_docTypeFr=query_docType %>% 
   spq_filter("lang(?label)='fr'")     # Filtre pour garder les étiquettes en français
 
-tib_docTypeFr=send(query_docTypeFr,"hal")
+tib_docTypeFr=spq_perform(query_docTypeFr,"hal")
 
 tib_docTypeFr
 ```
@@ -121,7 +121,7 @@ query_foAut=spq_init() %>%
   spq_add("?version dcterms:type ?type") %>%            # ?version a pour type ?type
   spq_add("?type skos:prefLabel ?label") %>%            # ?type a pour étiquette ?label
   spq_filter("lang(?label)='fr'")                       # Filtre pour garder les ?label en français
-tib_foAut=send(query_foAut,"hal")
+tib_foAut=spq_perform(query_foAut,"hal")
 
 head(tib_foAut)
 ```
@@ -136,7 +136,7 @@ query_foAutNbDoc=query_foAut %>%
   spq_group_by(c("?type","?label")) %>%                      # Groupe par ?type et ?label
   spq_summarise(c("?nbdoc"="count(distinct ?document)"))     # Résume: ?nbdoc = nb de ?document dist.
 
-tib_foAutNbDoc=send(query_foAutNbDoc,"hal")
+tib_foAutNbDoc=spq_perform(query_foAutNbDoc,"hal")
 
 tib_foAutNbDoc
 ```
@@ -147,7 +147,7 @@ On peut afficher ces résultats en **ordonnant** les lignes selon le nombre de d
 query_foAutNbDocOrd=query_foAutNbDoc%>% 
   spq_arrange(desc(nbdoc))        # Ordonne par ordre décroissant de ?nbdoc
 
-tib_foAutNbDocOrd=send(query_foAutNbDocOrd,"hal")
+tib_foAutNbDocOrd=spq_perform(query_foAutNbDocOrd,"hal")
 
 tib_foAutNbDocOrd
 ```
@@ -164,7 +164,7 @@ tib_dat=spq_init() %>%
   spq_group_by(c("?year")) %>%                               # Groupe par ?year
   spq_summarise(c("?nbdoc"="count(distinct ?document)")) %>% # Résume: ?nbdoc= nb de ?document dist.
   spq_arrange(year) %>% 
-  send(e="hal")
+  spq_perform(e="hal")
 
 tib_dat
 ```
@@ -180,7 +180,7 @@ query_aut=spq_init() %>%
   spq_add("{fabien_gandon} ore:isAggregatedBy ?o") %>% # {fabien gandon} correspond à ?o
   spq_add("?forme ore:isAggregatedBy ?o")              # ?forme correspond à ?o
 
-tib_aut=send(query_aut,"hal")
+tib_aut=spq_perform(query_aut,"hal")
 
 tib_aut
 ```
@@ -200,7 +200,7 @@ query_autNbDocYear=query_aut %>%
   spq_arrange(year) %>%                              # Ordonne par ordre décroissant de ?year
   spq_summarise(c("?nbdoc"="count(distinct ?document)"))# Résume: ?nbdoc=nb de ?document dist.
 
-tib_autNbDocYear=send(query_autNbDocYear,"hal")
+tib_autNbDocYear=spq_perform(query_autNbDocYear,"hal")
 
 tib_autNbDocYear
 ```

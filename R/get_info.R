@@ -93,7 +93,7 @@ get_claims=function(id, with_labels=FALSE){
     triplet=glue::glue("{id} ?prop ?val"),
     label=c("?val")) %>%
     spq_add(triplet="?item wikibase:directClaim ?prop") %>%
-    send() %>%
+    spq_perform() %>%
     dplyr::left_join(wd_properties,by=c("prop"="id")) %>%
     dplyr::select(property=.data$item,
            propertyLabel=.data$label,

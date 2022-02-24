@@ -12,38 +12,80 @@
 #'} ORDER BY ?itemLabel
 #''
 #'send_sparql(query=metro_query)
-#' @import SPARQL
 send_sparql=function(query,endpoint="Wikidata"){
   endpoint=tolower(endpoint)
 
   # if endpoint wikidata, use WikidataQueryServiceR::query_wikidata()
   if(endpoint=="wikidata"){
-    tib <- purrr::quietly(WikidataQueryServiceR::query_wikidata)(query)$result
+    return(purrr::quietly(WikidataQueryServiceR::query_wikidata)(query)$result)
   }
-  # else, use SPARQL::SPARQL()
+  # else, use httr2
+
   # if endpoint passed as name, get url
-  if(endpoint %in% (usual_endpoints %>%
-                    dplyr::filter(.data$name!="wikidata") %>%
-                    dplyr::pull(.data$name))){
-    url=usual_endpoints %>%
-      dplyr::filter(.data$name == {{ endpoint }}) %>%
-      dplyr::select(.data$url) %>%
-      dplyr::pull()
-    tib <- SPARQL::SPARQL(url=url,
-                          query=query,
-                          curl_args=list(useragent='glitter R package (https://github.com/lvaudor/glitter)'))
-    tib <- tib$results
+  usual_endpoint_info = usual_endpoints %>%
+                    dplyr::filter(.data$name == endpoint)
+  url = if (nrow(usual_endpoint_info) > 0) {
+    dplyr::pull(usual_endpoint_info, .data$url)
+  } else {
+    endpoint
   }
-  # else, endpoint must be passed as url
-  if(!(endpoint %in% usual_endpoints$name)){
-    tib <- SPARQL::SPARQL(url=endpoint,
-                          query=query,
-                          curl_args=list(useragent='User Agent Example'))
-    tib <- tib$results
-  }
-  # if returned table has 0 rows replace it with NULL (easier to bind with other results)
-  if(nrow(tib)==0){tib=NULL}
-  return(tib)
+
+
+    resp = httr2::request(url) %>%
+    httr2::req_url_query(query = query) %>%
+    httr2::req_method("POST") %>%
+    httr2::req_headers(Accept = "application/sparql-results+json") %>%
+    httr2::req_user_agent("glitter R package (https://github.com/lvaudor/glitter)") %>%
+    httr2::req_retry(max_tries = 3, max_seconds = 120) %>%
+    httr2::req_perform()
+
+    httr2::resp_check_status(resp)
+
+    if (httr2::resp_content_type(resp) != "application/sparql-results+json") {
+      rlang::abort("Not right response type") #TODO:better message, more flexibility
+    }
+
+    content = httr2::resp_body_json(resp)
+
+    # Adapted from https://github.com/wikimedia/WikidataQueryServiceR/blob/accff89a06ad4ac4af1bef369f589175c92837b6/R/query.R#L56
+    if (length(content$results$bindings) > 0) {
+      parse_binding = function(binding, name) {
+        type <- sub(
+          "http://www.w3.org/2001/XMLSchema#", "",
+          binding[["datatype"]] %||% "http://www.w3.org/2001/XMLSchema#character"
+        )
+
+        parse = function(x, type) {
+          switch(
+          type,
+          character = x,
+          integer = x, # easier for now as dbpedia can return different things with the same name
+          datetime = anytime::anytime(x)
+        )
+        }
+        value = parse(binding[["value"]], type)
+        tibble::tibble(.rows = 1) %>%
+          dplyr::mutate({{name}} := value)
+      }
+
+      parse_result = function(result) {
+        purrr::map2(result, names(result), parse_binding) %>%
+        dplyr::bind_cols()
+      }
+
+      data_frame <- purrr::map_df(content$results$bindings, parse_result)
+
+      } else {
+        data_frame <- dplyr::as_tibble(
+          matrix(
+            character(),
+            nrow = 0, ncol = length(content$head$vars),
+            dimnames = list(c(), unlist(content$head$vars))
+          )
+        )
+      }
+      return(data_frame)
+
 }
 
 utils::globalVariables("usual_endpoints")
