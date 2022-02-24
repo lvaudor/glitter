@@ -9,8 +9,7 @@
 #' spq_add("?item rdfs:label ?itemTitle") %>%
 #' spq_filter("CONTAINS(LCASE(?itemTitle),'wikidata')") %>%
 #' spq_filter("LANG(?itemTitle)='en'") %>%
-#' spq_head(n=5) %>%
-#' spq_perform()
+#' spq_head(n=5)
 spq_filter=function(query=NULL, expressions){
   if(!is.null(query)){part_filter=query$filter}else{part_filter=c()}
   part_filter_to_add=paste0("FILTER(",expressions,")\n")%>%

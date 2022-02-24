@@ -56,7 +56,7 @@ tib=spq_init() %>%
   spq_group_by(c("?cl","?p","?cl1")) %>% 
   spq_head(n=10) %>% 
   spq_summarise(c("?effectif"="COUNT(*)")) %>% 
-  spq_arrange(c("DESC(?effectif)")) %>% 
+  spq_arrange(desc(effectif)) %>% 
   spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
 
 knitr::kable(tib)
@@ -73,7 +73,7 @@ tib=spq_init() %>%
   spq_add("?r sym:hasRoleType ?tyro") %>% 
   spq_group_by(c("?tyin","?tyro")) %>% 
   spq_summarise(c("?effectif"="COUNT(*)")) %>% 
-  spq_arrange(c("?tyin","?tyro","DESC(?effectif)")) %>% 
+  spq_arrange(tyin,tyro,desc(effectif)) %>% 
   spq_head(n=10) %>% 
   spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
 ```
@@ -90,7 +90,7 @@ tib=spq_init() %>%
   spq_add("?r sym:hasRoleType ?tyro") %>% 
   spq_group_by(c("?tyin","?tyro")) %>% 
   spq_summarise(c("?effectif"="COUNT(*)")) %>% 
-  spq_arrange(c("?tyin","?tyro","?effectif")) %>% 
+  spq_arrange(tyin,tyro,effectif) %>% 
   spq_head(n=10) %>%
   spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
 
@@ -111,7 +111,7 @@ tib=spq_init() %>%
   spq_add("?info sym:knowledgeUnitStandardLabel ?infoStandardLabel") %>% 
   spq_add(". sym:knowledgeUnitStandardDate ?infoStandardDate") %>% 
   spq_add(". sym:hasKnowledgeUnitType ?tyin") %>% 
-  spq_arrange("?infoStandardDate") %>% 
+  spq_arrange(infoStandardDate) %>% 
   spq_head(n=10) %>% 
   spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
 

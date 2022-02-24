@@ -11,8 +11,12 @@ spq_init=function(){
                limit=NULL,
                group_by=NULL,
                order_by=NULL)
-    return(query)
+
+  structure(query, class = c("sparqle_query", "list"))
 }
+
+#' @export
+print.sparqle_query <- function(x, ...) build_sparql(x) %>% cat()
 
 # filter ------------------------------------------------------------------
 

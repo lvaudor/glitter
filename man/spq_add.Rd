@@ -54,8 +54,7 @@ spq_add("?city wdt:P1082 ?pop", required=FALSE) \%>\%
 # in a bounding box
 spq_add("?city wdt:P625 ?coords",within_box=list(southwest=c(3,43),northeast=c(7,47))) \%>\%
 # limit to 10 lines
-spq_head(n=10) \%>\%
-spq_perform()
+spq_head(n=10)
 
 \dontrun{
 # find the individuals of the species

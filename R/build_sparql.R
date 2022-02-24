@@ -10,10 +10,12 @@
 #' spq_head(n=5) %>%
 #' spq_assemble() %>%
 #' cat()
-spq_assemble = function(query,endpoint="Wikidata"){
-  if(endpoint!="Wikidata"){query$service=""}
+build_sparql=function(query, endpoint = "Wikidata"){
+  if (endpoint != "Wikidata"){
+    query$service = ""
+  }
 
-  query=query %>%
+  query = query %>%
     spq_prefix(auto=TRUE, prefixes=NULL)
 
   # are prefixes correct and do they correspond to provided prefixes?
@@ -36,17 +38,29 @@ spq_assemble = function(query,endpoint="Wikidata"){
     query=spq_language(query,language="en")
   }
 
-  query=paste0(part_prefixes,"\n",
-               "SELECT ", paste0(query$select,collapse=" "),"\n",
-               "WHERE{\n",
-               query$body,"\n",
-               query$filter,"\n",
-               query$service,"\n",
-               "}\n",
-               query$group_by,
-               query$order_by,"\n",
-               query$limit)
-  return(query)
+  query$order_by = if (length(query$order_by) > 0) {
+    sprintf("ORDER BY %s", paste(query$order_by, collapse = " "))
+  }
+  else {
+    ""
+  }
+
+  query$select <- if (length(query$select) == 0) {
+    "*"
+  } else {
+    query$select
+  }
+
+  paste0(part_prefixes,"\n",
+    "SELECT ", paste0(query$select,collapse=" "),"\n",
+    "WHERE{\n",
+    query$body,"\n",
+    query$filter,"\n",
+    query$service,"\n",
+    "}\n",
+    query$group_by,
+    query$order_by,"\n",
+    query$limit)
 }
 
 utils::globalVariables("usual_prefixes")

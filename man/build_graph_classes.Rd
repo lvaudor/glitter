@@ -13,5 +13,7 @@ build_graph_classes(id)
 Build the graph of sub/superclasses
 }
 \examples{
+\dontrun{
 tib_g=build_graph_classes("wd:Q627272")
+}
 }

@@ -15,15 +15,13 @@ spq_language(query = NULL, language = "en")
 Get labels in a specified language (apply only to Wikidata)
 }
 \examples{
-tib=spq_init() \%>\%
+spq_init() \%>\%
  spq_add("?film wdt:P31 wd:Q11424", label="?film") \%>\%
  spq_language("fr,en") \%>\%
- spq_head(10) \%>\%
- spq_perform()
+ spq_head(10)
 
-tib=spq_init() \%>\%
+spq_init() \%>\%
  spq_add("?film wdt:P31 wd:Q11424", label="?film") \%>\%
  spq_language("auto,es,it,de") \%>\%
- spq_head(10) \%>\%
- spq_perform()
+ spq_head(10)
 }

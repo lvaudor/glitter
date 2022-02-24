@@ -17,7 +17,9 @@ show_graph_classes(tib_g, n_min = 10, layout = "kk")
 Show the graph of sub/superclasses
 }
 \examples{
+\dontrun{
 tib_g=build_graph_classes("wd:Q627272")
 show_graph_classes(tib_g,layout="kk")
 show_graph_classes(tib_g,layout="sugiyama")
+}
 }

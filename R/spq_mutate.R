@@ -6,8 +6,7 @@
 #' # common name of a plant species in different languages
 #' spq_init() %>%
 #' spq_add("wd:Q331676 wdt:P1843 ?statement") %>%
-#' spq_mutate(c("?lang"="LANG(?statement)")) %>%
-#' spq_perform()
+#' spq_mutate(c("?lang"="LANG(?statement)"))
 spq_mutate=function(query,vars){
   former_select=query$select
   vars=glue::glue("({vars} AS {names(vars)})") %>%

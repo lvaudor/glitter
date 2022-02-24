@@ -57,5 +57,6 @@ build_part_body=function(query=NA,subject,verb,object,required=TRUE,
   }
   # add new triplet to the body of the query
   part_body=glue::glue("{part_body}\n{new_triplet}")
+
   return(part_body)
 }
