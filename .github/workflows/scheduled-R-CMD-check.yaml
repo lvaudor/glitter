@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '5 12 * * 1' # Mondays at 12:05
 
-name: R-CMD-check
+name: R-CMD-check-scheduled
 
 jobs:
   R-CMD-check:
