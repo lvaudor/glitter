@@ -1,5 +1,5 @@
 # Functions on multisets --------------------------------
-set_functions <- tibble::tribble(
+set_functions = tibble::tribble(
     ~R, ~SPARQL, ~args,
     "n", "COUNT", list(),
     "sum", "SUM", list(),
@@ -13,7 +13,7 @@ set_functions <- tibble::tribble(
 usethis::use_data(set_functions, overwrite = TRUE)
 
 # Functions on terms ---------------------------------------------------
-term_functions <- tibble::tribble(
+term_functions = tibble::tribble(
     ~R, ~SPARQL,
     "is.iri", "isIRI",
     "is.uri", "isURI", # synonym of isIRI
@@ -35,22 +35,23 @@ term_functions <- tibble::tribble(
 usethis::use_data(term_functions, overwrite = TRUE)
 
 # Functions... miscellaneous --------------------------------------------
-misc_functions <- tibble::tribble(
+misc_functions = tibble::tribble(
     ~R, ~SPARQL,
     "bound", "bound",
     "coalesce", "COALESCE",
     "if_else", "IF",
-    "same_term", "sameTerm"
+    "same_term", "sameTerm",
+    "runif", "RAND"
   )
 
 usethis::use_data(misc_functions, overwrite = TRUE)
 
 # Functions on strings --------------------------------------------
-stringr_common_args <- tibble::tibble(
+stringr_common_args = tibble::tibble(
         R = c("string", "pattern", "negate"),
         SPARQL = c("", "", NA) # not possible to negate in SPARQL
       )
-strings_functions <- tibble::tribble(
+string_functions = tibble::tribble(
     ~R, ~SPARQL, ~args,
     "str_length", "STRLEN", list(),
   # !!! the second argument for SPARQL is lenth
@@ -79,10 +80,19 @@ strings_functions <- tibble::tribble(
     )
   )
 
-usethis::use_data(strings_functions, overwrite = TRUE)
+usethis::use_data(string_functions, overwrite = TRUE)
 
+# Functions on numerics ----------------------------------
+numeric_functions = tibble::tribble(
+    ~R, ~SPARQL,
+    "abs", "abs",
+    "round", "round",
+    "ceiling", "ceil",
+    "floor", "floor"
+)
+usethis::use_data(numeric_functions, overwrite = TRUE)
 # Operators ------------------------------------------------
-operators <- tibble::tribble(
+operators = tibble::tribble(
     ~R, ~SPARQL,
     "==", "=",
     "%in%", "IN",

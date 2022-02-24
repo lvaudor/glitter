@@ -34,7 +34,8 @@ wikidata_url <- function() {
 #' }
 "usual_prefixes"
 
-#' Correspondance between R-DSL functions and SPARQL set functions.
+#' Correspondance between R-DSL functions and SPARQL functions/operators.
+#' @rdname sparql-dsl
 #' @format A data frame.
 #' \describe{
 #'   \item{R}{R-DSL function}
@@ -43,33 +44,17 @@ wikidata_url <- function() {
 #' }
 "set_functions"
 
-#' Correspondance between R-DSL functions and SPARQL term functions.
-#' @format A data frame.
-#' \describe{
-#'   \item{R}{R-DSL function}
-#'   \item{SPARQL}{SPARQL function}
-#' }
+#' @rdname sparql-dsl
 "term_functions"
 
-#' Correspondance between R-DSL functions and SPARQL misc functions.
-#' @format A data frame.
-#' \describe{
-#'   \item{R}{R-DSL function}
-#'   \item{SPARQL}{SPARQL function}
-#' }
+#' @rdname sparql-dsl
 "misc_functions"
 
-#' Correspondance between R-DSL functions and SPARQL string functions.
-#' @format A data frame.
-#' \describe{
-#'   \item{R}{R-DSL function}
-#'   \item{SPARQL}{SPARQL function}
-#' }
+#' @rdname sparql-dsl
 "string_functions"
-#' Correspondance between R-DSL functions and SPARQL term functions.
-#' @format A data frame.
-#' \describe{
-#'   \item{R}{R-DSL operator}
-#'   \item{SPARQL}{SPARQL operator}
-#' }
+
+#' @rdname sparql-dsl
+"numeric_functions"
+
+#' @rdname sparql-dsl
 "operators"
