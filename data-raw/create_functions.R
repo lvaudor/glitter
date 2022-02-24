@@ -16,7 +16,7 @@ term_functions <- tibble::tribble(
     "is.iri", "isIRI",
     "is.uri", "isURI", # synonym of isIRI
     "is.null", "isBlank",
-    "is.character", "isLiteral",
+    "is.literal", "isLiteral",
     "is.numeric", "isNumeric",
     "as.character", "str",
     "lang", "lang",
@@ -31,3 +31,10 @@ term_functions <- tibble::tribble(
   )
 
 usethis::use_data(term_functions, overwrite = TRUE)
+
+var_functions <- tibble::tribble(
+    ~R, ~SPARQL,
+    "bound", "bound"
+  )
+
+usethis::use_data(var_functions, overwrite = TRUE)
