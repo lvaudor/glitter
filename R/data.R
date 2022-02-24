@@ -33,3 +33,20 @@ wikidata_url <- function() {
 #'   ...
 #' }
 "usual_prefixes"
+
+#' Correspondance between R-DSL functions and SPARQL set functions.
+#' @format A data frame.
+#' \describe{
+#'   \item{R}{R-DSL function}
+#'   \item{SPARQL}{SPARQL set function}
+#'   \item{args}{list-column with R vs SPARQL argument names}
+#' }
+"set_functions"
+
+#' Correspondance between R-DSL functions and SPARQL term functions.
+#' @format A data frame.
+#' \describe{
+#'   \item{R}{R-DSL function}
+#'   \item{SPARQL}{SPARQL set function}
+#' }
+"term_functions"
