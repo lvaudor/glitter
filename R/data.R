@@ -59,6 +59,13 @@ wikidata_url <- function() {
 #' }
 "misc_functions"
 
+#' Correspondance between R-DSL functions and SPARQL string functions.
+#' @format A data frame.
+#' \describe{
+#'   \item{R}{R-DSL function}
+#'   \item{SPARQL}{SPARQL function}
+#' }
+"string_functions"
 #' Correspondance between R-DSL functions and SPARQL term functions.
 #' @format A data frame.
 #' \describe{

@@ -39,10 +39,52 @@ misc_functions <- tibble::tribble(
     ~R, ~SPARQL,
     "bound", "bound",
     "coalesce", "COALESCE",
-    "if_else", "IF"
+    "if_else", "IF",
+    "same_term", "sameTerm"
   )
 
 usethis::use_data(misc_functions, overwrite = TRUE)
+
+# Functions on strings --------------------------------------------
+strings_functions <- tibble::tribble(
+    ~R, ~SPARQL, ~args,
+    "str_length", "STRLEN", list(),
+  # !!! the second argument for SPARQL is lenth
+  # And no argument is named
+    "str_sub", "SUBSTR", list(
+      tibble::tibble(
+        R = c("string", "start", "end"),
+        SPARQL = c(NULL, NULL, NULL)
+      )
+      ),
+    "str_to_upper", "UCASE", list(),
+    "str_to_lower", "LCASE", list(),
+    "str_starts", "STRSTARTS", list(
+      tibble::tibble(
+        R = c("string", "pattern", "negate"),
+        SPARQL = c(NULL, NULL, NA) # not possible to negate in SPARQL
+      )
+      ),
+    "str_ends", "STRENDS", list(
+      tibble::tibble(
+        R = c("string", "pattern", "negate"),
+        SPARQL = c(NULL, NULL, NA) # not possible to negate in SPARQL
+      )
+      ),
+    "str_detect", "CONTAINS", list(
+      tibble::tibble(
+        R = c("string", "pattern", "negate"),
+        SPARQL = c(NULL, NULL, NA) # not possible to negate in SPARQL
+      )
+      ),
+    "str_before", "STRBEFORE", list(),
+    "str_after", "STRAFTER", list(),
+    "URLencode", "ENCODE_FOR_URI", list(),
+    "paste0", "CONCAT", list(),
+    "", "REGEX", list()
+  )
+
+usethis::use_data(strings_functions, overwrite = TRUE)
 
 # Operators ------------------------------------------------
 operators <- tibble::tribble(
@@ -50,7 +92,9 @@ operators <- tibble::tribble(
     "==", "=",
     "%in%", "IN",
     "|", "||",
-    "||", "||"
+    "||", "||",
+    "&", "&",
+    "&&", "&"
   )
 
 usethis::use_data(operators, overwrite = TRUE)
