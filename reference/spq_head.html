@@ -65,24 +65,50 @@
     <dl><dt>query</dt>
 <dd><p>a list with elements of the query</p></dd>
 <dt>n</dt>
-<dd><p>the maximum number of lines to return (defaults to 5)</p></dd>
+<dd><p>the maximum number of lines to return</p></dd>
 </dl></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Return the default of 5 items</span></span>
+<span class="r-in"><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?item wdt:P31 wd:Q5"</span>,label<span class="op">=</span><span class="st">"?item"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?item wdt:P19/wdt:P131* wd:Q60"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?item wikibase:sitelinks ?sitelinks"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu"><a href="spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DESC(?sitelinks)"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu">spq_head</span><span class="op">(</span>n<span class="op">=</span><span class="fl">3</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu"><a href="spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   item                                  itemLabel    sitelinks</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> http://www.wikidata.org/entity/Q22686 Donald Trump       282</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> http://www.wikidata.org/entity/Q4617  Corbin Bleu        219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> http://www.wikidata.org/entity/Q19848 Lady Gaga          179</span>
+<span class="r-in"><span class="fu"><a href="spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">siteLinks</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in"><span class="fu">spq_head</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?item ?itemLabel ?sitelinks</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P31 wd:Q5.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P19/wdt:P131* wd:Q60.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wikibase:sitelinks ?sitelinks.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY DESC(?siteLinks)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LIMIT 5</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Return 42 items</span></span>
+<span class="r-in"><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in"><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?item wdt:P31 wd:Q5"</span>,label<span class="op">=</span><span class="st">"?item"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in"><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?item wdt:P19/wdt:P131* wd:Q60"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in"><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?item wikibase:sitelinks ?sitelinks"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in"><span class="fu"><a href="spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">siteLinks</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in"><span class="fu">spq_head</span><span class="op">(</span>n<span class="op">=</span><span class="fl">42</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?item ?itemLabel ?sitelinks</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P31 wd:Q5.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P19/wdt:P131* wd:Q60.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wikibase:sitelinks ?sitelinks.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY DESC(?siteLinks)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LIMIT 42</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
