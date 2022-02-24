@@ -18,37 +18,32 @@ reference:
   desc: "These functions must be used to build the query before it is sent to the SPARQL endpoint. They detail the query and might lighten it e.g. through e.g. spq_head() or spq_summarise(), which might prove useful or even necessary to agree with the server's limits. On the other hand, their dplyr counterparts (filter(), select(), arrange(), mutate(), summarise()) apply to the table obtained as the result of the query."
 - contents:
   - starts_with("spq")
+  - usual_endpoints
+  - usual_prefixes
 - title: "Syntax auxiliaries"
   desc: "These functions help translate R syntax into SPARQL language"
 - contents:
   - starts_with("is_")
 - title: "Debugging"
 - contents:
-  - assemble_sparql_query
-- title: internal
-  contents:
-  - build_graph_classes
-  - build_part_body
-  - build_part_select
+  - spq_assemble
+- title: "Wikidata"
+- contents:
   - clean_wikidata_table
-  - count_items
-  - decompose_triplet
   - get_claim
   - get_claims
   - get_description
   - get_info
-  - get_label
-  - get_one_claim
   - get_thing
-  - get_triplets
-  - send_sparql
-  - show_graph_classes
+  - get_label
+  - count_items
   - subclasses_of
   - superclasses_of
   - transform_wikidata_coords
-  - usual_endpoints
-  - usual_prefixes
   - wd_properties
+- title: internal
+  contents:
+  - get_triplets
 
 navbar:
  components:

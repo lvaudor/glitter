@@ -3,6 +3,7 @@
 #' @param subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))
 #' @param verb the property (for instance "wdt:P190")
 #' @param object an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))
+#' @noRd
 decompose_triplet=function(triplet, subject,verb,object){
   # decompose triplet if necessary: get three elements subject-verb-object as a list
   if(!is.null(triplet)){
