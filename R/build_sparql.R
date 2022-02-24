@@ -10,7 +10,7 @@
 #' spq_head(n=5) %>%
 #' spq_assemble() %>%
 #' cat()
-build_sparql=function(query, endpoint = "Wikidata"){
+spq_assemble=function(query, endpoint = "Wikidata"){
   if (endpoint != "Wikidata"){
     query$service = ""
   }

@@ -20,7 +20,7 @@ test_that("send_sparql() works with dataBNF", {
       spq_add("?auteur bio:birth ?date1") %>%
       spq_add("?auteur bio:death ?date2") %>%
       spq_add("?auteur foaf:name ?nom", required=FALSE) %>%
-      spq_arrange("?jour") %>%
+      spq_arrange(jour) %>%
       spq_prefix() %>%
       spq_head(n = 10) %>%
       spq_perform(endpoint = "dataBNF")
