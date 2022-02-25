@@ -67,7 +67,7 @@
 spq_arrange = function(query , ..., replace = FALSE){
   ordering_variables <- purrr::map_chr(
     rlang::enquos(...),
-    treat_argument
+    treat_arrange_argument
   )
 
   query$order_by = if (replace) {
@@ -80,7 +80,7 @@ spq_arrange = function(query , ..., replace = FALSE){
 
 
 
-treat_argument <- function(arg) {
+treat_arrange_argument <- function(arg) {
 
   eval_try <- try(rlang::eval_tidy(arg), silent = TRUE)
 
