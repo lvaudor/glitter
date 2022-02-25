@@ -86,7 +86,8 @@
 
 # spq_arrange errors if passing a string directly
 
-    Did you mean to pass a string? Use spq() to wrap it.
+    x Cannot use "DESC(xsd:integer(?mort))"
+    i Did you mean to pass a string? Use spq() to wrap it.
 
 # spq_arrange does not error if passing sthg that could be evaluated
 

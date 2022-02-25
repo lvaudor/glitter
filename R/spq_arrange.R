@@ -83,15 +83,12 @@ spq_arrange = function(query , ..., replace = FALSE){
 treat_argument <- function(arg) {
 
   eval_try <- try(rlang::eval_tidy(arg), silent = TRUE)
-  is_spq <- is.spq(eval_try)
 
-  if (is_spq) {
+  if (is.spq(eval_try)) {
     return(eval_try)
   }
 
-  if (!inherits(eval_try, "try-error") && is.character(eval_try)) {
-    rlang::abort("Did you mean to pass a string? Use spq() to wrap it.")
-  }
+  assert_whether_character(eval_try)
 
   desc <- function(x) {
     sprintf("DESC(%s)", rlang::enexpr(x) %>% rlang::as_label())
