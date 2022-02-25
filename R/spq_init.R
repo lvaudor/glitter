@@ -10,7 +10,8 @@ spq_init=function(){
                filter=NULL,
                limit=NULL,
                group_by=NULL,
-               order_by=NULL)
+               order_by=NULL,
+      offset = 0)
 
   structure(query, class = c("sparqle_query", "list"))
 }

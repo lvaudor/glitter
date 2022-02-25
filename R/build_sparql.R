@@ -60,7 +60,9 @@ spq_assemble=function(query, endpoint = "Wikidata"){
     "}\n",
     query$group_by,
     query$order_by,"\n",
-    query$limit)
+    glue::glue("LIMIT {query$limit}"),"\n",
+    glue::glue("OFFSET {query$offset}")
+  )
 }
 
 utils::globalVariables("usual_prefixes")
