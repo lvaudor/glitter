@@ -21,23 +21,19 @@ spq_select = function(query = NULL, ..., spq_duplicate = NULL){
   }
   query$spq_duplicate <- spq_duplicate
 
-  selected_variables = purrr::map_chr(rlang::enquos(...), treat_select_argument)
+  variables = purrr::map_chr(rlang::enquos(...), treat_select_argument)
 
-  # add name for AS bla
-  add_as = function(string, name) {
-    sprintf("(%s AS %s)", string, add_question_mark(name))
-  }
-  selected_variables[nzchar(names(selected_variables))] = purrr::map2_chr(
-    selected_variables[nzchar(names(selected_variables))],
-    names(selected_variables)[nzchar(names(selected_variables))],
+  variables[nzchar(names(variables))] = purrr::map2_chr(
+    variables[nzchar(names(variables))],
+    names(variables)[nzchar(names(variables))],
     add_as
   )
 
-  minus_variables = selected_variables %>%
+  minus_variables = variables %>%
     stringr::str_subset("^\\-\\?") %>%
     stringr::str_remove("\\-")
 
-  plus_variables = selected_variables %>%
+  plus_variables = variables %>%
     stringr::str_subset("^\\-\\?", negate = TRUE)
 
   query$select = unique(c(query$select, plus_variables))
@@ -64,13 +60,15 @@ treat_select_argument = function(arg) {
       xml2::xml_text(symbol_function_call) = equivalent[["SPARQL"]]
       xml2::xml_attr(symbol_function_call, "sparqlish") = "true"
 
+      expr = xml2::xml_parent(xml2::xml_parent(symbol_function_call))
+
+      # Argument names
       sparql_arguments = equivalent$args[[1]]
-      if (length(sparql_arguments) > 1) {
+      if (length(sparql_arguments) > 0) {
         sparql_arguments = sparql_arguments[[1]]
       } else {
         sparql_arguments = NULL
       }
-      expr = xml2::xml_parent(xml2::xml_parent(symbol_function_call))
       r_arguments = xml2::xml_find_all(expr, ".//SYMBOL_SUB")
       useless_arguments = r_arguments[!xml2::xml_text(r_arguments) %in% stats::na.omit(sparql_arguments[["R"]])]
       if (length(useless_arguments) > 0) {
@@ -88,6 +86,15 @@ treat_select_argument = function(arg) {
         xml2::xml_text(argument_node) = sparql_arguments[["SPARQL"]][sparql_arguments[["R"]] == xml2::xml_text(argument_node)]
       }
       purrr::walk(r_arguments, replace_argument, sparql_arguments = sparql_arguments)
+
+      # COUNT(*)
+      if (equivalent[["SPARQL"]] == "COUNT") {
+        star <- xml2::xml_find_all(expr, ".//STR_CONST[contains(normalize-space(text()), '*')]")
+        replace_star <- function(star) {
+          xml2::xml_text(star) <- "*"
+        }
+        purrr::walk(star, replace_star)
+      }
 
       # Remove ,
       commas = xml2::xml_find_all(expr, ".//OP-COMMA")

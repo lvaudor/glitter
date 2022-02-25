@@ -55,7 +55,7 @@ tib=spq_init() %>%
   spq_add("?o1 a ?cl1", required=FALSE) %>% 
   spq_group_by(c("?cl","?p","?cl1")) %>% 
   spq_head(n=10) %>% 
-  spq_summarise(c("?effectif"="COUNT(*)")) %>% 
+  spq_summarise(effectif = n("*")) %>% 
   spq_arrange(desc(effectif)) %>% 
   spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
 
@@ -72,7 +72,7 @@ tib=spq_init() %>%
   spq_add("?r sym:isComponentOf ?s") %>% 
   spq_add("?r sym:hasRoleType ?tyro") %>% 
   spq_group_by(c("?tyin","?tyro")) %>% 
-  spq_summarise(c("?effectif"="COUNT(*)")) %>% 
+  spq_summarise(effectif = n("*")) %>% 
   spq_arrange(tyin,tyro,desc(effectif)) %>% 
   spq_head(n=10) %>% 
   spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
@@ -89,7 +89,7 @@ tib=spq_init() %>%
   spq_add("?r sym:isComponentOf ?s") %>% 
   spq_add("?r sym:hasRoleType ?tyro") %>% 
   spq_group_by(c("?tyin","?tyro")) %>% 
-  spq_summarise(c("?effectif"="COUNT(*)")) %>% 
+  spq_summarise(effectif = n("*")) %>% 
   spq_arrange(tyin,tyro,effectif) %>% 
   spq_head(n=10) %>%
   spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")

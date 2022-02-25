@@ -2,14 +2,17 @@
 % Please edit documentation in R/spq_summarise.R
 \name{spq_summarise}
 \alias{spq_summarise}
+\alias{spq_summarize}
 \title{Summarise each group of results to fewer results}
 \usage{
-spq_summarise(query, vars)
+spq_summarise(query, ...)
+
+spq_summarize(query, ...)
 }
 \arguments{
 \item{query}{a list with elements of the query}
 
-\item{vars}{a vector with the names of the variables used for grouping}
+\item{...}{variables by which to arrange (or SPARQL strings escaped with \code{spq()}, see examples)}
 }
 \description{
 Summarise each group of results to fewer results
@@ -21,6 +24,5 @@ spq_add("?item wdt:P1082 ?folkm_ngd") \%>\%
 spq_add("?area wdt:P31 wd:Q1907114",label="?area") \%>\%
 spq_add("?area wdt:P527 ?item") \%>\%
 spq_group_by(c("?area","?areaLabel"))  \%>\%
-spq_summarise(c("?total_folkm"="sum(?folkm_ngd)")) \%>\%
-spq_perform()
+spq_summarise(total_folkm = sum(folkm_ngd))
 }

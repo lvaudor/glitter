@@ -38,7 +38,7 @@ head(tib_info)
 ## Rechercher l’URI, le titre, le lien vers le PDF et les auteurs de [toutes les versions de] ce document
 
 ```{r}
-query_doc=spq_init() %>% 
+query_doc = spq_init() %>% 
   spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
   spq_add("?version dcterms:title ?title") %>%                     # ?version a pour titre ?titre
   spq_add(". dcterms:creator ?creator") %>%                        # ...... et pour créateur ?creator
@@ -54,11 +54,11 @@ tib_doc
 Remarque: on peut concaténer les réponses d’une variable (ici les auteurs par exemple):
 
 ```{r}
-query_doc_autConcat=query_doc %>% 
+query_doc_autConcat = query_doc %>% 
   spq_group_by(c("?version","?title","?pdf")) %>%             # Groupe les résultats par ?version, ?title, ?pdf
-  spq_summarise(c("?authors"="GROUP_CONCAT(?name,',')"))      # Concatène les noms d'auteur dans ?authors
+  spq_summarise(authors = str_c(name, sep = ', '))      # Concatène les noms d'auteur dans ?authors
 
-tib_doc_autConcat=spq_perform(query_doc_autConcat,"hal")
+tib_doc_autConcat = spq_perform(query_doc_autConcat,"hal")
 
 tib_doc_autConcat
 ```
@@ -71,7 +71,7 @@ tib_nbAutDoc=spq_init() %>%
   spq_add("?version dcterms:creator ?creator") %>%                 # ?version a pour créateur ?creator
   spq_add("?creator hal:person ?person") %>%                       # ?creator est une personne ?person
   spq_group_by("?version") %>%                                     # Groupe par ?version
-  spq_summarise(c("?nbperson"="count(distinct ?person)")) %>%      # Résume: ?nbperson = nb de ?person dist.  
+  spq_summarise(nbperson = n(unique(person))) %>%      # Résume: ?nbperson = nb de ?person dist.  
   spq_perform(e="hal")
 
 tib_nbAutDoc
@@ -134,7 +134,7 @@ On peut **résumer les résultats requêtés** par exemple en affichant le nombr
 ```{r}
 query_foAutNbDoc=query_foAut %>% 
   spq_group_by(c("?type","?label")) %>%                      # Groupe par ?type et ?label
-  spq_summarise(c("?nbdoc"="count(distinct ?document)"))     # Résume: ?nbdoc = nb de ?document dist.
+  spq_summarise(nbdoc = n(unique(document)))    
 
 tib_foAutNbDoc=spq_perform(query_foAutNbDoc,"hal")
 
@@ -162,7 +162,7 @@ tib_dat=spq_init() %>%
   spq_add("?creator hal:person {fabien_gandon}") %>% 
   spq_mutate(year = year(date)) %>%                    # Crée ?year = année de ?date
   spq_group_by(c("?year")) %>%                               # Groupe par ?year
-  spq_summarise(c("?nbdoc"="count(distinct ?document)")) %>% # Résume: ?nbdoc= nb de ?document dist.
+  spq_summarise(nbdoc = n(unique(document))) %>% 
   spq_arrange(year) %>% 
   spq_perform(e="hal")
 
@@ -198,7 +198,7 @@ query_autNbDocYear=query_aut %>%
   spq_mutate(year = year(date)) %>%              # Ajoute ?year qui correspond à l'année de ?date
   spq_group_by(c("?year")) %>%                          # Groupe par ?year
   spq_arrange(year) %>%                              # Ordonne par ordre décroissant de ?year
-  spq_summarise(c("?nbdoc"="count(distinct ?document)"))# Résume: ?nbdoc=nb de ?document dist.
+  spq_summarise(nbdoc = n(unique(document)))
 
 tib_autNbDocYear=spq_perform(query_autNbDocYear,"hal")
 
