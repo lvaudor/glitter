@@ -1,4 +1,4 @@
-#' Select particular variables
+#' Select (and create) particular variables
 #' @inheritParams spq_arrange
 #' @export
 #' @examples
@@ -38,10 +38,12 @@ treat_select_argument = function(arg) {
   }
 
   assert_whether_character(eval_try)
+
   code_data = parse_code(rlang::as_label(arg))
 
   treat_symbol_function_call = function(symbol_function_call) {
     equivalent = all_correspondences[all_correspondences[["R"]] == xml2::xml_text(symbol_function_call), ]
+
     if (nrow(equivalent) > 0) {
       original_name = xml2::xml_text(symbol_function_call)
       xml2::xml_text(symbol_function_call) = equivalent[["SPARQL"]]
@@ -77,11 +79,11 @@ treat_select_argument = function(arg) {
       xml2::xml_attr(symbol_function_call, "sparqlish") = "false"
     }
   }
-  symbol_function_calls = xml2::xml_find_all(code_data, ".//SYMBOL_FUNCTION_CALL")
 
-  purrr::walk(symbol_function_calls, treat_symbol_function_call)
+  xml2::xml_find_all(code_data, ".//SYMBOL_FUNCTION_CALL") %>%
+    purrr::walk(treat_symbol_function_call)
 
-  # then look for unique
+  # then look for unique that is DISTINCT, not a function
   treat_unique = function(symbol_function_call) {
     expr = xml2::xml_parent(xml2::xml_parent(symbol_function_call))
     xml2::xml_text(symbol_function_call) = "DISTINCT "
@@ -89,9 +91,12 @@ treat_select_argument = function(arg) {
     xml2::xml_remove(xml2::xml_find_all(expr, ".//OP-LEFT-PAREN"))
     xml2::xml_remove(xml2::xml_find_all(expr, ".//OP-RIGHT-PAREN"))
   }
-  unique_calls = xml2::xml_find_all(code_data, ".//SYMBOL_FUNCTION_CALL[normalize-space(text()) = 'unique']")
 
-  purrr::walk(unique_calls, treat_unique)
+  code_data %>%
+  xml2::xml_find_all(
+    ".//SYMBOL_FUNCTION_CALL[normalize-space(text()) = 'unique']"
+    ) %>%
+  purrr::walk(treat_unique)
 
   # then add ?
   symbols = xml2::xml_find_all(code_data, ".//SYMBOL")
@@ -112,5 +117,4 @@ treat_select_argument = function(arg) {
 
   # put it back together
   text = xml2::xml_text(code_data)
-  gsub('[\"]', '"', text)
 }

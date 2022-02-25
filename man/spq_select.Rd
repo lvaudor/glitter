@@ -2,7 +2,7 @@
 % Please edit documentation in R/spq_select.R
 \name{spq_select}
 \alias{spq_select}
-\title{Select particular variables}
+\title{Select (and create) particular variables}
 \usage{
 spq_select(query = NULL, ...)
 }
@@ -12,7 +12,7 @@ spq_select(query = NULL, ...)
 \item{...}{variables by which to arrange (or SPARQL strings escaped with \code{spq()}, see examples)}
 }
 \description{
-Select particular variables
+Select (and create) particular variables
 }
 \examples{
 

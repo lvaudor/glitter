@@ -10,6 +10,24 @@ test_that("spq_select works with R syntax", {
   expect_snapshot(
     spq_select(query, birthyear = year(birthdate))
   )
+
+  expect_snapshot(
+    spq_select(query, lang, count = n(unique(article)))
+  )
+})
+
+test_that("spq_select works with SPARQL", {
+  query <- spq_init()
+  expect_snapshot(
+    spq_select(query, spq("?lang"), spq("(COUNT(DISTINCT ?article) AS ?count"))
+  )
+})
+
+test_that("spq_select works with both", {
+  query <- spq_init()
+  expect_snapshot(
+    spq_select(query, lang, spq("(COUNT(DISTINCT ?article) AS ?count"))
+  )
 })
 
 test_that("spq_select errors well", {
