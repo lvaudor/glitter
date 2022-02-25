@@ -8,7 +8,7 @@ spq_select = function(query = NULL, ...){
 
   # add name for AS bla
   add_as <- function(string, name) {
-    sprintf("%s AS %s", string, add_question_mark(name))
+    sprintf("(%s AS %s)", string, add_question_mark(name))
   }
   selected_variables[nzchar(names(selected_variables))] <- purrr::map2_chr(
     selected_variables[nzchar(names(selected_variables))],
@@ -20,10 +20,7 @@ spq_select = function(query = NULL, ...){
     stringr::str_subset("^\\-\\?") %>%
     stringr::str_remove("\\-")
 
-  plus_variables = selected_variables %>%
-    stringr::str_subset("^\\-\\?", negate = TRUE)
-
-  query$select <- unique(c(query$select, plus_variables))
+  query$select <- unique(c(query$select, selected_variables))
   query$select <- query$select[!query$select %in% minus_variables]
   return(query)
 }
