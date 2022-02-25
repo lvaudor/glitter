@@ -90,5 +90,39 @@
 
 ---
 
-    Can't find SPARQL equivalent for collapse().
+    x Can't find SPARQL equivalent for collapse().
+    i If you think there should be one, open an issue in https://github.com/lvaudor/glitter.
+
+# spq_select can use DISTINCT and REDUCED
+
+    Code
+      spq_select(query, year, month, day, spq_duplicate = "distinct")
+    Output
+      
+      SELECT DISTINCT ?year ?month ?day
+      WHERE{
+      
+      
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
+      }
+      
+
+---
+
+    Code
+      spq_select(query, year, month, day, spq_duplicate = "reduced")
+    Output
+      
+      SELECT REDUCED ?year ?month ?day
+      WHERE{
+      
+      
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
+      }
+      
+
+---
+
+    x Wrong value for `spq_duplicate` argument (reduce).
+    i Use either `NULL`, "distinct" or "reduced".
 
