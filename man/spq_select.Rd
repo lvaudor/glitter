@@ -4,24 +4,18 @@
 \alias{spq_select}
 \title{Select particular variables}
 \usage{
-spq_select(query = NULL, variables)
+spq_select(query = NULL, ...)
 }
 \arguments{
-\item{query}{the query}
+\item{query}{a list with elements of the query}
 
-\item{variables}{the variables}
+\item{...}{variables by which to arrange (or SPARQL strings escaped with \code{spq()}, see examples)}
 }
 \description{
 Select particular variables
 }
 \examples{
-tib=spq_init() \%>\%
- spq_add("?film wdt:P31 wd:Q11424", label="?film") \%>\%
- spq_add("?film wdt:P840 ?loc", label="?loc") \%>\%
- spq_add("?film wdt:P495 ?origin", label="?origin") \%>\%
- spq_add("?film wdt:P577 ?date") \%>\%
- spq_mutate(c("?year"="year(?date)")) \%>\%
- spq_head(10) \%>\%
- spq_select("-?date") \%>\%
- spq_perform()
+
+query = spq_init()
+spq_select(query, count = n (human), eyecolorLabel, haircolorLabel)
 }

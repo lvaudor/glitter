@@ -64,3 +64,5 @@ wikidata_url <- function() {
 
 #' @rdname sparql-dsl
 "all_correspondences"
+
+globalVariables("all_correspondences")
