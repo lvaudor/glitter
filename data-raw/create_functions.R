@@ -120,13 +120,13 @@ operators = tibble::tribble(
 usethis::use_data(operators, overwrite = TRUE)
 
 # All ------------------------------------
-all_correspondences <- rbind(
-  set_functions[, c("R", "SPARQL")],
-  term_functions[, c("R", "SPARQL")],
-  misc_functions[, c("R", "SPARQL")],
-  string_functions[, c("R", "SPARQL")],
-  numeric_functions[, c("R", "SPARQL")],
-  datetime_functions[, c("R", "SPARQL")],
-  operators[, c("R", "SPARQL")]
+all_correspondences <- dplyr::bind_rows(
+  set_functions,
+  term_functions,
+  misc_functions,
+  string_functions,
+  numeric_functions,
+  datetime_functions,
+  operators
 )
 usethis::use_data(all_correspondences, overwrite = TRUE)

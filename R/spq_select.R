@@ -4,38 +4,27 @@
 #' @examples
 #'
 spq_select = function(query = NULL, ...){
-  selected_variables <- purrr::map_chr(
-    rlang::enquos(...),
-    treat_select_argument
-  )
+  selected_variables <- purrr::map_chr(rlang::enquos(...), treat_select_argument)
 
   # add name for AS bla
+  add_as <- function(string, name) {
+    sprintf("%s AS %s", string, add_question_mark(name))
+  }
+  selected_variables[nzchar(names(selected_variables))] <- purrr::map2_chr(
+    selected_variables[nzchar(names(selected_variables))],
+    names(selected_variables)[nzchar(names(selected_variables))],
+    add_as
+  )
 
-  prev_vars=query$select
-
-  # positively identified variables
-  plus_variables=variables %>%
-    stringr::str_subset("^\\?")
-  # negatively identified variables
-  minus_variables=variables %>%
+  minus_variables = selected_variables %>%
     stringr::str_subset("^\\-\\?") %>%
     stringr::str_remove("\\-")
 
-  # If some variables are positively identified,
-  # keep only these, else keep all
-  if(length(plus_variables>0)){
-    new_vars=prev_vars %>%
-      subset(prev_vars %in% plus_variables)
-  }else{
-    new_vars=prev_vars
-  }
-  # If some variables are negatively identified,
-  # keep all but these, else keep all
-  if(length(minus_variables>0)){
-    new_vars=new_vars %>%
-      subset(!(new_vars %in% minus_variables))
-  }
-  query$select=unique(new_vars)
+  plus_variables = selected_variables %>%
+    stringr::str_subset("^\\-\\?", negate = TRUE)
+
+  query$select <- unique(c(query$select, plus_variables))
+  query$select <- query$select[!query$select %in% minus_variables]
   return(query)
 }
 
@@ -50,10 +39,33 @@ treat_select_argument <- function(arg) {
   code_data <- parse_code(rlang::as_label(arg))
 
   treat_symbol_function_call <- function(symbol_function_call) {
-    equivalent <- all_correspondences[["SPARQL"]][all_correspondences[["R"]] == xml2::xml_text(symbol_function_call)]
-    if (length(equivalent) > 0) {
-      xml2::xml_text(symbol_function_call) <- equivalent
+    equivalent <- all_correspondences[all_correspondences[["R"]] == xml2::xml_text(symbol_function_call), ]
+    if (nrow(equivalent) > 0) {
+      original_name <- xml2::xml_text(symbol_function_call)
+      xml2::xml_text(symbol_function_call) <- equivalent[["SPARQL"]]
       xml2::xml_attr(symbol_function_call, "sparqlish") <- "true"
+
+      sparql_arguments <- equivalent$args[[1]][[1]]
+      expr <- xml2::xml_parent(xml2::xml_parent(symbol_function_call))
+      r_arguments <- xml2::xml_find_all(expr, ".//SYMBOL_SUB")
+      useless_arguments <- r_arguments[!xml2::xml_text(r_arguments) %in% na.omit(sparql_arguments[["R"]])]
+      if (length(useless_arguments) > 0) {
+        rlang::abort(
+          sprintf(
+            "Can't find equivalent for argument(s) %s for call to %s",
+            toString(xml2::xml_text(useless_arguments)), original_name
+          )
+        )
+      }
+      replace_argument <- function(argument_node, sparql_arguments) {
+        xml2::xml_text(argument_node) <- sparql_arguments[["SPARQL"]][sparql_arguments[["R"]] == xml2::xml_text(argument_node)]
+      }
+      purrr::walk(r_arguments, replace_argument, sparql_arguments = sparql_arguments)
+
+      # Remove ,
+      commas <- xml2::xml_find_all(expr, ".//OP-COMMA")
+      xml2::xml_text(commas) <- ";"
+
     } else {
       xml2::xml_attr(symbol_function_call, "sparqlish") <- "false"
     }
@@ -64,9 +76,9 @@ treat_select_argument <- function(arg) {
 
   # then look for unique
   treat_unique <- function(symbol_function_call) {
-    browser()
     expr <- xml2::xml_parent(xml2::xml_parent(symbol_function_call))
     xml2::xml_text(symbol_function_call) <- "DISTINCT "
+    xml2::xml_attr(symbol_function_call, "sparqlish") <- "true"
     xml2::xml_remove(xml2::xml_find_all(expr, ".//OP-LEFT-PAREN"))
     xml2::xml_remove(xml2::xml_find_all(expr, ".//OP-RIGHT-PAREN"))
   }
@@ -74,14 +86,23 @@ treat_select_argument <- function(arg) {
 
   purrr::walk(unique_calls, treat_unique)
 
-
   # then add ?
   symbols <- xml2::xml_find_all(code_data, ".//SYMBOL")
   xml2::xml_text(symbols) <- add_question_mark(xml2::xml_text(symbols))
 
-
+  # Abort if not sparqlish
+  not_sparqlish <- xml2::xml_find_all(code_data, ".//SYMBOL_FUNCTION_CALL[@sparqlish='false']")
+  if (length(not_sparqlish) > 0) {
+    rlang::abort(
+      sprintf(
+        "Can't find equivalent for %s."),
+      toString(
+        purrr::map_chr(not_sparqlish, xml2::xml_text)
+      )
+    )
+  }
 
   # put it back together
-  paste(code_data$text, collapse = "")
-
+  text <- xml2::xml_text(code_data)
+  gsub('[\"]', '"', text)
 }
