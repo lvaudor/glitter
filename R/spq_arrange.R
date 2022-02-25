@@ -98,8 +98,6 @@ treat_argument <- function(arg) {
     sprintf("ASC(%s)", rlang::enexpr(x) %>% rlang::as_label())
   }
 
-  add_question_mark <- function(x) sprintf("?%s", x)
-
   arranging_expr <- rlang::get_expr(arg)
 
   need_uppercase_translation <- grepl("^(desc|asc)\\(", rlang::as_label(arranging_expr))
@@ -112,11 +110,8 @@ treat_argument <- function(arg) {
     rlang::as_label(arranging_expr)
   }
 
-  stringr::str_replace(
-    arranging_expr,
-    "[a-zA-Z0-9]+\\)*$",
-    add_question_mark
-  ) %>% spq()
+  stringr::str_replace(arranging_expr, "[a-zA-Z0-9]+\\)*$", add_question_mark) %>%
+    spq()
 
 }
 

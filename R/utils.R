@@ -8,3 +8,5 @@ assert_whether_character <- function(eval_try) {
     )
   }
 }
+
+add_question_mark <- function(x) sprintf("?%s", x)
