@@ -20,6 +20,7 @@ spq_select = function(query = NULL, ..., spq_duplicate = NULL){
     }
   }
   query$spq_duplicate <- spq_duplicate
+
   selected_variables = purrr::map_chr(rlang::enquos(...), treat_select_argument)
 
   # add name for AS bla

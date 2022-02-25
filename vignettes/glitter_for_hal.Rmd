@@ -160,7 +160,7 @@ tib_dat=spq_init() %>%
   spq_add("?version dcterms:creator ?creator") %>%
   spq_add(". dcterms:issued ?date") %>%                      # ?version est sortie à ?date
   spq_add("?creator hal:person {fabien_gandon}") %>% 
-  spq_mutate(c("?year"="year(?date)"))%>%                    # Crée ?year = année de ?date
+  spq_mutate(year = year(date)) %>%                    # Crée ?year = année de ?date
   spq_group_by(c("?year")) %>%                               # Groupe par ?year
   spq_summarise(c("?nbdoc"="count(distinct ?document)")) %>% # Résume: ?nbdoc= nb de ?document dist.
   spq_arrange(year) %>% 
@@ -195,7 +195,7 @@ query_autNbDocYear=query_aut %>%
   spq_add("?creator hal:person ?forme") %>%             # ?creator est une personne ?forme
   spq_add("?version dcterms:issued ?date") %>%          # ?version a été publié à ?date
   spq_add("?document dcterms:hasVersion ?version") %>%  # ?document a pour versions ?version
-  spq_mutate(c("?year"="year(?date)")) %>%              # Ajoute ?year qui correspond à l'année de ?date
+  spq_mutate(year = year(date)) %>%              # Ajoute ?year qui correspond à l'année de ?date
   spq_group_by(c("?year")) %>%                          # Groupe par ?year
   spq_arrange(year) %>%                              # Ordonne par ordre décroissant de ?year
   spq_summarise(c("?nbdoc"="count(distinct ?document)"))# Résume: ?nbdoc=nb de ?document dist.
