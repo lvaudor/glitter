@@ -60,9 +60,12 @@ treat_select_argument = function(arg) {
       useless_arguments = r_arguments[!xml2::xml_text(r_arguments) %in% stats::na.omit(sparql_arguments[["R"]])]
       if (length(useless_arguments) > 0) {
         rlang::abort(
-          sprintf(
-            "Can't find equivalent for argument(s) %s for call to %s().",
-            toString(xml2::xml_text(useless_arguments)), original_name
+          c(
+            x = sprintf(
+              "Can't find equivalent for argument(s) %s for call to %s().",
+              toString(xml2::xml_text(useless_arguments)), original_name
+            ),
+            i = "If you think there should be one, open an issue in https://github.com/lvaudor/glitter."
           )
         )
       }

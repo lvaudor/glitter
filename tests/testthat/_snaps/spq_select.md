@@ -85,7 +85,8 @@
 
 # spq_select errors well
 
-    Can't find equivalent for argument(s) abbreviate, translate for call to year().
+    x Can't find equivalent for argument(s) abbreviate, translate for call to year().
+    i If you think there should be one, open an issue in https://github.com/lvaudor/glitter.
 
 ---
 
