@@ -72,7 +72,7 @@ spq_assemble=function(query, endpoint = "Wikidata"){
     "SELECT ", spq_duplicate, paste0(query$select,collapse=" "),"\n",
     "WHERE{\n",
     query$body,"\n",
-    query$filter,"\n",
+    paste0(query$filter, collapse = "\n"),"\n",
     query$service,"\n",
     "}\n",
     query$group_by,

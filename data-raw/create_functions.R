@@ -20,11 +20,10 @@ term_functions = tibble::tribble(
     "is.null", "isBlank",
     "is.literal", "isLiteral",
     "is.numeric", "isNumeric",
-    "as.character", "str",
     "lang", "lang",
     "typeof", "datatype",
     "as.iri", "IRI",
-    "as.character", "URI", # synonym of IRI
+    "as.character", "str",
     "bnode", "BNODE", # useful?
     "str_dt", "STRDT",
     "str_lang", "STRLANG",
@@ -51,7 +50,8 @@ misc_functions = tibble::tribble(
     "runif", "RAND",
     "Sys.time", "NOW",
     "desc", "DESC",
-    "asc", "ASC"
+    "asc", "ASC",
+    "c", ""
   )
 
 usethis::use_data(misc_functions, overwrite = TRUE)
@@ -76,7 +76,7 @@ string_functions = tibble::tribble(
     "str_to_lower", "LCASE", list(),
     "str_starts", "STRSTARTS", list(stringr_common_args),
     "str_ends", "STRENDS", list(stringr_common_args),
-    "str_detect", "CONTAINS", list(stringr_common_args),
+    #"str_detect", "CONTAINS", list(stringr_common_args),
     "str_before", "STRBEFORE", list(),
     "str_after", "STRAFTER", list(),
     "URLencode", "ENCODE_FOR_URI", list(),
