@@ -146,7 +146,7 @@ tib=spq_init() %>%
   spq_add("?oeuvre dcterms:creator ?auteur") %>% 
   spq_add("?auteur bio:death ?mort") %>% 
   spq_add("?auteur foaf:familyName ?nom") %>%
-  spq_filter("xsd:integer(?mort)<'1924'^^xsd:integer") %>% 
+  spq_filter(as.integer(mort) < as.integer('1924')) %>% 
   spq_group_by(c("?auteur","?nom","?mort")) %>% 
   spq_arrange(desc(xsd:integer(mort))) %>% 
   spq_head(n=10) %>% 
@@ -244,7 +244,7 @@ tib=spq_init() %>%
   spq_add("?ConceptA foaf:focus ?auteur") %>% 
   spq_add("?oeuvre dcterms:creator ?auteur") %>% 
   spq_add("?ConceptA rdfs:seeAlso ?wikipedia") %>% 
-  spq_filter("regex(?wikipedia,'wikipedia')") %>% 
+  spq_filter(str_detect(wikipedia,'wikipedia')) %>% 
   spq_head(n=10) %>% 
   spq_perform(e="dataBNF")
 

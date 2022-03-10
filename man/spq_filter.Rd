@@ -4,12 +4,13 @@
 \alias{spq_filter}
 \title{Builds the "filter" part of a query.}
 \usage{
-spq_filter(query = NULL, expressions)
+spq_filter(query = NULL, ...)
 }
 \arguments{
-\item{query}{a list with elements of the query*}
+\item{query}{a list with elements of the query}
 
-\item{expressions}{the vector of filtering expressions to apply}
+\item{...}{variables by which to arrange
+(or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
 }
 \description{
 Builds the "filter" part of a query.
@@ -19,7 +20,7 @@ Builds the "filter" part of a query.
 spq_init() \%>\%
 spq_add("?item wdt:P31 wd:Q13442814") \%>\%
 spq_add("?item rdfs:label ?itemTitle") \%>\%
-spq_filter("CONTAINS(LCASE(?itemTitle),'wikidata')") \%>\%
+spq_filter(str_detect(str_to_lower(itemTitle), 'wikidata')) \%>\%
 spq_filter("LANG(?itemTitle)='en'") \%>\%
-spq_head(n=5)
+spq_head(n = 5)
 }

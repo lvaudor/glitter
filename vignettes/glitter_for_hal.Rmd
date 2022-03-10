@@ -97,7 +97,7 @@ On peut **filtrer les résultats** pour n'afficher que la ligne de résultats po
 
 ```{r}
 query_docTypeFr=query_docType %>% 
-  spq_filter("lang(?label)='fr'")     # Filtre pour garder les étiquettes en français
+  spq_filter(lang(label) == 'fr')     # Filtre pour garder les étiquettes en français
 
 tib_docTypeFr=spq_perform(query_docTypeFr,"hal")
 
@@ -120,7 +120,7 @@ query_foAut=spq_init() %>%
   spq_add("?creator hal:person {fabien_gandon}") %>%    # ?creator est fabien_gandon ({déf. de l'objet dans R})
   spq_add("?version dcterms:type ?type") %>%            # ?version a pour type ?type
   spq_add("?type skos:prefLabel ?label") %>%            # ?type a pour étiquette ?label
-  spq_filter("lang(?label)='fr'")                       # Filtre pour garder les ?label en français
+  spq_filter(lang(label) == 'fr')                       # Filtre pour garder les ?label en français
 tib_foAut=spq_perform(query_foAut,"hal")
 
 head(tib_foAut)
