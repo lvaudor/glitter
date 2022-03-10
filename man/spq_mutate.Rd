@@ -9,7 +9,8 @@ spq_mutate(query, ...)
 \arguments{
 \item{query}{a list with elements of the query}
 
-\item{...}{variables by which to arrange (or SPARQL strings escaped with \code{spq()}, see examples)}
+\item{...}{variables by which to arrange
+(or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
 }
 \description{
 Create and modify variables in the results

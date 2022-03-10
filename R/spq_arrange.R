@@ -1,6 +1,7 @@
 #' Arrange results by variable value
 #' @param query a list with elements of the query
-#' @param ... variables by which to arrange (or SPARQL strings escaped with `spq()`, see examples)
+#' @param ... variables by which to arrange
+#' (or SPARQL strings escaped with `spq()`, or strings, see examples)
 #' @param replace whether to replace the pre-existing arranging
 #' @export
 #' @examples
@@ -10,6 +11,15 @@
 #'   spq_add("?item wdt:P2043 ?length") %>%
 #'   spq_add("?item wdt:P625 ?location") %>%
 #'   spq_arrange(desc(length), itemLabel) %>%
+#'   spq_head(50)
+#'
+#' # descending length, ascending itemLabel, "R" syntax with quotes e.g. for a loop
+#' variable <- "length"
+#' spq_init() %>%
+#'   spq_add("?item wdt:P31/wdt:P279* wd:Q4022", label = c("?item")) %>%
+#'   spq_add("?item wdt:P2043 ?length") %>%
+#'   spq_add("?item wdt:P625 ?location") %>%
+#'   spq_arrange(sprintf("desc(%s)", variable), itemLabel) %>%
 #'   spq_head(50)
 #'
 #' # descending length, ascending itemLabel, SPARQL syntax
@@ -65,10 +75,7 @@
 #'   spq_arrange(desc(length), spq("?location")) %>%
 #'   spq_head(50)
 spq_arrange = function(query , ..., replace = FALSE){
-  ordering_variables <- purrr::map_chr(
-    rlang::enquos(...),
-    treat_arrange_argument
-  )
+  ordering_variables <- purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
   query$order_by = if (replace) {
     ordering_variables
@@ -78,40 +85,4 @@ spq_arrange = function(query , ..., replace = FALSE){
   query
 }
 
-
-
-treat_arrange_argument <- function(arg) {
-
-  eval_try <- try(rlang::eval_tidy(arg), silent = TRUE)
-
-  if (is.spq(eval_try)) {
-    return(eval_try)
-  }
-
-  assert_whether_character(eval_try)
-
-  desc <- function(x) {
-    sprintf("DESC(%s)", rlang::enexpr(x) %>% rlang::as_label())
-  }
-
-  asc <- function(x) {
-    sprintf("ASC(%s)", rlang::enexpr(x) %>% rlang::as_label())
-  }
-
-  arranging_expr <- rlang::get_expr(arg)
-
-  need_uppercase_translation <- grepl("^(desc|asc)\\(", rlang::as_label(arranging_expr))
-
-  arranging_expr = if (need_uppercase_translation) {
-    # desc(variable) or asc(variable), translated
-    # add the ? to variable (variable = most nested thing)
-    rlang::eval_tidy(arranging_expr)
-  } else {
-    rlang::as_label(arranging_expr)
-  }
-
-  stringr::str_replace(arranging_expr, "[a-zA-Z0-9]+\\)*$", add_question_mark) %>%
-    spq()
-
-}
 

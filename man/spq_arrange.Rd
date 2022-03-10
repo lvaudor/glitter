@@ -9,7 +9,8 @@ spq_arrange(query, ..., replace = FALSE)
 \arguments{
 \item{query}{a list with elements of the query}
 
-\item{...}{variables by which to arrange (or SPARQL strings escaped with \code{spq()}, see examples)}
+\item{...}{variables by which to arrange
+(or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
 
 \item{replace}{whether to replace the pre-existing arranging}
 }
@@ -23,6 +24,15 @@ spq_init() \%>\%
   spq_add("?item wdt:P2043 ?length") \%>\%
   spq_add("?item wdt:P625 ?location") \%>\%
   spq_arrange(desc(length), itemLabel) \%>\%
+  spq_head(50)
+
+# descending length, ascending itemLabel, "R" syntax with quotes e.g. for a loop
+variable <- "length"
+spq_init() \%>\%
+  spq_add("?item wdt:P31/wdt:P279* wd:Q4022", label = c("?item")) \%>\%
+  spq_add("?item wdt:P2043 ?length") \%>\%
+  spq_add("?item wdt:P625 ?location") \%>\%
+  spq_arrange(sprintf("desc(\%s)", variable), itemLabel) \%>\%
   spq_head(50)
 
 # descending length, ascending itemLabel, SPARQL syntax

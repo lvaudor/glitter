@@ -21,7 +21,7 @@ spq_select = function(query = NULL, ..., spq_duplicate = NULL){
   }
   query$spq_duplicate <- spq_duplicate
 
-  variables = purrr::map_chr(rlang::enquos(...), treat_select_argument)
+  variables = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
   variables[nzchar(names(variables))] = purrr::map2_chr(
     variables[nzchar(names(variables))],
@@ -41,16 +41,22 @@ spq_select = function(query = NULL, ..., spq_duplicate = NULL){
   return(query)
 }
 
-treat_select_argument = function(arg) {
+spq_treat_argument = function(arg) {
   eval_try = try(rlang::eval_tidy(arg), silent = TRUE)
 
   if (is.spq(eval_try)) {
     return(eval_try)
   }
 
-  assert_whether_character(eval_try)
+  code <- if (!inherits(eval_try, "try-error") && is.character(eval_try)) {
+    # e.g. `"desc(length)"`
+    eval_try
+  } else {
+    # e.g. `desc(length)`, without quotes
+    rlang::as_label(arg)
+  }
 
-  code_data = parse_code(rlang::as_label(arg))
+  code_data = parse_code(code)
 
   treat_symbol_function_call = function(symbol_function_call) {
     equivalent = all_correspondences[all_correspondences[["R"]] == xml2::xml_text(symbol_function_call), ]
@@ -144,5 +150,5 @@ treat_select_argument = function(arg) {
   }
 
   # put it back together
-  text = xml2::xml_text(code_data)
+  xml2::xml_text(code_data)
 }

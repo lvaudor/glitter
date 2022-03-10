@@ -11,7 +11,7 @@
 #' spq_summarise(total_folkm = sum(folkm_ngd))
 spq_summarise = function(query, ...){
 
-  variables = purrr::map_chr(rlang::enquos(...), treat_select_argument)
+  variables = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
   variables[nzchar(names(variables))] = purrr::map2_chr(
     variables[nzchar(names(variables))],

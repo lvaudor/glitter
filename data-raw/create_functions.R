@@ -42,7 +42,10 @@ misc_functions = tibble::tribble(
     "if_else", "IF",
     "same_term", "sameTerm",
     "runif", "RAND",
-    "Sys.time", "NOW"
+    "Sys.time", "NOW",
+    "desc", "DESC",
+    "asc", "ASC",
+    "as.integer", "xsd:integer"
   )
 
 usethis::use_data(misc_functions, overwrite = TRUE)
