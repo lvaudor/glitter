@@ -4,12 +4,12 @@
 \alias{spq_group_by}
 \title{Group the results by one or more variables}
 \usage{
-spq_group_by(query, vars)
+spq_group_by(query, ...)
 }
 \arguments{
-\item{query}{a list with elements of the query}
+\item{query}{query}
 
-\item{vars}{a vector with the names of the variables used for grouping}
+\item{...}{Either R-DSL or strings with variable names}
 }
 \description{
 Group the results by one or more variables
@@ -18,7 +18,7 @@ Group the results by one or more variables
 \dontrun{
 spq_init() \%>\%
 spq_add("?s a ?class") \%>\%
-spq_group_by("?class") \%>\%
+spq_group_by(class) \%>\%
 spq_head(n=3) \%>\%
 spq_perform()
 }

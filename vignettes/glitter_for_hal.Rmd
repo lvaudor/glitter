@@ -55,7 +55,7 @@ Remarque: on peut concaténer les réponses d’une variable (ici les auteurs pa
 
 ```{r}
 query_doc_autConcat = query_doc %>% 
-  spq_group_by(c("?version","?title","?pdf")) %>%             # Groupe les résultats par ?version, ?title, ?pdf
+  spq_group_by(version, title,pdf) %>%             # Groupe les résultats par ?version, ?title, ?pdf
   spq_summarise(authors = str_c(name, sep = ', '))      # Concatène les noms d'auteur dans ?authors
 
 tib_doc_autConcat = spq_perform(query_doc_autConcat,"hal")
@@ -70,7 +70,7 @@ tib_nbAutDoc=spq_init() %>%
   spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
   spq_add("?version dcterms:creator ?creator") %>%                 # ?version a pour créateur ?creator
   spq_add("?creator hal:person ?person") %>%                       # ?creator est une personne ?person
-  spq_group_by("?version") %>%                                     # Groupe par ?version
+  spq_group_by(version) %>%                                     # Groupe par ?version
   spq_summarise(nbperson = n(unique(person))) %>%      # Résume: ?nbperson = nb de ?person dist.  
   spq_perform(e="hal")
 
@@ -133,7 +133,7 @@ On peut **résumer les résultats requêtés** par exemple en affichant le nombr
 
 ```{r}
 query_foAutNbDoc=query_foAut %>% 
-  spq_group_by(c("?type","?label")) %>%                      # Groupe par ?type et ?label
+  spq_group_by(type, label) %>%                      # Groupe par ?type et ?label
   spq_summarise(nbdoc = n(unique(document)))    
 
 tib_foAutNbDoc=spq_perform(query_foAutNbDoc,"hal")
@@ -161,7 +161,7 @@ tib_dat=spq_init() %>%
   spq_add(". dcterms:issued ?date") %>%                      # ?version est sortie à ?date
   spq_add("?creator hal:person {fabien_gandon}") %>% 
   spq_mutate(year = year(date)) %>%                    # Crée ?year = année de ?date
-  spq_group_by(c("?year")) %>%                               # Groupe par ?year
+  spq_group_by(year) %>%                               # Groupe par ?year
   spq_summarise(nbdoc = n(unique(document))) %>% 
   spq_arrange(year) %>% 
   spq_perform(e="hal")
@@ -196,7 +196,7 @@ query_autNbDocYear=query_aut %>%
   spq_add("?version dcterms:issued ?date") %>%          # ?version a été publié à ?date
   spq_add("?document dcterms:hasVersion ?version") %>%  # ?document a pour versions ?version
   spq_mutate(year = year(date)) %>%              # Ajoute ?year qui correspond à l'année de ?date
-  spq_group_by(c("?year")) %>%                          # Groupe par ?year
+  spq_group_by(year) %>%                          # Groupe par ?year
   spq_arrange(year) %>%                              # Ordonne par ordre décroissant de ?year
   spq_summarise(nbdoc = n(unique(document)))
 

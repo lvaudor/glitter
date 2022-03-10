@@ -3,7 +3,7 @@
 #' @param n the maximum number of lines to return
 #' @export
 #' @section Subsetting:
-#' [`spq_offset()`] and [`spq_limit()`] are only useful when used with
+#' [`spq_offset()`] and [`spq_head()`] are only useful when used with
 #' [`spq_arrange()`] that makes the order of results predictable.
 #' @examples
 #' # Return 42 items

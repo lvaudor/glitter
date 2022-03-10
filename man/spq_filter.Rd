@@ -21,6 +21,6 @@ spq_init() \%>\%
 spq_add("?item wdt:P31 wd:Q13442814") \%>\%
 spq_add("?item rdfs:label ?itemTitle") \%>\%
 spq_filter(str_detect(str_to_lower(itemTitle), 'wikidata')) \%>\%
-spq_filter("LANG(?itemTitle)='en'") \%>\%
+spq_filter(lang(itemTitle)=="en") \%>\%
 spq_head(n = 5)
 }

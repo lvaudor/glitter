@@ -35,17 +35,17 @@
 #'   spq_add("?oeuvre dcterms:creator ?auteur") %>%
 #'   spq_add("?auteur bio:death ?mort") %>%
 #'   spq_add("?auteur foaf:familyName ?nom") %>%
-#'   spq_filter("xsd:integer(?mort)<'1924'^^xsd:integer") %>%
-#'   spq_group_by(c("?auteur","?nom","?mort")) %>%
-#'   spq_arrange(desc(xsd:integer(mort)))
+#'   spq_filter(as.integer(mort)<as.integer('1924')) %>%
+#'   spq_group_by(auteur, nom , mort) %>%
+#'   spq_arrange(desc(as.integer(mort)))
 #'
-#' # descending xsd:integer(mort), SPARQL syntax
+#' # descending as.integer(mort), SPARQL syntax
 #' spq_init() %>%
 #'   spq_add("?oeuvre dcterms:creator ?auteur") %>%
 #'   spq_add("?auteur bio:death ?mort") %>%
 #'   spq_add("?auteur foaf:familyName ?nom") %>%
-#'   spq_filter("xsd:integer(?mort)<'1924'^^xsd:integer") %>%
-#'   spq_group_by(c("?auteur","?nom","?mort")) %>%
+#'   spq_filter(as.integer(mort)<as.integer('1924')) %>%
+#'   spq_group_by(auteur, nom, mort) %>%
 #'   spq_arrange(spq("DESC(xsd:integer(?mort))"))
 #'
 #' # Usage of the replace argument

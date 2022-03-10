@@ -16,7 +16,7 @@ Return the first lines of results
 }
 \section{Subsetting}{
 
-\code{\link[=spq_offset]{spq_offset()}} and \code{\link[=spq_limit]{spq_limit()}} are only useful when used with
+\code{\link[=spq_offset]{spq_offset()}} and \code{\link[=spq_head]{spq_head()}} are only useful when used with
 \code{\link[=spq_arrange]{spq_arrange()}} that makes the order of results predictable.
 }
 
