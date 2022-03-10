@@ -34,6 +34,7 @@ Imports:
     WikidataQueryServiceR,
     WikidataR
 Suggests: 
+    covr,
     httptest2,
     knitr,
     leaflet,

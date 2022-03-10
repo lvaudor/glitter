@@ -5,6 +5,7 @@
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/lvaudor/glitter/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lvaudor/glitter/actions/workflows/R-CMD-check.yaml)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Codecov test coverage](https://codecov.io/gh/lvaudor/glitter/branch/master/graph/badge.svg)](https://app.codecov.io/gh/lvaudor/glitter?branch=master)
 <!-- badges: end -->
 
 This package aims at writing and sending SPARQL queries without any knowledge of the SPARQL language syntax. It makes the exploration and use of Linked Open Data (Wikidata in particular) easier for those who do not know SPARQL.
