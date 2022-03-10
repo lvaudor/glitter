@@ -120,6 +120,11 @@ treat_symbol_function_call = function(symbol_function_call) {
       purrr::walk(star, replace_star)
     }
 
+    # Remove ,
+    if (!(equivalent[["SPARQL"]] %in% c("REGEX", ""))) {
+      commas = xml2::xml_find_all(expr, ".//OP-COMMA")
+      xml2::xml_text(commas) = ";"
+    }
 
   } else {
     xml2::xml_attr(symbol_function_call, "sparqlish") = "false"
