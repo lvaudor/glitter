@@ -148,7 +148,7 @@ tib=spq_init() %>%
   spq_add("?auteur foaf:familyName ?nom") %>%
   spq_filter(as.integer(mort) < as.integer('1924')) %>% 
   spq_group_by(c("?auteur","?nom","?mort")) %>% 
-  spq_arrange(desc(xsd:integer(mort))) %>% 
+  spq_arrange(desc(as.integer(mort))) %>% 
   spq_head(n=10) %>% 
   spq_perform(e="dataBNF")
 
