@@ -29,8 +29,15 @@ term_functions = tibble::tribble(
     "str_dt", "STRDT",
     "str_lang", "STRLANG",
     "uuid", "UUID",
-    "str_uuid", "STRUUID"
-  )
+    "str_uuid", "STRUUID",
+    "as.integer", "xsd:integer",
+    "as.datetime", "xsd:dateTime",
+    "as.logical", "xsd:boolean",
+    "as.double", "xsd:double",
+    "as.float", "xsd:float",
+    "as.decimal", "xsd:decimal",
+    "as.str", "xsd:string"
+)
 
 usethis::use_data(term_functions, overwrite = TRUE)
 
@@ -44,8 +51,7 @@ misc_functions = tibble::tribble(
     "runif", "RAND",
     "Sys.time", "NOW",
     "desc", "DESC",
-    "asc", "ASC",
-    "as.integer", "xsd:integer"
+    "asc", "ASC"
   )
 
 usethis::use_data(misc_functions, overwrite = TRUE)
