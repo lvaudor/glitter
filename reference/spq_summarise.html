@@ -57,15 +57,18 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">spq_summarise</span><span class="op">(</span><span class="va">query</span>, <span class="va">vars</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">spq_summarise</span><span class="op">(</span><span class="va">query</span>, <span class="va">...</span><span class="op">)</span>
+
+<span class="fu">spq_summarize</span><span class="op">(</span><span class="va">query</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>query</dt>
 <dd><p>a list with elements of the query</p></dd>
-<dt>vars</dt>
-<dd><p>a vector with the names of the variables used for grouping</p></dd>
+<dt>...</dt>
+<dd><p>variables by which to arrange
+(or SPARQL strings escaped with <code><a href="spq.html">spq()</a></code>, or strings, see examples)</p></dd>
 </dl></div>
 
     <div class="section level2">
@@ -73,11 +76,10 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">result</span><span class="op">=</span><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?item wdt:P361 wd:Q297853"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?item wdt:P1082 ?folkm_ngd"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?area wdt:P31 wd:Q1907114"</span>,label<span class="op">=</span><span class="st">"?area"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in"><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?area wdt:P31 wd:Q1907114"</span>, label <span class="op">=</span> <span class="st">"?area"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in"><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?area wdt:P527 ?item"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu"><a href="spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?area"</span>,<span class="st">"?areaLabel"</span><span class="op">)</span><span class="op">)</span>  <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu">spq_summarise</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?total_folkm"</span><span class="op">=</span><span class="st">"sum(?folkm_ngd)"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in"><span class="fu"><a href="spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="va">area</span>, <span class="va">areaLabel</span><span class="op">)</span>  <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in"><span class="fu">spq_summarise</span><span class="op">(</span>total_folkm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">folkm_ngd</span><span class="op">)</span><span class="op">)</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

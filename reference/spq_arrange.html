@@ -65,7 +65,8 @@
     <dl><dt>query</dt>
 <dd><p>a list with elements of the query</p></dd>
 <dt>...</dt>
-<dd><p>variables by which to arrange (or SPARQL strings escaped with <code><a href="spq.html">spq()</a></code>, see examples)</p></dd>
+<dd><p>variables by which to arrange
+(or SPARQL strings escaped with <code><a href="spq.html">spq()</a></code>, or strings, see examples)</p></dd>
 <dt>replace</dt>
 <dd><p>whether to replace the pre-existing arranging</p></dd>
 </dl></div>
@@ -78,6 +79,27 @@
 <span class="r-in">  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?item wdt:P2043 ?length"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?item wdt:P625 ?location"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu">spq_arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">length</span><span class="op">)</span>, <span class="va">itemLabel</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?item ?itemLabel ?length ?location</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P31/wdt:P279* wd:Q4022.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P2043 ?length.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P625 ?location.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY DESC(?length) ?itemLabel</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LIMIT 50</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># descending length, ascending itemLabel, "R" syntax with quotes e.g. for a loop</span></span>
+<span class="r-in"><span class="va">variable</span> <span class="op">&lt;-</span> <span class="st">"length"</span></span>
+<span class="r-in"><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?item wdt:P31/wdt:P279* wd:Q4022"</span>, label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?item"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?item wdt:P2043 ?length"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?item wdt:P625 ?location"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">spq_arrange</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"desc(%s)"</span>, <span class="va">variable</span><span class="op">)</span>, <span class="va">itemLabel</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu"><a href="spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?item ?itemLabel ?length ?location</span>
@@ -117,9 +139,9 @@
 <span class="r-in">  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?oeuvre dcterms:creator ?auteur"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?auteur bio:death ?mort"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?auteur foaf:familyName ?nom"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="st">"xsd:integer(?mort)&lt;'1924'^^xsd:integer"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?auteur"</span>,<span class="st">"?nom"</span>,<span class="st">"?mort"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">spq_arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">xsd</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="va">mort</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu"><a href="spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">mort</span><span class="op">)</span><span class="op">&lt;</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="st">'1924'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="va">auteur</span>, <span class="va">nom</span> , <span class="va">mort</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">spq_arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">mort</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX bio: &lt;http://vocab.org/bio/0.1/&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX dcterms: &lt;http://purl.org/dc/terms/&gt;</span>
@@ -129,21 +151,20 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> ?oeuvre dcterms:creator ?auteur.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ?auteur bio:death ?mort.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ?auteur foaf:familyName ?nom.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> FILTER(xsd:integer(?mort)&lt;'1924'^^xsd:integer)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> FILTER(xsd:integer(?mort)&lt;xsd:integer("1924"))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GROUP BY ?auteur ?mort ?nom</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY DESC(xsd:integer(?mort))</span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># descending xsd:integer(mort), SPARQL syntax</span></span>
+<span class="r-in"><span class="co"># descending as.integer(mort), SPARQL syntax</span></span>
 <span class="r-in"><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?oeuvre dcterms:creator ?auteur"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?auteur bio:death ?mort"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?auteur foaf:familyName ?nom"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="st">"xsd:integer(?mort)&lt;'1924'^^xsd:integer"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"?auteur"</span>,<span class="st">"?nom"</span>,<span class="st">"?mort"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">spq_arrange</span><span class="op">(</span><span class="fu"><a href="spq.html">spq</a></span><span class="op">(</span><span class="st">"DESC(xsd:integer(?mort))"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in">  <span class="fu"><a href="spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">mort</span><span class="op">)</span><span class="op">&lt;</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="st">'1924'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="va">auteur</span>, <span class="va">nom</span>, <span class="va">mort</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">spq_arrange</span><span class="op">(</span><span class="fu"><a href="spq.html">spq</a></span><span class="op">(</span><span class="st">"DESC(?mort)"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX bio: &lt;http://vocab.org/bio/0.1/&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX dcterms: &lt;http://purl.org/dc/terms/&gt;</span>
@@ -153,12 +174,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> ?oeuvre dcterms:creator ?auteur.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ?auteur bio:death ?mort.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ?auteur foaf:familyName ?nom.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> FILTER(xsd:integer(?mort)&lt;'1924'^^xsd:integer)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> FILTER(xsd:integer(?mort)&lt;xsd:integer("1924"))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> GROUP BY ?auteur ?mort ?nom</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY DESC(xsd:integer(?mort))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY DESC(?mort)</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Usage of the replace argument</span></span>
 <span class="r-in"><span class="co"># replace = FALSE (default)</span></span>

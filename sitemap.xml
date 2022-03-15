@@ -79,6 +79,9 @@
     <loc>https://lvaudor.github.io/glitter/reference/show_graph_classes.html</loc>
   </url>
   <url>
+    <loc>https://lvaudor.github.io/glitter/reference/sparql-dsl.html</loc>
+  </url>
+  <url>
     <loc>https://lvaudor.github.io/glitter/reference/spq.html</loc>
   </url>
   <url>
@@ -107,6 +110,9 @@
   </url>
   <url>
     <loc>https://lvaudor.github.io/glitter/reference/spq_mutate.html</loc>
+  </url>
+  <url>
+    <loc>https://lvaudor.github.io/glitter/reference/spq_offset.html</loc>
   </url>
   <url>
     <loc>https://lvaudor.github.io/glitter/reference/spq_perform.html</loc>
