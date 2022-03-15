@@ -51,16 +51,35 @@ spq_assemble=function(query, endpoint = "Wikidata"){
     query$select
   }
 
+  spq_duplicate <- if (is.null(query$spq_duplicate)) {
+    ""
+  } else {
+    sprintf("%s ", query$spq_duplicate)
+  }
+
+  limit <- if (is.null(query$limit)) {
+    ""
+  } else {
+    glue::glue("LIMIT {query$limit}\n")
+  }
+
+  offset <- if (is.null(query$offset)) {
+    ""
+  } else {
+    glue::glue("OFFSET {query$offset}")
+  }
   paste0(part_prefixes,"\n",
-    "SELECT ", paste0(query$select,collapse=" "),"\n",
+    "SELECT ", spq_duplicate, paste0(query$select,collapse=" "),"\n",
     "WHERE{\n",
     query$body,"\n",
-    query$filter,"\n",
+    paste0(query$filter, collapse = "\n"),"\n",
     query$service,"\n",
     "}\n",
     query$group_by,
     query$order_by,"\n",
-    query$limit)
+    limit,
+    offset
+  )
 }
 
 utils::globalVariables("usual_prefixes")

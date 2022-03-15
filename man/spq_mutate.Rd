@@ -4,12 +4,13 @@
 \alias{spq_mutate}
 \title{Create and modify variables in the results}
 \usage{
-spq_mutate(query, vars)
+spq_mutate(query, ...)
 }
 \arguments{
 \item{query}{a list with elements of the query}
 
-\item{vars}{formula}
+\item{...}{variables by which to arrange
+(or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
 }
 \description{
 Create and modify variables in the results
@@ -18,5 +19,5 @@ Create and modify variables in the results
 # common name of a plant species in different languages
 spq_init() \%>\%
 spq_add("wd:Q331676 wdt:P1843 ?statement") \%>\%
-spq_mutate(c("?lang"="LANG(?statement)"))
+spq_mutate(lang = lang(statement))
 }

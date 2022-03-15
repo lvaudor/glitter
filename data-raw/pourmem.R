@@ -51,7 +51,7 @@ build_graph=function(id,step_max){
       mutate(from=id) %>%
       select(-id) %>%
       select(from,to) %>%
-      na.omit() %>%
+      stats::na.omit() %>%
       filter(from!=to)
 
     tib_g=tbl_graph(nodes=df_nodes,

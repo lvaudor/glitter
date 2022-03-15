@@ -146,9 +146,9 @@ tib=spq_init() %>%
   spq_add("?oeuvre dcterms:creator ?auteur") %>% 
   spq_add("?auteur bio:death ?mort") %>% 
   spq_add("?auteur foaf:familyName ?nom") %>%
-  spq_filter("xsd:integer(?mort)<'1924'^^xsd:integer") %>% 
-  spq_group_by(c("?auteur","?nom","?mort")) %>% 
-  spq_arrange(desc(xsd:integer(mort))) %>% 
+  spq_filter(as.integer(mort) < as.integer('1924')) %>% 
+  spq_group_by(auteur, nom, mort) %>% 
+  spq_arrange(desc(as.integer(mort))) %>% 
   spq_head(n=10) %>% 
   spq_perform(e="dataBNF")
 
@@ -173,7 +173,7 @@ tib=spq_init() %>%
   spq_add("?manifestation bnf-onto:ouvrageJeunesse 'true'^^xsd:boolean") %>% 
   spq_add(". rdarelationships:workManifested ?oeuvre") %>% 
   spq_add(". rdfs:seeAlso ?uri") %>% 
-  spq_group_by(c("?uri","?oeuvre")) %>% 
+  spq_group_by(uri, oeuvre) %>% 
   spq_head(n=10) %>% 
   spq_perform(e="dataBNF")
 
@@ -190,7 +190,7 @@ tib=spq_init() %>%
   spq_add(". dcterms:subject ?auteur") %>% 
   spq_add(". dcterms:subject <http://data.bnf.fr/ark:/12148/cb11932843f>") %>% 
   spq_head(n=10) %>% 
-  spq_group_by(c("?auteur","?url")) %>% 
+  spq_group_by(auteur, url) %>% 
   spq_perform(e="dataBNF")
 
 knitr::kable(tib)
@@ -230,7 +230,7 @@ tib=spq_init() %>%
   spq_add("?c a <http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing>") %>% 
   spq_add("?lieu foaf:focus ?c") %>% 
   spq_add("?lieu skos:closeMatch ?concept") %>% 
-  spq_group_by(c("?lieu","?concept","?c")) %>% 
+  spq_group_by(lieu, concept , c) %>% 
   spq_head(n=100) %>% 
   spq_perform(e="dataBNF")
 
@@ -244,7 +244,7 @@ tib=spq_init() %>%
   spq_add("?ConceptA foaf:focus ?auteur") %>% 
   spq_add("?oeuvre dcterms:creator ?auteur") %>% 
   spq_add("?ConceptA rdfs:seeAlso ?wikipedia") %>% 
-  spq_filter("regex(?wikipedia,'wikipedia')") %>% 
+  spq_filter(str_detect(wikipedia,'wikipedia')) %>% 
   spq_head(n=10) %>% 
   spq_perform(e="dataBNF")
 

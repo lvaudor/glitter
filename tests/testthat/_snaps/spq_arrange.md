@@ -15,7 +15,7 @@
 ---
 
     Code
-      spq_arrange(query, desc(xsd:integer(mort)))
+      spq_arrange(query, desc(as.integer(mort)))
     Output
       
       SELECT *
@@ -84,15 +84,10 @@
       }
       ORDER BY DESC(?length) ?itemLabel
 
-# spq_arrange errors if passing a string directly
-
-    Did you mean to pass a string? Use spq() to wrap it.
-
-# spq_arrange does not error if passing sthg that could be evaluated
+# spq_arrange works if passing a string directly
 
     Code
-      var <- c(1, 1)
-      spq_arrange(query, length(var))
+      spq_arrange(query, "desc(length)")
     Output
       
       SELECT *
@@ -101,5 +96,20 @@
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
-      ORDER BY length(?var)
+      ORDER BY DESC(?length)
+
+# spq_arrange does not error if passing sthg that could be evaluated
+
+    Code
+      var <- c(1, 1)
+      spq_arrange(query, str_to_lower(var))
+    Output
+      
+      SELECT *
+      WHERE{
+      
+      
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
+      }
+      ORDER BY LCASE(?var)
 

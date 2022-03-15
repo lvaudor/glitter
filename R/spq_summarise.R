@@ -1,33 +1,38 @@
 #' Summarise each group of results to fewer results
-#' @param query a list with elements of the query
-#' @param vars a vector with the names of the variables used for grouping
+#' @inheritParams spq_arrange
 #' @export
 #' @examples
 #' result=spq_init() %>%
 #' spq_add("?item wdt:P361 wd:Q297853") %>%
 #' spq_add("?item wdt:P1082 ?folkm_ngd") %>%
-#' spq_add("?area wdt:P31 wd:Q1907114",label="?area") %>%
+#' spq_add("?area wdt:P31 wd:Q1907114", label = "?area") %>%
 #' spq_add("?area wdt:P527 ?item") %>%
-#' spq_group_by(c("?area","?areaLabel"))  %>%
-#' spq_summarise(c("?total_folkm"="sum(?folkm_ngd)")) %>%
-#' spq_perform()
-spq_summarise=function(query,vars){
+#' spq_group_by(area, areaLabel)  %>%
+#' spq_summarise(total_folkm = sum(folkm_ngd))
+spq_summarise = function(query, ...){
 
-  # Which variables are summarised ?
-  summarised_vars=stringr::str_extract(vars,
-                                       "(?<=\\().*(?=\\))")
+  variables = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
+
+  variables[nzchar(names(variables))] = purrr::map2_chr(
+    variables[nzchar(names(variables))],
+    names(variables)[nzchar(names(variables))],
+    add_as
+  )
+
+  names(variables[!nzchar(names(variables))]) <- variables[!nzchar(names(variables))]
 
   # If no grouping has been done
-  if(is.null(query$group_by)){
+  if (is.null(query$group_by)) {
     # then GROUP BY summary variables
-    query$group_by=names(vars)
+    query$group_by = names(variables)
     # and remove all other selected variables
-    query$select=NULL
+    query$select = NULL
   }
 
-  summaries=glue::glue("({vars} AS {names(vars)})") %>%
-    paste(collapse=" ")
-
-  query$select=c(query$select,summaries)
+  query$select = c(query$select, variables)
   return(query)
 }
+
+#' @export
+#' @rdname spq_summarise
+spq_summarize <- spq_summarise

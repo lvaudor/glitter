@@ -1,43 +1,42 @@
-#' Select particular variables
-#' @param query the query
-#' @param variables the variables
+#' Select (and create) particular variables
+#' @inheritParams spq_arrange
+#' @param spq_duplicate How to handle duplicates: keep them (`NULL`), eliminate (`distinct`)
+#' or reduce them (`reduced`, advanced usage).
 #' @export
 #' @examples
-#' tib=spq_init() %>%
-#'  spq_add("?film wdt:P31 wd:Q11424", label="?film") %>%
-#'  spq_add("?film wdt:P840 ?loc", label="?loc") %>%
-#'  spq_add("?film wdt:P495 ?origin", label="?origin") %>%
-#'  spq_add("?film wdt:P577 ?date") %>%
-#'  spq_mutate(c("?year"="year(?date)")) %>%
-#'  spq_head(10) %>%
-#'  spq_select("-?date") %>%
-#'  spq_perform()
-spq_select=function(query=NULL,
-                    variables){
-  prev_vars=query$select
+#'
+#' query = spq_init()
+#' spq_select(query, count = n (human), eyecolorLabel, haircolorLabel)
+spq_select = function(query = NULL, ..., spq_duplicate = NULL){
+  if (!is.null(spq_duplicate)) {
+    original_spq_duplicate <- spq_duplicate
+    spq_duplicate <- toupper(spq_duplicate)
+    if (!(spq_duplicate %in% c("DISTINCT", "REDUCED"))) {
+      rlang::abort(c(
+        x = sprintf("Wrong value for `spq_duplicate` argument (%s).", original_spq_duplicate),
+        i = 'Use either `NULL`, "distinct" or "reduced".'
+      )
+      )
+    }
+  }
+  query$spq_duplicate <- spq_duplicate
 
-  # positively identified variables
-  plus_variables=variables %>%
-    stringr::str_subset("^\\?")
-  # negatively identified variables
-  minus_variables=variables %>%
+  variables = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
+
+  variables[nzchar(names(variables))] = purrr::map2_chr(
+    variables[nzchar(names(variables))],
+    names(variables)[nzchar(names(variables))],
+    add_as
+  )
+
+  minus_variables = variables %>%
     stringr::str_subset("^\\-\\?") %>%
     stringr::str_remove("\\-")
 
-  # If some variables are positively identified,
-  # keep only these, else keep all
-  if(length(plus_variables>0)){
-    new_vars=prev_vars %>%
-      subset(prev_vars %in% plus_variables)
-  }else{
-    new_vars=prev_vars
-  }
-  # If some variables are negatively identified,
-  # keep all but these, else keep all
-  if(length(minus_variables>0)){
-    new_vars=new_vars %>%
-      subset(!(new_vars %in% minus_variables))
-  }
-  query$select=unique(new_vars)
+  plus_variables = variables %>%
+    stringr::str_subset("^\\-\\?", negate = TRUE)
+
+  query$select = unique(c(query$select, plus_variables))
+  query$select = query$select[!query$select %in% minus_variables]
   return(query)
 }

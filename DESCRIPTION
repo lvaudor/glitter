@@ -32,7 +32,9 @@ Imports:
     tidygraph,
     tidyselect,
     WikidataQueryServiceR,
-    WikidataR
+    WikidataR,
+    xml2,
+    xmlparsedata
 Suggests: 
     covr,
     httptest2,

@@ -22,9 +22,10 @@ reference:
   desc: "These functions help translate R syntax into SPARQL language"
 - contents:
   - starts_with("is_")
+  - set_functions
 - title: "Debugging"
 - contents:
-  - assemble_sparql_query
+  - spq_assemble
 - title: internal
   contents:
   - build_graph_classes
