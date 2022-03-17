@@ -22,8 +22,7 @@ spq_assemble=function(query, endpoint = "Wikidata"){
   prefixes_known = dplyr::bind_rows(query$prefixes_provided,usual_prefixes)
   purrr::map_lgl(query$prefixes_used,
                  is_prefix_known,
-                 prefixes_known= prefixes_known,
-                 endpoint=endpoint)
+                 prefixes_known = prefixes_known)
   # prefixes
   if(nrow(query$prefixes_provided)>0){
     part_prefixes=glue::glue("PREFIX {query$prefixes_provided$name}: <{query$prefixes_provided$url}>") %>%

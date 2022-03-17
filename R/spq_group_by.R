@@ -11,8 +11,8 @@
 #' spq_perform()
 #' }
 spq_group_by = function(query, ...){
-  vars <- purrr::map_chr(rlang::enquos(...), spq_treat_argument)
-  varformula = get_varformula(query$select)
+  vars = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
+  varformula = purrr::map_df(query$select, get_varformula)
   query$select = varformula %>%
     dplyr::filter(.data$name %in% vars) %>%
     dplyr::pull(.data$full)
