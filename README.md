@@ -21,9 +21,9 @@ not know SPARQL.
 
 With glitter, compared to writing SPARQL queries by hand, your code
 should be easier to write, and easier to read by your peers who do not
-know SPARQL. The glitter package supports a “DSL” (domain-specific
-language) with function names closer to the tidyverse (dplyr, stringr)
-and base R than SPARQL.
+know SPARQL. The glitter package supports a “domain-specific language”
+(DSL) with function names (and syntax) closer to the tidyverse and base
+R than SPARQL.
 
 For instance, to find a corpus of 5 articles with a title in English and
 “wikidata” in that title, instead of writing SPARQL by hand you can run:
@@ -52,8 +52,8 @@ query
 #> LIMIT 5
 ```
 
-Note how we were able to use `str_detect()` and `str_to_lower()` instead
-of SPARQL’s functions `REGEX` and `LCASE`.
+Note how we were able to use `str_detect()` and `str_to_lower()` (as in
+the stringr package) instead of SPARQL’s functions `REGEX` and `LCASE`.
 
 To perform the query,
 
