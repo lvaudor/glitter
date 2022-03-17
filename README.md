@@ -19,9 +19,11 @@ knowledge of the SPARQL language syntax. It makes the exploration and
 use of Linked Open Data (Wikidata in particular) easier for those who do
 not know SPARQL.
 
-With glitter. compared to writing SPARQL queries by hand, your code
+With glitter, compared to writing SPARQL queries by hand, your code
 should be easier to write, and easier to read by your peers who do not
-know SPARQL.
+know SPARQL. The glitter package supports a “DSL” (domain-specific
+language) with function names closer to the tidyverse (dplyr, stringr)
+and base R than SPARQL.
 
 For instance, to find a corpus of 5 articles with a title in English and
 “wikidata” in that title, instead of writing SPARQL by hand you can run:
@@ -49,6 +51,9 @@ query
 #> 
 #> LIMIT 5
 ```
+
+Note how we were able to use `str_detect()` and `str_to_lower()` instead
+of SPARQL’s functions `REGEX` and `LCASE`.
 
 To perform the query,
 
