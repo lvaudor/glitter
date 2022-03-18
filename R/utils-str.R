@@ -140,14 +140,14 @@ is_svo_correct = function(string){
 #' @noRd
 #' @examples
 #' keep_prefix("wdt:P31/wdt:P279*") # wdt
-#' keep_prefix("?item") # NULL
-#' keep_prefix("<http://qdsfqsdfqsfqsdf.html>") # NULL
+#' keep_prefix("?item") # NA
+#' keep_prefix("<http://qdsfqsdfqsfqsdf.html>") # NA
 #' keep_prefix("wd:P343") # "wd:P343"
 #' keep_prefix("'11992081'^^xsd:integer") # xsd:integer
 #' keep_prefix(c("wd:P343","wdt:P249"))
 keep_prefix = function(string){
 
-  if (!is_prefixed(string)) {
+  if (!is_prefixed(string) || is_url(string)) {
     return(NA)
   }
 
