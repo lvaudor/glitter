@@ -44,13 +44,13 @@ test_that("spq_select errors well", {
 test_that("spq_select can use DISTINCT and REDUCED", {
   query <- spq_init()
   expect_snapshot(
-    spq_select(query, year, month, day, spq_duplicate = "distinct")
+    spq_select(query, year, month, day, .spq_duplicate = "distinct")
   )
   expect_snapshot(
-    spq_select(query, year, month, day, spq_duplicate = "reduced")
+    spq_select(query, year, month, day, .spq_duplicate = "reduced")
   )
   expect_snapshot_error(
-    spq_select(query, year, month, day, spq_duplicate = "reduce")
+    spq_select(query, year, month, day, .spq_duplicate = "reduce")
   )
 
 })

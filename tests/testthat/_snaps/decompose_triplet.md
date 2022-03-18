@@ -1,7 +1,7 @@
-# decompose_triplet works
+# decompose_triple works
 
     Code
-      decompose_triplet("?athlete rdfs:label \"Cristiano Ronaldo\"@en")
+      decompose_triple("?athlete rdfs:label \"Cristiano Ronaldo\"@en")
     Output
       $subject
       [1] "?athlete"

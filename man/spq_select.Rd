@@ -4,7 +4,7 @@
 \alias{spq_select}
 \title{Select (and create) particular variables}
 \usage{
-spq_select(query = NULL, ..., spq_duplicate = NULL)
+spq_select(query = NULL, ..., .spq_duplicate = NULL)
 }
 \arguments{
 \item{query}{a list with elements of the query}
@@ -12,7 +12,7 @@ spq_select(query = NULL, ..., spq_duplicate = NULL)
 \item{...}{variables by which to arrange
 (or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
 
-\item{spq_duplicate}{How to handle duplicates: keep them (\code{NULL}), eliminate (\code{distinct})
+\item{.spq_duplicate}{How to handle duplicates: keep them (\code{NULL}), eliminate (\code{distinct})
 or reduce them (\code{reduced}, advanced usage).}
 }
 \description{

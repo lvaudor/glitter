@@ -1,15 +1,16 @@
-#' Add a triplet statement to a query
+#' Add a triple statement to a query
 #' @param query query
-#' @param triplet the triplet statement (replaces arguments subject verb and object)
-#' @param subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))
-#' @param verb the property (for instance "wdt:P190")
-#' @param object an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))
-#' @param required whether the existence of a value for the triplet is required or not (defaults to TRUE).
-#'   If set to FALSE, then other triplets in the query are returned even if this particular triplet is missing)
-#' @param label a vector of variables for which to include a label column (defaults to NA)
-#' @param within_box if provided, rectangular bounding box for the triplet query.
+#' @param ... the triple statement (replaces arguments subject verb and object)
+#' Either R-DSL (or SPARQL strings escaped with `spq()`, or strings, see examples)
+#' @param .subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))
+#' @param .verb the property (for instance "wdt:P190")
+#' @param .object an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))
+#' @param .required whether the existence of a value for the triple is required or not (defaults to TRUE).
+#'   If set to FALSE, then other triples in the query are returned even if this particular triple is missing)
+#' @param .label a vector of variables for which to include a label column (defaults to NA)
+#' @param .within_box if provided, rectangular bounding box for the triple query.
 #'   Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))
-#' @param within_distance if provided, circular bounding box for the triplet query.
+#' @param .within_distance if provided, circular bounding box for the triple query.
 #'   Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
 #'   The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.
 #' @param prefixes Custom prefixes
@@ -17,7 +18,7 @@
 #' @examples
 #' # find the cities
 #' spq_init() %>%
-#' spq_add("?city wdt:P31/wdt:P279* wd:Q515", label = "?city") %>%
+#' spq_add(city = wdt::P31(wd::Q515) | city = wdt::P279_all(wd::Q515), label = "?city") %>%
 #' # and their populations
 #' spq_add("?city wdt:P1082 ?pop", required = FALSE) %>%
 #' # in a bounding box
@@ -40,21 +41,33 @@
 #' spq_perform()
 #' }
 spq_add  =  function(query = NULL,
-                      triplet = NULL,
-                      subject = NULL,
-                      verb = NULL,
-                      object = NULL,
-                      prefixes = NULL,
-                      required = TRUE,
-                      label = NA,
-                      within_box = c(NA,NA),
-                      within_distance = c(NA,NA)){
-  elts = decompose_triplet(
-    triplet = triplet,
-    subject = subject,
-    verb = verb,
-    object = object
-  )
+                     ...,
+                      .subject = NULL,
+                      .verb = NULL,
+                      .object = NULL,
+                      .prefixes = NULL,
+                      .required = TRUE,
+                      .label = NA,
+                      .within_box = c(NA,NA),
+                      .within_distance = c(NA,NA)){
+
+  if (is.null(.subject)) {
+    # TODO: error if more than one thing
+    subject <- names(rlang::enquos(...))
+    elts <- c(
+      subject = subject,
+      rlang::enquos(...)[[1]] %>% spq_treat_triple()
+    )
+    browser()
+  } else {
+    elts = decompose_triple(
+      triple = NULL,
+      subject = .subject,
+      verb = .verb,
+      object = .object
+    )
+  }
+
   if (elts[1] == ".") {
     elts[1] = query$previous_subject
   }
@@ -77,15 +90,15 @@ spq_add  =  function(query = NULL,
   query$select = build_part_select(
     query,
     elts$subject, elts$verb, elts$object,
-    label
+    .label
   )
   # body
   query$body = build_part_body(
     query,
     elts$subject, elts$verb, elts$object,
-    required,
-    within_box = within_box,
-    within_distance = within_distance
+    .required,
+    within_box = .within_box,
+    within_distance = .within_distance
   )
 
   return(query)

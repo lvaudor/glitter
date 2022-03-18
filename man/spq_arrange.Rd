@@ -4,7 +4,7 @@
 \alias{spq_arrange}
 \title{Arrange results by variable value}
 \usage{
-spq_arrange(query, ..., replace = FALSE)
+spq_arrange(query, ..., .replace = FALSE)
 }
 \arguments{
 \item{query}{a list with elements of the query}
@@ -12,7 +12,7 @@ spq_arrange(query, ..., replace = FALSE)
 \item{...}{variables by which to arrange
 (or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
 
-\item{replace}{whether to replace the pre-existing arranging}
+\item{.replace}{whether to replace the pre-existing arranging}
 }
 \description{
 Arrange results by variable value
@@ -59,10 +59,10 @@ spq_init() \%>\%
   spq_add("?auteur foaf:familyName ?nom") \%>\%
   spq_filter(as.integer(mort)<as.integer('1924')) \%>\%
   spq_group_by(auteur, nom, mort) \%>\%
-  spq_arrange(spq("DESC(?mort)"))
+  spq_arrange(spq("DESC(xsd:integer(?mort))"))
 
-# Usage of the replace argument
-# replace = FALSE (default)
+# Usage of the .replace argument
+# .replace = FALSE (default)
 spq_init() \%>\%
   spq_add("?item wdt:P31/wdt:P279* wd:Q4022", label = c("?item")) \%>\%
   spq_add("?item wdt:P2043 ?length") \%>\%
@@ -71,13 +71,13 @@ spq_init() \%>\%
   spq_arrange(location) \%>\%
   spq_head(50)
 
-# replace = TRUE
+# .replace = TRUE
 spq_init() \%>\%
   spq_add("?item wdt:P31/wdt:P279* wd:Q4022", label = c("?item")) \%>\%
   spq_add("?item wdt:P2043 ?length") \%>\%
   spq_add("?item wdt:P625 ?location") \%>\%
   spq_arrange(desc(length)) \%>\%
-  spq_arrange(location, replace = TRUE) \%>\%
+  spq_arrange(location, .replace = TRUE) \%>\%
   spq_head(50)
 
 # Mixing syntaxes

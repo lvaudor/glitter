@@ -53,7 +53,7 @@ So you're looking for all the stations that are part of ("wd:P361") the Lyon met
 You could access this information through:
 
 ```{r}
-stations=get_triplets("?items wdt:P361 wd:Q1552")
+stations=get_triples("?items wdt:P361 wd:Q1552")
 stations %>% head()
 ```
 
@@ -62,7 +62,7 @@ Notice that we do not have values yet for the stations (that's what we're lookin
 To also get the labels for stations, we can use the argument `label`:
 
 ```{r}
-parts_metro_Lyon=get_triplets("?items wdt:P361 wd:Q1552", label="?items")
+parts_metro_Lyon=get_triples("?items wdt:P361 wd:Q1552", label="?items")
 parts_metro_Lyon %>% head()
 ```
 
@@ -76,7 +76,7 @@ get_claims("wd:Q599865")
 
 Property "wdt:P31" should enable us to collect only stations ("wd:Q928830") instead of all parts of the Lyon Metro network.
 
-We can enrich and refine our query incrementally with `spq_add()` before sending it (whereas `get_triplets()` was a shortcut to build and send simple requests) :
+We can enrich and refine our query incrementally with `spq_add()` before sending it (whereas `get_triples()` was a shortcut to build and send simple requests) :
 
 ```{r}
 stations_metro_Lyon=spq_init() %>% 
@@ -175,7 +175,7 @@ cities_around_Lyon=spq_init() %>%
 head(cities_around_Lyon)
 ```
 
-<!-- Actually, rather than getting Lyon's long-lat coordinates "by hand" we could get them directly through our query, which means we have to add a triplet about Lyon ("wd:456") and its coordinates: -->
+<!-- Actually, rather than getting Lyon's long-lat coordinates "by hand" we could get them directly through our query, which means we have to add a triple about Lyon ("wd:456") and its coordinates: -->
 
 <!-- ```{r, eval=FALSE} -->
 <!-- spq_init() %>%  -->
@@ -187,5 +187,5 @@ head(cities_around_Lyon)
 <!--   spq_perform() -->
 <!-- ``` -->  
 
-<!-- This does not work => two triplets unrelated. Maybe add example and modify spq_add() to use {} for reference to R values -->
+<!-- This does not work => two triples unrelated. Maybe add example and modify spq_add() to use {} for reference to R values -->
 

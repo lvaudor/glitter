@@ -96,7 +96,7 @@
 # spq_select can use DISTINCT and REDUCED
 
     Code
-      spq_select(query, year, month, day, spq_duplicate = "distinct")
+      spq_select(query, year, month, day, .spq_duplicate = "distinct")
     Output
       
       SELECT DISTINCT ?year ?month ?day
@@ -110,7 +110,7 @@
 ---
 
     Code
-      spq_select(query, year, month, day, spq_duplicate = "reduced")
+      spq_select(query, year, month, day, .spq_duplicate = "reduced")
     Output
       
       SELECT REDUCED ?year ?month ?day
@@ -123,6 +123,6 @@
 
 ---
 
-    x Wrong value for `spq_duplicate` argument (reduce).
+    x Wrong value for `.spq_duplicate` argument (reduce).
     i Use either `NULL`, "distinct" or "reduced".
 
