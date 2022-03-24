@@ -4,8 +4,8 @@
 #' @export
 #' @examples
 #' query=spq_init() %>%
-#' spq_add(subject="?city",verb="wdt:P31",object="wd:Q515") %>%
-#' spq_add(subject="?city",verb="wdt:P1082",object="?pop", label="?city") %>%
+#' spq_add(.subject="?city",.verb="wdt:P31",.object="wd:Q515") %>%
+#' spq_add(.subject="?city",.verb="wdt:P1082",.object="?pop", .label="?city") %>%
 #' spq_head(n=5) %>%
 #'
 #' spq_perform()
