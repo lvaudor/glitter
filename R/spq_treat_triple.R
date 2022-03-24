@@ -23,7 +23,7 @@ spq_treat_triple_pattern <- function(triple_pattern) {
   spq_parse_verb_object(code)
 }
 
-spq_parse_verb_object <- function(code) {
+spq_parse_verb_object <- function(code, reverse = FALSE) {
 
   code_data = parse_code(code)
   predicates <- xml2::xml_find_all(code_data, ".//SYMBOL_FUNCTION_CALL") %>%
@@ -38,10 +38,20 @@ spq_parse_verb_object <- function(code) {
     rlang::abort("Can't use more than one object per triple")
   }
 
-  list(
-    verb = predicates,
-    object = object
-  )
+  if (!reverse) {
+    elements <- list(
+      verb = predicates,
+      object = object
+    )
+  } else {
+    # the spq_mutate syntax reversed the triple pattern order
+    elements <- list(
+      verb = predicates,
+      subject = object
+    )
+  }
+
+  return(elements)
 }
 
 treat_p_o <- function(predicate) {

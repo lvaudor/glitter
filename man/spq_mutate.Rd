@@ -18,6 +18,6 @@ Create and modify variables in the results
 \examples{
 # common name of a plant species in different languages
 spq_init() \%>\%
-spq_add("wd:Q331676 wdt:P1843 ?statement") \%>\%
+spq_mutate(statement = wdt::P1843(wd::Q331676)) \%>\%
 spq_mutate(lang = lang(statement))
 }
