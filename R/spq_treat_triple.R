@@ -1,10 +1,10 @@
-spq_treat_triple <- function(triple) {
+spq_treat_triple_pattern <- function(triple_pattern) {
 
-  eval_try = try(rlang::eval_tidy(triple), silent = TRUE)
+  eval_try = try(rlang::eval_tidy(triple_pattern), silent = TRUE)
 
   if (is.spq(eval_try)) {
-    elts = decompose_triple(
-      triple = triple,
+    elts = decompose_triple_pattern(
+      triple_pattern = triple_pattern,
       subject = NULL,
       verb = NULL,
       object = NULL

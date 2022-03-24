@@ -9,7 +9,7 @@
 #' spq_add("?area wdt:P527 ?item") %>%
 #' spq_group_by(area, areaLabel)  %>%
 #' spq_summarise(total_folkm = sum(folkm_ngd))
-spq_summarise = function(query, ...){
+spq_summarise = function(.query, ...){
 
   variables = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
@@ -22,15 +22,15 @@ spq_summarise = function(query, ...){
   names(variables[!nzchar(names(variables))]) <- variables[!nzchar(names(variables))]
 
   # If no grouping has been done
-  if (is.null(query$group_by)) {
+  if (is.null(.query$group_by)) {
     # then GROUP BY summary variables
-    query$group_by = names(variables)
+    .query$group_by = names(variables)
     # and remove all other selected variables
-    query$select = NULL
+    .query$select = NULL
   }
 
-  query$select = c(query$select, variables)
-  return(query)
+  .query$select = c(.query$select, variables)
+  return(.query)
 }
 
 #' @export

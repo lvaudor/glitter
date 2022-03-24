@@ -1,5 +1,5 @@
 #' Return the first lines of results
-#' @param query a list with elements of the query
+#' @param .query a list with elements of the query
 #' @param n the maximum number of lines to return
 #' @export
 #' @examples
@@ -19,7 +19,7 @@
 #' spq_arrange(desc(linkcount)) %>%
 #' spq_head(42)
 #' @inheritSection spq_offset Subsetting
-spq_head = function(query, n = 5){
-  query$limit = n
-  return(query)
+spq_head = function(.query, n = 5){
+  .query$limit = n
+  return(.query)
 }

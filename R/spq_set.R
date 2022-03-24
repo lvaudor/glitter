@@ -1,7 +1,7 @@
 #' Set helper values for the query
 #'
 #' @description Set helper values for the query (helps with readability)
-#' @param query query
+#' @param .query query
 #' @param ... Helper values and their definition.
 #'
 #' @return
@@ -12,22 +12,28 @@
 #' spq_init() %>%
 #' # dog, cat or chicken
 #' spq_set(species = c('wd:144','wd:146', 'wd:780'), mayor = "Q30185") %>%
-#' spq_add(spq("?mayor wdt:P31 ?species"))
-spq_set = function(query, ...) {
+#' spq_add(mayor = wdt::P31(species)) %>%
+#' spq_add("?mayor p:P39 ?node") %>%
+#' # of mayor
+#' spq_add("?node ps:P39 wd:Q30185") %>%
+#' # of some places
+#' spq_add("?node pq:P642 ?place") %>%
+#' spq_perform()
+spq_set = function(.query, ...) {
   args = rlang::enquos(...)
 
   subjects = names(args)
   values = purrr::map_chr(args, treat_value)
   new_triples = sprintf("VALUES ?%s %s", subjects, values)
 
-  query$body <- paste(
-    query$body,
+  .query$body <- paste(
+    .query$body,
     paste(new_triples, collapse = "\n"),
     sep = "\n"
   )
 
   # TODO: -select by default?
-  return(query)
+  return(.query)
 }
 
 treat_value = function(value) {

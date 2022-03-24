@@ -1,4 +1,4 @@
-#' Builds the "filter" part of a query.
+#' Filters results by adding conditions
 #' @inheritParams spq_arrange
 #' @export
 #' @examples
@@ -9,13 +9,13 @@
 #' spq_filter(str_detect(str_to_lower(itemTitle), 'wikidata')) %>%
 #' spq_filter(lang(itemTitle)=="en") %>%
 #' spq_head(n = 5)
-spq_filter=function(query = NULL, ...){
+spq_filter = function(.query = NULL, ...){
   variables = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
-  query$filter <- c(
-    query$filter,
+  .query$filter <- c(
+    .query$filter,
     sprintf("FILTER(%s)", variables)
   )
 
-  return(query)
+  return(.query)
 }

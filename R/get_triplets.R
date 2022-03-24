@@ -21,7 +21,7 @@ get_triple=function(triple=NULL,
                       limit=NULL,
                       within_box=c(NA,NA),
                       within_distance=c(NA,NA)){
-  query=spq_add(query=NULL,
+  query=spq_add(.query=NULL,
                      triple=triple,
                      subject=subject,
                      verb=verb,

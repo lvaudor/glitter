@@ -6,7 +6,7 @@
 #' spq_init() %>%
 #' spq_add("wd:Q331676 wdt:P1843 ?statement") %>%
 #' spq_mutate(lang = lang(statement))
-spq_mutate = function(query, ...){
+spq_mutate = function(.query, ...){
   variables = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
   variables[nzchar(names(variables))] = purrr::map2_chr(
@@ -15,6 +15,6 @@ spq_mutate = function(query, ...){
     add_as
   )
 
-  query$select <- unique(c(query$select, variables))
-  return(query)
+  .query$select <- unique(c(.query$select, variables))
+  return(.query)
 }

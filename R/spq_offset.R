@@ -1,5 +1,5 @@
 #' Offset the first generated result
-#' @param query a list with elements of the query
+#' @param .query a list with elements of the query
 #' @param n the maximum number of lines to return
 #' @export
 #' @section Subsetting:
@@ -22,7 +22,7 @@
 #' spq_arrange(desc(linkcount)) %>%
 #' spq_head(42) %>%
 #' spq_offset(11)
-spq_offset = function(query, n = 5){
-  query$offset = n
-  return(query)
+spq_offset = function(.query, n = 5){
+  .query$offset = n
+  return(.query)
 }

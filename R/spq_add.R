@@ -1,7 +1,8 @@
 #' Add a triple statement to a query
-#' @param query query
+#' @param .query query
 #' @param ... the triple statement (replaces arguments subject verb and object)
 #' Either R-DSL (or SPARQL strings escaped with `spq()`, or strings, see examples)
+#' @param .triple_pattern the triple pattern statement (replaces arguments subject verb and object)
 #' @param .subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))
 #' @param .verb the property (for instance "wdt:P190")
 #' @param .object an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))
@@ -13,7 +14,7 @@
 #' @param .within_distance if provided, circular bounding box for the triple query.
 #'   Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
 #'   The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.
-#' @param prefixes Custom prefixes
+#' @param .prefixes Custom prefixes
 #' @export
 #' @examples
 #' # find the cities
@@ -40,8 +41,9 @@
 #' spq_add("?node pq:P642 ?place") %>%
 #' spq_perform()
 #' }
-spq_add  =  function(query = NULL,
+spq_add  =  function(.query = NULL,
                      ...,
+                      .triple_pattern = NULL,
                       .subject = NULL,
                       .verb = NULL,
                       .object = NULL,
@@ -51,17 +53,17 @@ spq_add  =  function(query = NULL,
                       .within_box = c(NA,NA),
                       .within_distance = c(NA,NA)){
 
-  if (is.null(.subject)) {
+  if (is.null(.triple_pattern) && is.null(.subject)) {
     # TODO: error if more than one thing
     subject <- names(rlang::enquos(...))
     elts <- c(
       subject = subject,
-      rlang::enquos(...)[[1]] %>% spq_treat_triple()
+      rlang::enquos(...)[[1]] %>% spq_treat_triple_pattern()
     )
     browser()
   } else {
-    elts = decompose_triple(
-      triple = NULL,
+    elts = decompose_triple_pattern(
+      triple_pattern = .triple_pattern,
       subject = .subject,
       verb = .verb,
       object = .object
@@ -69,37 +71,37 @@ spq_add  =  function(query = NULL,
   }
 
   if (elts[1] == ".") {
-    elts[1] = query$previous_subject
+    elts[1] = .query$previous_subject
   }
 
-  if (is.null(query)) {
-    query = spq_init()
+  if (is.null(.query)) {
+    .query = spq_init()
   }
 
   # previous subject
-  query$previous_subject = elts[1]$subject
+  .query$previous_subject = elts[1]$subject
 
   # prefixed elements
-  query$prefixes_used = c(
-    query$prefixes_used,
+  .query$prefixes_used = c(
+    .query$prefixes_used,
     purrr::map_chr(unname(elts), keep_prefix)
   ) %>%
     stats::na.omit() %>%
     unique()
   # select
-  query$select = build_part_select(
-    query,
+  .query$select = build_part_select(
+    .query,
     elts$subject, elts$verb, elts$object,
     .label
   )
   # body
-  query$body = build_part_body(
-    query,
+  .query$body = build_part_body(
+    .query,
     elts$subject, elts$verb, elts$object,
     .required,
     within_box = .within_box,
     within_distance = .within_distance
   )
 
-  return(query)
+  return(.query)
 }

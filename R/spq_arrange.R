@@ -1,5 +1,5 @@
 #' Arrange results by variable value
-#' @param query a list with elements of the query
+#' @param .query a list with elements of the query
 #' @param ... variables by which to arrange
 #' (or SPARQL strings escaped with `spq()`, or strings, see examples)
 #' @param .replace whether to replace the pre-existing arranging
@@ -74,15 +74,14 @@
 #'   spq_add("?item wdt:P625 ?location") %>%
 #'   spq_arrange(desc(length), spq("?location")) %>%
 #'   spq_head(50)
-spq_arrange = function(query , ..., .replace = FALSE){
+spq_arrange = function(.query , ..., .replace = FALSE){
   ordering_variables <- purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
-  query$order_by = if (.replace) {
+  .query$order_by = if (.replace) {
     ordering_variables
   } else {
-    c(query$order_by, ordering_variables)
+    c(.query$order_by, ordering_variables)
   }
-  query
+
+  return(.query)
 }
-
-
