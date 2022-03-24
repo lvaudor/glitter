@@ -112,9 +112,9 @@
 <span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://www… http:…</span>
 <span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… <span style="color: #BB0000;">NA</span>    </span>
 <span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… <span style="color: #BB0000;">NA</span>    </span>
-<span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… https…</span>
-<span class="co">## <span style="color: #BCBCBC;">5</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… inria…</span>
-<span class="co">## <span style="color: #BCBCBC;">6</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… 22</span></code></pre>
+<span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://www… https…</span>
+<span class="co">## <span style="color: #BCBCBC;">5</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… en    </span>
+<span class="co">## <span style="color: #BCBCBC;">6</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… XML</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="rechercher-luri-le-titre-le-lien-vers-le-pdf-et-les-auteurs-de-toutes-les-versions-de-ce-document">Rechercher l’URI, le titre, le lien vers le PDF et les auteurs de [toutes les versions de] ce document<a class="anchor" aria-label="anchor" href="#rechercher-luri-le-titre-le-lien-vers-le-pdf-et-les-auteurs-de-toutes-les-versions-de-ce-document"></a>
@@ -134,11 +134,11 @@
 <pre><code><span class="co">## <span style="color: #949494;"># A tibble: 5 × 6</span></span>
 <span class="co">##   version                                       title creator pdf   person name </span>
 <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Oliv…</span>
-<span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Leil…</span>
-<span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Fabi…</span>
-<span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Hacè…</span>
-<span class="co">## <span style="color: #BCBCBC;">5</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Khal…</span></code></pre>
+<span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Hacè…</span>
+<span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Fabi…</span>
+<span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Oliv…</span>
+<span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Khal…</span>
+<span class="co">## <span style="color: #BCBCBC;">5</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Leil…</span></code></pre>
 <p>Remarque: on peut concaténer les réponses d’une variable (ici les auteurs par exemple):</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">query_doc_autConcat</span> <span class="op">=</span> <span class="va">query_doc</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
@@ -151,7 +151,7 @@
 <pre><code><span class="co">## <span style="color: #949494;"># A tibble: 1 × 4</span></span>
 <span class="co">##   version                                                    title pdf   authors</span>
 <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/inria-00362381… Quer… http… Olivie…</span></code></pre>
+<span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/inria-00362381… Quer… http… Hacène…</span></code></pre>
 <p>On peut également <strong>agréger/résumer</strong> les résultats renvoyés par la requête, par exemple en <strong>recherchant le nombre d’auteurs d’un document</strong> (par version)</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tib_nbAutDoc</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
@@ -223,12 +223,12 @@
 <pre><code><span class="co">## <span style="color: #949494;"># A tibble: 6 × 5</span></span>
 <span class="co">##   document                                           version creator type  label</span>
 <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/tel-00… https:… nodeID… http… HDR  </span>
-<span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/document/hal-01… https:… nodeID… http… Arti…</span>
-<span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/document/hal-01… https:… nodeID… http… Comm…</span>
-<span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/document/hal-01… https:… nodeID… http… Comm…</span>
-<span class="co">## <span style="color: #BCBCBC;">5</span> https://data.archives-ouvertes.fr/document/hal-01… https:… nodeID… http… Chap…</span>
-<span class="co">## <span style="color: #BCBCBC;">6</span> https://data.archives-ouvertes.fr/document/hal-01… https:… nodeID… http… Comm…</span></code></pre>
+<span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/hal-01… https:… nodeID… http… Autr…</span>
+<span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/document/hal-00… https:… nodeID… http… Autr…</span>
+<span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/document/hal-00… https:… nodeID… http… Autr…</span>
+<span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/document/hal-03… https:… nodeID… http… Autr…</span>
+<span class="co">## <span style="color: #BCBCBC;">5</span> https://data.archives-ouvertes.fr/document/hal-03… https:… nodeID… http… Autr…</span>
+<span class="co">## <span style="color: #BCBCBC;">6</span> https://data.archives-ouvertes.fr/document/hal-01… https:… nodeID… http… Ouvr…</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="enrichirsimplifier-la-requête">Enrichir/simplifier la requête<a class="anchor" aria-label="anchor" href="#enrichirsimplifier-la-requ%C3%AAte"></a>
@@ -245,18 +245,18 @@
 <pre><code><span class="co">## <span style="color: #949494;"># A tibble: 12 × 3</span></span>
 <span class="co">##    type                                                       label        nbdoc</span>
 <span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> https://data.archives-ouvertes.fr/doctype/Hdr              HDR          1    </span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> https://data.archives-ouvertes.fr/doctype/Article          Article dan… 31   </span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> https://data.archives-ouvertes.fr/doctype/Other            Autre publi… 5    </span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> https://data.archives-ouvertes.fr/doctype/DoctoralThesis   Thèse        1    </span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> https://data.archives-ouvertes.fr/doctype/ConferencePoster Poster       13   </span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> https://data.archives-ouvertes.fr/doctype/Report           Rapport      15   </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> https://data.archives-ouvertes.fr/doctype/Chapter          Chapitre d'… 12   </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> https://data.archives-ouvertes.fr/doctype/ConferencePaper  Communicati… 172  </span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> https://data.archives-ouvertes.fr/doctype/Douv             Direction d… 11   </span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> https://data.archives-ouvertes.fr/doctype/Preprint         Pré-publica… 2    </span>
-<span class="co">## <span style="color: #BCBCBC;">11</span> https://data.archives-ouvertes.fr/doctype/Presconf         Document as… 2    </span>
-<span class="co">## <span style="color: #BCBCBC;">12</span> https://data.archives-ouvertes.fr/doctype/Ouv              Ouvrage (y … 3</span></code></pre>
+<span class="co">## <span style="color: #BCBCBC;"> 1</span> https://data.archives-ouvertes.fr/doctype/Report           Rapport      15   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 2</span> https://data.archives-ouvertes.fr/doctype/Ouv              Ouvrage (y … 3    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 3</span> https://data.archives-ouvertes.fr/doctype/ConferencePoster Poster       13   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 4</span> https://data.archives-ouvertes.fr/doctype/Preprint         Pré-publica… 2    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 5</span> https://data.archives-ouvertes.fr/doctype/Other            Autre publi… 5    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 6</span> https://data.archives-ouvertes.fr/doctype/Presconf         Document as… 2    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 7</span> https://data.archives-ouvertes.fr/doctype/Hdr              HDR          1    </span>
+<span class="co">## <span style="color: #BCBCBC;"> 8</span> https://data.archives-ouvertes.fr/doctype/Douv             Direction d… 11   </span>
+<span class="co">## <span style="color: #BCBCBC;"> 9</span> https://data.archives-ouvertes.fr/doctype/Chapter          Chapitre d'… 12   </span>
+<span class="co">## <span style="color: #BCBCBC;">10</span> https://data.archives-ouvertes.fr/doctype/Article          Article dan… 31   </span>
+<span class="co">## <span style="color: #BCBCBC;">11</span> https://data.archives-ouvertes.fr/doctype/DoctoralThesis   Thèse        1    </span>
+<span class="co">## <span style="color: #BCBCBC;">12</span> https://data.archives-ouvertes.fr/doctype/ConferencePaper  Communicati… 172</span></code></pre>
 <p>On peut afficher ces résultats en <strong>ordonnant</strong> les lignes selon le nombre de documents décroissant:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">query_foAutNbDocOrd</span><span class="op">=</span><span class="va">query_foAutNbDoc</span><span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
