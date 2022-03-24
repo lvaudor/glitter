@@ -23,5 +23,5 @@ metro_query='SELECT ?item ?itemLabel ?coords
  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
 } ORDER BY ?itemLabel
 '
-send_sparql(query=metro_query)
+send_sparql(metro_query)
 }

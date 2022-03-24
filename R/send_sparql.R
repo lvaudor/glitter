@@ -11,7 +11,7 @@
 #'  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
 #'} ORDER BY ?itemLabel
 #''
-#'send_sparql(query=metro_query)
+#'send_sparql(metro_query)
 send_sparql=function(.query,endpoint="Wikidata"){
   endpoint=tolower(endpoint)
 

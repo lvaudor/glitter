@@ -16,12 +16,12 @@ Get labels in a specified language (apply only to Wikidata)
 }
 \examples{
 spq_init() \%>\%
- spq_add("?film wdt:P31 wd:Q11424", label="?film") \%>\%
+ spq_add(.triple_pattern = "?film wdt:P31 wd:Q11424", label="?film") \%>\%
  spq_language("fr,en") \%>\%
  spq_head(10)
 
 spq_init() \%>\%
- spq_add("?film wdt:P31 wd:Q11424", label="?film") \%>\%
+ spq_add(.triple_pattern = "?film wdt:P31 wd:Q11424", label="?film") \%>\%
  spq_language("auto,es,it,de") \%>\%
  spq_head(10)
 }

@@ -51,11 +51,11 @@ Add a triple pattern statement to a query
 \examples{
 # find the cities
 spq_init() \%>\%
-spq_add(city = wdt::P31(wd::Q515) | city = wdt::P279_all(wd::Q515), label = "?city") \%>\%
+spq_add(.triple_pattern = "?city wdt:P31/wdt:P279* wd:Q515", label="?city") \%>\%
 # and their populations
-spq_add("?city wdt:P1082 ?pop", required = FALSE) \%>\%
+spq_add(.triple_pattern = "?city wdt:P1082 ?pop", required = FALSE) \%>\%
 # in a bounding box
-spq_add("?city wdt:P625 ?coords", within_box = list(southwest = c(3,43), northeast = c(7,47))) \%>\%
+spq_add(.triple_pattern = "?city wdt:P625 ?coords", within_box = list(southwest = c(3,43), northeast = c(7,47))) \%>\%
 # limit to 10 lines
 spq_head(n = 10)
 
