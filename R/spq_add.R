@@ -1,7 +1,6 @@
-#' Add a triple statement to a query
+#' Add a triple pattern statement to a query
 #' @param .query query
-#' @param ... the triple statement (replaces arguments subject verb and object)
-#' Either R-DSL (or SPARQL strings escaped with `spq()`, or strings, see examples)
+#' @param ... the triple statement, R-DSL (or SPARQL strings escaped with `spq()`, or strings, see examples)
 #' @param .triple_pattern the triple pattern statement (replaces arguments subject verb and object)
 #' @param .subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))
 #' @param .verb the property (for instance "wdt:P190")
@@ -53,14 +52,13 @@ spq_add  =  function(.query = NULL,
                       .within_box = c(NA,NA),
                       .within_distance = c(NA,NA)){
 
-  if (is.null(.triple_pattern) && is.null(.subject)) {
+  if (is.null(.subject) && is.null(.triple_pattern)) {
     # TODO: error if more than one thing
     subject <- names(rlang::enquos(...))
     elts <- c(
       subject = subject,
       rlang::enquos(...)[[1]] %>% spq_treat_triple_pattern()
     )
-    browser()
   } else {
     elts = decompose_triple_pattern(
       triple_pattern = .triple_pattern,

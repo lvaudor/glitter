@@ -5,12 +5,12 @@
 \alias{spq_summarize}
 \title{Summarise each group of results to fewer results}
 \usage{
-spq_summarise(query, ...)
+spq_summarise(.query, ...)
 
-spq_summarize(query, ...)
+spq_summarize(.query, ...)
 }
 \arguments{
-\item{query}{a list with elements of the query}
+\item{.query}{a list with elements of the query}
 
 \item{...}{variables by which to arrange
 (or SPARQL strings escaped with \code{spq()}, or strings, see examples)}

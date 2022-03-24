@@ -4,10 +4,10 @@
 \alias{spq_offset}
 \title{Offset the first generated result}
 \usage{
-spq_offset(query, n = 5)
+spq_offset(.query, n = 5)
 }
 \arguments{
-\item{query}{a list with elements of the query}
+\item{.query}{a list with elements of the query}
 
 \item{n}{the maximum number of lines to return}
 }

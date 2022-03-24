@@ -14,6 +14,12 @@ spq_treat_argument = function(arg) {
     rlang::expr_text(arg) %>% stringr::str_replace("^~", "")
   }
 
+  spq_translate_dsl(code)
+
+}
+
+spq_translate_dsl <- function(code) {
+
   code_data = parse_code(code)
 
   xml2::xml_find_all(code_data, ".//SYMBOL_FUNCTION_CALL") %>%
@@ -62,7 +68,6 @@ spq_treat_argument = function(arg) {
   # put it back together
   xml2::xml_text(code_data)
 }
-
 
 add_question_mark = function(x) sprintf("?%s", x)
 

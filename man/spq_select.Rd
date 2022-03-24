@@ -4,10 +4,10 @@
 \alias{spq_select}
 \title{Select (and create) particular variables}
 \usage{
-spq_select(query = NULL, ..., .spq_duplicate = NULL)
+spq_select(.query = NULL, ..., .spq_duplicate = NULL)
 }
 \arguments{
-\item{query}{a list with elements of the query}
+\item{.query}{a list with elements of the query}
 
 \item{...}{variables by which to arrange
 (or SPARQL strings escaped with \code{spq()}, or strings, see examples)}

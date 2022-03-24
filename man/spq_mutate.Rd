@@ -4,10 +4,10 @@
 \alias{spq_mutate}
 \title{Create and modify variables in the results}
 \usage{
-spq_mutate(query, ...)
+spq_mutate(.query, ...)
 }
 \arguments{
-\item{query}{a list with elements of the query}
+\item{.query}{a list with elements of the query}
 
 \item{...}{variables by which to arrange
 (or SPARQL strings escaped with \code{spq()}, or strings, see examples)}

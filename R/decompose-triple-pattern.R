@@ -32,6 +32,7 @@ decompose_triple_pattern = function(triple_pattern, subject, verb, object){
   # tests for syntax error in subject verb and object
   elements_interpreted = purrr::map(elements,interpret_svo)
   elements_correct = purrr::map_lgl(elements_interpreted, is_svo_correct)
+
   if(!all(elements_correct)){
       stop(glue::glue("Element {elements[!elements_correct][1]} is incorrectly stated."))
   }

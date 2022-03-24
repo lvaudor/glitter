@@ -4,10 +4,10 @@
 \alias{spq_perform}
 \title{Assemble query parts into a sparql query and send it to endpoint to get a tibble as a result.}
 \usage{
-spq_perform(query, endpoint = "Wikidata")
+spq_perform(.query, endpoint = "Wikidata")
 }
 \arguments{
-\item{query}{a list with elements of the query}
+\item{.query}{a list with elements of the query}
 
 \item{endpoint}{a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"}
 }

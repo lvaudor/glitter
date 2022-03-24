@@ -4,10 +4,10 @@
 \alias{spq_head}
 \title{Return the first lines of results}
 \usage{
-spq_head(query, n = 5)
+spq_head(.query, n = 5)
 }
 \arguments{
-\item{query}{a list with elements of the query}
+\item{.query}{a list with elements of the query}
 
 \item{n}{the maximum number of lines to return}
 }

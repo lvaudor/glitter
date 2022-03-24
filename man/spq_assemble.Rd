@@ -4,10 +4,10 @@
 \alias{spq_assemble}
 \title{Assemble query parts into a proper SPARQL query}
 \usage{
-spq_assemble(query, endpoint = "Wikidata")
+spq_assemble(.query, endpoint = "Wikidata")
 }
 \arguments{
-\item{query}{a list with elements of the query}
+\item{.query}{a list with elements of the query}
 
 \item{endpoint}{SPARQL endpoint to send the query to}
 }

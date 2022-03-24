@@ -4,10 +4,10 @@
 \alias{spq_set}
 \title{Set helper values for the query}
 \usage{
-spq_set(query, ...)
+spq_set(.query, ...)
 }
 \arguments{
-\item{query}{query}
+\item{.query}{query}
 
 \item{...}{Helper values and their definition.}
 }
@@ -22,5 +22,11 @@ Set helper values for the query (helps with readability)
 spq_init() \%>\%
 # dog, cat or chicken
 spq_set(species = c('wd:144','wd:146', 'wd:780'), mayor = "Q30185") \%>\%
-spq_add(spq("?mayor wdt:P31 ?species"))
+spq_add(mayor = wdt::P31(species)) \%>\%
+spq_add("?mayor p:P39 ?node") \%>\%
+# of mayor
+spq_add("?node ps:P39 wd:Q30185") \%>\%
+# of some places
+spq_add("?node pq:P642 ?place") \%>\%
+spq_perform()
 }

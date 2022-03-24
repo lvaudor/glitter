@@ -2,20 +2,22 @@
 % Please edit documentation in R/spq_filter.R
 \name{spq_filter}
 \alias{spq_filter}
-\title{Builds the "filter" part of a query.}
+\title{Filters results by adding conditions}
 \usage{
-spq_filter(query = NULL, ...)
+spq_filter(.query = NULL, ...)
 }
 \arguments{
-\item{query}{a list with elements of the query}
+\item{.query}{a list with elements of the query}
 
 \item{...}{variables by which to arrange
 (or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
 }
 \description{
-Builds the "filter" part of a query.
+Filters results by adding conditions
 }
 \examples{
+spq_init() \%>\%
+spq_filter(item == wdt::P31("wd:Q13442814"))
 # Corpus of articles with "wikidata" in the title
 spq_init() \%>\%
 spq_add("?item wdt:P31 wd:Q13442814") \%>\%

@@ -4,10 +4,10 @@
 \alias{spq_arrange}
 \title{Arrange results by variable value}
 \usage{
-spq_arrange(query, ..., .replace = FALSE)
+spq_arrange(.query, ..., .replace = FALSE)
 }
 \arguments{
-\item{query}{a list with elements of the query}
+\item{.query}{a list with elements of the query}
 
 \item{...}{variables by which to arrange
 (or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
