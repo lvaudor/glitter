@@ -4,13 +4,28 @@
 \alias{spq_filter}
 \title{Filters results by adding conditions}
 \usage{
-spq_filter(.query = NULL, ...)
+spq_filter(
+  .query = NULL,
+  ...,
+  .label = NA,
+  .within_box = c(NA, NA),
+  .within_distance = c(NA, NA)
+)
 }
 \arguments{
 \item{.query}{a list with elements of the query}
 
 \item{...}{variables by which to arrange
 (or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
+
+\item{.label}{a vector of variables for which to include a label column (defaults to NA)}
+
+\item{.within_box}{if provided, rectangular bounding box for the triple query.
+Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))}
+
+\item{.within_distance}{if provided, circular bounding box for the triple query.
+Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
+The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.}
 }
 \description{
 Filters results by adding conditions
