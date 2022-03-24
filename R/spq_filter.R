@@ -1,5 +1,6 @@
 #' Filters results by adding conditions
 #' @inheritParams spq_arrange
+#' @inheritParams spq_add
 #' @export
 #' @examples
 #' spq_init() %>%
@@ -11,7 +12,7 @@
 #' spq_filter(str_detect(str_to_lower(itemTitle), 'wikidata')) %>%
 #' spq_filter(lang(itemTitle)=="en") %>%
 #' spq_head(n = 5)
-spq_filter = function(.query = NULL, ...){
+spq_filter = function(.query = NULL, ..., .label = NA, .within_box = c(NA, NA), .within_distance = c(NA, NA)){
   filters = purrr::map(rlang::enquos(...), spq_treat_filter_argument)
 
   # FILTER filters :-)
@@ -31,7 +32,8 @@ spq_filter = function(.query = NULL, ...){
         .query,
         .subject = triple_filters[[i]][["subject"]],
         .verb = triple_filters[[i]][["verb"]],
-        .object = triple_filters[[i]][["object"]]
+        .object = triple_filters[[i]][["object"]],
+        .label = .label
       )
     }
   }

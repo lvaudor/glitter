@@ -22,14 +22,14 @@ get_triple=function(triple=NULL,
                       within_box=c(NA,NA),
                       within_distance=c(NA,NA)){
   query=spq_add(.query=NULL,
-                     triple=triple,
-                     subject=subject,
-                     verb=verb,
-                     object=object,
-                     required=required,
-                     label=label,
-                     within_box=within_box,
-                     within_distance=within_distance)
+                     .triple_pattern=triple,
+                     .subject=subject,
+                     .verb=verb,
+                     .object=object,
+                     .required=required,
+                     .label=label,
+                     .within_box=within_box,
+                     .within_distance=within_distance)
   if(!is.null(limit)){query=query %>% spq_head(n=limit)}
 
   tib=query %>% spq_perform()

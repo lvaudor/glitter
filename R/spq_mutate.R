@@ -1,5 +1,6 @@
 #' Create and modify variables in the results
 #' @inheritParams spq_arrange
+#' @inheritParams spq_add
 #' @export
 #' @examples
 #' # common name of a plant species in different languages
@@ -8,7 +9,7 @@
 #' spq_init() %>%
 #' spq_mutate(statement = wdt::P1843(wd::Q331676)) %>%
 #' spq_mutate(lang = lang(statement))
-spq_mutate = function(.query, ...){
+spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within_distance = c(NA, NA)){
   variables =  purrr::map(rlang::enquos(...), spq_treat_mutate_argument)
   variable_names <- names(variables)
 
@@ -30,7 +31,10 @@ spq_mutate = function(.query, ...){
       .query,
       .subject = triple_variables[[i]][["subject"]],
       .verb = triple_variables[[i]][["verb"]],
-      .object = sprintf("?%s", triple_variable_names[[i]])
+      .object = sprintf("?%s", triple_variable_names[[i]]),
+      .label = .label,
+      .within_distance = .within_distance,
+      .within_box = .within_box
     )
   }
 
@@ -63,7 +67,6 @@ spq_treat_mutate_argument = function(arg, arg_name) {
 }
 
 spq_translate_mutate <- function(code) {
-  browser()
   code_data = parse_code(code)
   eq <- xml2::xml_find_all(code_data, ".//EQ")
   if (length(eq) == 0) {

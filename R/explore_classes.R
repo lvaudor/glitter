@@ -32,7 +32,7 @@ subclasses_of=function(id, include_self=FALSE){
 #' @examples
 #' superclasses_of("wd:Q7930989")
 superclasses_of=function(id, include_self=FALSE){
-  classes=get_triples(subject=id,
+  classes=get_triple(subject=id,
                        verb="wdt:P279",
                        object="?classes",
                        label="?classes")
@@ -65,7 +65,7 @@ count_items=function(classes){
     if(is.null(x)){return(0)}else{return(nrow(x))}
   }
   n=purrr::map(.x=classes,
-               ~get_triples(subject="?item",
+               ~get_triple(subject="?item",
                              verb="wdt:P31",
                              object=.x,
                              label="?item"))    %>%
