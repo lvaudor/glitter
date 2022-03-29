@@ -65,21 +65,3 @@ spq_treat_mutate_argument = function(arg, arg_name) {
   }
 
 }
-
-spq_translate_mutate <- function(code) {
-  code_data = parse_code(code)
-  eq <- xml2::xml_find_all(code_data, ".//EQ")
-  if (length(eq) == 0) {
-    rlang::abort("Can't use a triple-pattern-like filter without ==")
-  }
-  right_side <- xml2::xml_find_all(code_data, ".//EQ/following-sibling::expr[1]") %>%
-    xml2::xml_text()
-
-  subject = xml2::xml_find_first(code_data, ".//SYMBOL") %>% xml2::xml_text()
-
-  elts <- c(
-    subject = sprintf("?%s", subject),
-    spq_parse_verb_object(right_side)
-  )
-  return(elts)
-}
