@@ -30,11 +30,13 @@ The center can also be provided as a variable (for instance, "?location") for th
 \description{
 Create and modify variables in the results
 }
-\examples{
-# common name of a plant species in different languages
+\section{Some examples}{
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# common name of a plant species in different languages
 # the triplet pattern "wd:Q331676 wdt:P1843 ?statement" creates the variable statement
 # hence our writing it in reverse within the spq_mutate() function
 spq_init() \%>\%
 spq_mutate(statement = wdt::P1843(wd::Q331676)) \%>\%
 spq_mutate(lang = lang(statement))
+}\if{html}{\out{</div>}}
 }
+

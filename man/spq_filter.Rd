@@ -30,8 +30,8 @@ The center can also be provided as a variable (for instance, "?location") for th
 \description{
 Filters results by adding conditions
 }
-\examples{
-spq_init() \%>\%
+\section{Some examples}{
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{spq_init() \%>\%
 spq_filter(item == wdt::P31(wd::Q13442814))
 # Corpus of articles with "wikidata" in the title
 spq_init() \%>\%
@@ -40,4 +40,6 @@ spq_add("?item rdfs:label ?itemTitle") \%>\%
 spq_filter(str_detect(str_to_lower(itemTitle), 'wikidata')) \%>\%
 spq_filter(lang(itemTitle)=="en") \%>\%
 spq_head(n = 5)
+}\if{html}{\out{</div>}}
 }
+

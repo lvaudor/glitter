@@ -12,13 +12,13 @@ spq_set(.query, ...)
 \item{...}{Helper values and their definition.}
 }
 \value{
-
+A query object
 }
 \description{
 Set helper values for the query (helps with readability)
 }
-\examples{
-# find the individuals of the species
+\section{Some examples}{
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# find the individuals of the species
 spq_init() \%>\%
 # dog, cat or chicken
 spq_set(species = c('wd:Q144','wd:Q146', 'wd:Q780'), mayorcode = "wd:Q30185") \%>\%
@@ -30,4 +30,6 @@ spq_add("?node ps:P39 ?mayorcode") \%>\%
 spq_add("?node pq:P642 ?place", .label = "?place") \%>\%
 spq_select(-species, -place, -node, -mayor, -mayorcode) \%>\%
 spq_perform()
+}\if{html}{\out{</div>}}
 }
+

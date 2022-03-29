@@ -4,10 +4,12 @@
 #' @param .query query
 #' @param ... Helper values and their definition.
 #'
-#' @return
+#' @return A query object
 #' @export
 #'
-#' @examples
+#' @section Some examples:
+#'
+#' ```r
 #' # find the individuals of the species
 #' spq_init() %>%
 #' # dog, cat or chicken
@@ -20,6 +22,7 @@
 #' spq_add("?node pq:P642 ?place", .label = "?place") %>%
 #' spq_select(-species, -place, -node, -mayor, -mayorcode) %>%
 #' spq_perform()
+#' ```
 spq_set = function(.query, ...) {
   args = rlang::enquos(...)
 

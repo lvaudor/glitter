@@ -2,7 +2,9 @@
 #' @inheritParams spq_arrange
 #' @inheritParams spq_add
 #' @export
-#' @examples
+#' @section Some examples:
+#'
+#' ```r
 #' spq_init() %>%
 #' spq_filter(item == wdt::P31(wd::Q13442814))
 #' # Corpus of articles with "wikidata" in the title
@@ -12,6 +14,7 @@
 #' spq_filter(str_detect(str_to_lower(itemTitle), 'wikidata')) %>%
 #' spq_filter(lang(itemTitle)=="en") %>%
 #' spq_head(n = 5)
+#' ```
 spq_filter = function(.query = NULL, ..., .label = NA, .within_box = c(NA, NA), .within_distance = c(NA, NA)){
   filters = purrr::map(rlang::enquos(...), spq_treat_filter_argument)
 

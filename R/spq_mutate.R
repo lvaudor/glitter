@@ -2,13 +2,16 @@
 #' @inheritParams spq_arrange
 #' @inheritParams spq_add
 #' @export
-#' @examples
+#' @section Some examples:
+#'
+#' ```r
 #' # common name of a plant species in different languages
 #' # the triplet pattern "wd:Q331676 wdt:P1843 ?statement" creates the variable statement
 #' # hence our writing it in reverse within the spq_mutate() function
 #' spq_init() %>%
 #' spq_mutate(statement = wdt::P1843(wd::Q331676)) %>%
 #' spq_mutate(lang = lang(statement))
+#' ```
 spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within_distance = c(NA, NA)){
   variables =  purrr::map(rlang::enquos(...), spq_treat_mutate_argument)
   variable_names <- names(variables)
