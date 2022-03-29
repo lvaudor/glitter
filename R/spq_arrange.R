@@ -3,6 +3,7 @@
 #' @param ... variables by which to arrange
 #' (or SPARQL strings escaped with `spq()`, or strings, see examples)
 #' @param .replace whether to replace the pre-existing arranging
+#' @return A query object
 #' @export
 #' @examples
 #' # descending length, ascending itemLabel, "R" syntax

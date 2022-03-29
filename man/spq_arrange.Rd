@@ -14,6 +14,9 @@ spq_arrange(.query, ..., .replace = FALSE)
 
 \item{.replace}{whether to replace the pre-existing arranging}
 }
+\value{
+A query object
+}
 \description{
 Arrange results by variable value
 }

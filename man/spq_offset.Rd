@@ -11,6 +11,9 @@ spq_offset(.query, n = 5)
 
 \item{n}{the maximum number of lines to return}
 }
+\value{
+A query object
+}
 \description{
 Offset the first generated result
 }

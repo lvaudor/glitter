@@ -11,6 +11,9 @@ spq_head(.query, n = 5)
 
 \item{n}{the maximum number of lines to return}
 }
+\value{
+A query object
+}
 \description{
 Return the first lines of results
 }

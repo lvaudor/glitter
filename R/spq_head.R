@@ -1,6 +1,7 @@
 #' Return the first lines of results
 #' @param .query a list with elements of the query
 #' @param n the maximum number of lines to return
+#' @return A query object
 #' @export
 #' @examples
 #' # Return the default of 5 items

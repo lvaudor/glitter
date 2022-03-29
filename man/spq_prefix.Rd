@@ -13,6 +13,9 @@ spq_prefix(.query = NULL, auto = TRUE, prefixes = NULL)
 
 \item{prefixes}{a vector of prefixes}
 }
+\value{
+A query object
+}
 \description{
 Add prefixes to the query
 }

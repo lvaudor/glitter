@@ -27,6 +27,9 @@ Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))}
 Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
 The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.}
 }
+\value{
+A query object
+}
 \description{
 Filters results by adding conditions
 }

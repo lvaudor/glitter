@@ -1,6 +1,7 @@
 #' Filters results by adding conditions
 #' @inheritParams spq_arrange
 #' @inheritParams spq_add
+#' @return A query object
 #' @export
 #' @section Some examples:
 #'

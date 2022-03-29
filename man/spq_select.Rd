@@ -15,6 +15,9 @@ spq_select(.query = NULL, ..., .spq_duplicate = NULL)
 \item{.spq_duplicate}{How to handle duplicates: keep them (\code{NULL}), eliminate (\code{distinct})
 or reduce them (\code{reduced}, advanced usage).}
 }
+\value{
+A query object
+}
 \description{
 Select (and create) particular variables
 }

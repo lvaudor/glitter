@@ -1,6 +1,7 @@
 #' Offset the first generated result
 #' @param .query a list with elements of the query
 #' @param n the maximum number of lines to return
+#' @return A query object
 #' @export
 #' @section Subsetting:
 #' [`spq_offset()`] and [`spq_head()`] are only useful when used with

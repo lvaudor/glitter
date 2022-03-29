@@ -1,6 +1,7 @@
 #' Assemble query parts into a proper SPARQL query
 #' @param .query a list with elements of the query
 #' @param endpoint SPARQL endpoint to send the query to
+#' @return A query object
 #' @export
 #' @examples
 #' spq_init() %>%

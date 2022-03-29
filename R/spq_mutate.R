@@ -1,6 +1,7 @@
 #' Create and modify variables in the results
 #' @inheritParams spq_arrange
 #' @inheritParams spq_add
+#' @return A query object
 #' @export
 #' @section Some examples:
 #'

@@ -11,6 +11,9 @@ spq_perform(.query, endpoint = "Wikidata")
 
 \item{endpoint}{a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"}
 }
+\value{
+A query object
+}
 \description{
 Assemble query parts into a sparql query and send it to endpoint to get a tibble as a result.
 }

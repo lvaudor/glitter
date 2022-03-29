@@ -11,6 +11,9 @@ spq_group_by(.query, ...)
 
 \item{...}{Either R-DSL or strings with variable names}
 }
+\value{
+A query object
+}
 \description{
 Group the results by one or more variables
 }

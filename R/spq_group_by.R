@@ -1,6 +1,7 @@
 #' Group the results by one or more variables
 #' @param .query query
 #' @param ... Either R-DSL or strings with variable names
+#' @return A query object
 #' @export
 #' @examples
 #' \dontrun{

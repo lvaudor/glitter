@@ -1,6 +1,7 @@
 #' Assemble query parts into a sparql query and send it to endpoint to get a tibble as a result.
 #' @param .query a list with elements of the query
 #' @param endpoint a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
+#' @return A query object
 #' @export
 #' @examples
 #' query=spq_init() %>%

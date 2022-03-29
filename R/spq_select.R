@@ -2,6 +2,7 @@
 #' @inheritParams spq_arrange
 #' @param .spq_duplicate How to handle duplicates: keep them (`NULL`), eliminate (`distinct`)
 #' or reduce them (`reduced`, advanced usage).
+#' @return A query object
 #' @export
 #' @examples
 #'

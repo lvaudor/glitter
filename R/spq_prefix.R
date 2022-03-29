@@ -2,6 +2,7 @@
 #' @param .query a list with elements of the query
 #' @param prefixes a vector of prefixes
 #' @param auto whether to use built-in prefixes
+#' @return A query object
 #' @export
 #' @examples
 #' spq_init() %>%

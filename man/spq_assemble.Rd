@@ -11,6 +11,9 @@ spq_assemble(.query, endpoint = "Wikidata")
 
 \item{endpoint}{SPARQL endpoint to send the query to}
 }
+\value{
+A query object
+}
 \description{
 Assemble query parts into a proper SPARQL query
 }

@@ -1,5 +1,6 @@
 #' Summarise each group of results to fewer results
 #' @inheritParams spq_arrange
+#' @return A query object
 #' @export
 #' @examples
 #' result=spq_init() %>%

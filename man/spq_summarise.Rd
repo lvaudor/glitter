@@ -15,6 +15,9 @@ spq_summarize(.query, ...)
 \item{...}{variables by which to arrange
 (or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
 }
+\value{
+A query object
+}
 \description{
 Summarise each group of results to fewer results
 }
