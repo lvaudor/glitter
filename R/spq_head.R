@@ -5,17 +5,17 @@
 #' @examples
 #' # Return the default of 5 items
 #' spq_init() %>%
-#' spq_add(.triple_pattern = "?item wdt:P31 wd:Q5",label="?item") %>%
-#' spq_add(.triple_pattern = "?item wdt:P19/wdt:P131* wd:Q60") %>%
-#' spq_add(.triple_pattern = "?item wikibase:sitelinks ?linkcount") %>%
+#' spq_add("?item wdt:P31 wd:Q5",label="?item") %>%
+#' spq_add("?item wdt:P19/wdt:P131* wd:Q60") %>%
+#' spq_add("?item wikibase:sitelinks ?linkcount") %>%
 #' spq_arrange(desc(linkcount)) %>%
 #' spq_head()
 #'
 #' # Return 42 items
 #' spq_init() %>%
-#' spq_add(.triple_pattern = "?item wdt:P31 wd:Q5",label="?item") %>%
-#' spq_add(.triple_pattern = "?item wdt:P19/wdt:P131* wd:Q60") %>%
-#' spq_add(.triple_pattern = "?item wikibase:sitelinks ?linkcount") %>%
+#' spq_add("?item wdt:P31 wd:Q5",label="?item") %>%
+#' spq_add("?item wdt:P19/wdt:P131* wd:Q60") %>%
+#' spq_add("?item wikibase:sitelinks ?linkcount") %>%
 #' spq_arrange(desc(linkcount)) %>%
 #' spq_head(42)
 #' @inheritSection spq_offset Subsetting

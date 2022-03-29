@@ -23,10 +23,10 @@ spq_init() \%>\%
 # dog, cat or chicken
 spq_set(species = c('wd:144','wd:146', 'wd:780'), mayor = "Q30185") \%>\%
 spq_add(mayor = wdt::P31(species)) \%>\%
-spq_add(.triple_pattern = "?mayor p:P39 ?node") \%>\%
+spq_add("?mayor p:P39 ?node") \%>\%
 # of mayor
-spq_add(.triple_pattern = "?node ps:P39 wd:Q30185") \%>\%
+spq_add("?node ps:P39 wd:Q30185") \%>\%
 # of some places
-spq_add(.triple_pattern = "?node pq:P642 ?place") \%>\%
+spq_add("?node pq:P642 ?place") \%>\%
 spq_perform()
 }

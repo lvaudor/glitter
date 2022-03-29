@@ -28,8 +28,8 @@ On s'intéresse à ce document: haldoc:inria-00362381.
 
 ```{r}
 tib_info=spq_init() %>% 
-  spq_add(.triple_pattern = "haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
-  spq_add(.triple_pattern = "?version ?p ?object") %>%                               # ?version a des prop. ?p les liant à ?object
+  spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
+  spq_add("?version ?p ?object") %>%                               # ?version a des prop. ?p les liant à ?object
   spq_perform(e="hal")
 
 head(tib_info)
@@ -39,12 +39,12 @@ head(tib_info)
 
 ```{r}
 query_doc = spq_init() %>% 
-  spq_add(.triple_pattern = "haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
-  spq_add(.triple_pattern = "?version dcterms:title ?title") %>%                     # ?version a pour titre ?titre
-  spq_add(.triple_pattern = ". dcterms:creator ?creator") %>%                        # ...... et pour créateur ?creator
-  spq_add(.triple_pattern = ". ore:aggregates ?pdf") %>%                             # ...... et ce lien vers un ?pdf
-  spq_add(.triple_pattern = "?creator hal:person ?person") %>%                       # ?creator est une personne ?person
-  spq_add(.triple_pattern = "?person foaf:name ?name")                               # ?person a pour nom ?name
+  spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
+  spq_add("?version dcterms:title ?title") %>%                     # ?version a pour titre ?titre
+  spq_add(". dcterms:creator ?creator") %>%                        # ...... et pour créateur ?creator
+  spq_add(". ore:aggregates ?pdf") %>%                             # ...... et ce lien vers un ?pdf
+  spq_add("?creator hal:person ?person") %>%                       # ?creator est une personne ?person
+  spq_add("?person foaf:name ?name")                               # ?person a pour nom ?name
 
 tib_doc=spq_perform(query_doc,"hal")
 
@@ -67,9 +67,9 @@ On peut également **agréger/résumer** les résultats renvoyés par la requêt
 
 ```{r}
 tib_nbAutDoc=spq_init() %>% 
-  spq_add(.triple_pattern = "haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
-  spq_add(.triple_pattern = "?version dcterms:creator ?creator") %>%                 # ?version a pour créateur ?creator
-  spq_add(.triple_pattern = "?creator hal:person ?person") %>%                       # ?creator est une personne ?person
+  spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
+  spq_add("?version dcterms:creator ?creator") %>%                 # ?version a pour créateur ?creator
+  spq_add("?creator hal:person ?person") %>%                       # ?creator est une personne ?person
   spq_group_by(version) %>%                                     # Groupe par ?version
   spq_summarise(nbperson = n(unique(person))) %>%      # Résume: ?nbperson = nb de ?person dist.  
   spq_perform(e="hal")
@@ -83,9 +83,9 @@ On cherche les types associés aux versions de documents. Ces types sont associ�
 
 ```{r}
 query_docType=spq_init() %>% 
-  spq_add(.triple_pattern = "haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
-  spq_add(.triple_pattern = "?version dcterms:type ?type") %>%                       # ?version est un document de type ?type
-  spq_add(.triple_pattern = "?type skos:prefLabel ?label")                           # ?type a pour étiquette ?label
+  spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
+  spq_add("?version dcterms:type ?type") %>%                       # ?version est un document de type ?type
+  spq_add("?type skos:prefLabel ?label")                           # ?type a pour étiquette ?label
 
 tib_docType=spq_perform(query_docType,"hal")
 
@@ -115,11 +115,11 @@ Considérons une des "forme-auteur" de Fabien Gandon, [https://data.archives-ouv
 fabien_gandon="<https://data.archives-ouvertes.fr/author/827904>" # fabien_gandon = cette forme auteur
 
 query_foAut=spq_init() %>% 
-  spq_add(.triple_pattern = "?document dcterms:hasVersion ?version") %>%  # ?document a des versions ?version
-  spq_add(.triple_pattern = "?version dcterms:creator ?creator") %>%      # ?version a pour créateur ?creator
-  spq_add(.triple_pattern = "?creator hal:person {fabien_gandon}") %>%    # ?creator est fabien_gandon ({déf. de l'objet dans R})
-  spq_add(.triple_pattern = "?version dcterms:type ?type") %>%            # ?version a pour type ?type
-  spq_add(.triple_pattern = "?type skos:prefLabel ?label") %>%            # ?type a pour étiquette ?label
+  spq_add("?document dcterms:hasVersion ?version") %>%  # ?document a des versions ?version
+  spq_add("?version dcterms:creator ?creator") %>%      # ?version a pour créateur ?creator
+  spq_add("?creator hal:person {fabien_gandon}") %>%    # ?creator est fabien_gandon ({déf. de l'objet dans R})
+  spq_add("?version dcterms:type ?type") %>%            # ?version a pour type ?type
+  spq_add("?type skos:prefLabel ?label") %>%            # ?type a pour étiquette ?label
   spq_filter(lang(label) == 'fr')                       # Filtre pour garder les ?label en français
 tib_foAut=spq_perform(query_foAut,"hal")
 
@@ -156,10 +156,10 @@ On peut également s'intéresser aux **dates** de publication. Par exemple ici, 
 
 ```{r}
 tib_dat=spq_init() %>% 
-  spq_add(.triple_pattern = "?document dcterms:hasVersion ?version") %>% 
-  spq_add(.triple_pattern = "?version dcterms:creator ?creator") %>%
-  spq_add(.triple_pattern = ". dcterms:issued ?date") %>%                      # ?version est sortie à ?date
-  spq_add(.triple_pattern = "?creator hal:person {fabien_gandon}") %>% 
+  spq_add("?document dcterms:hasVersion ?version") %>% 
+  spq_add("?version dcterms:creator ?creator") %>%
+  spq_add(". dcterms:issued ?date") %>%                      # ?version est sortie à ?date
+  spq_add("?creator hal:person {fabien_gandon}") %>% 
   spq_mutate(year = year(date)) %>%                    # Crée ?year = année de ?date
   spq_group_by(year) %>%                               # Groupe par ?year
   spq_summarise(nbdoc = n(unique(document))) %>% 
@@ -177,8 +177,8 @@ Une personne=un IdHAL=plusieurs formes-auteur
 
 ```{r}
 query_aut=spq_init() %>% 
-  spq_add(.triple_pattern = "{fabien_gandon} ore:isAggregatedBy ?o") %>% # {fabien gandon} correspond à ?o
-  spq_add(.triple_pattern = "?forme ore:isAggregatedBy ?o")              # ?forme correspond à ?o
+  spq_add("{fabien_gandon} ore:isAggregatedBy ?o") %>% # {fabien gandon} correspond à ?o
+  spq_add("?forme ore:isAggregatedBy ?o")              # ?forme correspond à ?o
 
 tib_aut=spq_perform(query_aut,"hal")
 
@@ -191,10 +191,10 @@ tib_aut
 
 ```{r}
 query_autNbDocYear=query_aut %>% 
-  spq_add(.triple_pattern = "?version dcterms:creator ?creator") %>%      # ?version a pour créateur ?creator
-  spq_add(.triple_pattern = "?creator hal:person ?forme") %>%             # ?creator est une personne ?forme
-  spq_add(.triple_pattern = "?version dcterms:issued ?date") %>%          # ?version a été publié à ?date
-  spq_add(.triple_pattern = "?document dcterms:hasVersion ?version") %>%  # ?document a pour versions ?version
+  spq_add("?version dcterms:creator ?creator") %>%      # ?version a pour créateur ?creator
+  spq_add("?creator hal:person ?forme") %>%             # ?creator est une personne ?forme
+  spq_add("?version dcterms:issued ?date") %>%          # ?version a été publié à ?date
+  spq_add("?document dcterms:hasVersion ?version") %>%  # ?document a pour versions ?version
   spq_mutate(year = year(date)) %>%              # Ajoute ?year qui correspond à l'année de ?date
   spq_group_by(year) %>%                          # Groupe par ?year
   spq_arrange(year) %>%                              # Ordonne par ordre décroissant de ?year

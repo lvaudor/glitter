@@ -6,7 +6,6 @@
 \usage{
 spq_add(
   .query = NULL,
-  ...,
   .triple_pattern = NULL,
   .subject = NULL,
   .verb = NULL,
@@ -20,8 +19,6 @@ spq_add(
 }
 \arguments{
 \item{.query}{query}
-
-\item{...}{the triple statement, R-DSL (or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
 
 \item{.triple_pattern}{the triple pattern statement (replaces arguments subject verb and object)}
 
@@ -48,14 +45,18 @@ The center can also be provided as a variable (for instance, "?location") for th
 \description{
 Add a triple pattern statement to a query
 }
+\details{
+The arguments \code{.subject}, \code{.verb}, \code{.object} are most useful for programmatic
+usage, they are actually used within glitter code itself.
+}
 \examples{
 # find the cities
 spq_init() \%>\%
-spq_add(.triple_pattern = "?city wdt:P31/wdt:P279* wd:Q515", label="?city") \%>\%
+spq_add("?city wdt:P31/wdt:P279* wd:Q515", .label="?city") \%>\%
 # and their populations
-spq_add(.triple_pattern = "?city wdt:P1082 ?pop", required = FALSE) \%>\%
+spq_add("?city wdt:P1082 ?pop", .required = FALSE) \%>\%
 # in a bounding box
-spq_add(.triple_pattern = "?city wdt:P625 ?coords", within_box = list(southwest = c(3,43), northeast = c(7,47))) \%>\%
+spq_add("?city wdt:P625 ?coords", .within_box = list(southwest = c(3,43), northeast = c(7,47))) \%>\%
 # limit to 10 lines
 spq_head(n = 10)
 

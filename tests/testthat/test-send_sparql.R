@@ -16,10 +16,10 @@ test_that("send_sparql() returns tibble", {
 test_that("send_sparql() works with dataBNF", {
   httptest2::with_mock_dir(file.path("fixtures", "auteurs"), {
     tib = spq_init() %>%
-      spq_add(.triple_pattern = "?auteur foaf:birthday ?jour") %>%
-      spq_add(.triple_pattern = "?auteur bio:birth ?date1") %>%
-      spq_add(.triple_pattern = "?auteur bio:death ?date2") %>%
-      spq_add(.triple_pattern = "?auteur foaf:name ?nom", required=FALSE) %>%
+      spq_add("?auteur foaf:birthday ?jour") %>%
+      spq_add("?auteur bio:birth ?date1") %>%
+      spq_add("?auteur bio:death ?date2") %>%
+      spq_add("?auteur foaf:name ?nom", .required=FALSE) %>%
       spq_arrange(jour) %>%
       spq_prefix() %>%
       spq_head(n = 10) %>%
@@ -33,8 +33,8 @@ test_that("send_sparql() works with dbpedia", {
   httptest2::with_mock_dir(file.path("fixtures", "bowie"), {
     tib = spq_init() %>%
       spq_prefix(prefixes=c(dbo="http://dbpedia.org/ontology")) %>%
-      spq_add(.triple_pattern = "?person rdfs:label 'David Bowie'@en") %>%
-      spq_add(.triple_pattern = "?person ?p ?o") %>%
+      spq_add("?person rdfs:label 'David Bowie'@en") %>%
+      spq_add("?person ?p ?o") %>%
       spq_head(300) %>%
       spq_perform("dbpedia.org/sparql")
   })
@@ -48,12 +48,12 @@ test_that("send_sparql() works with SyMoGIH", {
 tib=spq_init() %>%
   spq_prefix(prefixes=c(sym="http://symogih.org/ontology/",
                         syr="http://symogih.org/resource/")) %>%
-  spq_add(.triple_pattern = "?r sym:associatesObject syr:AbOb213") %>%
-  spq_add(.triple_pattern = "?r sym:isComponentOf ?i") %>%
-  spq_add(.triple_pattern = "?i sym:knowledgeUnitStandardLabel ?stLabel") %>%
-  spq_add(.triple_pattern = ". sym:knowledgeUnitStandardDate ?stDate") %>%
-  spq_add(.triple_pattern = ". sym:hasKnowledgeUnitType ?KUTy") %>%
-  spq_add(.triple_pattern = "?KUTy rdfs:label ?KUTyLabel") %>%
+  spq_add("?r sym:associatesObject syr:AbOb213") %>%
+  spq_add("?r sym:isComponentOf ?i") %>%
+  spq_add("?i sym:knowledgeUnitStandardLabel ?stLabel") %>%
+  spq_add(". sym:knowledgeUnitStandardDate ?stDate") %>%
+  spq_add(". sym:hasKnowledgeUnitType ?KUTy") %>%
+  spq_add("?KUTy rdfs:label ?KUTyLabel") %>%
   spq_head(n=10) %>%
   spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
   })

@@ -1,6 +1,5 @@
 #' Add a triple pattern statement to a query
 #' @param .query query
-#' @param ... the triple statement, R-DSL (or SPARQL strings escaped with `spq()`, or strings, see examples)
 #' @param .triple_pattern the triple pattern statement (replaces arguments subject verb and object)
 #' @param .subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))
 #' @param .verb the property (for instance "wdt:P190")
@@ -18,11 +17,11 @@
 #' @examples
 #' # find the cities
 #' spq_init() %>%
-#' spq_add(.triple_pattern = "?city wdt:P31/wdt:P279* wd:Q515", label="?city") %>%
+#' spq_add("?city wdt:P31/wdt:P279* wd:Q515", .label="?city") %>%
 #' # and their populations
-#' spq_add(.triple_pattern = "?city wdt:P1082 ?pop", required = FALSE) %>%
+#' spq_add("?city wdt:P1082 ?pop", .required = FALSE) %>%
 #' # in a bounding box
-#' spq_add(.triple_pattern = "?city wdt:P625 ?coords", within_box = list(southwest = c(3,43), northeast = c(7,47))) %>%
+#' spq_add("?city wdt:P625 ?coords", .within_box = list(southwest = c(3,43), northeast = c(7,47))) %>%
 #' # limit to 10 lines
 #' spq_head(n = 10)
 #'
@@ -40,8 +39,10 @@
 #' spq_add("?node pq:P642 ?place") %>%
 #' spq_perform()
 #' }
+#' @details
+#' The arguments `.subject`, `.verb`, `.object` are most useful for programmatic
+#' usage, they are actually used within glitter code itself.
 spq_add  =  function(.query = NULL,
-                     ...,
                       .triple_pattern = NULL,
                       .subject = NULL,
                       .verb = NULL,
