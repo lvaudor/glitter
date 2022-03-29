@@ -43,32 +43,23 @@
 #' The arguments `.subject`, `.verb`, `.object` are most useful for programmatic
 #' usage, they are actually used within glitter code itself.
 spq_add  =  function(.query = NULL,
-                      .triple_pattern = NULL,
-                      .subject = NULL,
-                      .verb = NULL,
-                      .object = NULL,
-                      .prefixes = NULL,
-                      .required = TRUE,
-                      .label = NA,
-                      .within_box = c(NA,NA),
-                      .within_distance = c(NA,NA)){
+  .triple_pattern = NULL,
+  .subject = NULL,
+  .verb = NULL,
+  .object = NULL,
+  .prefixes = NULL,
+  .required = TRUE,
+  .label = NA,
+  .within_box = c(NA,NA),
+  .within_distance = c(NA,NA)){
 
-  if (is.null(.subject) && is.null(.triple_pattern)) {
-    # TODO: error if more than one thing
-    subject <- names(rlang::enquos(...))
-    elts <- c(
-      subject = subject,
-      rlang::enquos(...)[[1]] %>% spq_treat_triple_pattern()
-    )
-  } else {
-    elts = decompose_triple_pattern(
-      triple_pattern = .triple_pattern,
-      subject = .subject,
-      verb = .verb,
-      object = .object
-    )
-  }
 
+  elts = decompose_triple_pattern(
+    triple_pattern = .triple_pattern,
+    subject = .subject,
+    verb = .verb,
+    object = .object
+  )
   if (elts[1] == ".") {
     elts[1] = .query$previous_subject
   }

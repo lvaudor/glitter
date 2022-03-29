@@ -21,12 +21,13 @@ Set helper values for the query (helps with readability)
 # find the individuals of the species
 spq_init() \%>\%
 # dog, cat or chicken
-spq_set(species = c('wd:144','wd:146', 'wd:780'), mayor = "Q30185") \%>\%
-spq_add(mayor = wdt::P31(species)) \%>\%
-spq_add("?mayor p:P39 ?node") \%>\%
+spq_set(species = c('wd:Q144','wd:Q146', 'wd:Q780'), mayorcode = "wd:Q30185") \%>\%
+spq_filter(mayor == wdt::P31(species), .label = "?species") \%>\%
+spq_add("?mayor p:P39 ?node", .label = "?mayor") \%>\%
 # of mayor
-spq_add("?node ps:P39 wd:Q30185") \%>\%
+spq_add("?node ps:P39 ?mayorcode") \%>\%
 # of some places
-spq_add("?node pq:P642 ?place") \%>\%
+spq_add("?node pq:P642 ?place", .label = "?place") \%>\%
+spq_select(-species, -place, -node, -mayor, -mayorcode) \%>\%
 spq_perform()
 }

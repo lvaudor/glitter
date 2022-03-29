@@ -29,17 +29,16 @@ library(glitter)
 - KUTy a pour étiquette KUTyLabel
 
 ```{r ressources_maths}
-tib = spq_init() %>%
+tib=spq_init() %>%
   spq_prefix(prefixes=c(sym="http://symogih.org/ontology/",
                         syr="http://symogih.org/resource/")) %>% 
-  spq_set(mathematiques = "syr:AbOb213") %>%
-  spq_filter(r == sym::associatesObject(mathematiques)) %>% 
-  spq_filter(r == sym::isComponentOf(i)) %>% 
-  spq_mutate(stLabel = sym::knowledgeUnitStandardLabel(i)) %>% 
-  spq_mutate(stDate = sym::knowledgeUnitStandardDate(i)) %>% 
-  spq_mutate(KUTy = sym::hasKnowledgeUnitType(i)) %>% 
-  spq_mutate(KUTyLabel = rdfs::label(KUTy)) %>% 
-  spq_head(n = 10) %>% 
+  spq_add("?r sym:associatesObject syr:AbOb213") %>% 
+  spq_add("?r sym:isComponentOf ?i") %>% 
+  spq_add("?i sym:knowledgeUnitStandardLabel ?stLabel") %>% 
+  spq_add(". sym:knowledgeUnitStandardDate ?stDate") %>% 
+  spq_add(". sym:hasKnowledgeUnitType ?KUTy") %>% 
+  spq_add("?KUTy rdfs:label ?KUTyLabel") %>% 
+  spq_head(n=10) %>% 
   spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
   
 knitr::kable(tib)
@@ -53,7 +52,7 @@ tib=spq_init() %>%
                         syr="http://symogih.org/resource/")) %>%  
   spq_add("?s a ?cl") %>% 
   spq_add("?s ?p ?o1") %>% 
-  spq_add("?o1 a ?cl1", required=FALSE) %>% 
+  spq_add("?o1 a ?cl1", .required=FALSE) %>% 
   spq_group_by(cl, p, cl1) %>% 
   spq_head(n=10) %>% 
   spq_summarise(effectif = n("*")) %>% 

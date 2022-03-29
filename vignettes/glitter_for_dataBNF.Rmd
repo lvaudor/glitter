@@ -41,7 +41,7 @@ tib=spq_init() %>%
   spq_add("?auteur foaf:birthday ?jour") %>% 
   spq_add("?auteur bio:birth ?date1") %>% 
   spq_add("?auteur bio:death ?date2") %>% 
-  spq_add("?auteur foaf:name ?nom", required=FALSE) %>% 
+  spq_add("?auteur foaf:name ?nom", .required = FALSE) %>% 
   spq_arrange(jour) %>% 
   spq_prefix() %>% 
   spq_head(n=10) %>%
@@ -58,7 +58,7 @@ fleurs_du_mal="<http://data.bnf.fr/ark:/12148/cb11947965f>"
 tib=spq_init() %>% 
   spq_add("{fleurs_du_mal} foaf:focus ?Oeuvre") %>% 
   spq_add("?edition rdarelationships:workManifested ?Oeuvre") %>% 
-  spq_add("?edition dcterms:date ?date", required=FALSE) %>% 
+  spq_add("?edition dcterms:date ?date", .required=FALSE) %>% 
   spq_add("?edition dcterms:title ?titre") %>% 
   spq_add("?edition dcterms:publisher ?editeur") %>% 
   spq_head(n=10) %>% 
@@ -158,7 +158,8 @@ knitr::kable(tib)
 # Images dans data.bnf.fr
 
 ```{r images_databnf}
-tib=spq_add("?image dcterms:type <http://purl.org/dc/dcmitype/StillImage>") %>%
+tib=spq_init() %>%
+  spq_add("?image dcterms:type <http://purl.org/dc/dcmitype/StillImage>") %>%
   spq_head(n=10) %>% 
   spq_perform(e="dataBNF")
 
@@ -203,8 +204,8 @@ tib=spq_init() %>%
   spq_add("?sujet1 skos:prefLabel ?label") %>% 
   spq_add(". skos:narrower ?uri2") %>% 
   spq_add("?uri2 skos:prefLabel ?label2") %>% 
-  spq_add("?uri2 skos:narrower ?uri3", required=FALSE) %>% 
-  spq_add("?uri3 skos:prefLabel ?label3", required=FALSE) %>% 
+  spq_add("?uri2 skos:narrower ?uri3", .required = FALSE) %>% 
+  spq_add("?uri3 skos:prefLabel ?label3", .required = FALSE) %>% 
   spq_head(n=10) %>% 
   spq_perform(e="dataBNF")
 

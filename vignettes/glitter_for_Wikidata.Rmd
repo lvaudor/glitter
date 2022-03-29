@@ -79,6 +79,16 @@ Property "wdt:P31" should enable us to collect only stations ("wd:Q928830") inst
 We can enrich and refine our query incrementally with `spq_filter()` before sending it (whereas `get_triple()` was a shortcut to build and send simple requests) :
 
 ```{r}
+stations_metro_Lyon=spq_init() %>% 
+  spq_add("?stations wdt:P361 wd:Q1552", .label = "?stations") %>% 
+  spq_add("?stations wdt:P31 wd:Q928830") %>% 
+  spq_perform()
+head(stations_metro_Lyon)
+```
+
+Or we could use glitter DSL (domain-specific language) a bit more, making use of `spq_set()` and the `spq_filter()` fonction.
+
+```{r}
 stations_metro_Lyon = spq_init() %>% 
   spq_set(stations_code = "wd:Q1552") %>%
   spq_filter(stations == wdt::P361(stations_code), .label="?stations") %>% 
@@ -151,7 +161,7 @@ We could start exploring Wikidata with this query which finds all items that are
 
 ```{r}
 spq_init() %>% 
-  spq_add("?city wdt:P31/wdt:P279* wd:Q515", label="?city") %>%
+  spq_add("?city wdt:P31/wdt:P279* wd:Q515", .label="?city") %>%
   spq_head(n = 10) %>% 
   spq_perform()
 ```
@@ -160,7 +170,7 @@ Now, let's get the location ("wdt:P625") of the cities
 
 ```{r}
 spq_init() %>% 
-  spq_add("?city wdt:P31/wdt:P279* wd:Q515", label="?city") %>% 
+  spq_add("?city wdt:P31/wdt:P279* wd:Q515", .label="?city") %>% 
   spq_mutate(coords = wdt::P625(city)) %>%
   spq_head(n = 10) %>% 
   spq_perform()
