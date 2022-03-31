@@ -152,6 +152,21 @@ When we assume `spq_filter()`/`spq_mutate()` has received an R-looking fragment 
 * `spq_mutate(object = verb(subject))`;
 * `spq_filter(subject == verb(object))`.
 
+# R CMD check hack
+
+The examples using something like
+
+```r
+spq_init() %>%
+  spq_filter(item == wdt::P31(wd::Q13442814))
+```
+
+got flagged as if wdt were a dependency to be stated.
+This is understandable.
+To bypass it these examples are not examples, they are R chunks in a section called "Some examples".
+This means they aren't checked.
+Thankfully we have similar code in the real tests!
+
 # Future work
 
 The issue tracker of glitter is quite representative of future work, as well as all sentences starting with "Later" in this article.
