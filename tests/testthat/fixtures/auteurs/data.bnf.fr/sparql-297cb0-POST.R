@@ -1,5 +1,5 @@
 structure(list(method = "POST", url = "https://data.bnf.fr/sparql?query=PREFIX%20foaf%3A%20%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E%0APREFIX%20bio%3A%20%3Chttp%3A%2F%2Fvocab.org%2Fbio%2F0.1%2F%3E%0ASELECT%20%3Fauteur%20%3Fjour%20%3Fdate1%20%3Fdate2%20%3Fnom%0AWHERE%7B%0A%0A%3Fauteur%20foaf%3Abirthday%20%3Fjour.%0A%3Fauteur%20bio%3Abirth%20%3Fdate1.%0A%3Fauteur%20bio%3Adeath%20%3Fdate2.%0AOPTIONAL%20%7B%3Fauteur%20foaf%3Aname%20%3Fnom.%7D%0A%0A%0A%7D%0AORDER%20BY%20%3Fjour%0ALIMIT%2010", 
-    status_code = 200L, headers = structure(list(Date = "Wed, 16 Feb 2022 13:58:07 GMT", 
+    status_code = 200L, headers = structure(list(Date = "Tue, 29 Mar 2022 13:20:14 GMT", 
         Server = "Virtuoso/07.20.3229 (Linux) x86_64-generic_glibc25-linux-gnu", 
         `Accept-Ranges` = "bytes", `Content-Type` = "application/sparql-results+json", 
         `Content-Encoding` = "gzip", `Access-Control-Allow-Origin` = "*", 

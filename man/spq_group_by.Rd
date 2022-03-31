@@ -4,12 +4,15 @@
 \alias{spq_group_by}
 \title{Group the results by one or more variables}
 \usage{
-spq_group_by(query, ...)
+spq_group_by(.query, ...)
 }
 \arguments{
-\item{query}{query}
+\item{.query}{query}
 
 \item{...}{Either R-DSL or strings with variable names}
+}
+\value{
+A query object
 }
 \description{
 Group the results by one or more variables

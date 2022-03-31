@@ -5,15 +5,18 @@
 \alias{spq_summarize}
 \title{Summarise each group of results to fewer results}
 \usage{
-spq_summarise(query, ...)
+spq_summarise(.query, ...)
 
-spq_summarize(query, ...)
+spq_summarize(.query, ...)
 }
 \arguments{
-\item{query}{a list with elements of the query}
+\item{.query}{a list with elements of the query}
 
 \item{...}{variables by which to arrange
 (or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
+}
+\value{
+A query object
 }
 \description{
 Summarise each group of results to fewer results
@@ -22,7 +25,7 @@ Summarise each group of results to fewer results
 result=spq_init() \%>\%
 spq_add("?item wdt:P361 wd:Q297853") \%>\%
 spq_add("?item wdt:P1082 ?folkm_ngd") \%>\%
-spq_add("?area wdt:P31 wd:Q1907114", label = "?area") \%>\%
+spq_add("?area wdt:P31 wd:Q1907114", .label = "?area") \%>\%
 spq_add("?area wdt:P527 ?item") \%>\%
 spq_group_by(area, areaLabel)  \%>\%
 spq_summarise(total_folkm = sum(folkm_ngd))

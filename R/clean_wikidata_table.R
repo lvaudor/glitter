@@ -9,7 +9,7 @@
 #'  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
 #'} ORDER BY ?itemLabel
 #''
-#'tib=send_sparql(query=metro_query)
+#'tib=send_sparql(metro_query)
 #'clean_tib=clean_wikidata_table(tib)
 #'clean_tib %>% head()
 clean_wikidata_table=function(wikitib){

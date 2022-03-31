@@ -1,5 +1,5 @@
 #' Send SPARQL query to endpoint and get tibble as a result
-#' @param query a string corresponding to a SPARQL query
+#' @param .query a string corresponding to a SPARQL query
 #' @param endpoint a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
 #' @export
 #' @examples
@@ -11,13 +11,13 @@
 #'  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
 #'} ORDER BY ?itemLabel
 #''
-#'send_sparql(query=metro_query)
-send_sparql=function(query,endpoint="Wikidata"){
+#'send_sparql(metro_query)
+send_sparql=function(.query,endpoint="Wikidata"){
   endpoint=tolower(endpoint)
 
   # if endpoint wikidata, use WikidataQueryServiceR::query_wikidata()
   if(endpoint=="wikidata"){
-    return(purrr::quietly(WikidataQueryServiceR::query_wikidata)(query)$result)
+    return(purrr::quietly(WikidataQueryServiceR::query_wikidata)(.query)$result)
   }
   # else, use httr2
 
@@ -32,7 +32,7 @@ send_sparql=function(query,endpoint="Wikidata"){
 
 
     resp = httr2::request(url) %>%
-    httr2::req_url_query(query = query) %>%
+    httr2::req_url_query(query = .query) %>%
     httr2::req_method("POST") %>%
     httr2::req_headers(Accept = "application/sparql-results+json") %>%
     httr2::req_user_agent("glitter R package (https://github.com/lvaudor/glitter)") %>%

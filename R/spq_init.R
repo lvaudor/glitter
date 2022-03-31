@@ -1,4 +1,5 @@
 #' Initialize a query object.
+#' @return A query object
 #' @export
 spq_init=function(){
   query=list(

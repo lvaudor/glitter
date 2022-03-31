@@ -2,57 +2,61 @@
 % Please edit documentation in R/spq_add.R
 \name{spq_add}
 \alias{spq_add}
-\title{Add a triplet statement to a query}
+\title{Add a triple pattern statement to a query}
 \usage{
 spq_add(
-  query = NULL,
-  triplet = NULL,
-  subject = NULL,
-  verb = NULL,
-  object = NULL,
-  prefixes = NULL,
-  required = TRUE,
-  label = NA,
-  within_box = c(NA, NA),
-  within_distance = c(NA, NA)
+  .query = NULL,
+  .triple_pattern = NULL,
+  .subject = NULL,
+  .verb = NULL,
+  .object = NULL,
+  .prefixes = NULL,
+  .required = TRUE,
+  .label = NA,
+  .within_box = c(NA, NA),
+  .within_distance = c(NA, NA)
 )
 }
 \arguments{
-\item{query}{query}
+\item{.query}{query}
 
-\item{triplet}{the triplet statement (replaces arguments subject verb and object)}
+\item{.triple_pattern}{the triple pattern statement (replaces arguments subject verb and object)}
 
-\item{subject}{an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))}
+\item{.subject}{an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))}
 
-\item{verb}{the property (for instance "wdt:P190")}
+\item{.verb}{the property (for instance "wdt:P190")}
 
-\item{object}{an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))}
+\item{.object}{an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))}
 
-\item{prefixes}{Custom prefixes}
+\item{.prefixes}{Custom prefixes}
 
-\item{required}{whether the existence of a value for the triplet is required or not (defaults to TRUE).
-If set to FALSE, then other triplets in the query are returned even if this particular triplet is missing)}
+\item{.required}{whether the existence of a value for the triple is required or not (defaults to TRUE).
+If set to FALSE, then other triples in the query are returned even if this particular triple is missing)}
 
-\item{label}{a vector of variables for which to include a label column (defaults to NA)}
+\item{.label}{a vector of variables for which to include a label column (defaults to NA)}
 
-\item{within_box}{if provided, rectangular bounding box for the triplet query.
+\item{.within_box}{if provided, rectangular bounding box for the triple query.
 Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))}
 
-\item{within_distance}{if provided, circular bounding box for the triplet query.
+\item{.within_distance}{if provided, circular bounding box for the triple query.
 Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
 The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.}
 }
 \description{
-Add a triplet statement to a query
+Add a triple pattern statement to a query
+}
+\details{
+The arguments \code{.subject}, \code{.verb}, \code{.object} are most useful for programmatic
+usage, they are actually used within glitter code itself.
 }
 \examples{
 # find the cities
 spq_init() \%>\%
-spq_add("?city wdt:P31/wdt:P279* wd:Q515", label = "?city") \%>\%
+spq_add("?city wdt:P31/wdt:P279* wd:Q515", .label="?city") \%>\%
 # and their populations
-spq_add("?city wdt:P1082 ?pop", required = FALSE) \%>\%
+spq_add("?city wdt:P1082 ?pop", .required = FALSE) \%>\%
 # in a bounding box
-spq_add("?city wdt:P625 ?coords", within_box = list(southwest = c(3,43), northeast = c(7,47))) \%>\%
+spq_add("?city wdt:P625 ?coords", .within_box = list(southwest = c(3,43), northeast = c(7,47))) \%>\%
 # limit to 10 lines
 spq_head(n = 10)
 

@@ -23,12 +23,12 @@ build_part_body(
 
 \item{object}{an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))}
 
-\item{required}{whether the existence of a value for the triplet is required or not (defaults to TRUE).
-If set to FALSE, then other triplets in the query are returned even if this particular triplet is missing)}
+\item{required}{whether the existence of a value for the triple is required or not (defaults to TRUE).
+If set to FALSE, then other triples in the query are returned even if this particular triple is missing)}
 
-\item{within_box}{if provided, north-west and south-east coordinates of bounding box for the triplet query.}
+\item{within_box}{if provided, north-west and south-east coordinates of bounding box for the triple query.}
 
-\item{within_distance}{if provided, north-west and south-east coordinates of bounding box for the triplet query.}
+\item{within_distance}{if provided, north-west and south-east coordinates of bounding box for the triple query.}
 }
 \description{
 Builds the "body" part of a query.

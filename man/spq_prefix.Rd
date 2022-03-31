@@ -4,14 +4,17 @@
 \alias{spq_prefix}
 \title{Add prefixes to the query}
 \usage{
-spq_prefix(query = NULL, auto = TRUE, prefixes = NULL)
+spq_prefix(.query = NULL, auto = TRUE, prefixes = NULL)
 }
 \arguments{
-\item{query}{a list with elements of the query}
+\item{.query}{a list with elements of the query}
 
 \item{auto}{whether to use built-in prefixes}
 
 \item{prefixes}{a vector of prefixes}
+}
+\value{
+A query object
 }
 \description{
 Add prefixes to the query

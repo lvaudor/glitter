@@ -9,7 +9,7 @@ test_that("send_sparql() returns tibble", {
   } ORDER BY ?itemLabel
   LIMIT 3
   '
-  x=send_sparql(query=metro_query)
+  x=send_sparql(metro_query)
   expect_s3_class(x,"tbl")
 })
 
@@ -19,7 +19,7 @@ test_that("send_sparql() works with dataBNF", {
       spq_add("?auteur foaf:birthday ?jour") %>%
       spq_add("?auteur bio:birth ?date1") %>%
       spq_add("?auteur bio:death ?date2") %>%
-      spq_add("?auteur foaf:name ?nom", required=FALSE) %>%
+      spq_add("?auteur foaf:name ?nom", .required=FALSE) %>%
       spq_arrange(jour) %>%
       spq_prefix() %>%
       spq_head(n = 10) %>%

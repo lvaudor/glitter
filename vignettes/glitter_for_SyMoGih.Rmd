@@ -52,7 +52,7 @@ tib=spq_init() %>%
                         syr="http://symogih.org/resource/")) %>%  
   spq_add("?s a ?cl") %>% 
   spq_add("?s ?p ?o1") %>% 
-  spq_add("?o1 a ?cl1", required=FALSE) %>% 
+  spq_add("?o1 a ?cl1", .required=FALSE) %>% 
   spq_group_by(cl, p, cl1) %>% 
   spq_head(n=10) %>% 
   spq_summarise(effectif = n("*")) %>% 

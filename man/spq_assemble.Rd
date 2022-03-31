@@ -4,19 +4,22 @@
 \alias{spq_assemble}
 \title{Assemble query parts into a proper SPARQL query}
 \usage{
-spq_assemble(query, endpoint = "Wikidata")
+spq_assemble(.query, endpoint = "Wikidata")
 }
 \arguments{
-\item{query}{a list with elements of the query}
+\item{.query}{a list with elements of the query}
 
 \item{endpoint}{SPARQL endpoint to send the query to}
+}
+\value{
+A query object
 }
 \description{
 Assemble query parts into a proper SPARQL query
 }
 \examples{
 spq_init() \%>\%
-spq_add("?city wdt:P31 wd:Q515", label="?city") \%>\%
+spq_add("?city wdt:P31 wd:Q515", .label="?city") \%>\%
 spq_add("?city wdt:P1082 ?pop") \%>\%
 spq_language("fr") \%>\%
 spq_head(n=5) \%>\%

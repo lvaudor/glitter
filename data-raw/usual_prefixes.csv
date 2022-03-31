@@ -3,6 +3,7 @@ Wikidata,wd,http://www.wikidata.org/entity/
 Wikidata,wdt,http://www.wikidata.org/prop/direct/
 Wikidata,ps,http://www.wikidata.org/prop/statement/
 Wikidata,pq,http://www.wikidata.org/prop/qualifier/
+Wikidata,p,http://www.wikidata.org/prop/
 Wikidata,wikibase,http://wikiba.se/ontology#
 dbpedia,dbo,http://dbpedia.org/ontology/
 generic,foaf,http://xmlns.com/foaf/0.1/

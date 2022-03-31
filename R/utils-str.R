@@ -1,140 +1,92 @@
 #' Checks whether element is a variable ("?...")
-#' @param vstring a string or vector of strings
+#' @param string a string or vector of strings
 #' @noRd
 #' @examples
-#' is_variable(c("?elem","?item")) #TRUE
-is_variable=function(vstring){
-  is_variable_1elem=function(string){
-      if(is.na(string)|is.null(string)){
-        return(FALSE)
-      }
-      if(stringr::str_sub(string,1,1)=="?"){
-        return(TRUE)
-      }else{
-        return(FALSE)
-      }
-  }
-  result=purrr::map_lgl(vstring,is_variable_1elem)
-  result=all(result)
-  return(result)
+#' is_variable("?elem") #TRUE
+is_variable = function(string){
+  nzchar(string) && grepl("^\\?", string)
 }
 
 #' Checks whether element is prefixed ("prefix::id")
-#' @param vstring a string or vector of strings
+#' @param string a string or vector of strings
 #' @noRd
 #' @examples
-#' is_prefixed("elem") #returns FALSE
-#' is_prefixed("wd:Q456") #returns TRUE
-#' is_prefixed("<http://qsdfqsdfsqdf>") #returns TRUE
-is_prefixed=function(vstring){
-  is_prefixed_1elem=function(string){
-    if(stringr::str_detect(string,"^<http.*>$")){
-      return(FALSE)
-    }
-    if(stringr::str_detect(string,":")){
-      return(TRUE)
-    }
-    return(FALSE)
-  }
-  result=purrr::map_lgl(vstring,is_prefixed_1elem)
-  result=all(result)
-  return(result)
+#' is_prefixed("elem") # returns FALSE
+#' is_prefixed("wd:Q456") # returns TRUE
+#' is_prefixed("<http://qsdfqsdfsqdf>") # returns TRUE
+is_prefixed = function(string){
+  grepl("^<http.*>$", string) || grepl(".*:.*", string)
 }
 
 #' Checks whether element is a url ("<http_blah_>")
-#' @param vstring a string or vector of strings
+#' @param string a string or vector of strings
 #' @examples
 #' is_url(c("<http://qsdqsdfqsdfqs.html>","<http blablabla>")) #TRUE
 #' @noRd
-is_url=function(vstring){
-  is_url_1elem=function(string){
-      if(stringr::str_detect(string,"^<http.*>$")){
-        return(TRUE)
-      }
-      return(FALSE)
-  }
-  result=purrr::map_lgl(vstring,is_url_1elem)
-  result=all(result)
-  return(result)
+is_url = function(string){
+  grepl("^<http.*>$", string)
 }
 
 #' Checks whether element is a value ("'blah'" or '"blah"')
-#' @param vstring a string or vector of strings
+#' @param string a string or vector of strings
 #' @noRd
 #' @examples
 #' is_value("'blabla'") #TRUE
 #' is_value('"blabla"') #TRUE
 #' is_value('blabla') #FALSE
-is_value=function(vstring){
-  is_value_1elem=function(string){
-    if(stringr::str_detect(string,"^[\'\"].+[\'\"].*$")){
-      return(TRUE)
-    }
-    return(FALSE)
-  }
-  result=purrr::map_lgl(vstring,is_value_1elem)
-  result=all(result)
-  return(result)
+is_value = function(string){
+  grepl("^[\'\"].+[\'\"].*$", string)
 }
 
 
 #' Checks whether the element has a known prefix
 #' @param prefixes_used a string or vector of strings
 #' @param prefixes_known a tibble detailing known prefixes
-#' @param endpoint the endpoint considered (defaults to Wikidata)
 #' @noRd
 #' @examples
-#' is_prefix_known(prefixes_used=c("wd","wdt"),prefixes_known=usual_prefixes,endpoint="Wikidata") # TRUE
-#' is_prefix_known("blop:blabla", prefixes_known=usual_prefixes,endpoint="other") #returns error message
-is_prefix_known=function(prefixes_used,prefixes_known, endpoint="Wikidata"){
-  is_prefix_known_1elem=function(prefix){
-    if(stringr::str_detect(prefix,"^<http")){
-      return(TRUE)
-    }
-    if(!(prefix %in% prefixes_known$name)){
-      stop(glue::glue("prefix {prefix} is not known. Please provide it through function spq_prefix()."))
-    }
+#' is_prefix_known(prefixes_used=c("wd","wdt"), prefixes_known = usual_prefixes) # TRUE
+#' is_prefix_known("blop:blabla", prefixes_known=usual_prefixes) #returns error message
+is_prefix_known = function(prefixes_used, prefixes_known) {
+  unknown_prefixes <- prefixes_used[!(prefixes_used %in% prefixes_known$name)]
+  if (length(unknown_prefixes) == 0) {
     return(TRUE)
   }
-  result=purrr::map_lgl(prefixes_used,is_prefix_known_1elem)
-  result=all(result)
-  return(result)
+
+  stop(glue::glue("Can't find prefix(es) {toString(unknown_prefixes)}. Please use spq_prefix()."))
+
 }
 
 
 #' transforms subject-verb-object arguments into a vector of values if needed
-#' @param vstring a string of R code or R vector of strings
+#' @param string a string of R code or R vector of strings
 #' @examples
-#' object="{c(wd:Q456,wd:Q23482)}"
-#' as_values(object)
-#' object=c("wd:Q456","wd:Q23482")
-#' as_values(object)
-#' object=c("wd:Q7732")
-#' as_values(object)
+#' as_values("{c(wd:Q456,wd:Q23482)}")
+#' as_values(c("wd:Q456","wd:Q23482"))
+#' as_values(c("wd:Q7732"))
 #' @noRd
-as_values=function(vstring){
-  if(length(vstring)>1){
-    result=vstring
-    return(result)
+as_values = function(string){
+  if (length(string) > 1) {
+    return(string)
   }
-  # if string is within {...}
-  if(stringr::str_detect(vstring,"(?<=^\\{).*(?=\\}$)")){
-    result=vstring %>%
-      stringr::str_extract("(?<=^\\{).*(?=\\}$)")
-      # if remaining string contains c(...)
-    if(stringr::str_detect(result,"(?<=^c\\().*(?=\\)$)")){
-        result=result %>%
-          stringr::str_extract("(?<=^c\\().*(?=\\)$)") %>%
-          stringr::str_split(",") %>%
-          unlist()
-    }else{
-        # object corresponds to name
-        result=get(result)
-    }
-  }else{
-    result=vstring
+
+  # if string is not within {...}
+  if (!stringr::str_detect(string,"(?<=^\\{).*(?=\\}$)")) {
+    return(string)
+  }
+
+  result = stringr::str_extract("(?<=^\\{).*(?=\\}$)", string)
+  # if remaining string contains c(...)
+  if (stringr::str_detect(result, "(?<=^c\\().*(?=\\)$)")) {
+    result = result %>%
+      stringr::str_extract("(?<=^c\\().*(?=\\)$)") %>%
+      stringr::str_split(",") %>%
+      unlist()
+  } else {
+    # object corresponds to name
+    result = get(result)
   }
   return(result)
+
 }
 
 #' interprets if element is an R code inclusion of the type {...}
@@ -147,70 +99,66 @@ as_values=function(vstring){
 #' interpret_svo("{obj2}")
 #' obj3="'Cristiano_Ronaldo'@en"
 #' interpret_svo(obj3)
-interpret_svo=function(string){
-  if(stringr::str_detect(string,"[\'\"]")){
+interpret_svo = function(string){
+  if (stringr::str_detect(string,"[\'\"]")) {
     string=stringr::str_replace(string,"_"," ")
     return(string)
   }
   if(!stringr::str_detect(string,"[{}]")){
     return(string)
   }
-  string=stringr::str_extract(string,
+  string = stringr::str_extract(string,
                        "(?<=\\{).*(?=\\})")
-  string=get(string, envir=parent.env(environment()))
+  string = get(string, envir = parent.env(environment()))
   return(string)
 }
 
 #' Checks whether subject/verb/object is stated correctly
-#' @param vstring a string or vector of strings
+#' @param string a string
 #' @noRd
-is_svo_correct=function(vstring){
-  is_svo_correct_1elem=function(string){
-      # if element is a special syntax element
-      if(string %in% c(".","a","is","==","%in%","[]")){return(TRUE)}
-      # if element is a variable
-      if(is_variable(string)){return(TRUE)}
-      # if element is a prefixed URI
-      if(is_prefixed(string)){return(TRUE)}
-      # if element is a URI
-      if(is_url(string)){return(TRUE)}
-      # if element is a value
-      if(is_value(string)){return(TRUE)}
-      return(FALSE)
-  }
-  result=purrr::map_lgl(vstring,is_svo_correct_1elem)
-  result=all(result)
-  return(result)
+is_svo_correct = function(string){
+  # if element is a special syntax element
+  if (string %in% c(".","a","is","==","%in%","[]")) return(TRUE)
+
+  # if element is a variable
+  if (is_variable(string)) return(TRUE)
+
+   # if element is a prefixed URI
+  if (is_prefixed(string)) return(TRUE)
+
+  # if element is a URI
+  if (is_url(string)) return(TRUE)
+
+  # if element is a value
+  if (is_value(string)) return(TRUE)
+
+  return(FALSE)
 }
 
-
-
 #' keep only prefixes (decomposing paths if necessary)
-#' @param vstring a string or vector of strings
+#' @param string a string or vector of strings
 #' @noRd
 #' @examples
 #' keep_prefix("wdt:P31/wdt:P279*") # wdt
-#' keep_prefix("?item") # NULL
-#' keep_prefix("<http://qdsfqsdfqsfqsdf.html>") # NULL
+#' keep_prefix("?item") # NA
+#' keep_prefix("<http://qdsfqsdfqsfqsdf.html>") # NA
 #' keep_prefix("wd:P343") # "wd:P343"
 #' keep_prefix("'11992081'^^xsd:integer") # xsd:integer
 #' keep_prefix(c("wd:P343","wdt:P249"))
-keep_prefix=function(vstring){
-  keep_prefix_1elem=function(string)
-  if(is_prefixed(string)){
-    prefixed=string
-    if(stringr::str_detect(string,"\\/")){
-      prefixed=stringr::str_split(string,"\\/") %>% unlist()
-    }
-    prefix=stringr::str_extract(prefixed,
-                                "[^\\s^\\^]*(?=\\:)") %>%
-      unique()
-  }else{
-    prefix=NA
+keep_prefix = function(string){
+
+  if (!is_prefixed(string) || is_url(string)) {
+    return(NA)
   }
-  prefixes=purrr::map_chr(vstring,keep_prefix_1elem) %>%
-    unique()
-  return(prefixes)
+
+  prefixed = string
+  if(stringr::str_detect(string,"\\/")){
+    prefixed = stringr::str_split(string,"\\/") %>% unlist()
+  }
+
+  prefix = stringr::str_extract(prefixed, "[^\\s^\\^]*(?=\\:)") %>% unique()
+
+  return(prefix)
 }
 
 
@@ -219,18 +167,18 @@ keep_prefix=function(vstring){
 #' @noRd
 #' @examples
 #' get_varformula(c("?author","?document","(year(?date) AS ?year)"))
-get_varformula=function(selected) {
-  elems_one_var=function(var){
-    if(stringr::str_detect(var,"\\(.* AS .*\\)")){
-      formula=stringr::str_extract(var,"(?<=\\().*(?= AS )")
-      name=stringr::str_extract(var,"(?<= AS ).*(?=\\))")
-    }else{
-      formula=var
-      name=var
+get_varformula = function(selected) {
+    if (stringr::str_detect(selected,"\\(.* AS .*\\)")) {
+      formula = stringr::str_extract(selected, "(?<=\\().*(?= AS )")
+      name = stringr::str_extract(selected, "(?<= AS ).*(?=\\))")
+    } else {
+      formula = selected
+      name = selected
     }
-    return(tibble::tibble(full=var,name=name,formula=formula))
-  }
-  result=purrr::map_df(selected,elems_one_var)
-  return(result)
-}
 
+  tibble::tibble(
+    full = selected,
+    name = name,
+    formula = formula
+  )
+}

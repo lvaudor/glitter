@@ -1,7 +1,7 @@
 # spq_mutate works
 
     Code
-      query %>% spq_add("wd:Q331676 wdt:P1843 ?statement") %>% spq_mutate(lang = lang(
+      query %>% spq_mutate(statement = wdt::P1843(wd::Q331676)) %>% spq_mutate(lang = lang(
         statement))
     Output
       

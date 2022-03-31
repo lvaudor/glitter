@@ -2,20 +2,40 @@
 % Please edit documentation in R/spq_filter.R
 \name{spq_filter}
 \alias{spq_filter}
-\title{Builds the "filter" part of a query.}
+\title{Filters results by adding conditions}
 \usage{
-spq_filter(query = NULL, ...)
+spq_filter(
+  .query = NULL,
+  ...,
+  .label = NA,
+  .within_box = c(NA, NA),
+  .within_distance = c(NA, NA)
+)
 }
 \arguments{
-\item{query}{a list with elements of the query}
+\item{.query}{a list with elements of the query}
 
 \item{...}{variables by which to arrange
 (or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
+
+\item{.label}{a vector of variables for which to include a label column (defaults to NA)}
+
+\item{.within_box}{if provided, rectangular bounding box for the triple query.
+Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))}
+
+\item{.within_distance}{if provided, circular bounding box for the triple query.
+Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
+The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.}
+}
+\value{
+A query object
 }
 \description{
-Builds the "filter" part of a query.
+Filters results by adding conditions
 }
-\examples{
+\section{Some examples}{
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{spq_init() \%>\%
+spq_filter(item == wdt::P31(wd::Q13442814))
 # Corpus of articles with "wikidata" in the title
 spq_init() \%>\%
 spq_add("?item wdt:P31 wd:Q13442814") \%>\%
@@ -23,4 +43,6 @@ spq_add("?item rdfs:label ?itemTitle") \%>\%
 spq_filter(str_detect(str_to_lower(itemTitle), 'wikidata')) \%>\%
 spq_filter(lang(itemTitle)=="en") \%>\%
 spq_head(n = 5)
+}\if{html}{\out{</div>}}
 }
+

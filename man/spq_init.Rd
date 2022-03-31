@@ -6,6 +6,9 @@
 \usage{
 spq_init()
 }
+\value{
+A query object
+}
 \description{
 Initialize a query object.
 }

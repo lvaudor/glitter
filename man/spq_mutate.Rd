@@ -4,20 +4,42 @@
 \alias{spq_mutate}
 \title{Create and modify variables in the results}
 \usage{
-spq_mutate(query, ...)
+spq_mutate(
+  .query,
+  ...,
+  .label = NA,
+  .within_box = c(NA, NA),
+  .within_distance = c(NA, NA)
+)
 }
 \arguments{
-\item{query}{a list with elements of the query}
+\item{.query}{a list with elements of the query}
 
 \item{...}{variables by which to arrange
 (or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
+
+\item{.label}{a vector of variables for which to include a label column (defaults to NA)}
+
+\item{.within_box}{if provided, rectangular bounding box for the triple query.
+Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))}
+
+\item{.within_distance}{if provided, circular bounding box for the triple query.
+Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
+The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.}
+}
+\value{
+A query object
 }
 \description{
 Create and modify variables in the results
 }
-\examples{
-# common name of a plant species in different languages
+\section{Some examples}{
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# common name of a plant species in different languages
+# the triplet pattern "wd:Q331676 wdt:P1843 ?statement" creates the variable statement
+# hence our writing it in reverse within the spq_mutate() function
 spq_init() \%>\%
-spq_add("wd:Q331676 wdt:P1843 ?statement") \%>\%
+spq_mutate(statement = wdt::P1843(wd::Q331676)) \%>\%
 spq_mutate(lang = lang(statement))
+}\if{html}{\out{</div>}}
 }
+

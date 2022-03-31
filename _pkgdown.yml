@@ -33,7 +33,7 @@ reference:
   - build_part_select
   - clean_wikidata_table
   - count_items
-  - decompose_triplet
+  - decompose_triple_pattern
   - get_claim
   - get_claims
   - get_description
@@ -41,7 +41,7 @@ reference:
   - get_label
   - get_one_claim
   - get_thing
-  - get_triplets
+  - get_triple
   - send_sparql
   - show_graph_classes
   - subclasses_of
