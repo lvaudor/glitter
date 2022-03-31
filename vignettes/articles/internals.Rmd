@@ -67,6 +67,8 @@ The motivation for this is:
 - easier copy-pasting from SPARQL query examples;
 - the ability to keep the SPARQL concepts.
 
+Triple patterns are parsed by `decompose_triples` that uses string manipulation.
+
 Now, if one wants to go full DSL, it is possible, via `spq_filter()` and `spq_mutate()`.
 
 The triple pattern in `spq_add(query, "?item wdt:P31 wd:Q13442814")` means finding items that are an instance of ("wdt:P31") of a scholarly article ("wd:Q13442814").
@@ -79,3 +81,39 @@ spq_init() %>%
 
 This looks more like a normal tidyverse pipeline. Note that the namespacing here is done the R way i.e. `wdt::P31` as opposed to "wdt:P31".
 
+# Other `spq_` functions
+
+The other `spq_` functions `spq_arrange()`, `spq_select()`, `spq_mutate()`, `spq_mutate()` , `spq_filter()`, `spq_summarize()` are the core of the DSL.
+
+They have `...` as arguments where three different things can be passed
+- R-looking snippets (the DSL), for instance `spq_filter(query, lang(itemTitle) == "en")`;
+- R-looking snippets as string (for programmatic use), for instance `spq_filter(query, 'lang(itemTitle) == "en"')`;
+- SPARQL snippets escaped with `spq()` (for copy-pasting from SPARQL examples), for instance `spq_filter(query, spq('lang(?itemTitle)="en"'))`.
+
+The names of their other arguments starts with a dot to prevent name clashes.
+
+How do we differentiate these three things that users can pass?
+
+* First, arguments are transformed into quosures with `rlang::enquos(...)`.
+* Each of them is passed to a function like `spq_treat_argument()`. "Like" as the more complex behavior of `spq_filter()` and `spq_mutate()`, that can accept R-looking snippets that will be translated to either triple patterns or not, warrants a bit more logic.
+* In `spq_treat_argument()` we try evaluating the argument via `rlang::eval_tidy()`. 
+    * If the result is of the class `spq`, then it means we can use the string as is, it was SPARQL.
+    * If the result is another character, it is the code to be translated (example: `'lang(itemTitle) == "en"'`).
+    * If it is not, we need to get the text of the expression via `rlang::expr_text(arg) %>% stringr::str_replace("^~", "")` (example: the user wrote `lang(itemTitle) == "en"`).
+* In the two latter cases, we have R-looking code to translate into a SPARQL snippet. We first parse the code with xmlparsedata and xml2. Then a series of transformations supported by XPath happen. The glitter package contains a `tibble` called `all_correspondences`:
+
+```{r}
+head(glitter::all_correspondences)
+```
+
+So all instances of `n(blabla)` become `COUNT(blabla)`. 
+We also transform argument names.
+Look at the "SELECT" statement below, the `str_c()` function becomes `GROUP_CONCAT()` and its argument `SEPARATOR`. 
+Also note that the argument comes after a colon, not a comma like in R. 
+
+```{r}
+spq_init() %>%
+  spq_summarise(authors = str_c(name, sep = ', '))
+```
+
+Later, we need to document these correspondences better, and we need to stress test the DSL with more cases using arguments.
