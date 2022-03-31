@@ -93,7 +93,7 @@ spq_init() %>%
   spq_add("wd:Q331676 wdt:P1843 ?statement")
 ```
 
-adds a variable statement that is "wdt:P1843" of Sonchus oleraceus ("wd:Q331676"). 
+adds a variable that is "wdt:P1843" of Sonchus oleraceus ("wd:Q331676"). 
 It can be written:
 
 ```r
