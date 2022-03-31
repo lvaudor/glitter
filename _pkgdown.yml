@@ -64,3 +64,5 @@ navbar:
       href: articles/glitter_for_hal.html
     - text: SyMoGih
       href: articles/glitter_for_SyMoGih.html
+    - text: glitter internals
+      href: articles/internals.html
