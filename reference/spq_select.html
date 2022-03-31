@@ -57,20 +57,24 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">spq_select</span><span class="op">(</span>query <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, spq_duplicate <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">spq_select</span><span class="op">(</span>.query <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, .spq_duplicate <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>query</dt>
+    <dl><dt>.query</dt>
 <dd><p>a list with elements of the query</p></dd>
 <dt>...</dt>
 <dd><p>variables by which to arrange
 (or SPARQL strings escaped with <code><a href="spq.html">spq()</a></code>, or strings, see examples)</p></dd>
-<dt>spq_duplicate</dt>
+<dt>.spq_duplicate</dt>
 <dd><p>How to handle duplicates: keep them (<code>NULL</code>), eliminate (<code>distinct</code>)
 or reduce them (<code>reduced</code>, advanced usage).</p></dd>
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>A query object</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

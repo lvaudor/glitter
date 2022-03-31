@@ -40,7 +40,7 @@
     <loc>https://lvaudor.github.io/glitter/reference/count_items.html</loc>
   </url>
   <url>
-    <loc>https://lvaudor.github.io/glitter/reference/decompose_triplet.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/decompose_triple_pattern.html</loc>
   </url>
   <url>
     <loc>https://lvaudor.github.io/glitter/reference/get_claim.html</loc>
@@ -64,7 +64,7 @@
     <loc>https://lvaudor.github.io/glitter/reference/get_thing.html</loc>
   </url>
   <url>
-    <loc>https://lvaudor.github.io/glitter/reference/get_triplets.html</loc>
+    <loc>https://lvaudor.github.io/glitter/reference/get_triple.html</loc>
   </url>
   <url>
     <loc>https://lvaudor.github.io/glitter/reference/index.html</loc>
@@ -122,6 +122,9 @@
   </url>
   <url>
     <loc>https://lvaudor.github.io/glitter/reference/spq_select.html</loc>
+  </url>
+  <url>
+    <loc>https://lvaudor.github.io/glitter/reference/spq_set.html</loc>
   </url>
   <url>
     <loc>https://lvaudor.github.io/glitter/reference/spq_summarise.html</loc>

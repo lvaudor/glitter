@@ -75,7 +75,7 @@
 <span class="r-in"> SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }</span>
 <span class="r-in">} ORDER BY ?itemLabel</span>
 <span class="r-in">'</span></span>
-<span class="r-in"><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="send_sparql.html">send_sparql</a></span><span class="op">(</span>query<span class="op">=</span><span class="va">metro_query</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="send_sparql.html">send_sparql</a></span><span class="op">(</span><span class="va">metro_query</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">clean_tib</span><span class="op">=</span><span class="fu">clean_wikidata_table</span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">clean_tib</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 3</span></span>
