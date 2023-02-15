@@ -2,6 +2,7 @@ type,name,url
 Wikidata,wd,http://www.wikidata.org/entity/
 Wikidata,wdt,http://www.wikidata.org/prop/direct/
 Wikidata,ps,http://www.wikidata.org/prop/statement/
+Wikidata,psv,http://www.wikidata.org/prop/statement/value/
 Wikidata,pq,http://www.wikidata.org/prop/qualifier/
 Wikidata,p,http://www.wikidata.org/prop/
 Wikidata,wikibase,http://wikiba.se/ontology#
