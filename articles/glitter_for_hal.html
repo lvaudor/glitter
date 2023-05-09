@@ -117,9 +117,9 @@ comment les formuler dans R à l’aide du package glitter.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://www… http:…</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… <span style="color: #BB0000;">NA</span>    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… <span style="color: #BB0000;">NA</span>    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… https…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… inria…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… 22</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://www… https…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… en    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… XML</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="rechercher-luri-le-titre-le-lien-vers-le-pdf-et-les-auteurs-de-toutes-les-versions-de-ce-document">Rechercher l’URI, le titre, le lien vers le PDF et les auteurs de
@@ -137,14 +137,13 @@ comment les formuler dans R à l’aide du package glitter.</p>
 <span><span class="va">tib_doc</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_doc</span>,<span class="st">"hal"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tib_doc</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 6</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 6</span></span></span>
 <span><span class="co">##   version                                       title creator pdf   person name </span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Leil…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Fabi…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Khal…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Hacè…</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Oliv…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Khal…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Hacè…</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Fabi…</span></span></code></pre>
 <p>Remarque: on peut concaténer les réponses d’une variable (ici les
 auteurs par exemple):</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -158,7 +157,7 @@ auteurs par exemple):</p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 4</span></span></span>
 <span><span class="co">##   version                                                    title pdf   authors</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/inria-00362381… Quer… http… Leila …</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/inria-00362381… Quer… http… Khaled…</span></span></code></pre>
 <p>On peut également <strong>agréger/résumer</strong> les résultats
 renvoyés par la requête, par exemple en <strong>recherchant le nombre
 d’auteurs d’un document</strong> (par version)</p>
@@ -237,12 +236,12 @@ ligne de résultats pour laquelle l’étiquette est en français :</p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
 <span><span class="co">##   document                                           version creator type  label</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/hal-01… https:… nodeID… http… Dire…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/hal-02… https:… nodeID… http… Comm…</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/document/hal-03… https:… nodeID… http… Arti…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/document/hal-02… https:… nodeID… http… Comm…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/document/hal-01… https:… nodeID… http… Dire…</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/document/hal-01… https:… nodeID… http… Comm…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> https://data.archives-ouvertes.fr/document/hal-02… https:… nodeID… http… Ouvr…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> https://data.archives-ouvertes.fr/document/hal-02… https:… nodeID… http… Comm…</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> https://data.archives-ouvertes.fr/document/obspm-… https:… nodeID… http… Arti…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> https://data.archives-ouvertes.fr/document/hal-02… https:… nodeID… http… Ouvr…</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="enrichirsimplifier-la-requête">Enrichir/simplifier la requête<a class="anchor" aria-label="anchor" href="#enrichirsimplifier-la-requ%C3%AAte"></a>
@@ -262,9 +261,9 @@ associée):</p>
 <span><span class="co">##   type                                                      label          nbdoc</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/doctype/Ouv             Ouvrages       1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/doctype/Article         Article dans … 4    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/doctype/ConferencePaper Communication… 3    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/doctype/Douv            Direction d'o… 1</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/doctype/Douv            Direction d'o… 1    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/doctype/Article         Article dans … 4    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/doctype/ConferencePaper Communication… 3</span></span></code></pre>
 <p>On peut afficher ces résultats en <strong>ordonnant</strong> les
 lignes selon le nombre de documents décroissant:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
@@ -326,7 +325,7 @@ Fabien Gandon » via l’IdHAL<a class="anchor" aria-label="anchor" href="#affic
 <span></span>
 <span><span class="va">tib_aut</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 0 × 2</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 2 variables: o &lt;chr&gt;, forme &lt;chr&gt;</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 2 variables: o &lt;chr&gt;, forme &lt;chr&gt;</span></span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="enrichirrésumer-les-données">Enrichir/résumer les données<a class="anchor" aria-label="anchor" href="#enrichirr%C3%A9sumer-les-donn%C3%A9es"></a>
@@ -347,7 +346,7 @@ Fabien Gandon » via l’IdHAL<a class="anchor" aria-label="anchor" href="#affic
 <span></span>
 <span><span class="va">tib_autNbDocYear</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 0 × 2</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 2 variables: year &lt;chr&gt;, nbdoc &lt;chr&gt;</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 2 variables: year &lt;chr&gt;, nbdoc &lt;chr&gt;</span></span></span></code></pre>
 <!--  select DISTINCT ?idhal ?identifiant where { <https://data.archives-ouvertes.fr/author/827904> ore:isAggregatedBy ?idhal. ?forme ore:isAggregatedBy ?idhal. ?forme owl:sameAs ?identifiant } -->
 <!-- Faire une recherche dans une chaîne de caractères exple afficher les identifiants ORCID distincts liés à toutes les formes liées à « Fabien Gandon » URI utile Forme auteur : https://data.archives-ouvertes.fr/author/827904 select DISTINCT ?idhal ?orcid where { <https://data.archives-ouvertes.fr/author/827904> ore:isAggregatedBy ?idhal. ?forme ore:isAggregatedBy ?idhal. ?forme owl:sameAs ?orcid. FILTER regex(str(?orcid), 'orcid.org') } -->
 <!-- # Afficher les identifiants ORCID de tous les membres d’INRIA et pour chaque ORCID, concaténer les différentes URIs des formes associées URI utile INRIA : https://data.archives-ouvertes.fr/structure/300009  -->
