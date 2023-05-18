@@ -1,7 +1,6 @@
 #' Send SPARQL query to endpoint and get tibble as a result
 #' @param .query a string corresponding to a SPARQL query
 #' @param endpoint a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
-#' @export
 #' @examples
 #'metro_query='SELECT ?item ?itemLabel ?coords
 #'{

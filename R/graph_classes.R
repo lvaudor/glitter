@@ -1,7 +1,6 @@
 #' Build the graph of sub/superclasses
 #' @param id the id of class
 #' @importFrom rlang .data `%||%` `:=`
-#' @export
 #' @examples
 #' \dontrun{
 #' tib_g=build_graph_classes("wd:Q627272")
