@@ -4,12 +4,33 @@
 \alias{spq_perform}
 \title{Assemble query parts into a sparql query and send it to endpoint to get a tibble as a result.}
 \usage{
-spq_perform(.query, endpoint = "Wikidata")
+spq_perform(
+  .query,
+  endpoint = "Wikidata",
+  user_agent = getOption("glitter.ua",
+    "glitter R package (https://github.com/lvaudor/glitter)"),
+  max_tries = getOption("glitter.max_tries", 3L),
+  max_seconds = getOption("glitter.max_seconds", 120L),
+  timeout = getOption("glitter.timeout", 1000L),
+  request_type = c("url", "body-form")
+)
 }
 \arguments{
 \item{.query}{a list with elements of the query}
 
 \item{endpoint}{a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"}
+
+\item{user_agent}{a string indicating the user agent to send with the query.}
+
+\item{max_tries, max_seconds}{Cap the maximum number of attempts with
+\code{max_tries} or the total elapsed time from the first request with
+\code{max_seconds}. If neither option is supplied (the default), \code{\link[httr2:req_perform]{req_perform()}}
+will not retry.}
+
+\item{timeout}{maximum number of seconds to wait (\code{httr2::req_timeout()}).}
+
+\item{request_type}{a string indicating how the query should be sent: in the
+URL (\code{url}, default, most common) or as a body form (\code{body-form}).}
 }
 \value{
 A query object

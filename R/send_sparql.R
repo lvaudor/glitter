@@ -1,6 +1,11 @@
 #' Send SPARQL query to endpoint and get tibble as a result
 #' @param .query a string corresponding to a SPARQL query
 #' @param endpoint a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
+#' @param user_agent a string indicating the user agent to send with the query.
+#' @inheritParams httr2::req_retry
+#' @param timeout maximum number of seconds to wait (`httr2::req_timeout()`).
+#' @param request_type a string indicating how the query should be sent: in the
+#' URL (`url`, default, most common) or as a body form (`body-form`).
 #' @examples
 #'metro_query='SELECT ?item ?itemLabel ?coords
 #'{
@@ -12,8 +17,33 @@
 #''
 #'send_sparql(metro_query)
 #' @export
-send_sparql=function(.query,endpoint="Wikidata"){
-  endpoint=tolower(endpoint)
+send_sparql = function(.query,
+                       endpoint = "Wikidata",
+                       user_agent = getOption("glitter.ua", "glitter R package (https://github.com/lvaudor/glitter)"),
+                       max_tries = getOption("glitter.max_tries", 3L),
+                       max_seconds = getOption("glitter.max_seconds", 120L),
+                       timeout = getOption("glitter.timeout", 1000L),
+                       request_type = c("url", "body-form")){
+
+  if (!inherits(user_agent, "character")) {
+    cli::cli_abort("{.field user_agent} must be a string.")
+  }
+
+  if (!inherits(max_tries, "integer")) {
+    cli::cli_abort("{.field max_tries} must be a integer")
+  }
+
+  if (!inherits(max_seconds, "integer")) {
+    cli::cli_abort("{.field max_seconds} must be a integer")
+  }
+
+  if (!inherits(timeout, "integer")) {
+    cli::cli_abort("{.field timeout} must be a integer")
+  }
+
+  rlang::arg_match(request_type, c("url", "body-form"))
+
+  endpoint = tolower(endpoint)
 
   # if endpoint wikidata, use WikidataQueryServiceR::query_wikidata()
   if(endpoint=="wikidata"){
@@ -30,14 +60,20 @@ send_sparql=function(.query,endpoint="Wikidata"){
     endpoint
   }
 
-
-    resp = httr2::request(url) %>%
-    httr2::req_url_query(query = .query) %>%
+  initial_request = httr2::request(url) %>%
     httr2::req_method("POST") %>%
     httr2::req_headers(Accept = "application/sparql-results+json") %>%
-    httr2::req_user_agent("glitter R package (https://github.com/lvaudor/glitter)") %>%
-    httr2::req_retry(max_tries = 3, max_seconds = 120) %>%
-    httr2::req_perform()
+    httr2::req_user_agent(user_agent) %>%
+    httr2::req_retry(max_tries = max_tries, max_seconds = max_seconds) %>%
+    httr2::req_timeout(timeout)
+
+  request <- if (request_type == "url") {
+    httr2::req_url_query(initial_request, query = .query)
+  } else {
+    httr2::req_body_form(initial_request, query = query)
+  }
+
+  resp <- httr2::req_perform(request)
 
     httr2::resp_check_status(resp)
 
