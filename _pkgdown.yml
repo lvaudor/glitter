@@ -24,10 +24,11 @@ reference:
   desc: "These functions help translate R syntax into SPARQL language"
 - contents:
   - starts_with("is_")
+  - set_functions
 - title: "Debugging"
 - contents:
   - spq_assemble
-  - set_functions
+  - send_sparql
 - title: "Wikidata"
 - contents:
   - clean_wikidata_table

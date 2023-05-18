@@ -11,7 +11,7 @@
 #'} ORDER BY ?itemLabel
 #''
 #'send_sparql(metro_query)
-#' @noRd
+#' @export
 send_sparql=function(.query,endpoint="Wikidata"){
   endpoint=tolower(endpoint)
 
