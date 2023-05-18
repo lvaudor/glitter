@@ -34,6 +34,8 @@ A query object
 Filters results by adding conditions
 }
 \section{Some examples}{
+
+
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{spq_init() \%>\%
 spq_filter(item == wdt::P31(wd::Q13442814))
 # Corpus of articles with "wikidata" in the title

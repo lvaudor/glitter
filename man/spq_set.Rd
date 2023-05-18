@@ -18,6 +18,8 @@ A query object
 Set helper values for the query (helps with readability)
 }
 \section{Some examples}{
+
+
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# find the individuals of the species
 spq_init() \%>\%
 # dog, cat or chicken
