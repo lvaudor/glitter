@@ -1,11 +1,11 @@
 #' Build the graph of sub/superclasses
 #' @param id the id of class
 #' @importFrom rlang .data `%||%` `:=`
-#' @export
 #' @examples
 #' \dontrun{
 #' tib_g=build_graph_classes("wd:Q627272")
 #' }
+#' @noRd
 build_graph_classes=function(id){
   subclasses=subclasses_of(id,include_self=TRUE)
   subclasses_start=subclasses
@@ -64,13 +64,13 @@ build_graph_classes=function(id){
 #' @param tib_g tib_g
 #' @param layout layout of the graph for instance "kk" or "sugiyama"
 #' @param n_min minimal number
-#' @export
 #' @examples
 #' \dontrun{
 #' tib_g=build_graph_classes("wd:Q627272")
 #' show_graph_classes(tib_g,layout="kk")
 #' show_graph_classes(tib_g,layout="sugiyama")
 #' }
+#' @noRd
 show_graph_classes=function(tib_g,n_min=10,layout="kk"){
   tib_g_light=tib_g %>%
     dplyr::filter(.data$n > {{ n_min }})

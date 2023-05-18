@@ -34,6 +34,8 @@ A query object
 Create and modify variables in the results
 }
 \section{Some examples}{
+
+
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# common name of a plant species in different languages
 # the triplet pattern "wd:Q331676 wdt:P1843 ?statement" creates the variable statement
 # hence our writing it in reverse within the spq_mutate() function
