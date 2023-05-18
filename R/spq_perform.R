@@ -17,7 +17,8 @@ spq_perform = function(.query,
                        max_tries = getOption("glitter.max_tries", 3L),
                        max_seconds = getOption("glitter.max_seconds", 120L),
                        timeout = getOption("glitter.timeout", 1000L),
-                       request_type = c("url", "body-form")){
+                       request_type = c("url", "body-form"),
+                       dry_run = FALSE){
   sparql_query = spq_assemble(.query = .query, endpoint = endpoint)
 
   send_sparql(
@@ -27,7 +28,8 @@ spq_perform = function(.query,
     max_tries = max_tries,
     max_seconds = max_seconds,
     timeout = timeout,
-    request_type = request_type
+    request_type = request_type,
+    dry_run = FALSE
   )
 
 }

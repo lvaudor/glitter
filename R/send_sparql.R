@@ -6,6 +6,8 @@
 #' @param timeout maximum number of seconds to wait (`httr2::req_timeout()`).
 #' @param request_type a string indicating how the query should be sent: in the
 #' URL (`url`, default, most common) or as a body form (`body-form`).
+#' @param dry_run Boolean indicating whether to return the output of `httr2::req_dry_run()`
+#' rather than of `httr2::req_perform`. Useful for debugging.
 #' @examples
 #'metro_query='SELECT ?item ?itemLabel ?coords
 #'{
@@ -23,7 +25,8 @@ send_sparql = function(.query,
                        max_tries = getOption("glitter.max_tries", 3L),
                        max_seconds = getOption("glitter.max_seconds", 120L),
                        timeout = getOption("glitter.timeout", 1000L),
-                       request_type = c("url", "body-form")){
+                       request_type = c("url", "body-form"),
+                       dry_run = FALSE) {
 
   if (!inherits(user_agent, "character")) {
     cli::cli_abort("{.field user_agent} must be a string.")
@@ -41,7 +44,7 @@ send_sparql = function(.query,
     cli::cli_abort("{.field timeout} must be a integer")
   }
 
-  rlang::arg_match(request_type, c("url", "body-form"))
+  request_type <- rlang::arg_match(request_type, c("url", "body-form"))
 
   endpoint = tolower(endpoint)
 
@@ -70,7 +73,11 @@ send_sparql = function(.query,
   request <- if (request_type == "url") {
     httr2::req_url_query(initial_request, query = .query)
   } else {
-    httr2::req_body_form(initial_request, query = query)
+    httr2::req_body_form(initial_request, query = .query)
+  }
+
+  if (dry_run) {
+    return(httr2::req_dry_run(request, quiet = TRUE))
   }
 
   resp <- httr2::req_perform(request)
