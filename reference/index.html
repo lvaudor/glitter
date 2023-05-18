@@ -28,7 +28,6 @@
     <a class="dropdown-item" href="../articles/glitter_for_dataBNF.html">dataBNF</a>
     <a class="dropdown-item" href="../articles/glitter_for_hal.html">HAL</a>
     <a class="dropdown-item" href="../articles/glitter_for_SyMoGih.html">SyMoGih</a>
-    <a class="dropdown-item" href="../articles/internals.html">glitter internals</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -167,6 +166,16 @@
           <code><a href="spq_summarise.html">spq_summarise()</a></code> <code><a href="spq_summarise.html">spq_summarize()</a></code> 
         </dt>
         <dd>Summarise each group of results to fewer results</dd>
+      </dl><dl><dt>
+          
+          <code><a href="usual_endpoints.html">usual_endpoints</a></code> 
+        </dt>
+        <dd>Usual endpoints: this dataset allows the user to refer to them using a simplified name rather than their full url.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="usual_prefixes.html">usual_prefixes</a></code> 
+        </dt>
+        <dd>Usual prefixes: this dataset allows the user to refer to usual prefixes in their queries without manually specifying the associated urls.</dd>
       </dl></div><div class="section level2">
       <h2 id="syntax-auxiliaries">Syntax auxiliaries<a class="anchor" aria-label="anchor" href="#syntax-auxiliaries"></a></h2>
       
@@ -199,6 +208,83 @@
           <code><a href="spq_assemble.html">spq_assemble()</a></code> 
         </dt>
         <dd>Assemble query parts into a proper SPARQL query</dd>
+      </dl><dl><dt>
+          
+          <code><a href="send_sparql.html">send_sparql()</a></code> 
+        </dt>
+        <dd>Send SPARQL query to endpoint and get tibble as a result</dd>
+      </dl></div><div class="section level2">
+      <h2 id="wikidata">Wikidata<a class="anchor" aria-label="anchor" href="#wikidata"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="clean_wikidata_table.html">clean_wikidata_table()</a></code> 
+        </dt>
+        <dd>Clean Wikidata results by removing the "http://www.wikidata.org/entity/" prefix in all columns</dd>
+      </dl><dl><dt>
+          
+          <code><a href="get_claim.html">get_claim()</a></code> 
+        </dt>
+        <dd>Get claims regarding one Wikidata thing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="get_claims.html">get_claims()</a></code> 
+        </dt>
+        <dd>Get claims regarding one Wikidata thing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="get_description.html">get_description()</a></code> 
+        </dt>
+        <dd>Get description of Wikidata thing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="get_info.html">get_info()</a></code> 
+        </dt>
+        <dd>Get description of Wikidata thing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="get_thing.html">get_thing()</a></code> 
+        </dt>
+        <dd>Get Wikidata item or property
+Get unformatted info from Wikidata based on an item or property id.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="get_label.html">get_label()</a></code> 
+        </dt>
+        <dd>Get label of Wikidata thing</dd>
+      </dl><dl><dt>
+          
+          <code><a href="count_items.html">count_items()</a></code> 
+        </dt>
+        <dd>Get counts of items directly in classes</dd>
+      </dl><dl><dt>
+          
+          <code><a href="subclasses_of.html">subclasses_of()</a></code> 
+        </dt>
+        <dd>Get subclasses of a Wikidata class</dd>
+      </dl><dl><dt>
+          
+          <code><a href="superclasses_of.html">superclasses_of()</a></code> 
+        </dt>
+        <dd>Get superclasses of a Wikidata class</dd>
+      </dl><dl><dt>
+          
+          <code><a href="transform_wikidata_coords.html">transform_wikidata_coords()</a></code> 
+        </dt>
+        <dd>Get coords at lat-lng from Wikidata format</dd>
+      </dl><dl><dt>
+          
+          <code><a href="wd_properties.html">wd_properties</a></code> 
+        </dt>
+        <dd>Wikidata properties</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>

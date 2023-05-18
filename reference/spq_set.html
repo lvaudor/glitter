@@ -28,7 +28,6 @@
     <a class="dropdown-item" href="../articles/glitter_for_dataBNF.html">dataBNF</a>
     <a class="dropdown-item" href="../articles/glitter_for_hal.html">HAL</a>
     <a class="dropdown-item" href="../articles/glitter_for_SyMoGih.html">SyMoGih</a>
-    <a class="dropdown-item" href="../articles/internals.html">glitter internals</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -79,7 +78,10 @@
     </div>
     <div class="section level2">
     <h2 id="some-examples">Some examples<a class="anchor" aria-label="anchor" href="#some-examples"></a></h2>
-    <p></p><div class="sourceCode r"><pre><code><span><span class="co"># find the individuals of the species</span></span>
+    
+
+
+<p></p><div class="sourceCode r"><pre><code><span><span class="co"># find the individuals of the species</span></span>
 <span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span><span class="co"># dog, cat or chicken</span></span>
 <span><span class="fu"><a href="../reference/spq_set.html">spq_set</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'wd:Q144'</span>,<span class="st">'wd:Q146'</span>, <span class="st">'wd:Q780'</span><span class="op">)</span>, mayorcode <span class="op">=</span> <span class="st">"wd:Q30185"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
