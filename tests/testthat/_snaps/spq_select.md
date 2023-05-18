@@ -85,12 +85,20 @@
 
 # spq_select errors well
 
-    x Can't find equivalent for argument(s) abbreviate, translate for call to year().
+    i In index: 1.
+    i With name: birthyear.
+    Caused by error in `map()`:
+    i In index: 1.
+    Caused by error in `.f()`:
+    ! x Can't find equivalent for argument(s) abbreviate, translate for call to year().
     i If you think there should be one, open an issue in https://github.com/lvaudor/glitter.
 
 ---
 
-    x Can't find SPARQL equivalent for collapse().
+    i In index: 1.
+    i With name: birthyear.
+    Caused by error in `spq_translate_dsl()`:
+    ! x Can't find SPARQL equivalent for collapse().
     i If you think there should be one, open an issue in https://github.com/lvaudor/glitter.
 
 # spq_select can use DISTINCT and REDUCED

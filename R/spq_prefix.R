@@ -23,7 +23,7 @@ spq_prefix = function(.query = NULL, auto = TRUE, prefixes = NULL){
     prefixes = dplyr::bind_rows(prefixes, prefixes_auto)
   }
   prefixes = prefixes %>%
-    dplyr::select(.data$name,.data$url) %>%
+    dplyr::select(name, url) %>%
     unique()
 
   .query$prefixes_provided = dplyr::bind_rows(
