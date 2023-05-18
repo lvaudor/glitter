@@ -22,7 +22,7 @@ get_thing=function(id){
 #' get_label("wd:Q431603", language="fr")
 get_label=function(id, language="en"){
   if(is.na(id)){return(NA)}
-  if(class(id)=="character"){thing=get_thing(id)}else{thing=id}
+  if(inherits(id, "character")){thing=get_thing(id)}else{thing=id}
   info=thing %>%
     purrr::map("labels")
   if(language %in% names(info[[1]])) {
@@ -41,7 +41,7 @@ get_label=function(id, language="en"){
 #' get_description("wd:Q431603")
 #' get_description("wd:Q431603", language="es")
 get_description=function(id,language="en"){
-  if(class(id)=="character"){thing=get_thing(id)}else{thing=id}
+  if(inherits(id, "character")){thing=get_thing(id)}else{thing=id}
   description=thing %>%
     purrr::map("descriptions") %>%
     purrr::map(language) %>%
@@ -115,7 +115,7 @@ utils::globalVariables("wd_properties")
 #' @examples
 #' get_info("wd:Q431603")
 get_info=function(id,language="en",with_labels=FALSE){
-  if(class(id)=="character"){thing=get_thing(id)}else{thing=id}
+  if(inherits(id, "character")){thing=get_thing(id)}else{thing=id}
   label=get_label(thing)
   description=get_description(thing)
   claims=get_claims(id, with_labels=with_labels)
