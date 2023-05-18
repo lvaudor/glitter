@@ -64,6 +64,8 @@ tib=spq_init() %>%
 
 test_that("httr2 options", {
 
+  skip_if_not_installed("httpuv")
+
   custom_ua_query <- send_sparql(
     .query = spq_init() %>% spq_assemble(),
     endpoint = "http://example.com",
@@ -86,7 +88,9 @@ test_that("httr2 options", {
   expect_equal(body_form_query[["headers"]][["host"]], "example.com")
   expect_equal(body_form_query[["headers"]][["content-length"]], "142")
   expect_equal(body_form_query[["headers"]][["content-type"]], "application/x-www-form-urlencoded")
+})
 
+test_that("httr2 options error", {
   expect_snapshot(
     send_sparql(
     .query = spq_init() %>% spq_assemble(),

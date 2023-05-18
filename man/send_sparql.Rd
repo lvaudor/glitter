@@ -12,7 +12,8 @@ send_sparql(
   max_tries = getOption("glitter.max_tries", 3L),
   max_seconds = getOption("glitter.max_seconds", 120L),
   timeout = getOption("glitter.timeout", 1000L),
-  request_type = c("url", "body-form")
+  request_type = c("url", "body-form"),
+  dry_run = FALSE
 )
 }
 \arguments{
@@ -31,6 +32,9 @@ will not retry.}
 
 \item{request_type}{a string indicating how the query should be sent: in the
 URL (\code{url}, default, most common) or as a body form (\code{body-form}).}
+
+\item{dry_run}{Boolean indicating whether to return the output of \code{httr2::req_dry_run()}
+rather than of \code{httr2::req_perform}. Useful for debugging.}
 }
 \description{
 Send SPARQL query to endpoint and get tibble as a result
