@@ -103,7 +103,8 @@ send_sparql = function(.query,
           type,
           character = x,
           integer = x, # easier for now as dbpedia can return different things with the same name
-          datetime = anytime::anytime(x)
+          datetime = anytime::anytime(x),
+            x
         )
         }
         value = parse(binding[["value"]], type)
