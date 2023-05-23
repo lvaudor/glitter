@@ -259,8 +259,8 @@ package <code>leaflet</code>:</p>
 <code class="sourceCode R"><span><span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html" class="external-link">leaflet</a></span><span class="op">(</span><span class="va">stations_metro_Lyon</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addTiles</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addCircles</a></span><span class="op">(</span>popup<span class="op">=</span><span class="op">~</span><span class="va">stationsLabel</span><span class="op">)</span></span></code></pre></div>
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-dc842c1cb56fe80f9ec9" style="width:700px;height:432.632880098888px;"></div>
-<script type="application/json" data-for="htmlwidget-dc842c1cb56fe80f9ec9">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircles","args":[[],[],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},[],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]}],"limits":[]},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-898199c4294b7e6c9ab4" style="width:700px;height:432.632880098888px;"></div>
+<script type="application/json" data-for="htmlwidget-898199c4294b7e6c9ab4">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircles","args":[[],[],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},[],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]}],"limits":[]},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="section level2">
 <h2 id="example-2-cities-around-lyon">Example 2 : cities around Lyon<a class="anchor" aria-label="anchor" href="#example-2-cities-around-lyon"></a>
@@ -333,18 +333,18 @@ argument <code>limit</code></p>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
-<span><span class="co">#&gt;    city                                cityLabel     coords                     </span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.wikidata.org/entity/Q60  New York City Point(-74.0 40.7)          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> http://www.wikidata.org/entity/Q62  San Francisco Point(-122.416388888 37.77…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> http://www.wikidata.org/entity/Q65  Los Angeles   Point(-118.24368 34.05223) </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> http://www.wikidata.org/entity/Q70  Bern          Point(7.44743 46.94798)    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> http://www.wikidata.org/entity/Q84  London        Point(-0.1275 51.507222222)</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> http://www.wikidata.org/entity/Q85  Cairo         Point(31.235833333 30.0444…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> http://www.wikidata.org/entity/Q87  Alexandria    Point(29.8925 31.1975)     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> http://www.wikidata.org/entity/Q88  Alexandria    Point(-77.047222222 38.804…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> http://www.wikidata.org/entity/Q172 Toronto       Point(-79.386666666 43.670…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> http://www.wikidata.org/entity/Q174 São Paulo     Point(-46.633947222 -23.55…</span></span></code></pre></div>
+<span><span class="co">#&gt;    city                                 cityLabel     coords                    </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.wikidata.org/entity/Q1891 Bologna       Point(11.342777777 44.493…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> http://www.wikidata.org/entity/Q1903 Catania       Point(15.087269444 37.502…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> http://www.wikidata.org/entity/Q1906 Caserta       Point(14.333333 41.066667)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> http://www.wikidata.org/entity/Q1947 Juba          Point(31.6 4.85)          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> http://www.wikidata.org/entity/Q1960 Dar es Salaam Point(39.280277777 -6.816…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> http://www.wikidata.org/entity/Q1963 Khartoum      Point(32.52654 15.60308)  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> http://www.wikidata.org/entity/Q2028 Verona        Point(10.992777777 45.438…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> http://www.wikidata.org/entity/Q2044 Florence      Point(11.254166666 43.771…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> http://www.wikidata.org/entity/Q2055 Whitehorse    Point(-135.055833333 60.7…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> http://www.wikidata.org/entity/Q2061 Yellowknife   Point(-114.3975 62.442222…</span></span></code></pre></div>
 <p>We can refine this query, stating that we want cities (or items of
 subclasses of city) in a radius of 5km around Lyon (which has lat-long
 coordinates ~ 45.76 and 4.84). We will use the argument
@@ -358,14 +358,14 @@ coordinates ~ 45.76 and 4.84). We will use the argument
 <span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cities_around_Lyon</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 3</span></span></span>
-<span><span class="co">#&gt;   city                                     cityLabel           coords           </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> http://www.wikidata.org/entity/Q2961154  Charpennes-Tonkin   Point(4.864 45.7…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> http://www.wikidata.org/entity/Q5273     Cité internationale Point(4.85426 45…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> http://www.wikidata.org/entity/Q2904730  Bissardon           Point(4.83879 45…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> http://www.wikidata.org/entity/Q8297     Les Brotteaux       Point(4.85027778…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> http://www.wikidata.org/entity/Q3461981  Saint-Clair         Point(4.85591 45…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> http://www.wikidata.org/entity/Q20987614 Buers               Point(4.89223385…</span></span></code></pre></div>
+<span><span class="co">#&gt;   city                                     cityLabel  coords                    </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> http://www.wikidata.org/entity/Q3322491  Montchat   Point(4.88689 45.749733)  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> http://www.wikidata.org/entity/Q3220089  Laënnec    Point(4.88472222 45.73833…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> http://www.wikidata.org/entity/Q2373934  Monplaisir Point(4.87136 45.7455)    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> http://www.wikidata.org/entity/Q15154668 Q15154668  Point(4.865206 45.766475) </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> http://www.wikidata.org/entity/Q3220186  Le Bachut  Point(4.86972222 45.73638…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> http://www.wikidata.org/entity/Q3115310  Q3115310   Point(4.87872 45.743)</span></span></code></pre></div>
 <!-- Actually, rather than getting Lyon's long-lat coordinates "by hand" we could get them directly through our query, which means we have to add a triple about Lyon ("wd:456") and its coordinates: -->
 <!-- ```{r, eval=FALSE} -->
 <!-- spq_init() %>%  -->
