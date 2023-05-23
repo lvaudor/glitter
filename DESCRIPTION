@@ -19,6 +19,7 @@ Depends:
     R (>= 3.5.0)
 Imports: 
     anytime,
+    cli,
     dplyr,
     ggplot2,
     ggraph,
@@ -37,6 +38,7 @@ Imports:
 Suggests: 
     covr,
     httptest2,
+    httpuv,
     knitr,
     leaflet,
     rmarkdown,

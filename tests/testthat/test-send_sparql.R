@@ -60,3 +60,71 @@ tib=spq_init() %>%
   expect_s3_class(tib, "tbl")
   expect_equal(nrow(tib), 10)
 })
+
+
+test_that("httr2 options", {
+
+  skip_if_not_installed("httpuv")
+
+  custom_ua_query <- send_sparql(
+    .query = spq_init() %>% spq_assemble(),
+    endpoint = "http://example.com",
+    dry_run = TRUE,
+    user_agent = "lalala"
+  )
+  expect_equal(custom_ua_query[["headers"]][["user-agent"]], "lalala")
+
+  expect_equal(
+    custom_ua_query[["headers"]][["host"]],
+    "example.com?query=%0ASELECT%20%2A%0AWHERE%7B%0A%0A%0ASERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%7D%0A%7D%0A%0A"
+  )
+
+  body_form_query <- send_sparql(
+    .query = spq_init() %>% spq_assemble(),
+    endpoint = "http://example.com",
+    dry_run = TRUE,
+    request_type = "body-form"
+  )
+  expect_equal(body_form_query[["headers"]][["host"]], "example.com")
+  expect_equal(body_form_query[["headers"]][["content-length"]], "142")
+  expect_equal(body_form_query[["headers"]][["content-type"]], "application/x-www-form-urlencoded")
+})
+
+test_that("httr2 options error", {
+  expect_snapshot(
+    send_sparql(
+    .query = spq_init() %>% spq_assemble(),
+    timeout = "ahahah"
+    ),
+    error = TRUE
+  )
+  expect_snapshot(
+    send_sparql(
+    .query = spq_init() %>% spq_assemble(),
+    max_tries = "ahahah"
+    ),
+    error = TRUE
+  )
+  expect_snapshot(
+    send_sparql(
+    .query = spq_init() %>% spq_assemble(),
+    max_seconds = "ahahah"
+    ),
+    error = TRUE
+  )
+  expect_snapshot(
+    send_sparql(
+    .query = spq_init() %>% spq_assemble(),
+    request_type = "ahahah"
+    ),
+    error = TRUE
+  )
+  expect_snapshot(
+    send_sparql(
+    .query = spq_init() %>% spq_assemble(),
+    user_agent = 42
+    ),
+    error = TRUE
+  )
+})
+
