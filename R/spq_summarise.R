@@ -13,6 +13,7 @@
 spq_summarise = function(.query, ...) {
 
   variables = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
+  are_we_tallying <- (variables == "COUNT(*)")
 
   variables[nzchar(names(variables))] = purrr::map2_chr(
     variables[nzchar(names(variables))],
@@ -21,6 +22,11 @@ spq_summarise = function(.query, ...) {
   )
 
   names(variables[!nzchar(names(variables))]) <- variables[!nzchar(names(variables))]
+
+  if (are_we_tallying) {
+    .query$select = variables
+    return(.query)
+  }
 
   no_grouping <- is.null(.query$group_by)
   if (no_grouping) {
