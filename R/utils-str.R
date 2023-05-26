@@ -162,11 +162,13 @@ keep_prefix = function(string){
 }
 
 
-#' get full specification of variables (as in SELECT part of SPARQL query) based on variable names
+#' Get full specification of variables (as in SELECT part of SPARQL query)
+#' based on variable names
 #' @param vars the selected variables (formula and name)
 #' @noRd
 #' @examples
-#' get_varformula(c("?author","?document","(year(?date) AS ?year)"))
+#' get_varformula("?author")
+#' get_varformula("(year(?date) AS ?year)")
 get_varformula = function(selected) {
     if (stringr::str_detect(selected,"\\(.* AS .*\\)")) {
       formula = stringr::str_extract(selected, "(?<=\\().*(?= AS )")

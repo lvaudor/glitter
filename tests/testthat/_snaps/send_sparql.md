@@ -1,4 +1,4 @@
-# httr2 options
+# httr2 options error
 
     Code
       send_sparql(.query = spq_init() %>% spq_assemble(), timeout = "ahahah")
