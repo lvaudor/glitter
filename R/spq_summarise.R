@@ -3,14 +3,14 @@
 #' @return A query object
 #' @export
 #' @examples
-#' result=spq_init() %>%
+#' result = spq_init() %>%
 #' spq_add("?item wdt:P361 wd:Q297853") %>%
 #' spq_add("?item wdt:P1082 ?folkm_ngd") %>%
 #' spq_add("?area wdt:P31 wd:Q1907114", .label = "?area") %>%
 #' spq_add("?area wdt:P527 ?item") %>%
 #' spq_group_by(area, areaLabel)  %>%
 #' spq_summarise(total_folkm = sum(folkm_ngd))
-spq_summarise = function(.query, ...){
+spq_summarise = function(.query, ...) {
 
   variables = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
@@ -22,11 +22,9 @@ spq_summarise = function(.query, ...){
 
   names(variables[!nzchar(names(variables))]) <- variables[!nzchar(names(variables))]
 
-  # If no grouping has been done
-  if (is.null(.query$group_by)) {
-    # then GROUP BY summary variables
+  no_grouping <- is.null(.query$group_by)
+  if (no_grouping) {
     .query$group_by = names(variables)
-    # and remove all other selected variables
     .query$select = NULL
   }
 
