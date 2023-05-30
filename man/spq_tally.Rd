@@ -2,9 +2,12 @@
 % Please edit documentation in R/spq_tally.R
 \name{spq_tally}
 \alias{spq_tally}
+\alias{spq_count}
 \title{Count the observations}
 \usage{
 spq_tally(.query, sort = FALSE, name = "n")
+
+spq_count(.query, ..., sort = FALSE, name = "n")
 }
 \arguments{
 \item{.query}{a list with elements of the query}
@@ -14,6 +17,9 @@ of \code{dplyr::tally()})}
 
 \item{name}{Name for the count column (like the \code{name} argument
 of \code{dplyr::tally()})}
+
+\item{...}{variables by which to arrange
+(or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
 }
 \value{
 A query object
@@ -34,6 +40,18 @@ spq_add("?film wdt:P31 wd:Q11424",.label="?film") \%>\%
 spq_mutate(narrative_location = wdt::P840(film), .label = "?narrative_location") \%>\%
 spq_group_by(narrative_locationLabel) \%>\%
 spq_tally(sort = TRUE, name = "n_films") \%>\%
+spq_perform()
+
+spq_init() \%>\%
+spq_add("?film wdt:P31 wd:Q11424") \%>\%
+spq_mutate(narrative_location = wdt::P840(film), .label = "?narrative_location") \%>\%
+spq_count(name = "n_films") \%>\%
+spq_perform()
+
+spq_init() \%>\%
+spq_add("?film wdt:P31 wd:Q11424",.label="?film") \%>\%
+spq_mutate(narrative_location = wdt::P840(film), .label = "?narrative_location") \%>\%
+spq_count(narrative_locationLabel, sort = TRUE, name = "n_films") \%>\%
 spq_perform()
 }
 }
