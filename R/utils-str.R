@@ -171,14 +171,17 @@ get_varformula = function(selected) {
     if (stringr::str_detect(selected,"\\(.* AS .*\\)")) {
       formula = stringr::str_extract(selected, "(?<=\\().*(?= AS )")
       name = stringr::str_extract(selected, "(?<= AS ).*(?=\\))")
+      args = list(stringr::str_extract(formula, "\\?[a-zA-Z0-9]+"))
     } else {
       formula = selected
       name = selected
+      args = NULL
     }
 
   tibble::tibble(
     full = selected,
     name = name,
-    formula = formula
+    formula = formula,
+    args = args
   )
 }

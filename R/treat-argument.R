@@ -66,7 +66,14 @@ spq_translate_dsl <- function(code) {
   }
 
   # put it back together
-  xml2::xml_text(code_data)
+  text <- xml2::xml_text(code_data)
+
+  if (text == "COUNT()") {
+    text <- "COUNT(*)"
+  }
+
+  text
+
 }
 
 add_question_mark = function(x) sprintf("?%s", x)

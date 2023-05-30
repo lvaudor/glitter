@@ -12,13 +12,38 @@
 #' spq_perform()
 #' }
 spq_group_by = function(.query, ...){
+
   vars = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
   varformula = purrr::map_df(.query$select, get_varformula)
-  .query$select = varformula %>%
-    dplyr::filter(.data$name %in% vars) %>%
-    dplyr::pull(.data$full)
-  .query$group_by = varformula %>%
-    dplyr::filter(.data$name %in% {{ vars }}) %>%
-    dplyr::pull(.data$formula)
+
+  vars_selected = vars[vars %in% varformula[["name"]]]
+  vars_formulaed <- dplyr::filter(
+    varformula,
+    .data$name %in% vars_selected,
+    .data$name != .data$formula
+  )
+  vars_asis <- setdiff(vars, vars_formulaed)
+
+  if (nrow(vars_formulaed) == 0) {
+    .query[["select"]] = union(.query[["select"]], vars)
+    .query[["group_by"]] = vars
+  } else {
+    .query[["select"]] <- c(
+      .query[["select"]][!(.query[["select"]] %in% vars_formulaed[["full"]])],
+      vars
+    )
+    .query[["select"]] <- setdiff(
+      .query[["select"]],
+      unlist(varformula[varformula[["name"]] %in% vars,][["args"]])
+    )
+    .query[["select"]] <- unique(.query[["select"]])
+
+    .query[["group_by"]] <- vars
+
+    binded <- sprintf("BIND%s", vars_formulaed[["full"]]) %>% paste(collapse = "\n")
+    .query[["body"]] <- paste(c(.query[["body"]], binded), collapse = "\n")
+  }
+
+
   return(.query)
 }

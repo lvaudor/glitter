@@ -22,7 +22,7 @@ A query object
 Summarise each group of results to fewer results
 }
 \examples{
-result=spq_init() \%>\%
+result = spq_init() \%>\%
 spq_add("?item wdt:P361 wd:Q297853") \%>\%
 spq_add("?item wdt:P1082 ?folkm_ngd") \%>\%
 spq_add("?area wdt:P31 wd:Q1907114", .label = "?area") \%>\%
