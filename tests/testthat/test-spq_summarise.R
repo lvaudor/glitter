@@ -23,4 +23,22 @@ test_that("spq_summarise() works", {
       spq_group_by(loc) %>%
       spq_summarise(n_films=n())
   )
+
+  expect_snapshot(
+    spq_init() %>%
+      spq_add("?film wdt:P31 wd:Q11424") %>%
+      spq_add("?film wdt:P577 ?date") %>%
+      spq_mutate(year = year(date)) %>%
+      spq_group_by(year) %>%
+      spq_summarise(n_films = n(), one_film = sample(film)) %>%
+      spq_head(10)
+  )
+
+  expect_snapshot(
+
+    spq_init() %>%
+      spq_add("?film wdt:P31 wd:Q11424") %>%
+      spq_add("?film wdt:P840 ?loc") %>%
+      spq_summarise(n_films = n())
+  )
 })

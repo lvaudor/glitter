@@ -56,3 +56,42 @@
       GROUP BY ?loc
       
 
+---
+
+    Code
+      spq_init() %>% spq_add("?film wdt:P31 wd:Q11424") %>% spq_add(
+        "?film wdt:P577 ?date") %>% spq_mutate(year = year(date)) %>% spq_group_by(
+        year) %>% spq_summarise(n_films = n(), one_film = sample(film)) %>% spq_head(
+        10)
+    Output
+      
+      SELECT (COUNT(*) AS ?n_films) (SAMPLE(?film) AS ?one_film)
+      WHERE{
+      
+      ?film wdt:P31 wd:Q11424.
+      ?film wdt:P577 ?date.
+      BIND(YEAR(?date) AS ?year)
+      
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
+      }
+      GROUP BY ?year
+      
+      LIMIT 10
+
+---
+
+    Code
+      spq_init() %>% spq_add("?film wdt:P31 wd:Q11424") %>% spq_add(
+        "?film wdt:P840 ?loc") %>% spq_summarise(n_films = n())
+    Output
+      
+      SELECT (COUNT(*) AS ?n_films)
+      WHERE{
+      
+      ?film wdt:P31 wd:Q11424.
+      ?film wdt:P840 ?loc.
+      
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
+      }
+      
+
