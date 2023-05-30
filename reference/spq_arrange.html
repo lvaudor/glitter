@@ -156,7 +156,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX bio: &lt;http://vocab.org/bio/0.1/&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX dcterms: &lt;http://purl.org/dc/terms/&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?auteur ?mort ?nom</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?oeuvre ?auteur ?mort ?nom</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ?oeuvre dcterms:creator ?auteur.</span>
@@ -165,7 +165,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> FILTER(xsd:integer(?mort)&lt;xsd:integer("1924"))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GROUP BY ?auteur ?mort ?nom</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GROUP BY ?auteur ?nom ?mort</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY DESC(xsd:integer(?mort))</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># descending as.integer(mort), SPARQL syntax</span></span></span>
@@ -179,7 +179,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX bio: &lt;http://vocab.org/bio/0.1/&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX dcterms: &lt;http://purl.org/dc/terms/&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?auteur ?mort ?nom</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?oeuvre ?auteur ?mort ?nom</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ?oeuvre dcterms:creator ?auteur.</span>
@@ -188,7 +188,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> FILTER(xsd:integer(?mort)&lt;xsd:integer("1924"))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GROUP BY ?auteur ?mort ?nom</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> GROUP BY ?auteur ?nom ?mort</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY DESC(xsd:integer(?mort))</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Usage of the .replace argument</span></span></span>

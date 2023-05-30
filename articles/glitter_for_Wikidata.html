@@ -169,7 +169,7 @@ items such as metro lines. Let’s have a look at the item “Place Guichard
 properties (and their values) based on an item’s id.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_claims.html">get_claims</a></span><span class="op">(</span><span class="st">"wd:Q599865"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 18 × 7</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 19 × 7</span></span></span>
 <span><span class="co">#&gt;    property      propertyLabel value valueLabel propertyType propertyDescription</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… Lyon Metro <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
@@ -190,6 +190,7 @@ properties (and their values) based on an item’s id.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> http://www.w… <span style="color: #BB0000;">NA</span>            1981… 1981-09-1… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> http://www.w… <span style="color: #BB0000;">NA</span>            /g/1… /g/1s04bf… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… in use     <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">19</span> http://www.w… <span style="color: #BB0000;">NA</span>            9469… 9469971777 <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: propertyAltLabel &lt;chr&gt;</span></span></span></code></pre></div>
 <p>Property “wdt:P31” should enable us to collect only stations
 (“wd:Q928830”) instead of all parts of the Lyon Metro network.</p>
@@ -259,8 +260,8 @@ package <code>leaflet</code>:</p>
 <code class="sourceCode R"><span><span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html" class="external-link">leaflet</a></span><span class="op">(</span><span class="va">stations_metro_Lyon</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addTiles</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addCircles</a></span><span class="op">(</span>popup<span class="op">=</span><span class="op">~</span><span class="va">stationsLabel</span><span class="op">)</span></span></code></pre></div>
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-898199c4294b7e6c9ab4" style="width:700px;height:432.632880098888px;"></div>
-<script type="application/json" data-for="htmlwidget-898199c4294b7e6c9ab4">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircles","args":[[],[],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},[],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]}],"limits":[]},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-cc7582903e0f1f54534b" style="width:700px;height:432.632880098888px;"></div>
+<script type="application/json" data-for="htmlwidget-cc7582903e0f1f54534b">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircles","args":[[],[],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},[],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]}],"limits":[]},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="section level2">
 <h2 id="example-2-cities-around-lyon">Example 2 : cities around Lyon<a class="anchor" aria-label="anchor" href="#example-2-cities-around-lyon"></a>
@@ -313,18 +314,18 @@ argument <code>limit</code></p>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 2</span></span></span>
-<span><span class="co">#&gt;    city                                     cityLabel         </span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.wikidata.org/entity/Q5242247  Daw's Castle      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> http://www.wikidata.org/entity/Q309436   Aït Benhaddou     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> http://www.wikidata.org/entity/Q817274   Beni Isguen       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> http://www.wikidata.org/entity/Q2670896  Ksar Ouled Soltane</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> http://www.wikidata.org/entity/Q3200131  Ksar Ifegh        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> http://www.wikidata.org/entity/Q3200135  Ksar of Lamaarka  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> http://www.wikidata.org/entity/Q3818705  Ksar Nalut        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> http://www.wikidata.org/entity/Q11736787 Ksar Hallouf      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> http://www.wikidata.org/entity/Q12233025 Ksar Beni Barka   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> http://www.wikidata.org/entity/Q16593169 Ksar of Taourirt</span></span></code></pre></div>
+<span><span class="co">#&gt;    city                                     cityLabel                       </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.wikidata.org/entity/Q63638210 Ksar of Taddamoute              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> http://www.wikidata.org/entity/Q63638675 Ksar of Tamoussa ou Ali         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> http://www.wikidata.org/entity/Q63638831 Ksar of Tatiouine               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> http://www.wikidata.org/entity/Q63639134 Ksar of Tissouit Ait Seghrouchen</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> http://www.wikidata.org/entity/Q63639176 Ksar of Tissouit Sidi Hamza     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> http://www.wikidata.org/entity/Q65643514 Ksar El Atteuf                  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> http://www.wikidata.org/entity/Q65643515 Ksar Bounoura                   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> http://www.wikidata.org/entity/Q65643516 Ksar Melika                     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> http://www.wikidata.org/entity/Q65921574 Ksar of Ouadane                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> http://www.wikidata.org/entity/Q65921575 Ksar of Chinguetti</span></span></code></pre></div>
 <p>Now, let’s get the location (“wdt:P625”) of the cities</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
@@ -333,18 +334,18 @@ argument <code>limit</code></p>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
-<span><span class="co">#&gt;    city                                 cityLabel     coords                    </span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.wikidata.org/entity/Q1891 Bologna       Point(11.342777777 44.493…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> http://www.wikidata.org/entity/Q1903 Catania       Point(15.087269444 37.502…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> http://www.wikidata.org/entity/Q1906 Caserta       Point(14.333333 41.066667)</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> http://www.wikidata.org/entity/Q1947 Juba          Point(31.6 4.85)          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> http://www.wikidata.org/entity/Q1960 Dar es Salaam Point(39.280277777 -6.816…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> http://www.wikidata.org/entity/Q1963 Khartoum      Point(32.52654 15.60308)  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> http://www.wikidata.org/entity/Q2028 Verona        Point(10.992777777 45.438…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> http://www.wikidata.org/entity/Q2044 Florence      Point(11.254166666 43.771…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> http://www.wikidata.org/entity/Q2055 Whitehorse    Point(-135.055833333 60.7…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> http://www.wikidata.org/entity/Q2061 Yellowknife   Point(-114.3975 62.442222…</span></span></code></pre></div>
+<span><span class="co">#&gt;    city                                     cityLabel          coords           </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.wikidata.org/entity/Q309436   Aït Benhaddou      Point(-7.1333333…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> http://www.wikidata.org/entity/Q817274   Beni Isguen        Point(3.69619444…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> http://www.wikidata.org/entity/Q2670896  Ksar Ouled Soltane Point(10.514567 …</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> http://www.wikidata.org/entity/Q3200131  Ksar Ifegh         Point(-5.31778 3…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> http://www.wikidata.org/entity/Q3200135  Ksar of Lamaarka   Point(-4.21472 3…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> http://www.wikidata.org/entity/Q3818705  Ksar Nalut         Point(10.9855 31…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> http://www.wikidata.org/entity/Q5242247  Daw's Castle       Point(-3.34357 5…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> http://www.wikidata.org/entity/Q11736787 Ksar Hallouf       Point(10.15715 3…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> http://www.wikidata.org/entity/Q12233025 Ksar Beni Barka    Point(10.434117 …</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> http://www.wikidata.org/entity/Q16593169 Ksar of Taourirt   Point(-6.89943 3…</span></span></code></pre></div>
 <p>We can refine this query, stating that we want cities (or items of
 subclasses of city) in a radius of 5km around Lyon (which has lat-long
 coordinates ~ 45.76 and 4.84). We will use the argument
@@ -358,14 +359,14 @@ coordinates ~ 45.76 and 4.84). We will use the argument
 <span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cities_around_Lyon</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 3</span></span></span>
-<span><span class="co">#&gt;   city                                     cityLabel  coords                    </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> http://www.wikidata.org/entity/Q3322491  Montchat   Point(4.88689 45.749733)  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> http://www.wikidata.org/entity/Q3220089  Laënnec    Point(4.88472222 45.73833…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> http://www.wikidata.org/entity/Q2373934  Monplaisir Point(4.87136 45.7455)    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> http://www.wikidata.org/entity/Q15154668 Q15154668  Point(4.865206 45.766475) </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> http://www.wikidata.org/entity/Q3220186  Le Bachut  Point(4.86972222 45.73638…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> http://www.wikidata.org/entity/Q3115310  Q3115310   Point(4.87872 45.743)</span></span></code></pre></div>
+<span><span class="co">#&gt;   city                                     cityLabel                 coords     </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> http://www.wikidata.org/entity/Q48751369 Q48751369                 Point(4.83…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> http://www.wikidata.org/entity/Q20987614 Buers                     Point(4.89…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> http://www.wikidata.org/entity/Q16507694 Croix-Luizet              Point(4.88…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> http://www.wikidata.org/entity/Q3554954  Vassieux                  Point(4.86…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> http://www.wikidata.org/entity/Q3208343  La Doua                   Point(4.87…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> http://www.wikidata.org/entity/Q3463259  Saint-Rambert-l'Île-Barbe Point(4.83…</span></span></code></pre></div>
 <!-- Actually, rather than getting Lyon's long-lat coordinates "by hand" we could get them directly through our query, which means we have to add a triple about Lyon ("wd:456") and its coordinates: -->
 <!-- ```{r, eval=FALSE} -->
 <!-- spq_init() %>%  -->
