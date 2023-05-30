@@ -32,6 +32,12 @@ spq_translate_dsl <- function(code) {
     ) %>%
     purrr::walk(treat_unique)
 
+  # then look for n_distinct that also relates to DISTINCT
+  code_data %>%
+    xml2::xml_find_all(
+      ".//SYMBOL_FUNCTION_CALL[normalize-space(text()) = 'n_distinct']"
+    ) %>%
+    purrr::walk(treat_ndistinct)
   # operators
   xml2::xml_find_all(code_data, ".//AND") %>% purrr::walk(replace_and)
   xml2::xml_find_all(code_data, ".//OR") %>% purrr::walk(replace_or)
@@ -46,6 +52,7 @@ spq_translate_dsl <- function(code) {
     any(xml2::xml_name(siblings) == "OP-COLON")
   }
   symbols = xml2::xml_find_all(code_data, ".//SYMBOL")
+  symbols = purrr::discard(symbols, ~(!is.na(xml2::xml_attr(.x, "sparqlish")) && xml2::xml_attr(.x, "sparqlish") == "true"))
   variables = symbols[!(purrr::map_lgl(symbols, in_a_colon))]
   xml2::xml_text(variables) = add_question_mark(xml2::xml_text(variables))
 
@@ -143,13 +150,25 @@ treat_symbol_function_call = function(symbol_function_call) {
   }
 }
 
-
 treat_unique = function(symbol_function_call) {
   expr = xml2::xml_parent(xml2::xml_parent(symbol_function_call))
   xml2::xml_text(symbol_function_call) = "DISTINCT "
   xml2::xml_attr(symbol_function_call, "sparqlish") = "true"
   xml2::xml_remove(xml2::xml_find_all(expr, ".//OP-LEFT-PAREN"))
   xml2::xml_remove(xml2::xml_find_all(expr, ".//OP-RIGHT-PAREN"))
+}
+
+treat_ndistinct = function(symbol_function_call) {
+  expr = xml2::xml_parent(xml2::xml_parent(symbol_function_call))
+  xml2::xml_text(symbol_function_call) = "COUNT"
+  xml2::xml_attr(symbol_function_call, "sparqlish") = "true"
+
+  arg <- xml2::xml_find_first(expr, ".//SYMBOL")
+  xml2::xml_text(arg) <- sprintf(
+    "DISTINCT ?%s",
+    xml2::xml_text(arg)
+  )
+  xml2::xml_attr(arg, "sparqlish") = "true"
 }
 
 replace_and = function(and) {
