@@ -43,16 +43,15 @@
 #' The arguments `.subject`, `.verb`, `.object` are most useful for programmatic
 #' usage, they are actually used within glitter code itself.
 spq_add  =  function(.query = NULL,
-  .triple_pattern = NULL,
-  .subject = NULL,
-  .verb = NULL,
-  .object = NULL,
-  .prefixes = NULL,
-  .required = TRUE,
-  .label = NA,
-  .within_box = c(NA,NA),
-  .within_distance = c(NA,NA)){
-
+                    .triple_pattern = NULL,
+                    .subject = NULL,
+                    .verb = NULL,
+                    .object = NULL,
+                    .prefixes = NULL,
+                    .required = TRUE,
+                    .label = NA,
+                    .within_box = c(NA,NA),
+                    .within_distance = c(NA,NA)) {
 
   elts = decompose_triple_pattern(
     triple_pattern = .triple_pattern,
@@ -61,31 +60,28 @@ spq_add  =  function(.query = NULL,
     object = .object
   )
   if (elts[1] == ".") {
-    elts[1] = .query$previous_subject
+    elts[1] = .query[["previous_subject"]]
   }
 
-  if (is.null(.query)) {
-    .query = spq_init()
-  }
+  .query = .query %||% spq_init()
 
-  # previous subject
-  .query$previous_subject = elts[1]$subject
+  .query[["previous_subject"]] = elts[1][["subject"]]
 
   # prefixed elements
-  .query$prefixes_used = c(
+  .query[["prefixes_used"]] = c(
     .query$prefixes_used,
     purrr::map_chr(unname(elts), keep_prefix)
   ) %>%
     stats::na.omit() %>%
     unique()
   # select
-  .query$select = build_part_select(
+  .query[["select"]] = build_part_select(
     .query,
     elts$subject, elts$verb, elts$object,
     .label
   )
   # body
-  .query$body = build_part_body(
+  .query[["body"]] = build_part_body(
     .query,
     elts$subject, elts$verb, elts$object,
     .required,

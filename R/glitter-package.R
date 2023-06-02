@@ -1,3 +1,4 @@
+#' @importFrom rlang `%||%`
 #' @keywords internal
 "_PACKAGE"
 
