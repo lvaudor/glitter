@@ -44,9 +44,9 @@ is_value = function(string){
 #' @param prefixes_known a tibble detailing known prefixes
 #' @noRd
 #' @examples
-#' is_prefix_known(prefixes_used=c("wd","wdt"), prefixes_known = usual_prefixes) # TRUE
-#' is_prefix_known("blop:blabla", prefixes_known=usual_prefixes) #returns error message
-is_prefix_known = function(prefixes_used, prefixes_known) {
+#' check_prefix(prefixes_used=c("wd","wdt"), prefixes_known = usual_prefixes) # TRUE
+#' check_prefix("blop:blabla", prefixes_known=usual_prefixes) #returns error message
+check_prefix = function(prefixes_used, prefixes_known) {
   unknown_prefixes <- prefixes_used[!(prefixes_used %in% prefixes_known$name)]
   if (length(unknown_prefixes) == 0) {
     return(TRUE)

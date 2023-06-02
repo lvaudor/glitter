@@ -19,10 +19,9 @@ Assemble query parts into a proper SPARQL query
 }
 \examples{
 spq_init() \%>\%
-spq_add("?city wdt:P31 wd:Q515", .label="?city") \%>\%
-spq_add("?city wdt:P1082 ?pop") \%>\%
-spq_language("fr") \%>\%
-spq_head(n=5) \%>\%
-spq_assemble() \%>\%
-cat()
+  spq_add("?city wdt:P31 wd:Q515", .label="?city") \%>\%
+  spq_add("?city wdt:P1082 ?pop") \%>\%
+  spq_language("fr") \%>\%
+  spq_assemble() \%>\%
+  cat()
 }
