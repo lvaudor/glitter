@@ -8,46 +8,52 @@
 #' @param within_box if provided, north-west and south-east coordinates of bounding box for the triple query.
 #' @param within_distance if provided, north-west and south-east coordinates of bounding box for the triple query.
 #' @noRd
-build_part_body=function(query=NA,subject,verb,object,required=TRUE,
-                         within_box=c(NA,NA),within_distance=c(NA,NA)){
+build_part_body = function(query = NA,
+                           subject,
+                           verb,
+                           object,
+                           required = TRUE,
+                           within_box = c(NA,NA),
+                           within_distance = c(NA,NA)) {
 
-  part_body=query$body
+  part_body = query[["body"]]
 
-  if(verb %in% c("is","==","%in%")){
-    # if the triple is not a regular RDF triple but a statement of the type
-    # subject is any of the objects
-    values=paste(as_values(object),collapse="\n")
-    new_triple=glue::glue("VALUES {{subject}}{\n{{values}}\n}",
-                           .open="{{",.close="}}")
-  }else{
-    # if the triple is a regular RDF triple
-    new_triple=glue::glue("{subject} {verb} {object}.")
+  trible_is_not_regular_rdf <- verb %in% c("is","==","%in%")
+  if (trible_is_not_regular_rdf) {
+    values = paste(as_values(object), collapse = "\n")
+    new_triple = glue::glue(
+      "VALUES {{subject}}{\n{{values}}\n}",
+      .open = "{{", .close = "}}"
+      )
+  } else {
+    new_triple = glue::glue("{subject} {verb} {object}.")
   }
 
-  # when arg required=FALSE set triple as optional
-  if(!required){
-    new_triple=paste0("OPTIONAL {",new_triple,"}")
+  if (!required) {
+    new_triple = sprintf("OPTIONAL {%s}", new_triple)
   }
+
   # when arg within_box is provided use service wikibase:box
-  if(!is.na(within_box[[1]][1])){
-    new_triple=paste0("SERVICE wikibase:box {\n",
-                       new_triple,"\n",
-                       "bd:serviceParam wikibase:cornerSouthWest 'Point(",
-                       within_box$southwest[1]," ",within_box$southwest[2],
-                       ")'^^geo:wktLiteral.\n",
-                       "bd:serviceParam wikibase:cornerNorthEast 'Point(",
-                       within_box$northeast[1]," ",within_box$northeast[2],
-                       ")'^^geo:wktLiteral.\n}"
+  if (!is.na(within_box[[1]][1])) {
+    new_triple = paste0(
+      "SERVICE wikibase:box {\n",
+      new_triple,"\n",
+      "bd:serviceParam wikibase:cornerSouthWest 'Point(",
+      within_box$southwest[1]," ", within_box$southwest[2],
+      ")'^^geo:wktLiteral.\n",
+      "bd:serviceParam wikibase:cornerNorthEast 'Point(",
+      within_box$northeast[1]," ", within_box$northeast[2],
+      ")'^^geo:wktLiteral.\n}"
     )
   }
   # when arg within_distance is provided use service wikibase:around
-  if(!is.na(within_distance[[1]][1])){
-    if(length(within_distance$center)==1 & is.character(within_distance$center)){
-      center=paste0(within_distance$center,".\n")
-    }else{
-      center=paste0("'Point(",within_distance$center[1]," ",within_distance$center[2],")'^^geo:wktLiteral.\n")
+  if (!is.na(within_distance[[1]][1])) {
+    if (length(within_distance$center)==1 & is.character(within_distance$center)) {
+      center = paste0(within_distance$center,".\n")
+    } else {
+      center = paste0("'Point(",within_distance$center[1]," ",within_distance$center[2],")'^^geo:wktLiteral.\n")
     }
-    new_triple=paste0("SERVICE wikibase:around {\n",
+    new_triple = paste0("SERVICE wikibase:around {\n",
                        new_triple,"\n",
                        "bd:serviceParam wikibase:center ",
                        center,
@@ -56,10 +62,8 @@ build_part_body=function(query=NA,subject,verb,object,required=TRUE,
                        "'.\n}"
     )
   }
-  # add new triple to the body of the query
-  part_body=glue::glue("{part_body}\n{new_triple}")
 
-  return(part_body)
+  glue::glue("{part_body}\n{new_triple}")
 }
 
 #' Builds the "select" part of a query.
@@ -69,21 +73,22 @@ build_part_body=function(query=NA,subject,verb,object,required=TRUE,
 #' @param object an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))
 #' @param label whether to get the label associated with the mentioned item
 #' @noRd
-build_part_select=function(query=NULL,subject=NULL,verb=NULL,object=NULL,label=NA){
+build_part_select = function(query = NULL,
+                             subject = NULL,
+                             verb = NULL,
+                             object = NULL,
+                             label = NA) {
 
-  part_select=query$select
+  part_select = query[["select"]]
 
-  for(element in list(subject,verb,object)){
-    # when element is a variable, add it to SELECT list
-    if(is_variable(element)){
-      part_select=c(part_select, element)
-      # when ?xxx is mentioned in argument `label`, add ?xxxLabel
-      if(element %in% label){
-        part_select=c(part_select,paste0(element,"Label"))
+  for (element in list(subject,verb,object)) {
+    if (is_variable(element)) {
+      part_select = c(part_select, element)
+      if (element %in% label) {
+        part_select = c(part_select, paste0(element,"Label"))
       }
     }
   }
-  # return all selected variables (as a character vector)
-  part_select=unique(part_select)
-  return(part_select)
+
+  unique(part_select)
 }
