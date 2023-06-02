@@ -55,6 +55,20 @@
       }
       
 
+---
+
+    Code
+      spq_select(query, lang, count = n_distinct(article))
+    Output
+      
+      SELECT ?lang (COUNT(DISTINCT ?article) AS ?count)
+      WHERE{
+      
+      
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
+      }
+      
+
 # spq_select works with SPARQL
 
     Code

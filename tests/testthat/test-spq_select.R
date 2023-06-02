@@ -14,6 +14,10 @@ test_that("spq_select works with R syntax", {
   expect_snapshot(
     spq_select(query, lang, count = n(unique(article)))
   )
+
+  expect_snapshot(
+    spq_select(query, lang, count = n_distinct(article))
+  )
 })
 
 test_that("spq_select works with SPARQL", {
