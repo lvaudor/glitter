@@ -6,6 +6,7 @@ track_vars <- function(.query,
                        fun = NA,
                        ancestor = NA,
                        selected,
+                       spq_duplicate = NA,
                        grouping) {
 
   new_var <- tibble::tibble(
@@ -16,6 +17,7 @@ track_vars <- function(.query,
     fun = fun,
     ancestor = ancestor,
     selected = selected,
+    spq_duplicate = spq_duplicate,
     grouping = grouping
   )
   .query[["vars"]] <- rbind(.query[["vars"]], new_var)
