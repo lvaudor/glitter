@@ -37,7 +37,7 @@ spq_select = function(.query = NULL, ..., .spq_duplicate = NULL){
   plus_variables = variables %>%
     stringr::str_subset("^\\-\\?", negate = TRUE)
 
-  .query$select = unique(c(.query$select, plus_variables))
-  .query$select = .query$select[!.query$select %in% minus_variables]
+  .query[["select"]] = union(.query[["select"]], plus_variables)
+  .query[["select"]] = setdiff(.query[["select"]], minus_variables)
   return(.query)
 }
