@@ -65,7 +65,7 @@ spq_add  =  function(.query = NULL,
     elts[["subject"]] = .query[["previous_subject"]]
   }
 
-  # standardised spacing :-)
+  # standardized spacing :-)
   triple <- paste(elts, collapse = " ")
 
   .query <- track_triples(
