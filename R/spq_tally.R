@@ -45,11 +45,11 @@
 #'}
 #' @export
 spq_tally = function(.query, sort = FALSE, name = "n") {
-  full_formula <- sprintf("(COUNT(*) AS ?%s)", name)
+  full_formula = sprintf("(COUNT(*) AS ?%s)", name)
 
-  .query[["select"]] <- full_formula
+  .query[["select"]] = full_formula
 
-   .query <- track_vars(
+   .query = track_vars(
     .query,
     name = name,
     formula = full_formula,
@@ -60,7 +60,7 @@ spq_tally = function(.query, sort = FALSE, name = "n") {
   )
 
   if (!is.null(.query[["group_by"]])) {
-    .query[["select"]] <- c(.query[["select"]], .query[["group_by"]])
+    .query[["select"]] = union(.query[["select"]], .query[["group_by"]])
 
     if (sort) {
       .query <- spq_arrange(.query, spq(sprintf("DESC(?%s)", name)))

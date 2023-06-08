@@ -53,37 +53,60 @@ spq_add  =  function(.query = NULL,
                     .within_box = c(NA,NA),
                     .within_distance = c(NA,NA)) {
 
+  .query = .query %||% spq_init()
+
   elts = decompose_triple_pattern(
     triple_pattern = .triple_pattern,
     subject = .subject,
     verb = .verb,
     object = .object
   )
-  if (elts[1] == ".") {
-    elts[1] = .query[["previous_subject"]]
+  if (elts[["object"]] == ".") {
+    elts[["object"]] = .query[["previous_subject"]]
   }
 
-  .query = .query %||% spq_init()
+  # standardised spacing :-)
+  triple <- paste(elts, collapse = " ")
 
+  .query <- track_triples(
+    .query,
+    triple = triple,
+    required = .required,
+    within_box = list(.within_box),
+    within_distance = list(.within_distance)
+  )
+
+
+  vars <- elts[grepl("^\\?", elts)]
+  for (var in vars) {
+    .query =  track_vars(
+      .query,
+      name = var,
+      triple = triple,
+      selected = TRUE,
+      grouping = FALSE
+    )
+  }
   .query[["previous_subject"]] = elts[1][["subject"]]
 
   # prefixed elements
-  .query[["prefixes_used"]] = c(
-    .query$prefixes_used,
+  .query[["prefixes_used"]] = union(
+    .query[["prefixes_used"]],
     purrr::map_chr(unname(elts), keep_prefix)
   ) %>%
-    stats::na.omit() %>%
-    unique()
+    stats::na.omit()
+
   # select
   .query[["select"]] = build_part_select(
     .query,
     elts$subject, elts$verb, elts$object,
     .label
   )
+
   # body
   .query[["body"]] = build_part_body(
     .query,
-    elts$subject, elts$verb, elts$object,
+    elts[["subject"]], elts[["verb"]], elts[["object"]],
     .required,
     within_box = .within_box,
     within_distance = .within_distance
