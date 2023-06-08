@@ -15,7 +15,9 @@ spq_group_by = function(.query, ...){
 
   vars = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
-  .query[["vars"]][.query[["vars"]][["name"]] %in% vars, "grouping"] <- TRUE
+  for (var in vars) {
+    .query <- track_structure(.query, name = var, grouping = TRUE)
+  }
 
   varformula = purrr::map_df(.query[["select"]], get_varformula)
 

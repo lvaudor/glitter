@@ -23,5 +23,3 @@ spq_init=function(){
 #' @export
 print.sparqle_query <- function(x, ...) spq_assemble(x) %>% cat()
 
-# filter ------------------------------------------------------------------
-

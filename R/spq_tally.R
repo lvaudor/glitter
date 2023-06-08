@@ -54,10 +54,14 @@ spq_tally = function(.query, sort = FALSE, name = "n") {
     name = name,
     formula = full_formula,
     fun = "COUNT",
-    ancestor = "*",
-    selected = TRUE,
-    grouping = FALSE
+    ancestor = "*"
   )
+
+   .query = track_structure(
+     .query,
+     name = name,
+     selected = TRUE
+   )
 
   if (!is.null(.query[["group_by"]])) {
     .query[["select"]] = union(.query[["select"]], .query[["group_by"]])

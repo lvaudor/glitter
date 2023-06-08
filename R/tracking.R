@@ -1,16 +1,42 @@
-track_vars <- function(.query,
-                       name,
-                       triple = NA,
-                       values = NA,
-                       formula = NA,
-                       fun = NA,
-                       ancestor = NA,
-                       selected,
-                       grouping = FALSE,
-                       ordering = NULL) {
+track_structure <- function(.query,
+                            name,
+                            selected = NULL,
+                            grouping = NULL,
+                            ordering = NULL
+) {
+  if (name %in% .query[["structure"]][["name"]]) {
+    if (!is.null(selected)) {
+      .query[["structure"]][["selected"]][.query[["structure"]][["name"]] == name] <- selected
+    }
+    if (!is.null(grouping)) {
+      .query[["structure"]][["grouping"]][.query[["structure"]][["name"]] == name] <- grouping
+    }
+    if (!is.null(ordering)) {
+      .query[["structure"]][["ordering"]][.query[["structure"]][["name"]] == name] <- ordering
+    }
+    return(.query)
+  }
 
-  ordering <- ordering %||% "none"
-  ordering <- rlang::arg_match(ordering, values = c("none", "asc", "desc"))
+  .query[["structure"]] <- rbind(
+    .query[["structure"]],
+    tibble::tibble(
+      name = name,
+      selected = selected %||% TRUE,
+      grouping = grouping %||% FALSE,
+      ordering = ordering %||% "none"
+    )
+  )
+
+  .query
+}
+
+track_vars <- function(.query,
+                      name,
+                      triple = NA,
+                      values = NA,
+                      formula = NA,
+                      fun = NA,
+                      ancestor = NA) {
 
   new_var <- tibble::tibble(
     name = name,
@@ -18,10 +44,7 @@ track_vars <- function(.query,
     values = values,
     formula = formula,
     fun = fun,
-    ancestor = ancestor,
-    selected = selected,
-    grouping = grouping,
-    ordering = ordering
+    ancestor = ancestor
   )
   .query[["vars"]] <- rbind(.query[["vars"]], new_var)
 
@@ -29,10 +52,10 @@ track_vars <- function(.query,
 }
 
 track_triples <- function(.query,
-                          triple,
-                          required,
-                          within_box,
-                          within_distance) {
+  triple,
+  required,
+  within_box,
+  within_distance) {
   if (triple %in% .query[["triples"]][["triple"]]) {
     cli::cli_abort("Duplicate triple {.val triple}")
   }

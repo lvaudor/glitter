@@ -87,8 +87,10 @@ spq_arrange = function(.query , ..., .replace = FALSE){
   ordering_variables <- purrr::map_df(ordering_patterns, arrange_arrange)
   ordering <- intersect(.query[["vars"]][["name"]], ordering_variables[["name"]])
   for (ord in ordering) {
-    .query[["vars"]][.query[["vars"]][["name"]] == ord, "ordering"] =
-      ordering_variables[ordering_variables[["name"]] == ord, "ordering"]
+    .query <- track_structure(
+      .query,
+      name = ord,
+      ordering = ordering_variables[["ordering"]][ordering_variables[["name"]] == ord])
   }
 
   return(.query)

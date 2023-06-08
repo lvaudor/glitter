@@ -25,7 +25,9 @@ spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within
     add_as
   )
 
-  .query$select <- unique(c(.query$select, normal_variables))
+  for (var in normal_variables) {
+      .query <- spq_select(.query, spq(var))
+  }
 
   # Triplet variables
   triple_variables <- variables[purrr::map_lgl(variables, is.list)]

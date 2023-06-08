@@ -82,18 +82,24 @@ spq_add  =  function(.query = NULL,
     .query =  track_vars(
       .query,
       name = var,
-      triple = triple,
-      selected = TRUE,
-      grouping = FALSE
+      triple = triple
+    )
+    .query = track_structure(
+      .query,
+      name = var,
+      selected = TRUE
     )
 
     if (var %in% .label) {
     .query =  track_vars(
       .query,
       name = sprintf("%sLabel", var),
-      triple = triple,
-      selected = TRUE,
-      grouping = FALSE
+      triple = triple
+    )
+    .query = track_structure(
+      .query,
+      name = sprintf("%sLabel", var),
+      selected = TRUE
     )
     }
   }
