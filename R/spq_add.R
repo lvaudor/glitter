@@ -97,6 +97,7 @@ spq_add  =  function(.query = NULL,
     )
     }
   }
+
   .query[["previous_subject"]] = elts[1][["subject"]]
 
   # prefixed elements

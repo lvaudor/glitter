@@ -22,14 +22,18 @@ spq_filter = function(.query = NULL, ..., .label = NA, .within_box = c(NA, NA), 
   # FILTER filters :-)
   normal_filters = filters[purrr::map_lgl(filters, is.character)]
   if (length(normal_filters) > 0) {
-    .query$filter <- c(
-      .query$filter,
+    # TODO add error if variables not in the df of variables
+    .query[["filter"]] <- c(
+      .query[["filter"]],
       sprintf("FILTER(%s)", normal_filters)
     )
+    for (filter in normal_filters) {
+      .query <- track_filters(.query, filter)
+    }
   }
 
   # triple pattern "filters"
-  triple_filters <-  filters[purrr::map_lgl(filters, is.list)]
+  triple_filters <-  purrr::keep(filters, is.list)
   if (length(triple_filters) > 0) {
     for (i in seq_along(triple_filters)) {
       .query = spq_add(
