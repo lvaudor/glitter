@@ -61,8 +61,8 @@ spq_add  =  function(.query = NULL,
     verb = .verb,
     object = .object
   )
-  if (elts[["object"]] == ".") {
-    elts[["object"]] = .query[["previous_subject"]]
+  if (elts[["subject"]] == ".") {
+    elts[["subject"]] = .query[["previous_subject"]]
   }
 
   # standardised spacing :-)
@@ -86,6 +86,16 @@ spq_add  =  function(.query = NULL,
       selected = TRUE,
       grouping = FALSE
     )
+
+    if (var %in% .label) {
+    .query =  track_vars(
+      .query,
+      name = sprintf("%sLabel", var),
+      triple = triple,
+      selected = TRUE,
+      grouping = FALSE
+    )
+    }
   }
   .query[["previous_subject"]] = elts[1][["subject"]]
 

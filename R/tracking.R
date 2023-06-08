@@ -6,7 +6,11 @@ track_vars <- function(.query,
                        fun = NA,
                        ancestor = NA,
                        selected,
-                       grouping) {
+                       grouping,
+                       ordering = NULL) {
+
+  ordering <- ordering %||% "none"
+  ordering <- rlang::arg_match(ordering, values = c("none", "asc", "desc"))
 
   new_var <- tibble::tibble(
     name = name,
@@ -16,7 +20,8 @@ track_vars <- function(.query,
     fun = fun,
     ancestor = ancestor,
     selected = selected,
-    grouping = grouping
+    grouping = grouping,
+    ordering = ordering
   )
   .query[["vars"]] <- rbind(.query[["vars"]], new_var)
 

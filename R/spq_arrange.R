@@ -76,13 +76,31 @@
 #'   spq_arrange(desc(length), spq("?location")) %>%
 #'   spq_head(50)
 spq_arrange = function(.query , ..., .replace = FALSE){
-  ordering_variables <- purrr::map_chr(rlang::enquos(...), spq_treat_argument)
+  ordering_patterns = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
   .query$order_by = if (.replace) {
-    ordering_variables
+    ordering_patterns
   } else {
-    c(.query$order_by, ordering_variables)
+    c(.query$order_by, ordering_patterns)
+  }
+
+  ordering_variables <- purrr::map_df(ordering_patterns, arrange_arrange)
+  ordering <- intersect(.query[["vars"]][["name"]], ordering_variables[["name"]])
+  for (ord in ordering) {
+    .query[["vars"]][.query[["vars"]][["name"]] == ord, "ordering"] =
+      ordering_variables[ordering_variables[["name"]] == ord, "ordering"]
   }
 
   return(.query)
+}
+
+arrange_arrange <- function(pattern) {
+  name <- sub(".*\\?", "?", sub("\\)$", "", pattern))
+  ordering <- if (grepl("^DESC", pattern)) {
+    "desc"
+  } else {
+    "asc"
+  }
+
+  tibble::tibble(name = name, ordering = ordering)
 }
