@@ -14,9 +14,12 @@
 spq_group_by = function(.query, ...){
 
   vars = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
-  varformula = purrr::map_df(.query$select, get_varformula)
 
-  vars_selected = vars[vars %in% varformula[["name"]]]
+  .query[["vars"]][.query[["vars"]][["name"]] %in% vars, "grouping"] <- TRUE
+
+  varformula = purrr::map_df(.query[["select"]], get_varformula)
+
+  vars_selected = intersect(vars, varformula[["name"]])
   vars_formulaed <- dplyr::filter(
     varformula,
     .data$name %in% vars_selected,
@@ -28,7 +31,7 @@ spq_group_by = function(.query, ...){
     .query[["select"]] = union(.query[["select"]], vars)
     .query[["group_by"]] = vars
   } else {
-    .query[["select"]] <- c(
+    .query[["select"]] <- union(
       .query[["select"]][!(.query[["select"]] %in% vars_formulaed[["full"]])],
       vars
     )

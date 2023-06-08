@@ -6,7 +6,7 @@ track_vars <- function(.query,
                        fun = NA,
                        ancestor = NA,
                        selected,
-                       grouping,
+                       grouping = FALSE,
                        ordering = NULL) {
 
   ordering <- ordering %||% "none"
