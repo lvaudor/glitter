@@ -17,32 +17,32 @@
 #' @examples
 #' # find the cities
 #' spq_init() %>%
-#' spq_add("?city wdt:P31/wdt:P279* wd:Q515", .label="?city") %>%
-#' # and their populations
-#' spq_add("?city wdt:P1082 ?pop", .required = FALSE) %>%
-#' # in a bounding box
-#' spq_add("?city wdt:P625 ?coords", .within_box = list(southwest = c(3,43), northeast = c(7,47))) %>%
-#' # limit to 10 lines
-#' spq_head(n = 10)
+#'   spq_add("?city wdt:P31/wdt:P279* wd:Q515", .label = "?city") %>%
+#'   # and their populations
+#'   spq_add("?city wdt:P1082 ?pop", .required = FALSE) %>%
+#'   # in a bounding box
+#'   spq_add("?city wdt:P625 ?coords", .within_box = list(southwest = c(3, 43), northeast = c(7, 47))) %>%
+#'   # limit to 10 lines
+#'   spq_head(n = 10)
 #'
 #' \dontrun{
 #' # find the individuals of the species
 #' spq_init() %>%
-#' spq_add("?mayor wdt:P31 ?species") %>%
-#' # dog, cat or chicken
-#' spq_add("?species %in% {c('wd:144','wd:146', 'wd:780')}") %>%
-#' # who occupy the function
-#' spq_add("?mayor p:P39 ?node") %>%
-#' # of mayor
-#' spq_add("?node ps:P39 wd:Q30185") %>%
-#' # of some places
-#' spq_add("?node pq:P642 ?place") %>%
-#' spq_perform()
+#'   spq_add("?mayor wdt:P31 ?species") %>%
+#'   # dog, cat or chicken
+#'   spq_add("?species %in% {c('wd:144','wd:146', 'wd:780')}") %>%
+#'   # who occupy the function
+#'   spq_add("?mayor p:P39 ?node") %>%
+#'   # of mayor
+#'   spq_add("?node ps:P39 wd:Q30185") %>%
+#'   # of some places
+#'   spq_add("?node pq:P642 ?place") %>%
+#'   spq_perform()
 #' }
 #' @details
 #' The arguments `.subject`, `.verb`, `.object` are most useful for programmatic
 #' usage, they are actually used within glitter code itself.
-spq_add  =  function(.query = NULL,
+spq_add = function(.query = NULL,
                     .triple_pattern = NULL,
                     .subject = NULL,
                     .verb = NULL,
@@ -50,9 +50,8 @@ spq_add  =  function(.query = NULL,
                     .prefixes = NULL,
                     .required = TRUE,
                     .label = NA,
-                    .within_box = c(NA,NA),
-                    .within_distance = c(NA,NA)) {
-
+                    .within_box = c(NA, NA),
+                    .within_distance = c(NA, NA)) {
   .query = .query %||% spq_init()
 
   elts = decompose_triple_pattern(
@@ -66,9 +65,9 @@ spq_add  =  function(.query = NULL,
   }
 
   # standardized spacing :-)
-  triple <- paste(elts, collapse = " ")
+  triple = paste(elts, collapse = " ")
 
-  .query <- track_triples(
+  .query = track_triples(
     .query,
     triple = triple,
     required = .required,
@@ -77,9 +76,9 @@ spq_add  =  function(.query = NULL,
   )
 
 
-  vars <- elts[grepl("^\\?", elts)]
+  vars = elts[grepl("^\\?", elts)]
   for (var in vars) {
-    .query =  track_vars(
+    .query = track_vars(
       .query,
       name = var,
       triple = triple
@@ -91,16 +90,16 @@ spq_add  =  function(.query = NULL,
     )
 
     if (var %in% .label) {
-    .query =  track_vars(
-      .query,
-      name = sprintf("%sLabel", var),
-      triple = triple
-    )
-    .query = track_structure(
-      .query,
-      name = sprintf("%sLabel", var),
-      selected = TRUE
-    )
+      .query = track_vars(
+        .query,
+        name = sprintf("%sLabel", var),
+        triple = triple
+      )
+      .query = track_structure(
+        .query,
+        name = sprintf("%sLabel", var),
+        selected = TRUE
+      )
     }
   }
 
