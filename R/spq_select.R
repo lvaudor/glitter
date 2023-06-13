@@ -20,7 +20,7 @@ spq_select = function(.query = NULL, ..., .spq_duplicate = NULL){
       )
     }
   }
-  .query$spq_duplicate <- .spq_duplicate
+  .query[["spq_duplicate"]] <- .spq_duplicate
 
   variables = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
@@ -38,6 +38,14 @@ spq_select = function(.query = NULL, ..., .spq_duplicate = NULL){
     stringr::str_subset("^\\-\\?", negate = TRUE)
 
   .query[["select"]] = union(.query[["select"]], plus_variables)
+  for (var in plus_variables) {
+    .query <- track_structure(.query, name = var, selected = TRUE)
+  }
+
   .query[["select"]] = setdiff(.query[["select"]], minus_variables)
+  for (var in minus_variables) {
+    .query <- track_structure(.query, name = var, selected = FALSE)
+  }
+
   return(.query)
 }
