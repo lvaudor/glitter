@@ -13,12 +13,12 @@
 #' spq_mutate(statement = wdt::P1843(wd::Q331676)) %>%
 #' spq_mutate(lang = lang(statement))
 #' ```
-spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within_distance = c(NA, NA)){
-  variables =  purrr::map(rlang::enquos(...), spq_treat_mutate_argument)
-  variable_names <- names(variables)
+spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within_distance = c(NA, NA)) {
+  variables = purrr::map(rlang::enquos(...), spq_treat_mutate_argument)
+  variable_names = names(variables)
 
   # Normal variables :-)
-  normal_variables <- variables[purrr::map_lgl(variables, is.character)]
+  normal_variables = variables[purrr::map_lgl(variables, is.character)]
   normal_variables[nzchar(names(normal_variables))] = purrr::map2_chr(
     normal_variables[nzchar(names(normal_variables))],
     names(normal_variables)[nzchar(names(normal_variables))],
@@ -26,12 +26,12 @@ spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within
   )
 
   for (var in normal_variables) {
-      .query <- spq_select(.query, spq(var))
+    .query = spq_select(.query, spq(var))
   }
 
   # Triplet variables
-  triple_variables <- variables[purrr::map_lgl(variables, is.list)]
-  triple_variable_names <- names(triple_variables)
+  triple_variables = variables[purrr::map_lgl(variables, is.list)]
+  triple_variable_names = names(triple_variables)
   for (i in seq_along(triple_variables)) {
     .query = spq_add(
       .query,
@@ -49,14 +49,13 @@ spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within
 }
 
 spq_treat_mutate_argument = function(arg, arg_name) {
-
   eval_try = try(rlang::eval_tidy(arg), silent = TRUE)
 
   if (is.spq(eval_try)) {
     return(eval_try)
   }
 
-  code <- if (!inherits(eval_try, "try-error") && is.character(eval_try)) {
+  code = if (!inherits(eval_try, "try-error") && is.character(eval_try)) {
     # e.g. `"desc(length)"`
     eval_try
   } else {
@@ -69,5 +68,4 @@ spq_treat_mutate_argument = function(arg, arg_name) {
   } else {
     spq_parse_verb_object(code, reverse = TRUE)
   }
-
 }
