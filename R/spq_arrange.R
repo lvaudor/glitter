@@ -15,7 +15,7 @@
 #'   spq_head(50)
 #'
 #' # descending length, ascending itemLabel, "R" syntax with quotes e.g. for a loop
-#' variable <- "length"
+#' variable = "length"
 #' spq_init() %>%
 #'   spq_add("?item wdt:P31/wdt:P279* wd:Q4022", .label = c("?item")) %>%
 #'   spq_add("?item wdt:P2043 ?length") %>%
@@ -36,8 +36,8 @@
 #'   spq_add("?oeuvre dcterms:creator ?auteur") %>%
 #'   spq_add("?auteur bio:death ?mort") %>%
 #'   spq_add("?auteur foaf:familyName ?nom") %>%
-#'   spq_filter(as.integer(mort)<as.integer('1924')) %>%
-#'   spq_group_by(auteur, nom , mort) %>%
+#'   spq_filter(as.integer(mort) < as.integer("1924")) %>%
+#'   spq_group_by(auteur, nom, mort) %>%
 #'   spq_arrange(desc(as.integer(mort)))
 #'
 #' # descending as.integer(mort), SPARQL syntax
@@ -45,7 +45,7 @@
 #'   spq_add("?oeuvre dcterms:creator ?auteur") %>%
 #'   spq_add("?auteur bio:death ?mort") %>%
 #'   spq_add("?auteur foaf:familyName ?nom") %>%
-#'   spq_filter(as.integer(mort)<as.integer('1924')) %>%
+#'   spq_filter(as.integer(mort) < as.integer("1924")) %>%
 #'   spq_group_by(auteur, nom, mort) %>%
 #'   spq_arrange(spq("DESC(xsd:integer(?mort))"))
 #'
@@ -75,7 +75,7 @@
 #'   spq_add("?item wdt:P625 ?location") %>%
 #'   spq_arrange(desc(length), spq("?location")) %>%
 #'   spq_head(50)
-spq_arrange = function(.query , ..., .replace = FALSE){
+spq_arrange = function(.query, ..., .replace = FALSE) {
   ordering_patterns = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
   .query$order_by = if (.replace) {
@@ -84,21 +84,22 @@ spq_arrange = function(.query , ..., .replace = FALSE){
     c(.query$order_by, ordering_patterns)
   }
 
-  ordering_variables <- purrr::map_df(ordering_patterns, arrange_arrange)
-  ordering <- intersect(.query[["vars"]][["name"]], ordering_variables[["name"]])
+  ordering_variables = purrr::map_df(ordering_patterns, arrange_arrange)
+  ordering = intersect(.query[["vars"]][["name"]], ordering_variables[["name"]])
   for (ord in ordering) {
-    .query <- track_structure(
+    .query = track_structure(
       .query,
       name = ord,
-      ordering = ordering_variables[["ordering"]][ordering_variables[["name"]] == ord])
+      ordering = ordering_variables[["ordering"]][ordering_variables[["name"]] == ord]
+    )
   }
 
   return(.query)
 }
 
-arrange_arrange <- function(pattern) {
-  name <- sub(".*\\?", "?", sub("\\)$", "", pattern))
-  ordering <- if (grepl("^DESC", pattern)) {
+arrange_arrange = function(pattern) {
+  name = sub(".*\\?", "?", sub("\\)$", "", pattern))
+  ordering = if (grepl("^DESC", pattern)) {
     "desc"
   } else {
     "asc"
