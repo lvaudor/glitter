@@ -17,7 +17,7 @@ spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within
   variables = purrr::map(rlang::enquos(...), spq_treat_mutate_argument)
   variable_names = names(variables)
 
-  # Normal variables :-)
+  # Non-triple variables :-)
   normal_variables = variables[purrr::map_lgl(variables, is.character)]
   normal_variables[nzchar(names(normal_variables))] = purrr::map2_chr(
     normal_variables[nzchar(names(normal_variables))],
@@ -27,9 +27,19 @@ spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within
 
   for (var in normal_variables) {
     .query = spq_select(.query, spq(var))
+
+    formula_df = get_varformula(var)
+    .query = track_vars(
+      .query = .query,
+      name = sprintf("?%s", names(normal_variables)[normal_variables == var]),
+      formula = var,
+      ancestor = formula_df[["args"]][[1]],
+      fun = sub("\\)$", "", sub("\\(.*", "", formula_df[["formula"]]))
+    )
+
   }
 
-  # Triplet variables
+  # 'Triple' variables
   triple_variables = variables[purrr::map_lgl(variables, is.list)]
   triple_variable_names = names(triple_variables)
   for (i in seq_along(triple_variables)) {
