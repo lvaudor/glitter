@@ -23,10 +23,7 @@ spq_filter = function(.query = NULL, ..., .label = NA, .within_box = c(NA, NA), 
   normal_filters = filters[purrr::map_lgl(filters, is.character)]
   if (length(normal_filters) > 0) {
     # TODO add error if variables not in the df of variables
-    .query[["filter"]] = c(
-      .query[["filter"]],
-      sprintf("FILTER(%s)", normal_filters)
-    )
+
     for (filter in normal_filters) {
       .query = track_filters(.query, filter)
     }

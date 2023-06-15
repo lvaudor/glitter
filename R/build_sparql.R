@@ -71,12 +71,22 @@ spq_assemble = function(.query,
   } else {
     glue::glue('OFFSET {.query[["offset"]]}')
   }
+
+  filters <- if (is.null(.query[["filters"]])) {
+    ""
+  } else {
+    paste0(
+      sprintf("FILTER(%s)", .query[["filters"]][["filter"]]),
+      collapse = "\n"
+    )
+  }
+
   paste0(
     part_prefixes, "\n",
     "SELECT ", spq_duplicate, paste0(select,collapse = " "), "\n",
     "WHERE{\n",
     .query[["body"]], "\n",
-    paste0(.query[["filter"]], collapse = "\n"), "\n",
+    filters, "\n",
     .query[["service"]], "\n",
     "}\n",
     group_by,
