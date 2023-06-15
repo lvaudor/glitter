@@ -27,6 +27,19 @@ spq_summarise = function(.query, ...) {
     return(.query)
   }
 
+  for (var in variables) {
+    .query = spq_select(.query, spq(var))
+
+    formula_df = get_varformula(var)
+    .query = track_vars(
+      .query = .query,
+      name = sprintf("?%s", names(variables)[variables == var]),
+      formula = var,
+      ancestor = formula_df[["args"]][[1]],
+      fun = sub("\\)$", "", sub("\\(.*", "", formula_df[["formula"]]))
+    )
+
+  }
   .query[["select"]] <- c(.query[["group_by"]], variables)
   return(.query)
 }
