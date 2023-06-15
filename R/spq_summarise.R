@@ -22,10 +22,6 @@ spq_summarise = function(.query, ...) {
   )
 
   names(variables[!nzchar(names(variables))]) <- variables[!nzchar(names(variables))]
-  if (are_we_tallying) {
-    .query$select = variables
-    return(.query)
-  }
 
   .query[["select"]] <- c(.query[["group_by"]], variables)
   return(.query)
