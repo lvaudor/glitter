@@ -78,10 +78,10 @@
 spq_arrange = function(.query, ..., .replace = FALSE) {
   ordering_patterns = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
-  .query$order_by = if (.replace) {
+  .query[["order_by"]] = if (.replace) {
     ordering_patterns
   } else {
-    c(.query$order_by, ordering_patterns)
+    union(.query[["order_by"]], ordering_patterns)
   }
 
   ordering_variables = purrr::map_df(ordering_patterns, arrange_arrange)
