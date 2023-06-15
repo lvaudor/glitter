@@ -51,10 +51,27 @@ spq_assemble = function(.query,
     ""
   }
 
-  select <- if (length(.query[["select"]]) == 0) {
+  select <- if (sum(.query[["structure"]][["selected"]]) == 0) {
     "*"
   } else {
-    .query[["select"]]
+    selected <- .query[["structure"]][["name"]][.query[["structure"]][["selected"]]]
+
+    # no var defined: this happens in testing
+    # and other contexts where we demo functions partially
+    select <- if (is.null(.query[["vars"]])) {
+      selected
+    } else {
+      # TODO add logic for BIND thing
+      .query[["vars"]] %>%
+        dplyr::filter(name %in% selected) %>%
+        dplyr::select(name, formula) %>%
+        dplyr::distinct() %>%
+        dplyr::left_join(.query[["structure"]], by = "name") %>%
+        dplyr::group_by(name) %>%
+        dplyr::mutate(selected_pattern = if_else(grouping,dplyr::coalesce(formula, name), name)) %>%
+        dplyr::pull(selected_pattern)
+    }
+
   }
 
   spq_duplicate <- if (is.null(.query[["spq_duplicate"]])) {

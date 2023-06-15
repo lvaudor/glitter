@@ -47,29 +47,22 @@
 spq_tally = function(.query, sort = FALSE, name = "n") {
   full_formula = sprintf("(COUNT(*) AS ?%s)", name)
 
-  .query[["select"]] = full_formula
+  # only keep grouping variables selected
+  .query[["structure"]][["selected"]] = rep(FALSE, nrow(.query[["structure"]]))
+  .query[["structure"]][["selected"]][.query[["structure"]][["grouping"]]] = TRUE
 
-   .query = track_vars(
+  .query = track_vars(
     .query,
-    name = name,
+    name = sprintf("?%s", name),
     formula = full_formula,
     fun = "COUNT",
     ancestor = "*"
   )
 
-   .query = track_structure(
-     .query,
-     name = name,
-     selected = TRUE
-   )
+  .query = spq_select(.query, name)
 
-  if (!is.null(.query[["group_by"]])) {
-    .query[["select"]] = union(.query[["select"]], .query[["group_by"]])
-
-    if (sort) {
-      .query <- spq_arrange(.query, spq(sprintf("DESC(?%s)", name)))
-    }
-
+  if (sort) {
+    .query <- spq_arrange(.query, spq(sprintf("DESC(?%s)", name)))
   }
 
   .query
