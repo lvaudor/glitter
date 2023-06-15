@@ -21,5 +21,5 @@ spq_init=function(){
 }
 
 #' @export
-print.sparqle_query <- function(x, ...) spq_assemble(x) %>% cat()
+print.sparqle_query <- function(x, ...) spq_assemble(x, strict = FALSE) %>% cat()
 

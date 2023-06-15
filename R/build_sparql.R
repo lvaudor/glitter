@@ -1,6 +1,8 @@
 #' Assemble query parts into a proper SPARQL query
 #' @param .query a list with elements of the query
 #' @param endpoint SPARQL endpoint to send the query to
+#' @param strict whether to perform some linting on the query,
+#' and error in case a problem is detected.
 #' @return A query object
 #' @export
 #' @examples
@@ -11,7 +13,8 @@
 #'   spq_assemble() %>%
 #'   cat()
 spq_assemble = function(.query,
-                        endpoint = "Wikidata") {
+                        endpoint = "Wikidata",
+                        strict = TRUE) {
 
   if (endpoint != "Wikidata") {
     .query$service = ""
@@ -75,6 +78,21 @@ spq_assemble = function(.query,
   filters <- if (is.null(.query[["filters"]])) {
     ""
   } else {
+    if (strict) {
+
+      unknown_filtered_variables <- .query[["filters"]][["var"]][
+        !(.query[["filters"]][["var"]] %in% .query[["vars"]][["name"]])
+      ]
+      if (length(unknown_filtered_variables) > 0) {
+        cli::cli_abort(
+          c(
+            "Can't filter on undefined variables: {toString(unknown_filtered_variables)}",
+            i = "You haven't mentioned them in any triple, VALUES, mutate."
+          )
+        )
+      }
+    }
+
     paste0(
       sprintf("FILTER(%s)", .query[["filters"]][["filter"]]),
       collapse = "\n"
