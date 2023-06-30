@@ -24,9 +24,7 @@ spq_filter = function(.query = NULL, ..., .label = NA, .within_box = c(NA, NA), 
   if (length(normal_filters) > 0) {
     # TODO add error if variables not in the df of variables
 
-    for (filter in normal_filters) {
-      .query = track_filters(.query, filter)
-    }
+    .query = purrr::reduce(normal_filters, track_filters, .init = .query)
   }
 
   # triple pattern "filters"
