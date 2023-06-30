@@ -39,6 +39,6 @@ get_triple(
 Get triple with subject verb object.
 }
 \examples{
-get_triple(s="wd:Q456",v="wdt:P625",o="?coords")
-get_triple(t="wd:Q456 wdt:P625 ?coords")
+get_triple(s = "wd:Q456", v = "wdt:P625", o = "?coords")
+get_triple(t = "wd:Q456 wdt:P625 ?coords")
 }
