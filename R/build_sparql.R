@@ -79,7 +79,7 @@ spq_assemble = function(.query,
           formula[!is.na(formula)][1],
           name[1]
         )) %>%
-        dplyr::pull(selected_pattern)
+        dplyr::pull(.data$selected_pattern)
 
       # hack to have formulas last
       # more readability if formulas use vars from select
@@ -186,4 +186,4 @@ spq_assemble = function(.query,
   )
 }
 
-utils::globalVariables("usual_prefixes")
+utils::globalVariables(c("usual_prefixes", "formula"))
