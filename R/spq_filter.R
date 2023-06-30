@@ -30,18 +30,22 @@ spq_filter = function(.query = NULL, ..., .label = NA, .within_box = c(NA, NA), 
   # triple pattern "filters"
   triple_filters = purrr::keep(filters, is.list)
   if (length(triple_filters) > 0) {
-    for (i in seq_along(triple_filters)) {
-      .query = spq_add(
-        .query,
-        .subject = triple_filters[[i]][["subject"]],
-        .verb = triple_filters[[i]][["verb"]],
-        .object = triple_filters[[i]][["object"]],
-        .label = .label
-      )
-    }
+    .query = purrr::reduce(
+      triple_filters,
+      function(.query, x) {
+        spq_add(
+          .query,
+          .subject = x[["subject"]],
+          .verb = x[["verb"]],
+          .object = x[["object"]],
+          .label = .label
+        )
+      },
+      .init = .query
+    )
   }
 
-  return(.query)
+  .query
 }
 
 spq_treat_filter_argument = function(arg) {
@@ -72,14 +76,16 @@ spq_translate_filter = function(code) {
   if (length(eq) == 0) {
     rlang::abort("Can't use a triple-pattern-like filter without ==")
   }
-  right_side = xml2::xml_find_all(code_data, ".//EQ/following-sibling::expr[1]") %>%
+  right_side = code_data %>%
+    xml2::xml_find_all(".//EQ/following-sibling::expr[1]") %>%
     xml2::xml_text()
 
-  subject = xml2::xml_find_first(code_data, ".//SYMBOL") %>% xml2::xml_text()
+  subject = code_data %>%
+    xml2::xml_find_first(".//SYMBOL") %>%
+    xml2::xml_text()
 
-  elts = c(
+  c(
     subject = sprintf("?%s", subject),
     spq_parse_verb_object(right_side)
   )
-  return(elts)
 }
