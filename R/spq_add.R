@@ -94,7 +94,7 @@ spq_add = function(.query = NULL,
   ) %>%
     stats::na.omit()
 
-  return(.query)
+  .query
 }
 
 add_one_var <- function(.query, var, triple, .label) {
