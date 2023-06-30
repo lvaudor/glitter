@@ -68,7 +68,7 @@ spq_assemble = function(.query,
         dplyr::distinct() %>%
         dplyr::left_join(.query[["structure"]], by = "name") %>%
         dplyr::group_by(name) %>%
-        dplyr::mutate(selected_pattern = if_else(grouping,dplyr::coalesce(formula, name), name)) %>%
+        dplyr::mutate(selected_pattern = dplyr::if_else(grouping, dplyr::coalesce(formula, name), name)) %>%
         dplyr::pull(selected_pattern)
     }
 
