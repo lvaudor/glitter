@@ -95,7 +95,7 @@ spq_assemble = function(.query,
           !is.na(formula))
         if (nrow(to_bind) > 0) {
           binded <- paste(
-            sprintf("BIND(%s)", to_bind[["formula"]]),
+            sprintf("BIND%s", to_bind[["formula"]]),
             collapse = "\n"
           )
           bind <- paste0(binded, "\n")
