@@ -24,7 +24,7 @@
         spq_group_by(narrative_locationLabel) %>% spq_tally(sort = TRUE, name = "n_films")
     Output
       
-      SELECT (COUNT(*) AS ?n_films) ?narrative_locationLabel
+      SELECT ?narrative_locationLabel (COUNT(*) AS ?n_films)
       WHERE{
       
       ?film wdt:P31 wd:Q11424.
@@ -61,7 +61,7 @@
         spq_count(narrative_locationLabel, sort = TRUE, name = "n_films")
     Output
       
-      SELECT (COUNT(*) AS ?n_films) ?narrative_locationLabel
+      SELECT ?narrative_locationLabel (COUNT(*) AS ?n_films)
       WHERE{
       
       ?film wdt:P31 wd:Q11424.

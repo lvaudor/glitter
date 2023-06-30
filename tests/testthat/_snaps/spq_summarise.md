@@ -7,7 +7,7 @@
         areaLabel) %>% spq_summarise(total_folkm = sum(folkm_ngd))
     Output
       
-      SELECT (SUM(?folkm_ngd) AS ?total_folkm) ?area ?areaLabel
+      SELECT ?area ?areaLabel (SUM(?folkm_ngd) AS ?total_folkm)
       WHERE{
       
       ?item wdt:P361 wd:Q297853.
@@ -45,7 +45,7 @@
         spq_summarise(n_films = n())
     Output
       
-      SELECT (COUNT(*) AS ?n_films) ?loc
+      SELECT ?loc (COUNT(*) AS ?n_films)
       WHERE{
       
       ?film wdt:P31 wd:Q11424.
@@ -65,7 +65,7 @@
         10)
     Output
       
-      SELECT (COUNT(*) AS ?n_films) (SAMPLE(?film) AS ?one_film) ?year
+      SELECT ?year (COUNT(*) AS ?n_films) (SAMPLE(?film) AS ?one_film)
       WHERE{
       
       ?film wdt:P31 wd:Q11424.

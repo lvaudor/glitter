@@ -51,6 +51,8 @@ spq_assemble = function(.query,
     ""
   }
 
+  # selections and bindings ----
+  binded <- ""
   select <- if (sum(.query[["structure"]][["selected"]]) == 0) {
     "*"
   } else {
@@ -87,7 +89,6 @@ spq_assemble = function(.query,
         dplyr::summarize(selected_pattern = name[1]) %>%
         dplyr::pull(selected_pattern)
 
-      binded <- ""
       if (length(grouping_selected) > 0) {
         to_bind <- dplyr::filter(.query[["vars"]],
           name %in% grouping_selected,
@@ -101,7 +102,8 @@ spq_assemble = function(.query,
         }
       }
 
-      c(nongrouping_selected, grouping_selected)
+      # nicer to put grouping variables first
+      c(grouping_selected, nongrouping_selected)
     }
 
   }
