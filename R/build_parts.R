@@ -14,8 +14,8 @@ build_part_body = function(query = NA,
                            verb = NULL,
                            object = NULL,
                            required = TRUE,
-                           within_box = c(NA,NA),
-                           within_distance = c(NA,NA)) {
+                           within_box = c(NA, NA),
+                           within_distance = c(NA, NA)) {
 
   part_body = query[["body"]]
 
@@ -56,17 +56,17 @@ build_part_body = function(query = NA,
   }
   # when arg within_distance is provided use service wikibase:around
   if (!is.na(within_distance[[1]][1])) {
-    if (length(within_distance$center)==1 & is.character(within_distance$center)) {
-      center = paste0(within_distance$center,".\n")
+    if (length(within_distance[[1]][["center"]]) == 1 && is.character(within_distance[[1]][["center"]])) {
+      center = paste0(within_distance[[1]][["center"]],".\n")
     } else {
-      center = paste0("'Point(",within_distance$center[1]," ",within_distance$center[2],")'^^geo:wktLiteral.\n")
+      center = paste0("'Point(", within_distance[[1]][["center"]][1]," ", within_distance[[1]][["center"]][2],")'^^geo:wktLiteral.\n")
     }
     new_triple = paste0("SERVICE wikibase:around {\n",
                        new_triple,"\n",
                        "bd:serviceParam wikibase:center ",
                        center,
                        "bd:serviceParam wikibase:radius '",
-                       within_distance$radius,
+                       within_distance[[1]][["radius"]],
                        "'.\n}"
     )
   }

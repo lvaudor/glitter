@@ -15,9 +15,10 @@ spq_group_by = function(.query, ...){
 
   vars = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
-  for (var in vars) {
-    .query <- track_structure(.query, name = var, grouping = TRUE)
-  }
+  purrr::reduce(
+    vars,
+    function(query, x) track_structure(query, name = x, grouping = TRUE),
+    .init = .query
+  )
 
-  return(.query)
 }
