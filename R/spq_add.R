@@ -64,6 +64,8 @@ spq_add = function(.query = NULL,
     elts[["subject"]] = .query[["previous_subject"]]
   }
 
+  .query[["previous_subject"]] = elts[1][["subject"]]
+
   # standardized spacing :-)
   triple = paste(elts, collapse = " ")
 
@@ -75,6 +77,7 @@ spq_add = function(.query = NULL,
     within_distance = list(.within_distance)
   )
 
+  # variable tracking ----
   vars = elts[grepl("^\\?", elts)]
   .query <- purrr::reduce(
     vars,
@@ -84,9 +87,7 @@ spq_add = function(.query = NULL,
     .init = .query
   )
 
-  .query[["previous_subject"]] = elts[1][["subject"]]
-
-  # prefixed elements
+  # prefixed elements ----
   .query[["prefixes_used"]] = union(
     .query[["prefixes_used"]],
     purrr::map_chr(unname(elts), keep_prefix)
@@ -120,5 +121,6 @@ add_one_var <- function(.query, var, triple, .label) {
       selected = TRUE
     )
   }
-  return(.query)
+
+  .query
 }
