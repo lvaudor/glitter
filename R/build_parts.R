@@ -9,17 +9,25 @@
 #' @param within_distance if provided, north-west and south-east coordinates of bounding box for the triple query.
 #' @noRd
 build_part_body = function(query = NA,
-                           subject,
-                           verb,
-                           object,
+                           triple = NULL,
+                           subject = NULL,
+                           verb = NULL,
+                           object = NULL,
                            required = TRUE,
                            within_box = c(NA,NA),
                            within_distance = c(NA,NA)) {
 
   part_body = query[["body"]]
 
-  trible_is_not_regular_rdf <- verb %in% c("is","==","%in%")
-  if (trible_is_not_regular_rdf) {
+  if (!is.null(triple)) {
+    elts = decompose_triple_pattern(triple)
+    subject = elts[["subject"]]
+    verb = elts[["verb"]]
+    object = elts[["object"]]
+  }
+
+  triple_is_not_regular_rdf <- verb %in% c("is","==","%in%")
+  if (triple_is_not_regular_rdf) {
     values = paste(as_values(object), collapse = "\n")
     new_triple = glue::glue(
       "VALUES {{subject}}{\n{{values}}\n}",

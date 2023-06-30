@@ -93,15 +93,6 @@ spq_add = function(.query = NULL,
   ) %>%
     stats::na.omit()
 
-  # body
-  .query[["body"]] = build_part_body(
-    .query,
-    elts[["subject"]], elts[["verb"]], elts[["object"]],
-    .required,
-    within_box = .within_box,
-    within_distance = .within_distance
-  )
-
   return(.query)
 }
 

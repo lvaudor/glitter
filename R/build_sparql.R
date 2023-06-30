@@ -109,6 +109,26 @@ spq_assemble = function(.query,
 
   }
 
+  # body ----
+  triples_present = !is.null(.query[["triples"]])
+  body = if (triples_present) {
+    purrr::map_chr(
+      split(.query[["triples"]], seq(nrow(.query[["triples"]]))),
+      ~build_part_body(
+        query = .query,
+        triple = .x[["triple"]],
+        required = .x[["required"]],
+        within_box = .x[["within_box"]],
+        within_distance = .x[["within_distance"]]
+      ),
+      .query = .query
+    ) |>
+      paste0(collapse = "")
+  } else {
+    NULL
+  }
+
+  # duplicate ----
   spq_duplicate <- if (is.null(.query[["spq_duplicate"]])) {
     ""
   } else {
@@ -155,7 +175,7 @@ spq_assemble = function(.query,
     part_prefixes, "\n",
     "SELECT ", spq_duplicate, paste0(select,collapse = " "), "\n",
     "WHERE{\n",
-    .query[["body"]], "\n", binded,
+    body, "\n", binded,
     filters, "\n",
     .query[["service"]], "\n",
     "}\n",
