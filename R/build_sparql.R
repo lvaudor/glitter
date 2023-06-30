@@ -34,8 +34,9 @@ spq_assemble = function(.query,
     ""
   }
 
-  group_by <- if (!is.null(.query[["group_by"]])) {
-    paste0("GROUP BY ", paste0(.query[["group_by"]], collapse = " "),"\n")
+  group_by <- if (sum(.query[["structure"]][["grouping"]]) > 0) {
+    grouping_vars <- .query[["structure"]][["name"]][.query[["structure"]][["grouping"]]]
+    paste0("GROUP BY ", paste0(grouping_vars, collapse = " "),"\n")
   } else {
     ""
   }

@@ -37,12 +37,10 @@ spq_select = function(.query = NULL, ..., .spq_duplicate = NULL){
   plus_variables = variables %>%
     stringr::str_subset("^\\-\\?", negate = TRUE)
 
-  .query[["select"]] = union(.query[["select"]], plus_variables)
   for (var in plus_variables) {
     .query <- track_structure(.query, name = var, selected = TRUE)
   }
 
-  .query[["select"]] = setdiff(.query[["select"]], minus_variables)
   for (var in minus_variables) {
     .query <- track_structure(.query, name = var, selected = FALSE)
   }

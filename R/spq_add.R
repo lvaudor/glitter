@@ -112,13 +112,6 @@ spq_add = function(.query = NULL,
   ) %>%
     stats::na.omit()
 
-  # select
-  .query[["select"]] = build_part_select(
-    .query,
-    elts$subject, elts$verb, elts$object,
-    .label
-  )
-
   # body
   .query[["body"]] = build_part_body(
     .query,
