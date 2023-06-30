@@ -186,4 +186,4 @@ spq_assemble = function(.query,
   )
 }
 
-utils::globalVariables(c("usual_prefixes", "formula"))
+utils::globalVariables(c("usual_prefixes", "formula", "selected_pattern"))
