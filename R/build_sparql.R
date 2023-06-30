@@ -61,15 +61,38 @@ spq_assemble = function(.query,
     select <- if (is.null(.query[["vars"]])) {
       selected
     } else {
-      # TODO add logic for BIND thing
-      .query[["vars"]] %>%
+      selected_df <- .query[["vars"]] %>%
         dplyr::filter(name %in% selected) %>%
         dplyr::select(name, formula) %>%
         dplyr::distinct() %>%
-        dplyr::left_join(.query[["structure"]], by = "name") %>%
+        dplyr::left_join(.query[["structure"]], by = "name")
+
+      nongrouping_selected <- dplyr::filter(selected_df, !grouping) %>%
         dplyr::group_by(name) %>%
-        dplyr::mutate(selected_pattern = dplyr::if_else(grouping, dplyr::coalesce(formula, name), name)) %>%
+        # TODO it'd probably be weird to have >1 formula
+        # so check that
+        dplyr::summarize(selected_pattern = dplyr::if_else(
+          any(!is.na(formula)),
+          formula[!is.na(formula)][1],
+          name[1]
+        )) %>%
         dplyr::pull(selected_pattern)
+
+      # hack to have formulas last
+      # more readability if formulas use vars from select
+      nongrouping_selected <- nongrouping_selected[order(grepl(" AS ", nongrouping_selected))]
+
+      grouping_selected <- dplyr::filter(selected_df, grouping) %>%
+        dplyr::group_by(name) %>%
+        dplyr::summarize(selected_pattern = name[1]) %>%
+        dplyr::pull(selected_pattern)
+
+      if (length(grouping_selected) > 0) {
+        browser()
+      to_bind <- .query[["vars"]][.query[["vars"]]["name"] %in% grouping_selected]
+      }
+
+      c(nongrouping_selected, grouping_selected)
     }
 
   }
