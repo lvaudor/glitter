@@ -84,20 +84,19 @@ spq_arrange = function(.query, ..., .replace = FALSE) {
     union(.query[["order_by"]], ordering_patterns)
   }
 
-  ordering_variables = purrr::map_df(ordering_patterns, arrange_arrange)
-  ordering = intersect(.query[["vars"]][["name"]], ordering_variables[["name"]])
-  for (ord in ordering) {
-    .query = track_structure(
-      .query,
-      name = ord,
-      ordering = ordering_variables[["ordering"]][ordering_variables[["name"]] == ord]
-    )
-  }
+  # track ordering in structure df ----
+  ordering_variables = purrr::map_df(ordering_patterns, handle_arrange_pattern) %>%
+    dplyr::filter(name %in%.query[["vars"]][["name"]])
 
-  return(.query)
+  purrr::reduce2(
+    ordering_variables[["name"]],
+    ordering_variables[["ordering"]],
+    function(query, x, y) track_structure(.query, name = x, ordering = y),
+    .init = .query
+  )
 }
 
-arrange_arrange = function(pattern) {
+handle_arrange_pattern = function(pattern) {
   name = sub(".*\\?", "?", sub("\\)$", "", pattern))
   ordering = if (grepl("^DESC", pattern)) {
     "desc"
