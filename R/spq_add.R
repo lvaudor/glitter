@@ -75,33 +75,14 @@ spq_add = function(.query = NULL,
     within_distance = list(.within_distance)
   )
 
-
   vars = elts[grepl("^\\?", elts)]
-  for (var in vars) {
-    .query = track_vars(
-      .query,
-      name = var,
-      triple = triple
-    )
-    .query = track_structure(
-      .query,
-      name = var,
-      selected = TRUE
-    )
-
-    if (var %in% .label) {
-      .query = track_vars(
-        .query,
-        name = sprintf("%sLabel", var),
-        triple = triple
-      )
-      .query = track_structure(
-        .query,
-        name = sprintf("%sLabel", var),
-        selected = TRUE
-      )
-    }
-  }
+  .query <- purrr::reduce(
+    vars,
+    add_one_var,
+    triple = triple,
+    .label = .label,
+    .init = .query
+  )
 
   .query[["previous_subject"]] = elts[1][["subject"]]
 
@@ -121,5 +102,32 @@ spq_add = function(.query = NULL,
     within_distance = .within_distance
   )
 
+  return(.query)
+}
+
+add_one_var <- function(.query, var, triple, .label) {
+  .query = track_vars(
+    .query,
+    name = var,
+    triple = triple
+  )
+  .query = track_structure(
+    .query,
+    name = var,
+    selected = TRUE
+  )
+
+  if (var %in% .label) {
+    .query = track_vars(
+      .query,
+      name = sprintf("%sLabel", var),
+      triple = triple
+    )
+    .query = track_structure(
+      .query,
+      name = sprintf("%sLabel", var),
+      selected = TRUE
+    )
+  }
   return(.query)
 }
