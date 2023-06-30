@@ -87,9 +87,18 @@ spq_assemble = function(.query,
         dplyr::summarize(selected_pattern = name[1]) %>%
         dplyr::pull(selected_pattern)
 
+      binded <- ""
       if (length(grouping_selected) > 0) {
-        browser()
-      to_bind <- .query[["vars"]][.query[["vars"]]["name"] %in% grouping_selected]
+        to_bind <- dplyr::filter(.query[["vars"]],
+          name %in% grouping_selected,
+          !is.na(formula))
+        if (nrow(to_bind) > 0) {
+          binded <- paste(
+            sprintf("BIND(%s)", to_bind[["formula"]]),
+            collapse = "\n"
+          )
+          bind <- paste0(binded, "\n")
+        }
       }
 
       c(nongrouping_selected, grouping_selected)
@@ -143,7 +152,7 @@ spq_assemble = function(.query,
     part_prefixes, "\n",
     "SELECT ", spq_duplicate, paste0(select,collapse = " "), "\n",
     "WHERE{\n",
-    .query[["body"]], "\n",
+    .query[["body"]], "\n", binded,
     filters, "\n",
     .query[["service"]], "\n",
     "}\n",

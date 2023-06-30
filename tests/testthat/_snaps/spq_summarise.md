@@ -7,7 +7,7 @@
         areaLabel) %>% spq_summarise(total_folkm = sum(folkm_ngd))
     Output
       
-      SELECT ?area ?areaLabel (SUM(?folkm_ngd) AS ?total_folkm)
+      SELECT (SUM(?folkm_ngd) AS ?total_folkm) ?area ?areaLabel
       WHERE{
       
       ?item wdt:P361 wd:Q297853.
@@ -45,7 +45,7 @@
         spq_summarise(n_films = n())
     Output
       
-      SELECT ?loc (COUNT(*) AS ?n_films)
+      SELECT (COUNT(*) AS ?n_films) ?loc
       WHERE{
       
       ?film wdt:P31 wd:Q11424.
@@ -65,13 +65,12 @@
         10)
     Output
       
-      SELECT ?year (COUNT(*) AS ?n_films) (SAMPLE(?film) AS ?one_film)
+      SELECT (COUNT(*) AS ?n_films) (SAMPLE(?film) AS ?one_film) ?year
       WHERE{
       
       ?film wdt:P31 wd:Q11424.
       ?film wdt:P577 ?date.
-      BIND(YEAR(?date) AS ?year)
-      
+      BIND((YEAR(?date) AS ?year))
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       GROUP BY ?year
