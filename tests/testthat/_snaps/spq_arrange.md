@@ -4,7 +4,7 @@
       spq_arrange(spq_init(), desc(length), itemLabel)
     Output
       
-      SELECT *
+      SELECT ?length ?itemLabel
       WHERE{
       
       
@@ -18,7 +18,7 @@
       spq_arrange(spq_init(), desc(as.integer(mort)))
     Output
       
-      SELECT *
+      SELECT ?mort
       WHERE{
       
       
@@ -32,7 +32,7 @@
       spq_arrange(spq_init(), spq("DESC(?length) ?itemLabel"))
     Output
       
-      SELECT *
+      SELECT ?itemLabel
       WHERE{
       
       
@@ -46,7 +46,7 @@
       spq_arrange(spq_init(), spq("DESC(xsd:integer(?mort))"))
     Output
       
-      SELECT *
+      SELECT ?mort
       WHERE{
       
       
@@ -60,7 +60,7 @@
       spq_arrange(spq_init(), spq("DESC(xsd:integer(?mort))"), vie)
     Output
       
-      SELECT *
+      SELECT ?mort ?vie
       WHERE{
       
       
@@ -76,7 +76,7 @@
       spq_arrange(spq_init(), spq(arranging_stuff))
     Output
       
-      SELECT *
+      SELECT ?itemLabel
       WHERE{
       
       
@@ -90,7 +90,7 @@
       spq_arrange(spq_init(), "desc(length)")
     Output
       
-      SELECT *
+      SELECT ?length
       WHERE{
       
       
@@ -105,7 +105,7 @@
       spq_arrange(spq_init(), str_to_lower(var))
     Output
       
-      SELECT *
+      SELECT ?var
       WHERE{
       
       

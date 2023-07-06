@@ -100,12 +100,8 @@ spq_arrange = function(.query, ..., .replace = FALSE) {
 }
 
 handle_arrange_pattern = function(pattern) {
-  name = sub(".*\\?", "?", sub("\\)$", "", pattern))
-  ordering = if (grepl("^DESC", pattern)) {
-    "desc"
-  } else {
-    "asc"
-  }
+  name = sub(".*\\?", "?", sub("\\)*$", "", pattern))
+  ordering = pattern
 
   tibble::tibble(name = name, ordering = ordering)
 }

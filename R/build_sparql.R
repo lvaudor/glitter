@@ -48,13 +48,7 @@ spq_assemble = function(.query,
   ordering <- .query[["structure"]][.query[["structure"]][["ordering"]] != "none",]
 
   order_by <- if (!is.null(ordering) && nrow(ordering) > 0) {
-    ordering_vars <- purrr::map_chr(
-      split(ordering, seq(nrow(ordering))),
-      ~ switch(.x[["ordering"]],
-        desc = sprintf("DESC(%s)", .x[["name"]]),
-        asc = sprintf("%s", .x[["name"]])
-      )
-    ) %>% paste0(collapse = " ")
+    ordering_vars = paste0(ordering[["ordering"]], collapse = " ")
     sprintf("ORDER BY %s", ordering_vars)
   }
   else {
