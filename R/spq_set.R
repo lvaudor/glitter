@@ -28,12 +28,12 @@ spq_set = function(.query, ...) {
 
   subjects = names(args)
   values = purrr::map_chr(args, treat_value)
-  new_triples = sprintf("VALUES ?%s %s", subjects, values)
 
-  .query$body <- paste(
-    .query$body,
-    paste(new_triples, collapse = "\n"),
-    sep = "\n"
+  .query <- purrr::reduce2(
+    subjects,
+    values,
+    add_one_value_var,
+    .init = .query
   )
 
   # TODO: -select by default?
@@ -42,4 +42,12 @@ spq_set = function(.query, ...) {
 
 treat_value = function(value) {
   sprintf("{%s}", paste0(rlang::eval_tidy(value), collapse = " "))
+}
+
+add_one_value_var <- function(query, var, values) {
+  track_vars(
+    query,
+    name = var,
+    values = values
+  )
 }

@@ -128,6 +128,18 @@ spq_assemble = function(.query,
     NULL
   }
 
+ valued_vars <- .query[["vars"]][!is.na(.query[["vars"]][["values"]]),]
+
+ if (!is.null(valued_vars) && nrow(valued_vars) > 0) {
+    body <- paste(
+      c(
+        body,
+        sprintf("VALUES ?%s %s", valued_vars[["name"]], valued_vars[["values"]])
+        ),
+      collapse = "\n"
+    )
+  }
+
   # duplicate ----
   spq_duplicate <- if (is.null(.query[["spq_duplicate"]])) {
     ""
