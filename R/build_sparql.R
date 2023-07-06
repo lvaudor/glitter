@@ -16,7 +16,30 @@ spq_assemble = function(.query,
                         endpoint = "Wikidata",
                         strict = TRUE) {
 
-  if (endpoint != "Wikidata") {
+  pieces <- build_pieces(.query = .query, endpoint = endpoint, strict = strict)
+
+  paste0(
+    pieces[["part_prefixes"]], "\n",
+    "SELECT ", pieces[["spq_duplicate"]],
+    paste0(pieces[["select"]], collapse = " "), "\n",
+    "WHERE{\n",
+    paste0(pieces[["body"]], collapse = ""), "\n", pieces[["binded"]],
+    pieces[["filters"]], "\n",
+    pieces[["service"]], "\n",
+    "}\n",
+    pieces[["group_by"]],
+    pieces[["order_by"]], "\n",
+    pieces[["limit"]],
+    pieces[["offset"]]
+  )
+}
+
+build_pieces <- function(.query, endpoint = "Wikidata", strict) {
+
+  endpoint = .query[["endpoint"]] %||% endpoint
+
+
+    if (endpoint != "Wikidata") {
     .query[["service"]] = ""
   }
 
@@ -125,8 +148,7 @@ spq_assemble = function(.query,
         within_distance = .x[["within_distance"]]
       ),
       .query = .query
-    ) |>
-      paste0(collapse = "")
+    )
   } else {
     NULL
   }
@@ -134,12 +156,9 @@ spq_assemble = function(.query,
  valued_vars <- .query[["vars"]][!is.na(.query[["vars"]][["values"]]),]
 
  if (!is.null(valued_vars) && nrow(valued_vars) > 0) {
-    body <- paste(
-      c(
+    body <- c(
         body,
         sprintf("VALUES ?%s %s", valued_vars[["name"]], valued_vars[["values"]])
-        ),
-      collapse = "\n"
     )
   }
 
@@ -186,18 +205,20 @@ spq_assemble = function(.query,
     )
   }
 
-  paste0(
-    part_prefixes, "\n",
-    "SELECT ", spq_duplicate, paste0(select,collapse = " "), "\n",
-    "WHERE{\n",
-    body, "\n", binded,
-    filters, "\n",
-    .query[["service"]], "\n",
-    "}\n",
-    group_by,
-    order_by, "\n",
-    limit,
-    offset
+  service = .query[["service"]]
+
+  list(
+    part_prefixes = part_prefixes,
+    spq_duplicate = spq_duplicate,
+    select = select,
+    body = body,
+    binded = binded,
+    filters = filters,
+    service = service,
+    group_by = group_by,
+    order_by = order_by,
+    limit = limit,
+    offset = offset
   )
 }
 
