@@ -3,7 +3,8 @@ track_structure <- function(.query,
                             selected = NULL,
                             grouping = NULL,
                             ordering = NULL
-) {
+                          ) {
+
   if (name %in% .query[["structure"]][["name"]]) {
     if (!is.null(selected)) {
       .query[["structure"]][["selected"]][.query[["structure"]][["name"]] == name] <- selected
@@ -17,13 +18,17 @@ track_structure <- function(.query,
     return(.query)
   }
 
+  selected = selected %||% TRUE
+  grouping = grouping %||% FALSE
+  ordering = ordering %||% "none"
+
   .query[["structure"]] <- rbind(
     .query[["structure"]],
     tibble::tibble(
       name = name,
-      selected = selected %||% TRUE,
-      grouping = grouping %||% FALSE,
-      ordering = ordering %||% "none"
+      selected = selected,
+      grouping = grouping,
+      ordering = ordering
     )
   )
 
@@ -31,12 +36,12 @@ track_structure <- function(.query,
 }
 
 track_vars <- function(.query,
-                      name,
-                      triple = NA,
-                      values = NA,
-                      formula = NA,
-                      fun = NA,
-                      ancestor = NA) {
+  name,
+  triple = NA,
+  values = NA,
+  formula = NA,
+  fun = NA,
+  ancestor = NA) {
 
   new_var <- tibble::tibble(
     name = name,
@@ -52,10 +57,10 @@ track_vars <- function(.query,
 }
 
 track_triples <- function(.query,
-                          triple,
-                          required,
-                          within_box,
-                          within_distance) {
+  triple,
+  required,
+  within_box,
+  within_distance) {
   if (triple %in% .query[["triples"]][["triple"]]) {
     cli::cli_abort("Duplicate triple {.val triple}")
   }
