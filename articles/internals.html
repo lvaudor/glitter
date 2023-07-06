@@ -271,14 +271,7 @@ Also note that the argument comes after a colon, not a comma like in
 R.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_summarise.html">spq_summarise</a></span><span class="op">(</span>authors <span class="op">=</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">name</span>, sep <span class="op">=</span> <span class="st">', '</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; SELECT (GROUP_CONCAT(?name;SEPARATOR=", ") AS ?authors)</span></span>
-<span><span class="co">#&gt; WHERE{</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span></span>
-<span><span class="co">#&gt; }</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/spq_summarise.html">spq_summarise</a></span><span class="op">(</span>authors <span class="op">=</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">name</span>, sep <span class="op">=</span> <span class="st">', '</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Later, we need to document these correspondences better, and we need
 to stress test the DSL with more cases using arguments.</p>
 <div class="section level4">

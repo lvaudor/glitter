@@ -111,14 +111,14 @@ comment les formuler dans R à l’aide du package glitter.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tib_info</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 3</span></span></span>
-<span><span class="co">##   version                                                     p           object</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://www… http:…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… 2009-…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… 2022-…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://www… https…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… en    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 http://pur… XML</span></span></code></pre>
+<span><span class="co">##   object                                               p                 version</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> http://purl.org/spar/fabio/Report                    http://www.w3.or… https:…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> 2009-02-18T10:22:23                                  http://purl.org/… https:…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> 2022-10-27T04:02:35                                  http://purl.org/… https:…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> https://hal.inria.fr/inria-00362381/file/RR-6847.pdf http://www.opena… https:…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> en                                                   http://purl.org/… https:…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> XML                                                  http://purl.org/… https:…</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="rechercher-luri-le-titre-le-lien-vers-le-pdf-et-les-auteurs-de-toutes-les-versions-de-ce-document">Rechercher l’URI, le titre, le lien vers le PDF et les auteurs de
@@ -137,12 +137,12 @@ comment les formuler dans R à l’aide du package glitter.</p>
 <span></span>
 <span><span class="va">tib_doc</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 6</span></span></span>
-<span><span class="co">##   version                                       title creator pdf   person name </span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Khal…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Hacè…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Oliv…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/document/i… Quer… nodeID… http… https… Fabi…</span></span></code></pre>
+<span><span class="co">##   creator             name                  pdf             person title version</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> nodeID://b930061332 Khaled Mohamed Khelif https://hal.in… https… Quer… https:…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> nodeID://b930061330 Hacène Cherfi         https://hal.in… https… Quer… https:…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> nodeID://b930061328 Olivier Corby         https://hal.in… https… Quer… https:…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> nodeID://b930061331 Fabien Gandon         https://hal.in… https… Quer… https:…</span></span></code></pre>
 <p>Remarque: on peut concaténer les réponses d’une variable (ici les
 auteurs par exemple):</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -154,9 +154,9 @@ auteurs par exemple):</p>
 <span></span>
 <span><span class="va">tib_doc_autConcat</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 4</span></span></span>
-<span><span class="co">##   version                                                    title pdf   authors</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/inria-00362381… Quer… http… Khaled…</span></span></code></pre>
+<span><span class="co">##   pdf                                                  title     version authors</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> https://hal.inria.fr/inria-00362381/file/RR-6847.pdf Querying… https:… Khaled…</span></span></code></pre>
 <p>On peut également <strong>agréger/résumer</strong> les résultats
 renvoyés par la requête, par exemple en <strong>recherchant le nombre
 d’auteurs d’un document</strong> (par version)</p>
@@ -192,10 +192,10 @@ de comprendre de quoi il s’agit “en langage ordinaire”.</p>
 <span></span>
 <span><span class="va">tib_docType</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
-<span><span class="co">##   version                                                     type         label</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 https://dat… Rapp…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 https://dat… Repo…</span></span></code></pre>
+<span><span class="co">##   label   type                                             version              </span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> Rapport https://data.archives-ouvertes.fr/doctype/Report https://data.archive…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> Reports https://data.archives-ouvertes.fr/doctype/Report https://data.archive…</span></span></code></pre>
 <p>On peut <strong>filtrer les résultats</strong> pour n’afficher que la
 ligne de résultats pour laquelle l’étiquette est en français :</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -206,9 +206,9 @@ ligne de résultats pour laquelle l’étiquette est en français :</p>
 <span></span>
 <span><span class="va">tib_docTypeFr</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 3</span></span></span>
-<span><span class="co">##   version                                                     type         label</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 https://dat… Rapp…</span></span></code></pre>
+<span><span class="co">##   label   type                                             version              </span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> Rapport https://data.archives-ouvertes.fr/doctype/Report https://data.archive…</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -233,14 +233,14 @@ ligne de résultats pour laquelle l’étiquette est en français :</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tib_foAut</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
-<span><span class="co">##   document                                           version creator type  label</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/hal-02… https:… nodeID… http… Comm…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/document/hal-03… https:… nodeID… http… Arti…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/document/hal-01… https:… nodeID… http… Dire…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/document/hal-01… https:… nodeID… http… Comm…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> https://data.archives-ouvertes.fr/document/obspm-… https:… nodeID… http… Arti…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> https://data.archives-ouvertes.fr/document/hal-02… https:… nodeID… http… Ouvr…</span></span></code></pre>
+<span><span class="co">##   creator             document                               label type  version</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> nodeID://b943144765 https://data.archives-ouvertes.fr/doc… Comm… http… https:…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> nodeID://b948191575 https://data.archives-ouvertes.fr/doc… Arti… http… https:…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> nodeID://b933934258 https://data.archives-ouvertes.fr/doc… Dire… http… https:…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> nodeID://b935242036 https://data.archives-ouvertes.fr/doc… Comm… http… https:…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> nodeID://b947531997 https://data.archives-ouvertes.fr/doc… Arti… http… https:…</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> nodeID://b943161661 https://data.archives-ouvertes.fr/doc… Ouvr… http… https:…</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="enrichirsimplifier-la-requête">Enrichir/simplifier la requête<a class="anchor" aria-label="anchor" href="#enrichirsimplifier-la-requ%C3%AAte"></a>
@@ -257,12 +257,12 @@ associée):</p>
 <span></span>
 <span><span class="va">tib_foAutNbDoc</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 3</span></span></span>
-<span><span class="co">##   type                                                      label          nbdoc</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/doctype/Ouv             Ouvrages       1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/doctype/Douv            Direction d'o… 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/doctype/Article         Article dans … 4    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/doctype/ConferencePaper Communication… 3</span></span></code></pre>
+<span><span class="co">##   label                                     type                           nbdoc</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> Ouvrages                                  https://data.archives-ouverte… 1    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> Direction d'ouvrage, Proceedings, Dossier https://data.archives-ouverte… 1    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> Article dans une revue                    https://data.archives-ouverte… 4    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> Communication dans un congrès             https://data.archives-ouverte… 3</span></span></code></pre>
 <p>On peut afficher ces résultats en <strong>ordonnant</strong> les
 lignes selon le nombre de documents décroissant:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
@@ -273,12 +273,12 @@ lignes selon le nombre de documents décroissant:</p>
 <span></span>
 <span><span class="va">tib_foAutNbDocOrd</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 3</span></span></span>
-<span><span class="co">##   type                                                      label          nbdoc</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/doctype/Article         Article dans … 4    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> https://data.archives-ouvertes.fr/doctype/ConferencePaper Communication… 3    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> https://data.archives-ouvertes.fr/doctype/Ouv             Ouvrages       1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> https://data.archives-ouvertes.fr/doctype/Douv            Direction d'o… 1</span></span></code></pre>
+<span><span class="co">##   label                                     type                           nbdoc</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> Article dans une revue                    https://data.archives-ouverte… 4    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> Communication dans un congrès             https://data.archives-ouverte… 3    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> Ouvrages                                  https://data.archives-ouverte… 1    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> Direction d'ouvrage, Proceedings, Dossier https://data.archives-ouverte… 1</span></span></code></pre>
 <p>On peut également s’intéresser aux <strong>dates</strong> de
 publication. Par exemple ici, on récupère la date de publication,
 l’année correspondante, et on résume l’information en calculant le
@@ -324,7 +324,7 @@ Fabien Gandon » via l’IdHAL<a class="anchor" aria-label="anchor" href="#affic
 <span></span>
 <span><span class="va">tib_aut</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 0 × 2</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ 2 variables: o &lt;chr&gt;, forme &lt;chr&gt;</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 2 variables: forme &lt;chr&gt;, o &lt;chr&gt;</span></span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="enrichirrésumer-les-données">Enrichir/résumer les données<a class="anchor" aria-label="anchor" href="#enrichirr%C3%A9sumer-les-donn%C3%A9es"></a>
