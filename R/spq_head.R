@@ -21,6 +21,9 @@
 #' spq_head(42)
 #' @inheritSection spq_offset Subsetting
 spq_head = function(.query, n = 5){
-  .query$limit = n
-  return(.query)
+
+  if (is.null(n)) return(.query)
+
+  .query[["limit"]] = n
+  .query
 }

@@ -17,42 +17,45 @@
 #' @examples
 #' # find the cities
 #' spq_init() %>%
-#' spq_add("?city wdt:P31/wdt:P279* wd:Q515", .label="?city") %>%
-#' # and their populations
-#' spq_add("?city wdt:P1082 ?pop", .required = FALSE) %>%
-#' # in a bounding box
-#' spq_add("?city wdt:P625 ?coords", .within_box = list(southwest = c(3,43), northeast = c(7,47))) %>%
-#' # limit to 10 lines
-#' spq_head(n = 10)
+#'   spq_add("?city wdt:P31/wdt:P279* wd:Q515", .label = "?city") %>%
+#'   # and their populations
+#'   spq_add("?city wdt:P1082 ?pop", .required = FALSE) %>%
+#'   # in a bounding box
+#'   spq_add(
+#'     "?city wdt:P625 ?coords",
+#'     .within_box = list(southwest = c(3, 43), northeast = c(7, 47))
+#'   ) %>%
+#'   # limit to 10 lines
+#'   spq_head(n = 10)
 #'
 #' \dontrun{
 #' # find the individuals of the species
 #' spq_init() %>%
-#' spq_add("?mayor wdt:P31 ?species") %>%
-#' # dog, cat or chicken
-#' spq_add("?species %in% {c('wd:144','wd:146', 'wd:780')}") %>%
-#' # who occupy the function
-#' spq_add("?mayor p:P39 ?node") %>%
-#' # of mayor
-#' spq_add("?node ps:P39 wd:Q30185") %>%
-#' # of some places
-#' spq_add("?node pq:P642 ?place") %>%
-#' spq_perform()
+#'   spq_add("?mayor wdt:P31 ?species") %>%
+#'   # dog, cat or chicken
+#'   spq_set(species = c('wd:Q144','wd:Q146', 'wd:Q780')) %>%
+#'   # who occupy the function
+#'   spq_add("?mayor p:P39 ?node") %>%
+#'   # of mayor
+#'   spq_add("?node ps:P39 wd:Q30185") %>%
+#'   # of some places
+#'   spq_add("?node pq:P642 ?place") %>%
+#'   spq_perform()
 #' }
 #' @details
 #' The arguments `.subject`, `.verb`, `.object` are most useful for programmatic
 #' usage, they are actually used within glitter code itself.
-spq_add  =  function(.query = NULL,
-  .triple_pattern = NULL,
-  .subject = NULL,
-  .verb = NULL,
-  .object = NULL,
-  .prefixes = NULL,
-  .required = TRUE,
-  .label = NA,
-  .within_box = c(NA,NA),
-  .within_distance = c(NA,NA)){
-
+spq_add = function(.query = NULL,
+                    .triple_pattern = NULL,
+                    .subject = NULL,
+                    .verb = NULL,
+                    .object = NULL,
+                    .prefixes = NULL,
+                    .required = TRUE,
+                    .label = NA,
+                    .within_box = c(NA, NA),
+                    .within_distance = c(NA, NA)) {
+  .query = .query %||% spq_init()
 
   elts = decompose_triple_pattern(
     triple_pattern = .triple_pattern,
@@ -60,38 +63,67 @@ spq_add  =  function(.query = NULL,
     verb = .verb,
     object = .object
   )
-  if (elts[1] == ".") {
-    elts[1] = .query$previous_subject
+  if (elts[["subject"]] == ".") {
+    elts[["subject"]] = .query[["previous_subject"]]
   }
 
-  if (is.null(.query)) {
-    .query = spq_init()
-  }
+  .query[["previous_subject"]] = elts[1][["subject"]]
 
-  # previous subject
-  .query$previous_subject = elts[1]$subject
+  # standardized spacing :-)
+  triple = paste(elts, collapse = " ")
 
-  # prefixed elements
-  .query$prefixes_used = c(
-    .query$prefixes_used,
+  .query = track_triples(
+    .query,
+    triple = triple,
+    required = .required,
+    within_box = list(.within_box),
+    within_distance = list(.within_distance)
+  )
+
+  # variable tracking ----
+  vars = elts[grepl("^\\?", elts)]
+  .query <- purrr::reduce(
+    vars,
+    add_one_var,
+    triple = triple,
+    .label = .label,
+    .init = .query
+  )
+
+  # prefixed elements ----
+  .query[["prefixes_used"]] = union(
+    .query[["prefixes_used"]],
     purrr::map_chr(unname(elts), keep_prefix)
   ) %>%
-    stats::na.omit() %>%
-    unique()
-  # select
-  .query$select = build_part_select(
+    stats::na.omit()
+
+  .query
+}
+
+add_one_var <- function(.query, var, triple, .label) {
+  .query = track_vars(
     .query,
-    elts$subject, elts$verb, elts$object,
-    .label
+    name = var,
+    triple = triple
   )
-  # body
-  .query$body = build_part_body(
+  .query = track_structure(
     .query,
-    elts$subject, elts$verb, elts$object,
-    .required,
-    within_box = .within_box,
-    within_distance = .within_distance
+    name = var,
+    selected = TRUE
   )
 
-  return(.query)
+  if (var %in% .label) {
+    .query = track_vars(
+      .query,
+      name = sprintf("%sLabel", var),
+      triple = triple
+    )
+    .query = track_structure(
+      .query,
+      name = sprintf("%sLabel", var),
+      selected = TRUE
+    )
+  }
+
+  .query
 }

@@ -10,28 +10,28 @@
 #' @param required whether to require this triple (Boolean)
 #' @export
 #' @examples
-#' get_triple(s="wd:Q456",v="wdt:P625",o="?coords")
-#' get_triple(t="wd:Q456 wdt:P625 ?coords")
-get_triple=function(triple=NULL,
-                      subject=NULL,
-                      verb=NULL,
-                      object=NULL,
-                      required=TRUE,
-                      label=NA,
-                      limit=NULL,
-                      within_box=c(NA,NA),
-                      within_distance=c(NA,NA)){
-  query=spq_add(.query=NULL,
-                     .triple_pattern=triple,
-                     .subject=subject,
-                     .verb=verb,
-                     .object=object,
-                     .required=required,
-                     .label=label,
-                     .within_box=within_box,
-                     .within_distance=within_distance)
-  if(!is.null(limit)){query=query %>% spq_head(n=limit)}
-
-  tib=query %>% spq_perform()
-  return(tib)
+#' get_triple(s = "wd:Q456", v = "wdt:P625", o = "?coords")
+#' get_triple(t = "wd:Q456 wdt:P625 ?coords")
+get_triple = function(triple = NULL,
+                    subject = NULL,
+                    verb = NULL,
+                    object = NULL,
+                    required = TRUE,
+                    label = NA,
+                    limit = NULL,
+                    within_box = c(NA,NA),
+                    within_distance = c(NA,NA)) {
+  spq_init() %>%
+    spq_add(
+      .triple_pattern = triple,
+      .subject = subject,
+      .verb = verb,
+      .object = object,
+      .required = required,
+      .label = label,
+      .within_box = within_box,
+      .within_distance = within_distance
+      ) %>%
+    spq_head(n = limit) %>%
+    spq_perform()
 }

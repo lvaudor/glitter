@@ -52,26 +52,29 @@ usage, they are actually used within glitter code itself.
 \examples{
 # find the cities
 spq_init() \%>\%
-spq_add("?city wdt:P31/wdt:P279* wd:Q515", .label="?city") \%>\%
-# and their populations
-spq_add("?city wdt:P1082 ?pop", .required = FALSE) \%>\%
-# in a bounding box
-spq_add("?city wdt:P625 ?coords", .within_box = list(southwest = c(3,43), northeast = c(7,47))) \%>\%
-# limit to 10 lines
-spq_head(n = 10)
+  spq_add("?city wdt:P31/wdt:P279* wd:Q515", .label = "?city") \%>\%
+  # and their populations
+  spq_add("?city wdt:P1082 ?pop", .required = FALSE) \%>\%
+  # in a bounding box
+  spq_add(
+    "?city wdt:P625 ?coords",
+    .within_box = list(southwest = c(3, 43), northeast = c(7, 47))
+  ) \%>\%
+  # limit to 10 lines
+  spq_head(n = 10)
 
 \dontrun{
 # find the individuals of the species
 spq_init() \%>\%
-spq_add("?mayor wdt:P31 ?species") \%>\%
-# dog, cat or chicken
-spq_add("?species \%in\% {c('wd:144','wd:146', 'wd:780')}") \%>\%
-# who occupy the function
-spq_add("?mayor p:P39 ?node") \%>\%
-# of mayor
-spq_add("?node ps:P39 wd:Q30185") \%>\%
-# of some places
-spq_add("?node pq:P642 ?place") \%>\%
-spq_perform()
+  spq_add("?mayor wdt:P31 ?species") \%>\%
+  # dog, cat or chicken
+  spq_set(species = c('wd:Q144','wd:Q146', 'wd:Q780')) \%>\%
+  # who occupy the function
+  spq_add("?mayor p:P39 ?node") \%>\%
+  # of mayor
+  spq_add("?node ps:P39 wd:Q30185") \%>\%
+  # of some places
+  spq_add("?node pq:P642 ?place") \%>\%
+  spq_perform()
 }
 }

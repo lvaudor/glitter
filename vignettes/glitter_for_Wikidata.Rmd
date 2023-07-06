@@ -53,7 +53,7 @@ So you're looking for all the stations that are part of ("wd:P361") the Lyon met
 You could access this information through:
 
 ```{r}
-stations=get_triple("?items wdt:P361 wd:Q1552")
+stations=get_triple("?items wdt:P16 wd:Q1552")
 stations %>% head()
 ```
 
@@ -62,7 +62,7 @@ Notice that we do not have values yet for the stations (that's what we're lookin
 To also get the labels for stations, we can use the argument `label`:
 
 ```{r}
-parts_metro_Lyon=get_triple("?items wdt:P361 wd:Q1552", label="?items")
+parts_metro_Lyon=get_triple("?items wdt:P16 wd:Q1552", label="?items")
 parts_metro_Lyon %>% head()
 ```
 

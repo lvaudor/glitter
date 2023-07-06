@@ -162,7 +162,8 @@ keep_prefix = function(string){
 }
 
 
-#' get full specification of variables (as in SELECT part of SPARQL query) based on variable names
+#' get full specification of variables (as in SELECT part of SPARQL query)
+#' based on variable names
 #' @param vars the selected variables (formula and name)
 #' @noRd
 #' @examples

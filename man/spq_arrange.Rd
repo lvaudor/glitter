@@ -30,7 +30,7 @@ spq_init() \%>\%
   spq_head(50)
 
 # descending length, ascending itemLabel, "R" syntax with quotes e.g. for a loop
-variable <- "length"
+variable = "length"
 spq_init() \%>\%
   spq_add("?item wdt:P31/wdt:P279* wd:Q4022", .label = c("?item")) \%>\%
   spq_add("?item wdt:P2043 ?length") \%>\%
@@ -51,8 +51,8 @@ spq_init() \%>\%
   spq_add("?oeuvre dcterms:creator ?auteur") \%>\%
   spq_add("?auteur bio:death ?mort") \%>\%
   spq_add("?auteur foaf:familyName ?nom") \%>\%
-  spq_filter(as.integer(mort)<as.integer('1924')) \%>\%
-  spq_group_by(auteur, nom , mort) \%>\%
+  spq_filter(as.integer(mort) < as.integer("1924")) \%>\%
+  spq_group_by(auteur, nom, mort) \%>\%
   spq_arrange(desc(as.integer(mort)))
 
 # descending as.integer(mort), SPARQL syntax
@@ -60,7 +60,7 @@ spq_init() \%>\%
   spq_add("?oeuvre dcterms:creator ?auteur") \%>\%
   spq_add("?auteur bio:death ?mort") \%>\%
   spq_add("?auteur foaf:familyName ?nom") \%>\%
-  spq_filter(as.integer(mort)<as.integer('1924')) \%>\%
+  spq_filter(as.integer(mort) < as.integer("1924")) \%>\%
   spq_group_by(auteur, nom, mort) \%>\%
   spq_arrange(spq("DESC(xsd:integer(?mort))"))
 

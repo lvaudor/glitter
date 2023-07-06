@@ -1,8 +1,8 @@
 # spq_mutate works
 
     Code
-      query %>% spq_mutate(statement = wdt::P1843(wd::Q331676)) %>% spq_mutate(lang = lang(
-        statement))
+      spq_init() %>% spq_mutate(statement = wdt::P1843(wd::Q331676)) %>% spq_mutate(
+        lang = lang(statement))
     Output
       
       SELECT ?statement (lang(?statement) AS ?lang)

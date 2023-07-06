@@ -24,6 +24,6 @@
 #' spq_head(42) %>%
 #' spq_offset(11)
 spq_offset = function(.query, n = 5){
-  .query$offset = n
+  .query[["offset"]] = n
   return(.query)
 }

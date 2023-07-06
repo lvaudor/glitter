@@ -71,7 +71,6 @@
       ?film wdt:P31 wd:Q11424.
       ?film wdt:P577 ?date.
       BIND(YEAR(?date) AS ?year)
-      
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       GROUP BY ?year

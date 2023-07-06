@@ -13,7 +13,7 @@
 spq_summarise = function(.query, ...) {
 
   variables = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
-  are_we_tallying <- ("COUNT(*)" %in% variables)
+
 
   variables[nzchar(names(variables))] = purrr::map2_chr(
     variables[nzchar(names(variables))],
@@ -23,7 +23,43 @@ spq_summarise = function(.query, ...) {
 
   names(variables[!nzchar(names(variables))]) <- variables[!nzchar(names(variables))]
 
-  .query[["select"]] <- c(.query[["group_by"]], variables)
+
+
+  are_we_tallying = grepl("COUNT\\(\\*\\)", variables)
+
+  no_grouping = (sum(.query[["structure"]][["grouping"]]) == 0)
+
+  if (no_grouping && (!are_we_tallying)) {
+    cli::cli_abort(
+      c(
+        "Can't summarize before grouping",
+        i = "Use {.fun spq_group_by} first, or replace {.fun spq_summarize} with {.fun spq_mutate}"
+      )
+    )
+  }
+
+  # only keep grouping variables selected
+  .query[["structure"]][["selected"]] = rep(FALSE, nrow(.query[["structure"]]))
+  .query[["structure"]][["selected"]][.query[["structure"]][["grouping"]]] = TRUE
+
+  for (var in variables) {
+
+    formula_df = get_varformula(var)
+    fun = sub("\\)$", "", sub("\\(.*", "", formula_df[["formula"]]))
+    ancestor = formula_df[["args"]][[1]]
+    name = sprintf("?%s", names(variables)[variables == var])
+
+    .query = track_vars(
+      .query = .query,
+      name = name,
+      formula = var,
+      ancestor = ancestor,
+      fun = fun
+    )
+    .query = spq_select(.query, spq(name))
+
+  }
+
   return(.query)
 }
 

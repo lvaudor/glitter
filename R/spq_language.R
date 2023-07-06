@@ -15,8 +15,8 @@
 #'  spq_head(10)
 spq_language = function(.query = NULL,
                       language = "en"){
-  language=stringr::str_replace(language,"auto","[AUTO_LANGUAGE]")
-  .query$service=paste0('SERVICE wikibase:label { bd:serviceParam wikibase:language "',
+  language = stringr::str_replace(language,"auto","[AUTO_LANGUAGE]")
+  .query[["service"]] = paste0('SERVICE wikibase:label { bd:serviceParam wikibase:language "',
                        language,
                        '".}')
   return(.query)

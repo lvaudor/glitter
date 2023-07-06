@@ -132,7 +132,7 @@ We also transform argument names.
 Look at the "SELECT" statement below, the `str_c()` function becomes `GROUP_CONCAT()` and its argument `SEPARATOR`. 
 Also note that the argument comes after a colon, not a comma like in R. 
 
-```{r}
+```r
 spq_init() %>%
   spq_summarise(authors = str_c(name, sep = ', '))
 ```
