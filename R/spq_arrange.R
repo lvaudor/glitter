@@ -78,20 +78,23 @@
 spq_arrange = function(.query, ..., .replace = FALSE) {
   ordering_patterns = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
-  .query[["order_by"]] = if (.replace) {
-    ordering_patterns
-  } else {
-    union(.query[["order_by"]], ordering_patterns)
+  if (.replace) {
+    .query[["structure"]][["ordering"]] <- "none"
   }
 
   # track ordering in structure df ----
-  ordering_variables = purrr::map_df(ordering_patterns, handle_arrange_pattern) %>%
-    dplyr::filter(name %in%.query[["vars"]][["name"]])
+  if (!is.null(.query[["vars"]])) {
+    ordering_variables = purrr::map_df(ordering_patterns, handle_arrange_pattern) %>%
+      dplyr::filter(name %in%.query[["vars"]][["name"]])
+  } else {
+    # in tests
+    ordering_variables = purrr::map_df(ordering_patterns, handle_arrange_pattern)
+  }
 
   purrr::reduce2(
     ordering_variables[["name"]],
     ordering_variables[["ordering"]],
-    function(query, x, y) track_structure(.query, name = x, ordering = y),
+    function(query, x, y) track_structure(query, name = x, ordering = y),
     .init = .query
   )
 }

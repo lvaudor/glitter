@@ -45,8 +45,17 @@ spq_assemble = function(.query,
     .query = spq_language(.query, language = "en")
   }
 
-  order_by <- if (length(.query[["order_by"]]) > 0) {
-    sprintf("ORDER BY %s", paste(.query[["order_by"]], collapse = " "))
+  ordering <- .query[["structure"]][.query[["structure"]][["ordering"]] != "none",]
+
+  order_by <- if (!is.null(ordering) && nrow(ordering) > 0) {
+    ordering_vars <- purrr::map_chr(
+      split(ordering, seq(nrow(ordering))),
+      ~ switch(.x[["ordering"]],
+        desc = sprintf("DESC(%s)", .x[["name"]]),
+        asc = sprintf("%s", .x[["name"]])
+      )
+    ) %>% paste0(collapse = " ")
+    sprintf("ORDER BY %s", ordering_vars)
   }
   else {
     ""
