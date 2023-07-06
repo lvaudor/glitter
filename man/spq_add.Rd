@@ -68,7 +68,7 @@ spq_init() \%>\%
 spq_init() \%>\%
   spq_add("?mayor wdt:P31 ?species") \%>\%
   # dog, cat or chicken
-  spq_add("?species \%in\% {c('wd:144','wd:146', 'wd:780')}") \%>\%
+  spq_set(species = c('wd:Q144','wd:Q146', 'wd:Q780')) \%>\%
   # who occupy the function
   spq_add("?mayor p:P39 ?node") \%>\%
   # of mayor
