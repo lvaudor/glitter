@@ -18,7 +18,7 @@ spq_prefix = function(.query = NULL, auto = TRUE, prefixes = NULL){
   }
   if (auto==TRUE) {
     prefixes_auto = usual_prefixes %>%
-      dplyr::filter(.data$name %in% .query$prefixes_used) %>%
+      dplyr::filter(.data$name %in% .query[["prefixes_used"]]) %>%
       dplyr::filter(.data$type!="Wikidata")
     prefixes = dplyr::bind_rows(prefixes, prefixes_auto)
   }
@@ -26,8 +26,8 @@ spq_prefix = function(.query = NULL, auto = TRUE, prefixes = NULL){
     dplyr::select(name, url) %>%
     unique()
 
-  .query$prefixes_provided = dplyr::bind_rows(
-    .query$prefixes_provided,
+  .query[["prefixes_provided"]] = dplyr::bind_rows(
+    .query[["prefixes_provided"]],
     prefixes
   ) %>%
     unique()

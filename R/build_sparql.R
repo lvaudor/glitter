@@ -17,18 +17,18 @@ spq_assemble = function(.query,
                         strict = TRUE) {
 
   if (endpoint != "Wikidata") {
-    .query$service = ""
+    .query[["service"]] = ""
   }
 
   .query = spq_prefix(.query, auto = TRUE, prefixes = NULL)
 
   # prefixes -----
-  prefixes_known = dplyr::bind_rows(.query$prefixes_provided, usual_prefixes)
-  purrr::walk(.query$prefixes_used, check_prefix, prefixes_known = prefixes_known)
+  prefixes_known = dplyr::bind_rows(.query[["prefixes_provided"]], usual_prefixes)
+  purrr::walk(.query[["prefixes_used"]], check_prefix, prefixes_known = prefixes_known)
 
   part_prefixes <- if (nrow(.query[["prefixes_provided"]]) > 0) {
     glue::glue(
-      "PREFIX {.query$prefixes_provided$name}: <{.query$prefixes_provided$url}>") %>%
+      'PREFIX {.query[["prefixes_provided"]][["name"]]}: <{.query[["prefixes_provided"]][["url"]]}>') %>%
       paste0(collapse = "\n")
   } else {
     ""
