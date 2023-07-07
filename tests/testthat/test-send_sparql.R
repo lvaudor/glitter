@@ -76,7 +76,7 @@ test_that("httr2 options", {
 
   expect_equal(
     custom_ua_query[["headers"]][["host"]],
-    "example.com?query=%0ASELECT%20%2A%0AWHERE%7B%0A%0A%0ASERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%7D%0A%7D%0A%0A"
+    "example.com?query=%0ASELECT%20%2A%0AWHERE%20%7B%0A%0A%0ASERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%7D%0A%7D%0A%0A"
   )
 
   body_form_query <- send_sparql(

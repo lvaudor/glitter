@@ -22,7 +22,8 @@ We use
 \item \code{.emph} for keywords and functions,
 \item \code{.field} for variables,
 \item \code{.pkg} for prefixes,
-\item \code{.val} for strings.
+\item \code{.val} for strings,
+\item \code{.url} for prefix URLs.
 }
 
 You can also turn off the cli behavior by setting the environment variable
