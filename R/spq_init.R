@@ -9,7 +9,8 @@
 #' - `.emph` for keywords and functions,
 #' - `.field` for variables,
 #' - `.pkg` for prefixes,
-#' - `.val` for strings.
+#' - `.val` for strings,
+#' - `.url` for prefix URLs.
 #'
 #' You can also turn off the cli behavior by setting the environment variable
 #' `"GLITTER.NOCLI"` to any non-empty string.
@@ -40,7 +41,8 @@ format.sparqle_query <- function(x, ...) {
     .emph = list(color = "darkgreen", "font-weight" = "bold", "font-style" = "normal"),
     .field = list(color = "midnightblue"),
     .pkg = list(color = "mediumblue", "font-weight" = "bold"),
-    .val = list(color = "darkred")
+    .val = list(color = "darkred"),
+    .url = list(color = "purple")
   )
 
   text = spq_assemble(x, strict = FALSE)
@@ -49,6 +51,20 @@ format.sparqle_query <- function(x, ...) {
 
   text <- gsub("\\{", "{{", text)
   text <- gsub("\\}", "}}", text)
+
+  text[!grepl("^PREFIX", text)] <- gsub(
+    "([A-Za-z0-9]*(?=\\:))",
+    "{.pkg \\1}",
+    text[!grepl("^PREFIX", text)],
+    perl = TRUE
+  )
+
+  text[!grepl("^PREFIX", text)] <- gsub(
+    "((?<=\\:)[A-Za-z0-9]*)",
+    "{.emph \\1}",
+    text[!grepl("^PREFIX", text)],
+    perl = TRUE
+  )
 
   text <- gsub(
     "(OPTIONAL|AS|SELECT|DISTINCT|REDUCED|WHERE|PREFIX|FILTER|OFFSET|LIMIT|ORDER BY|GROUP BY|SERVICE)",
@@ -65,15 +81,8 @@ format.sparqle_query <- function(x, ...) {
   )
 
   text <- gsub(
-    "([A-Za-z0-9]*(?=\\:))",
-    "{.pkg \\1}",
-    text,
-    perl = TRUE
-  )
-
-  text <- gsub(
-    "((?<=\\:)[A-Za-z0-9]*)",
-    "{.emph \\1}",
+    "\\<(.*)\\>",
+    "{.url \\1}",
     text,
     perl = TRUE
   )
