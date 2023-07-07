@@ -40,7 +40,7 @@ query <- spq_init() %>%
 query
 #> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 #> SELECT ?item ?itemTitle
-#> WHERE{
+#> WHERE {
 #> 
 #> ?item wdt:P31 wd:Q13442814.
 #> ?item rdfs:label ?itemTitle.

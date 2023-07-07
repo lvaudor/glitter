@@ -1,6 +1,15 @@
 #' Initialize a query object.
 #' @return A query object
 #' @export
+#' @section Printing:
+#' SPARQL queries are shown using the cli package,
+#' with a built-in theme.
+#' You can change it by using the `cli.user_theme` option.
+#' We use `.emph` for keywords and functions, and `.field` for variables.
+#'
+#' You can also turn off the cli behavior by setting the environment variable
+#' `"GLITTER.NOCLI"` to any non-empty string.
+#' That's what we do in glitter snapshot tests.
 spq_init = function(){
   query = list(
     prefixes_provided = tibble::tibble(name = NULL, url = NULL),
@@ -24,22 +33,57 @@ spq_init = function(){
 format.sparqle_query <- function(x, ...) {
 
   spq_theme = list(
-    .emph = list(color = "darkred", "font-weight" = "bold", "font-style" = "normal"),
-    .pkg = list(color = "darkgreen")
+    .emph = list(color = "darkgreen", "font-weight" = "bold", "font-style" = "normal"),
+    .field = list(color = "midnightblue"),
+    .pkg = list(color = "mediumblue", "font-weight" = "bold")
   )
 
   text = spq_assemble(x, strict = FALSE)
-browser()
+
   text <- strsplit(text, "\n")[[1]]
-  text <- gsub("^[A-Z]* ", "{.emph \\1}", text)
 
   text <- gsub("\\{", "{{", text)
   text <- gsub("\\}", "}}", text)
 
+  text <- gsub(
+    "(AS|SELECT|DISTINCT|REDUCED|WHERE|PREFIX|FILTER|OFFSET|LIMIT|ORDER BY|GROUP BY|SERVICE)",
+    "{.emph \\1}",
+    text,
+    perl = TRUE
+  )
+
+  text <- gsub(
+    "([A-Z]*(?=\\())",
+    "{.emph \\1}",
+    text,
+    perl = TRUE
+  )
+
+  text <- gsub(
+    "([A-Za-z0-9]*(?=\\:))",
+    "{.pkg \\1}",
+    text,
+    perl = TRUE
+  )
+
+  text <- gsub(
+    "((?<=\\:)[A-Za-z0-9]*)",
+    "{.emph \\1}",
+    text,
+    perl = TRUE
+  )
+
+  text <- gsub(
+    "(\\?[a-zA-Z0-9\\_]+)",
+    "{.field \\1}",
+    text,
+    perl = TRUE
+  )
+
   cli::cli_format_method({
-    cli::cli_text(text)
+    cli::cli_bullets(text)
   },
-    theme = spq_theme)
+    theme = getOption("cli.user_theme") %||% spq_theme)
 }
 
 #' @export
