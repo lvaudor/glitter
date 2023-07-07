@@ -189,7 +189,7 @@ spq_assemble = function(.query,
   paste0(
     part_prefixes, "\n",
     "SELECT ", spq_duplicate, paste0(select,collapse = " "), "\n",
-    "WHERE{\n",
+    "WHERE {\n",
     body, "\n", binded,
     filters, "\n",
     .query[["service"]], "\n",

@@ -7,7 +7,7 @@
     Output
       
       SELECT ?city ?cityLabel ?coords
-      WHERE{
+      WHERE {
       
       ?city wdt:P31/wdt:P279* wd:Q486972.
       SERVICE wikibase:around {

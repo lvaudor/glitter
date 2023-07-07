@@ -2,6 +2,7 @@
 
 S3method(as.spq,character)
 S3method(as.spq,spq)
+S3method(format,sparqle_query)
 S3method(format,spq)
 S3method(print,sparqle_query)
 S3method(print,spq)

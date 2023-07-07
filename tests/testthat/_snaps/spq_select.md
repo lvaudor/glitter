@@ -5,7 +5,7 @@
     Output
       
       SELECT (COUNT(?human) AS ?count) ?eyecolorLabel ?haircolorLabel
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
@@ -20,7 +20,7 @@
     Output
       
       SELECT (COUNT(?human) AS ?count) ?eyecolorLabel
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
@@ -34,7 +34,7 @@
     Output
       
       SELECT (YEAR(?birthdate) AS ?birthyear)
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
@@ -48,7 +48,7 @@
     Output
       
       SELECT ?lang (COUNT(DISTINCT ?article) AS ?count)
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
@@ -62,7 +62,7 @@
     Output
       
       SELECT ?lang (COUNT(DISTINCT ?article) AS ?count)
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
@@ -76,7 +76,7 @@
     Output
       
       SELECT ?lang (COUNT(DISTINCT ?article) AS ?count
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
@@ -90,7 +90,7 @@
     Output
       
       SELECT ?lang (COUNT(DISTINCT ?article) AS ?count
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
@@ -122,7 +122,7 @@
     Output
       
       SELECT DISTINCT ?year ?month ?day
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
@@ -136,7 +136,7 @@
     Output
       
       SELECT REDUCED ?year ?month ?day
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}

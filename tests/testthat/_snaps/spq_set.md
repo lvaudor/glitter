@@ -5,7 +5,7 @@
     Output
       
       SELECT *
-      WHERE{
+      WHERE {
       VALUES ?species {wd:Q144 wd:Q146 wd:Q780}
       VALUES ?mayorcode {wd:Q30185}
       

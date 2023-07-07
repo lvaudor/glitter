@@ -13,7 +13,7 @@
     Output
       
       SELECT *
-      WHERE{
+      WHERE {
       
       FILTER(lang(?itemTitleLOOKTYPO)="en")
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}

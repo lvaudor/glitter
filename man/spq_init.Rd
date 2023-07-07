@@ -12,3 +12,22 @@ A query object
 \description{
 Initialize a query object.
 }
+\section{Printing}{
+
+SPARQL queries are shown using the cli package,
+with a built-in theme.
+You can change it by using the \code{cli.user_theme} option.
+We use
+\itemize{
+\item \code{.emph} for keywords and functions,
+\item \code{.field} for variables,
+\item \code{.pkg} for prefixes,
+\item \code{.val} for strings,
+\item \code{.url} for prefix URLs.
+}
+
+You can also turn off the cli behavior by setting the environment variable
+\code{"GLITTER.NOCLI"} to any non-empty string.
+That's what we do in glitter snapshot tests.
+}
+
