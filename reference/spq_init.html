@@ -66,6 +66,22 @@
 
 <p>A query object</p>
     </div>
+    <div class="section level2">
+    <h2 id="printing">Printing<a class="anchor" aria-label="anchor" href="#printing"></a></h2>
+    
+
+<p>SPARQL queries are shown using the cli package,
+with a built-in theme.
+You can change it by using the <code>cli.user_theme</code> option.
+We use</p><ul><li><p><code>.emph</code> for keywords and functions,</p></li>
+<li><p><code>.field</code> for variables,</p></li>
+<li><p><code>.pkg</code> for prefixes,</p></li>
+<li><p><code>.val</code> for strings,</p></li>
+<li><p><code>.url</code> for prefix URLs.</p></li>
+</ul><p>You can also turn off the cli behavior by setting the environment variable
+<code>"GLITTER.NOCLI"</code> to any non-empty string.
+That's what we do in glitter snapshot tests.</p>
+    </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>

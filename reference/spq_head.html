@@ -94,17 +94,17 @@
 <span class="r-in"><span><span class="fu"><a href="spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">linkcount</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span><span class="fu">spq_head</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?item ?itemLabel ?linkcount</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?item</span> <span style="color: #000087;">?itemLabel</span> <span style="color: #000087;">?linkcount</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">WHERE</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P31 wd:Q5.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P19/wdt:P131* wd:Q60.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wikibase:sitelinks ?linkcount.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P31</span> <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q5</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P19</span>/<span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P131</span>* <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q60</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">sitelinks</span> <span style="color: #000087;">?linkcount</span>.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SERVICE</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">label</span> { <span style="color: #0000D7; font-weight: bold;">bd</span>:<span style="color: #008700; font-weight: bold;">serviceParam</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">language</span> <span style="color: #AF0000;">"en"</span>.}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY DESC(?linkcount)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> LIMIT 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">ORDER BY</span> <span style="color: #008700; font-weight: bold;">DESC</span>(<span style="color: #000087;">?linkcount</span>)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">LIMIT</span> 5</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Return 42 items</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
@@ -114,17 +114,17 @@
 <span class="r-in"><span><span class="fu"><a href="spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">linkcount</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span><span class="fu">spq_head</span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?item ?itemLabel ?linkcount</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?item</span> <span style="color: #000087;">?itemLabel</span> <span style="color: #000087;">?linkcount</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">WHERE</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P31 wd:Q5.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P19/wdt:P131* wd:Q60.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wikibase:sitelinks ?linkcount.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P31</span> <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q5</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P19</span>/<span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P131</span>* <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q60</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">sitelinks</span> <span style="color: #000087;">?linkcount</span>.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SERVICE</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">label</span> { <span style="color: #0000D7; font-weight: bold;">bd</span>:<span style="color: #008700; font-weight: bold;">serviceParam</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">language</span> <span style="color: #AF0000;">"en"</span>.}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY DESC(?linkcount)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> LIMIT 42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">ORDER BY</span> <span style="color: #008700; font-weight: bold;">DESC</span>(<span style="color: #000087;">?linkcount</span>)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">LIMIT</span> 42</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

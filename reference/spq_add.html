@@ -138,21 +138,21 @@ usage, they are actually used within glitter code itself.</p>
 <span class="r-in"><span>  <span class="co"># limit to 10 lines</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?city ?cityLabel ?coords ?pop</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?city</span> <span style="color: #000087;">?cityLabel</span> <span style="color: #000087;">?coords</span> <span style="color: #000087;">?pop</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">WHERE</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?city wdt:P31/wdt:P279* wd:Q515.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> OPTIONAL {?city wdt:P1082 ?pop.}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:box {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?city wdt:P625 ?coords.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> bd:serviceParam wikibase:cornerSouthWest 'Point( )'^^geo:wktLiteral.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> bd:serviceParam wikibase:cornerNorthEast 'Point( )'^^geo:wktLiteral.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?city</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P31</span>/<span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P279</span>* <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q515</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">OPTIONAL</span> {<span style="color: #000087;">?city</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P1082</span> <span style="color: #000087;">?pop</span>.}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SERVICE</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">box</span> {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?city</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P625</span> <span style="color: #000087;">?coords</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000D7; font-weight: bold;">bd</span>:<span style="color: #008700; font-weight: bold;">serviceParam</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">cornerSouthWest</span> 'Point( )'^^<span style="color: #0000D7; font-weight: bold;">geo</span>:<span style="color: #008700; font-weight: bold;">wktLiteral</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000D7; font-weight: bold;">bd</span>:<span style="color: #008700; font-weight: bold;">serviceParam</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">cornerNorthEast</span> 'Point( )'^^<span style="color: #0000D7; font-weight: bold;">geo</span>:<span style="color: #008700; font-weight: bold;">wktLiteral</span>.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SERVICE</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">label</span> { <span style="color: #0000D7; font-weight: bold;">bd</span>:<span style="color: #008700; font-weight: bold;">serviceParam</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">language</span> <span style="color: #AF0000;">"en"</span>.}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> LIMIT 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">LIMIT</span> 10</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># find the individuals of the species</span></span></span>

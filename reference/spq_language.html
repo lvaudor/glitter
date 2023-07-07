@@ -84,30 +84,31 @@
 <span class="r-in"><span> <span class="fu">spq_language</span><span class="op">(</span><span class="st">"fr,en"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?film ?filmLabel</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?film</span> <span style="color: #000087;">?filmLabel</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">WHERE</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?film wdt:P31 wd:Q11424.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?film</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P31</span> <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q11424</span>.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en".}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SERVICE</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">label</span> { <span style="color: #0000D7; font-weight: bold;">bd</span>:<span style="color: #008700; font-weight: bold;">serviceParam</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">language</span> <span style="color: #AF0000;">"fr,en"</span>.}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> LIMIT 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">LIMIT</span> 10</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?film wdt:P31 wd:Q11424"</span>, .label <span class="op">=</span> <span class="st">"?film"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span> <span class="fu">spq_language</span><span class="op">(</span><span class="st">"auto,es,it,de"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?film ?filmLabel</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?film</span> <span style="color: #000087;">?filmLabel</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">WHERE</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?film wdt:P31 wd:Q11424.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?film</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P31</span> <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q11424</span>.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es,it,de".}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SERVICE</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">label</span> { <span style="color: #0000D7; font-weight: bold;">bd</span>:<span style="color: #008700; font-weight: bold;">serviceParam</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">language</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #AF0000;">"[AUTO_LANGUAGE],es,it,de"</span>.}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> LIMIT 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">LIMIT</span> 10</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

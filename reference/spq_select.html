@@ -89,11 +89,11 @@ or reduce them (<code>reduced</code>, advanced usage).</p></dd>
 <span class="r-in"><span><span class="va">query</span> <span class="op">=</span> <span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">spq_select</span><span class="op">(</span><span class="va">query</span>, count <span class="op">=</span> <span class="fu">n</span> <span class="op">(</span><span class="va">human</span><span class="op">)</span>, <span class="va">eyecolorLabel</span>, <span class="va">haircolorLabel</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT (COUNT(?human) AS ?count) ?eyecolorLabel ?haircolorLabel</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> (<span style="color: #008700; font-weight: bold;">COUNT</span>(<span style="color: #000087;">?human</span>) <span style="color: #008700; font-weight: bold;">AS</span> <span style="color: #000087;">?count</span>) <span style="color: #000087;">?eyecolorLabel</span> <span style="color: #000087;">?haircolorLabel</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">WHERE</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SERVICE</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">label</span> { <span style="color: #0000D7; font-weight: bold;">bd</span>:<span style="color: #008700; font-weight: bold;">serviceParam</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">language</span> <span style="color: #AF0000;">"en"</span>.}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>

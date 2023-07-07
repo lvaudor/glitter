@@ -92,17 +92,17 @@
 <span class="r-in"><span>  <span class="fu">spq_arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">length</span><span class="op">)</span>, <span class="va">itemLabel</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?item ?itemLabel ?length ?location</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?item</span> <span style="color: #000087;">?itemLabel</span> <span style="color: #000087;">?length</span> <span style="color: #000087;">?location</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">WHERE</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P31/wdt:P279* wd:Q4022.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P2043 ?length.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P625 ?location.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P31</span>/<span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P279</span>* <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q4022</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P2043</span> <span style="color: #000087;">?length</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P625</span> <span style="color: #000087;">?location</span>.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SERVICE</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">label</span> { <span style="color: #0000D7; font-weight: bold;">bd</span>:<span style="color: #008700; font-weight: bold;">serviceParam</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">language</span> <span style="color: #AF0000;">"en"</span>.}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY ?itemLabel DESC(?length)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> LIMIT 50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">ORDER BY</span> <span style="color: #000087;">?itemLabel</span> <span style="color: #008700; font-weight: bold;">DESC</span>(<span style="color: #000087;">?length</span>)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">LIMIT</span> 50</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># descending length, ascending itemLabel, "R" syntax with quotes e.g. for a loop</span></span></span>
 <span class="r-in"><span><span class="va">variable</span> <span class="op">=</span> <span class="st">"length"</span></span></span>
@@ -113,17 +113,17 @@
 <span class="r-in"><span>  <span class="fu">spq_arrange</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"desc(%s)"</span>, <span class="va">variable</span><span class="op">)</span>, <span class="va">itemLabel</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?item ?itemLabel ?length ?location</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?item</span> <span style="color: #000087;">?itemLabel</span> <span style="color: #000087;">?length</span> <span style="color: #000087;">?location</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">WHERE</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P31/wdt:P279* wd:Q4022.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P2043 ?length.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P625 ?location.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P31</span>/<span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P279</span>* <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q4022</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P2043</span> <span style="color: #000087;">?length</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P625</span> <span style="color: #000087;">?location</span>.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SERVICE</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">label</span> { <span style="color: #0000D7; font-weight: bold;">bd</span>:<span style="color: #008700; font-weight: bold;">serviceParam</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">language</span> <span style="color: #AF0000;">"en"</span>.}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY ?itemLabel DESC(?length)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> LIMIT 50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">ORDER BY</span> <span style="color: #000087;">?itemLabel</span> <span style="color: #008700; font-weight: bold;">DESC</span>(<span style="color: #000087;">?length</span>)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">LIMIT</span> 50</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># descending length, ascending itemLabel, SPARQL syntax</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
@@ -133,17 +133,17 @@
 <span class="r-in"><span>  <span class="fu">spq_arrange</span><span class="op">(</span><span class="fu"><a href="spq.html">spq</a></span><span class="op">(</span><span class="st">"DESC(?length) ?itemLabel"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?item ?itemLabel ?length ?location</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?item</span> <span style="color: #000087;">?itemLabel</span> <span style="color: #000087;">?length</span> <span style="color: #000087;">?location</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">WHERE</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P31/wdt:P279* wd:Q4022.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P2043 ?length.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P625 ?location.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P31</span>/<span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P279</span>* <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q4022</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P2043</span> <span style="color: #000087;">?length</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P625</span> <span style="color: #000087;">?location</span>.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SERVICE</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">label</span> { <span style="color: #0000D7; font-weight: bold;">bd</span>:<span style="color: #008700; font-weight: bold;">serviceParam</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">language</span> <span style="color: #AF0000;">"en"</span>.}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY DESC(?length) ?itemLabel</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> LIMIT 50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">ORDER BY</span> <span style="color: #008700; font-weight: bold;">DESC</span>(<span style="color: #000087;">?length</span>) <span style="color: #000087;">?itemLabel</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">LIMIT</span> 50</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># descending xsd:integer(mort), R syntax</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
@@ -153,20 +153,20 @@
 <span class="r-in"><span>  <span class="fu"><a href="spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">mort</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="st">"1924"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="va">auteur</span>, <span class="va">nom</span>, <span class="va">mort</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">spq_arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">mort</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX bio: &lt;http://vocab.org/bio/0.1/&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX dcterms: &lt;http://purl.org/dc/terms/&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?auteur ?mort ?nom ?oeuvre</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">PREFIX</span> foaf: <span style="color: #AF00FF; font-style: italic;">&lt;http://xmlns.com/foaf/0.1/&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">PREFIX</span> bio: <span style="color: #AF00FF; font-style: italic;">&lt;http://vocab.org/bio/0.1/&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">PREFIX</span> dcterms: <span style="color: #AF00FF; font-style: italic;">&lt;http://purl.org/dc/terms/&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?auteur</span> <span style="color: #000087;">?mort</span> <span style="color: #000087;">?nom</span> <span style="color: #000087;">?oeuvre</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">WHERE</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?oeuvre dcterms:creator ?auteur.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?auteur bio:death ?mort.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?auteur foaf:familyName ?nom.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> FILTER(xsd:integer(?mort)&lt;xsd:integer("1924"))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?oeuvre</span> <span style="color: #0000D7; font-weight: bold;">dcterms</span>:<span style="color: #008700; font-weight: bold;">creator</span> <span style="color: #000087;">?auteur</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?auteur</span> <span style="color: #0000D7; font-weight: bold;">bio</span>:<span style="color: #008700; font-weight: bold;">death</span> <span style="color: #000087;">?mort</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?auteur</span> <span style="color: #0000D7; font-weight: bold;">foaf</span>:<span style="color: #008700; font-weight: bold;">familyName</span> <span style="color: #000087;">?nom</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">FILTER</span>(<span style="color: #0000D7; font-weight: bold;">xsd</span>:<span style="color: #008700; font-weight: bold;">integer</span>(<span style="color: #000087;">?mort</span>)&lt;<span style="color: #0000D7; font-weight: bold;">xsd</span>:<span style="color: #008700; font-weight: bold;">integer</span>(<span style="color: #AF0000;">"1924"</span>))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SERVICE</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">label</span> { <span style="color: #0000D7; font-weight: bold;">bd</span>:<span style="color: #008700; font-weight: bold;">serviceParam</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">language</span> <span style="color: #AF0000;">"en"</span>.}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GROUP BY ?auteur ?mort ?nom</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY DESC(xsd:integer(?mort))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">GROUP BY</span> <span style="color: #000087;">?auteur</span> <span style="color: #000087;">?mort</span> <span style="color: #000087;">?nom</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">ORDER BY</span> <span style="color: #008700; font-weight: bold;">DESC</span>(<span style="color: #0000D7; font-weight: bold;">xsd</span>:<span style="color: #008700; font-weight: bold;">integer</span>(<span style="color: #000087;">?mort</span>))</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># descending as.integer(mort), SPARQL syntax</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
@@ -176,20 +176,20 @@
 <span class="r-in"><span>  <span class="fu"><a href="spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">mort</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="st">"1924"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="va">auteur</span>, <span class="va">nom</span>, <span class="va">mort</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">spq_arrange</span><span class="op">(</span><span class="fu"><a href="spq.html">spq</a></span><span class="op">(</span><span class="st">"DESC(xsd:integer(?mort))"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX bio: &lt;http://vocab.org/bio/0.1/&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX dcterms: &lt;http://purl.org/dc/terms/&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?auteur ?mort ?nom ?oeuvre</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">PREFIX</span> foaf: <span style="color: #AF00FF; font-style: italic;">&lt;http://xmlns.com/foaf/0.1/&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">PREFIX</span> bio: <span style="color: #AF00FF; font-style: italic;">&lt;http://vocab.org/bio/0.1/&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">PREFIX</span> dcterms: <span style="color: #AF00FF; font-style: italic;">&lt;http://purl.org/dc/terms/&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?auteur</span> <span style="color: #000087;">?mort</span> <span style="color: #000087;">?nom</span> <span style="color: #000087;">?oeuvre</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">WHERE</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?oeuvre dcterms:creator ?auteur.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?auteur bio:death ?mort.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?auteur foaf:familyName ?nom.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> FILTER(xsd:integer(?mort)&lt;xsd:integer("1924"))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?oeuvre</span> <span style="color: #0000D7; font-weight: bold;">dcterms</span>:<span style="color: #008700; font-weight: bold;">creator</span> <span style="color: #000087;">?auteur</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?auteur</span> <span style="color: #0000D7; font-weight: bold;">bio</span>:<span style="color: #008700; font-weight: bold;">death</span> <span style="color: #000087;">?mort</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?auteur</span> <span style="color: #0000D7; font-weight: bold;">foaf</span>:<span style="color: #008700; font-weight: bold;">familyName</span> <span style="color: #000087;">?nom</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">FILTER</span>(<span style="color: #0000D7; font-weight: bold;">xsd</span>:<span style="color: #008700; font-weight: bold;">integer</span>(<span style="color: #000087;">?mort</span>)&lt;<span style="color: #0000D7; font-weight: bold;">xsd</span>:<span style="color: #008700; font-weight: bold;">integer</span>(<span style="color: #AF0000;">"1924"</span>))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SERVICE</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">label</span> { <span style="color: #0000D7; font-weight: bold;">bd</span>:<span style="color: #008700; font-weight: bold;">serviceParam</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">language</span> <span style="color: #AF0000;">"en"</span>.}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GROUP BY ?auteur ?mort ?nom</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY DESC(xsd:integer(?mort))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">GROUP BY</span> <span style="color: #000087;">?auteur</span> <span style="color: #000087;">?mort</span> <span style="color: #000087;">?nom</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">ORDER BY</span> <span style="color: #008700; font-weight: bold;">DESC</span>(<span style="color: #0000D7; font-weight: bold;">xsd</span>:<span style="color: #008700; font-weight: bold;">integer</span>(<span style="color: #000087;">?mort</span>))</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Usage of the .replace argument</span></span></span>
 <span class="r-in"><span><span class="co"># .replace = FALSE (default)</span></span></span>
@@ -201,17 +201,17 @@
 <span class="r-in"><span>  <span class="fu">spq_arrange</span><span class="op">(</span><span class="va">location</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?item ?itemLabel ?length ?location</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?item</span> <span style="color: #000087;">?itemLabel</span> <span style="color: #000087;">?length</span> <span style="color: #000087;">?location</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">WHERE</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P31/wdt:P279* wd:Q4022.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P2043 ?length.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P625 ?location.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P31</span>/<span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P279</span>* <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q4022</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P2043</span> <span style="color: #000087;">?length</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P625</span> <span style="color: #000087;">?location</span>.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SERVICE</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">label</span> { <span style="color: #0000D7; font-weight: bold;">bd</span>:<span style="color: #008700; font-weight: bold;">serviceParam</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">language</span> <span style="color: #AF0000;">"en"</span>.}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY DESC(?length) ?location</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> LIMIT 50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">ORDER BY</span> <span style="color: #008700; font-weight: bold;">DESC</span>(<span style="color: #000087;">?length</span>) <span style="color: #000087;">?location</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">LIMIT</span> 50</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># .replace = TRUE</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
@@ -222,17 +222,17 @@
 <span class="r-in"><span>  <span class="fu">spq_arrange</span><span class="op">(</span><span class="va">location</span>, .replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?item ?itemLabel ?length ?location</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?item</span> <span style="color: #000087;">?itemLabel</span> <span style="color: #000087;">?length</span> <span style="color: #000087;">?location</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">WHERE</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P31/wdt:P279* wd:Q4022.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P2043 ?length.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P625 ?location.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P31</span>/<span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P279</span>* <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q4022</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P2043</span> <span style="color: #000087;">?length</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P625</span> <span style="color: #000087;">?location</span>.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SERVICE</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">label</span> { <span style="color: #0000D7; font-weight: bold;">bd</span>:<span style="color: #008700; font-weight: bold;">serviceParam</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">language</span> <span style="color: #AF0000;">"en"</span>.}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY ?location</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> LIMIT 50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">ORDER BY</span> <span style="color: #000087;">?location</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">LIMIT</span> 50</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Mixing syntaxes</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
@@ -242,17 +242,17 @@
 <span class="r-in"><span>  <span class="fu">spq_arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">length</span><span class="op">)</span>, <span class="fu"><a href="spq.html">spq</a></span><span class="op">(</span><span class="st">"?location"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?item ?itemLabel ?length ?location</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> WHERE{</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?item</span> <span style="color: #000087;">?itemLabel</span> <span style="color: #000087;">?length</span> <span style="color: #000087;">?location</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">WHERE</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P31/wdt:P279* wd:Q4022.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P2043 ?length.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ?item wdt:P625 ?location.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P31</span>/<span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P279</span>* <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q4022</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P2043</span> <span style="color: #000087;">?length</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P625</span> <span style="color: #000087;">?location</span>.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SERVICE</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">label</span> { <span style="color: #0000D7; font-weight: bold;">bd</span>:<span style="color: #008700; font-weight: bold;">serviceParam</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">language</span> <span style="color: #AF0000;">"en"</span>.}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ORDER BY DESC(?length) ?location</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> LIMIT 50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">ORDER BY</span> <span style="color: #008700; font-weight: bold;">DESC</span>(<span style="color: #000087;">?length</span>) <span style="color: #000087;">?location</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">LIMIT</span> 50</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

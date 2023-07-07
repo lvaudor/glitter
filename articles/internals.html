@@ -105,18 +105,18 @@ instance:</p>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">query</span></span>
-<span><span class="co">#&gt; PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span></span>
-<span><span class="co">#&gt; SELECT ?item ?itemTitle</span></span>
-<span><span class="co">#&gt; WHERE{</span></span>
+<span><span class="co">#&gt; <span style="color: #008700; font-weight: bold;">PREFIX</span> rdfs: <span style="color: #AF00FF; font-style: italic;">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?item</span> <span style="color: #000087;">?itemTitle</span></span></span>
+<span><span class="co">#&gt; <span style="color: #008700; font-weight: bold;">WHERE</span> {</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ?item wdt:P31 wd:Q13442814.</span></span>
-<span><span class="co">#&gt; ?item rdfs:label ?itemTitle.</span></span>
-<span><span class="co">#&gt; FILTER(REGEX(LCASE(?itemTitle),"wikidata"))</span></span>
-<span><span class="co">#&gt; FILTER(lang(?itemTitle)="en")</span></span>
-<span><span class="co">#&gt; SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}</span></span>
+<span><span class="co">#&gt; <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P31</span> <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q13442814</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">rdfs</span>:<span style="color: #008700; font-weight: bold;">label</span> <span style="color: #000087;">?itemTitle</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #008700; font-weight: bold;">FILTER</span>(<span style="color: #008700; font-weight: bold;">REGEX</span>(LC<span style="color: #008700; font-weight: bold;">ASE</span>(<span style="color: #000087;">?itemTitle</span>),<span style="color: #AF0000;">"wikidata"</span>))</span></span>
+<span><span class="co">#&gt; <span style="color: #008700; font-weight: bold;">FILTER</span>(lang(<span style="color: #000087;">?itemTitle</span>)=<span style="color: #AF0000;">"en"</span>)</span></span>
+<span><span class="co">#&gt; <span style="color: #008700; font-weight: bold;">SERVICE</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">label</span> { <span style="color: #0000D7; font-weight: bold;">bd</span>:<span style="color: #008700; font-weight: bold;">serviceParam</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">language</span> <span style="color: #AF0000;">"en"</span>.}</span></span>
 <span><span class="co">#&gt; }</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; LIMIT 5</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #008700; font-weight: bold;">LIMIT</span> 5</span></span></code></pre></div>
 <p>The R code should therefore be easier to write, and read. The
 function names and syntax are meant to remind of the tidyverse, and of
 base R.</p>
