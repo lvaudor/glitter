@@ -16,21 +16,18 @@ spq_assemble = function(.query,
                         endpoint = "Wikidata",
                         strict = TRUE) {
 
-  pieces <- build_pieces(.query = .query, endpoint = endpoint, strict = strict)
+  pieces = .query %>%
+    build_pieces(endpoint = endpoint, strict = strict) %>%
+    format_pieces()
 
   paste0(
     pieces[["part_prefixes"]], "\n",
-    "SELECT ", pieces[["spq_duplicate"]],
-    paste0(pieces[["select"]], collapse = " "), "\n",
-    "WHERE{\n",
-    paste0(pieces[["body"]], collapse = ""), "\n", pieces[["binded"]],
-    pieces[["filters"]], "\n",
-    pieces[["service"]], "\n",
-    "}\n",
-    pieces[["group_by"]],
-    pieces[["order_by"]], "\n",
-    pieces[["limit"]],
-    pieces[["offset"]]
+    pieces[["part_select"]], "\n",
+    pieces[["part_body"]],
+    pieces[["part_group_by"]],
+    pieces[["part_order_by"]], "\n",
+    pieces[["part_limit"]],
+    pieces[["part_offset"]]
   )
 }
 
@@ -49,19 +46,10 @@ build_pieces <- function(.query, endpoint = "Wikidata", strict) {
   prefixes_known = dplyr::bind_rows(.query[["prefixes_provided"]], usual_prefixes)
   purrr::walk(.query[["prefixes_used"]], check_prefix, prefixes_known = prefixes_known)
 
-  part_prefixes <- if (nrow(.query[["prefixes_provided"]]) > 0) {
-    glue::glue(
-      'PREFIX {.query[["prefixes_provided"]][["name"]]}: <{.query[["prefixes_provided"]][["url"]]}>') %>%
-      paste0(collapse = "\n")
+  group_by = if (sum(.query[["structure"]][["grouping"]]) > 0) {
+    .query[["structure"]][["name"]][.query[["structure"]][["grouping"]]]
   } else {
-    ""
-  }
-
-  group_by <- if (sum(.query[["structure"]][["grouping"]]) > 0) {
-    grouping_vars <- .query[["structure"]][["name"]][.query[["structure"]][["grouping"]]]
-    paste0("GROUP BY ", paste0(grouping_vars, collapse = " "),"\n")
-  } else {
-    ""
+    NULL
   }
 
   if (is.null(.query[["service"]])) {
@@ -71,11 +59,10 @@ build_pieces <- function(.query, endpoint = "Wikidata", strict) {
   ordering <- .query[["structure"]][.query[["structure"]][["ordering"]] != "none",]
 
   order_by <- if (!is.null(ordering) && nrow(ordering) > 0) {
-    ordering_vars = paste0(ordering[["ordering"]], collapse = " ")
-    sprintf("ORDER BY %s", ordering_vars)
+    ordering[["ordering"]]
   }
   else {
-    ""
+    NULL
   }
 
   # selections and bindings ----
@@ -158,7 +145,10 @@ build_pieces <- function(.query, endpoint = "Wikidata", strict) {
  if (!is.null(valued_vars) && nrow(valued_vars) > 0) {
     body <- c(
         body,
-        sprintf("VALUES ?%s %s", valued_vars[["name"]], valued_vars[["values"]])
+        paste(
+          purrr::map2_chr(valued_vars[["name"]], valued_vars[["values"]], ~sprintf("VALUES ?%s %s", .x, .y)),
+          collapse = "\n"
+        )
     )
   }
 
@@ -169,17 +159,9 @@ build_pieces <- function(.query, endpoint = "Wikidata", strict) {
     sprintf("%s ", .query[["spq_duplicate"]])
   }
 
-  limit <- if (is.null(.query[["limit"]])) {
-    ""
-  } else {
-    glue::glue('LIMIT {.query[["limit"]]}\n')
-  }
+  limit = .query[["limit"]]
 
-  offset <- if (is.null(.query[["offset"]])) {
-    ""
-  } else {
-    glue::glue('OFFSET {.query[["offset"]]}')
-  }
+  offset = .query[["offset"]]
 
   filters <- if (is.null(.query[["filters"]])) {
     ""
@@ -208,17 +190,79 @@ build_pieces <- function(.query, endpoint = "Wikidata", strict) {
   service = .query[["service"]]
 
   list(
-    part_prefixes = part_prefixes,
+    prefixes_provided = .query[["prefixes_provided"]],
     spq_duplicate = spq_duplicate,
     select = select,
     body = body,
     binded = binded,
     filters = filters,
+    raw_filters = .query[["filters"]][["filter"]],
     service = service,
     group_by = group_by,
     order_by = order_by,
     limit = limit,
     offset = offset
+  )
+}
+
+format_pieces <- function(pieces) {
+  part_prefixes <- if (nrow(pieces[["prefixes_provided"]]) > 0) {
+    glue::glue(
+      'PREFIX {pieces[["prefixes_provided"]][["name"]]}: <{pieces[["prefixes_provided"]][["url"]]}>') %>%
+      paste0(collapse = "\n")
+  } else {
+    ""
+  }
+
+  part_select = paste(
+    "SELECT",
+    pieces[["spq_duplicate"]],
+    paste0(pieces[["select"]], collapse = " ")
+  ) %>%
+    stringr::str_squish()
+
+  part_body = paste0(
+    "WHERE{\n",
+    paste0(pieces[["body"]], collapse = ""), "\n", pieces[["binded"]],
+    pieces[["filters"]], "\n",
+    pieces[["service"]], "\n",
+    "}\n"
+  )
+
+  part_order_by = if (!is.null(pieces[["order_by"]])) {
+    ordering_vars = paste0(pieces[["order_by"]], collapse = " ")
+    sprintf("ORDER BY %s", ordering_vars)
+  }
+  else {
+    ""
+  }
+
+
+  part_group_by = if (length(pieces[["group_by"]]) > 0) {
+    paste0("GROUP BY ", paste0(pieces[["group_by"]], collapse = " "),"\n")
+  } else {
+    ""
+  }
+
+  part_limit = if (is.null(pieces[["limit"]])) {
+    ""
+  } else {
+    glue::glue('LIMIT {pieces[["limit"]]}\n')
+  }
+
+  part_offset = if (is.null(pieces[["offset"]])) {
+    ""
+  } else {
+    glue::glue('OFFSET {pieces[["offset"]]}\n')
+  }
+  list(
+    part_prefixes = part_prefixes,
+    part_select = part_select,
+    part_body = part_body,
+    part_group_by = part_group_by,
+    part_order_by = part_order_by,
+    part_limit = part_limit,
+    part_offset = part_offset
   )
 }
 
