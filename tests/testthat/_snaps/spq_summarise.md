@@ -8,7 +8,7 @@
     Output
       
       SELECT ?area ?areaLabel (SUM(?folkm_ngd) AS ?total_folkm)
-      WHERE{
+      WHERE {
       
       ?item wdt:P361 wd:Q297853.
       ?item wdt:P1082 ?folkm_ngd.
@@ -28,7 +28,7 @@
     Output
       
       SELECT (COUNT(*) AS ?n_films)
-      WHERE{
+      WHERE {
       
       ?film wdt:P31 wd:Q11424.
       ?film wdt:P840 ?loc.
@@ -46,7 +46,7 @@
     Output
       
       SELECT ?loc (COUNT(*) AS ?n_films)
-      WHERE{
+      WHERE {
       
       ?film wdt:P31 wd:Q11424.
       ?film wdt:P840 ?loc.
@@ -66,7 +66,7 @@
     Output
       
       SELECT ?year (COUNT(*) AS ?n_films) (SAMPLE(?film) AS ?one_film)
-      WHERE{
+      WHERE {
       
       ?film wdt:P31 wd:Q11424.
       ?film wdt:P577 ?date.
@@ -85,7 +85,7 @@
     Output
       
       SELECT (COUNT(*) AS ?n_films)
-      WHERE{
+      WHERE {
       
       ?film wdt:P31 wd:Q11424.
       ?film wdt:P840 ?loc.

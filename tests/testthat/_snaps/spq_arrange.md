@@ -5,7 +5,7 @@
     Output
       
       SELECT ?length ?itemLabel
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
@@ -19,7 +19,7 @@
     Output
       
       SELECT ?mort
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
@@ -33,7 +33,7 @@
     Output
       
       SELECT ?itemLabel
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
@@ -47,7 +47,7 @@
     Output
       
       SELECT ?mort
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
@@ -61,7 +61,7 @@
     Output
       
       SELECT ?mort ?vie
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
@@ -77,7 +77,7 @@
     Output
       
       SELECT ?itemLabel
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
@@ -91,7 +91,7 @@
     Output
       
       SELECT ?length
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
@@ -106,7 +106,7 @@
     Output
       
       SELECT ?var
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}

@@ -86,7 +86,7 @@ test_that("httr2 options", {
     request_type = "body-form"
   )
   expect_equal(body_form_query[["headers"]][["host"]], "example.com")
-  expect_equal(body_form_query[["headers"]][["content-length"]], "142")
+  expect_equal(body_form_query[["headers"]][["content-length"]], "145")
   expect_equal(body_form_query[["headers"]][["content-type"]], "application/x-www-form-urlencoded")
 })
 

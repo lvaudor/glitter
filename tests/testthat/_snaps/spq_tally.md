@@ -7,7 +7,7 @@
     Output
       
       SELECT (COUNT(*) AS ?n)
-      WHERE{
+      WHERE {
       
       ?film wdt:P31 wd:Q11424.
       ?film wdt:P840 ?narrative_location.
@@ -25,7 +25,7 @@
     Output
       
       SELECT ?narrative_locationLabel (COUNT(*) AS ?n_films)
-      WHERE{
+      WHERE {
       
       ?film wdt:P31 wd:Q11424.
       ?film wdt:P840 ?narrative_location.
@@ -44,7 +44,7 @@
     Output
       
       SELECT (COUNT(*) AS ?n)
-      WHERE{
+      WHERE {
       
       ?film wdt:P31 wd:Q11424.
       ?film wdt:P840 ?narrative_location.
@@ -62,7 +62,7 @@
     Output
       
       SELECT ?narrative_locationLabel (COUNT(*) AS ?n_films)
-      WHERE{
+      WHERE {
       
       ?film wdt:P31 wd:Q11424.
       ?film wdt:P840 ?narrative_location.

@@ -6,7 +6,7 @@
     Output
       
       SELECT ?statement (lang(?statement) AS ?lang)
-      WHERE{
+      WHERE {
       
       wd:Q331676 wdt:P1843 ?statement.
       

@@ -8,7 +8,7 @@
     Output
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?item ?itemTitle
-      WHERE{
+      WHERE {
       
       ?item wdt:P31 wd:Q13442814.
       ?item rdfs:label ?itemTitle.
@@ -27,7 +27,7 @@
     Output
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?item ?itemTitle
-      WHERE{
+      WHERE {
       
       ?item wdt:P31 wd:Q13442814.
       ?item rdfs:label ?itemTitle.
@@ -45,7 +45,7 @@
     Output
       
       SELECT *
-      WHERE{
+      WHERE {
       
       FILTER(LCASE(str(?scientific_name))IN("lala","lili"))
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
@@ -59,7 +59,7 @@
     Output
       
       SELECT *
-      WHERE{
+      WHERE {
       
       FILTER(bound(?date)&&datatype(?date)=xsd:dateTime)
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}

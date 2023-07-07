@@ -6,7 +6,7 @@
     Output
       
       SELECT ?population ?countryLabel
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
@@ -22,7 +22,7 @@
     Output
       
       SELECT ?population ?countryLabel
-      WHERE{
+      WHERE {
       
       
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
