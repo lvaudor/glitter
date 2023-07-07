@@ -5,7 +5,11 @@
 #' SPARQL queries are shown using the cli package,
 #' with a built-in theme.
 #' You can change it by using the `cli.user_theme` option.
-#' We use `.emph` for keywords and functions, and `.field` for variables.
+#' We use
+#' - `.emph` for keywords and functions,
+#' - `.field` for variables,
+#' - `.pkg` for prefixes,
+#' - `.val` for strings.
 #'
 #' You can also turn off the cli behavior by setting the environment variable
 #' `"GLITTER.NOCLI"` to any non-empty string.
@@ -35,7 +39,8 @@ format.sparqle_query <- function(x, ...) {
   spq_theme = list(
     .emph = list(color = "darkgreen", "font-weight" = "bold", "font-style" = "normal"),
     .field = list(color = "midnightblue"),
-    .pkg = list(color = "mediumblue", "font-weight" = "bold")
+    .pkg = list(color = "mediumblue", "font-weight" = "bold"),
+    .val = list(color = "darkred")
   )
 
   text = spq_assemble(x, strict = FALSE)
@@ -76,6 +81,13 @@ format.sparqle_query <- function(x, ...) {
   text <- gsub(
     "(\\?[a-zA-Z0-9\\_]+)",
     "{.field \\1}",
+    text,
+    perl = TRUE
+  )
+
+  text <-  gsub(
+    '"(.*)"',
+    "{.val \\1}",
     text,
     perl = TRUE
   )

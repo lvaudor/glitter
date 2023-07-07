@@ -17,7 +17,13 @@ Initialize a query object.
 SPARQL queries are shown using the cli package,
 with a built-in theme.
 You can change it by using the \code{cli.user_theme} option.
-We use \code{.emph} for keywords and functions, and \code{.pkg} for variables.
+We use
+\itemize{
+\item \code{.emph} for keywords and functions,
+\item \code{.field} for variables,
+\item \code{.pkg} for prefixes,
+\item \code{.val} for strings.
+}
 
 You can also turn off the cli behavior by setting the environment variable
 \code{"GLITTER.NOCLI"} to any non-empty string.
