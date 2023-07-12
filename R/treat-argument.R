@@ -19,7 +19,6 @@ spq_treat_argument = function(arg) {
 }
 
 spq_translate_dsl <- function(code) {
-
   code_data = parse_code(code)
 
   xml2::xml_find_all(code_data, ".//SYMBOL_FUNCTION_CALL") %>%
@@ -187,6 +186,6 @@ replace_special <- function(special) {
   text <- xml2::xml_text(special)
 
   if (text == "%in%") {
-    xml2::xml_text(special) <- "IN"
+    xml2::xml_text(special) <- " IN "
   }
 }

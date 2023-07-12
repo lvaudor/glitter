@@ -67,7 +67,7 @@ format.sparqle_query <- function(x, ...) {
   )
 
   text <- gsub(
-    "(OPTIONAL|AS|SELECT|DISTINCT|REDUCED|WHERE|PREFIX|FILTER|OFFSET|LIMIT|ORDER BY|GROUP BY|SERVICE)",
+    "(IN|OPTIONAL|AS|SELECT|DISTINCT|REDUCED|WHERE|PREFIX|FILTER|OFFSET|LIMIT|ORDER BY|GROUP BY|SERVICE)",
     "{.emph \\1}",
     text,
     perl = TRUE
