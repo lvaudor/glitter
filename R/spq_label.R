@@ -13,12 +13,12 @@ spq_label <- function(.query, ..., .languages = getOption("glitter.lang", "en"))
   .query = purrr::reduce(
     vars,
     function(query, x) {
-      filter <- sprintf("lang(%sLabel) %%in%% c(%s)", sub("\\?", "", x), toString(sprintf("'%s'", .languages)))
+      filter <- sprintf("lang(%s_label) %%in%% c(%s)", sub("\\?", "", x), toString(sprintf("'%s'", .languages)))
 
-      q <- spq_add(query, sprintf("%s rdfs:label %sLabel", x, x), .required = FALSE) %>%
+      q <- spq_add(query, sprintf("%s rdfs:label %s_label", x, x), .required = FALSE) %>%
         spq_filter(filter)
 
-      mutate_left <- sprintf("%sLabelLang", sub("\\?", "", x))
+      mutate_left <- sprintf("%s_label_lang", sub("\\?", "", x))
       mutate_right <- sprintf("lang(%sLabel)", sub("\\?", "", x))
       args_list <- list(.query = q, m = mutate_right)
       names(args_list)[2] <- mutate_left
