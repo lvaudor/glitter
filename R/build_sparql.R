@@ -85,9 +85,15 @@ spq_assemble = function(.query,
         dplyr::summarize(selected_pattern = name[1]) %>%
         dplyr::pull(selected_pattern)
 
+      # we get this to be sure to include any ancestor
+      # of selected var in a BIND
+      selected_vars = .query[["vars"]][.query[["vars"]][["name"]] %in% selected_df[["name"]],]
+      selected_vars = selected_vars[!is.na(selected_vars[["ancestor"]]),]
+
+      potential_binded <- c(grouping_selected, selected_vars[["ancestor"]])
       if (length(grouping_selected) > 0) {
         to_bind <- dplyr::filter(.query[["vars"]],
-          name %in% grouping_selected,
+          name %in% potential_binded,
           !is.na(formula))
         if (nrow(to_bind) > 0) {
           binded <- paste(

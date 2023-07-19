@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @section Example:
-#' \dontrun{
+#' ```r
 #' spq_init() %>%
 #'   spq_add("?mayor wdt:P31 ?species") %>%
 #' # dog, cat or chicken
@@ -22,7 +22,7 @@
 #'   spq_add("?node pq:P642 ?place") %>%
 #'   spq_label(mayor, place, .languages = c("fr", "en", "de")) %>%
 #'   spq_perform()
-#' }
+#' ```
 spq_label <- function(.query, ..., .languages = getOption("glitter.lang", "en$")) {
   vars = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
   .languages = tolower(.languages)
