@@ -66,14 +66,14 @@ format.sparqle_query <- function(x, ...) {
   )
 
   text <- gsub(
-    "(BIND|IN|OPTIONAL|AS|SELECT|DISTINCT|REDUCED|WHERE|PREFIX|FILTER|OFFSET|LIMIT|ORDER BY|GROUP BY|SERVICE)",
+    "([A-Z]*(?=\\())",
     "{.emph \\1}",
     text,
     perl = TRUE
   )
 
   text <- gsub(
-    "([A-Z]*(?=\\())",
+    "(BIND|IN|OPTIONAL|AS|SELECT|DISTINCT|REDUCED|WHERE|PREFIX|FILTER|OFFSET|LIMIT|ORDER BY|GROUP BY|SERVICE)",
     "{.emph \\1}",
     text,
     perl = TRUE

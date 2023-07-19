@@ -15,7 +15,8 @@
 #' @param .prefixes Custom prefixes
 #' @param .filter Filter for the triple. Only use this with `.required=FALSE`
 #' @export
-#' @examples
+#' @section Examples:
+#' ```r
 #' # find the cities
 #' spq_init() %>%
 #'   spq_add("?city wdt:P31/wdt:P279* wd:Q486972") %>%
@@ -25,7 +26,6 @@
 #'                                radius=5)) %>%
 #'   spq_perform()
 #'
-#' \dontrun{
 #' # find the individuals of the species
 #' spq_init() %>%
 #'   spq_add("?mayor wdt:P31 ?species") %>%
@@ -38,7 +38,8 @@
 #'   # of some places
 #'   spq_add("?node pq:P642 ?place") %>%
 #'   spq_perform()
-#' }
+#'
+#' ```
 #' @details
 #' The arguments `.subject`, `.verb`, `.object` are most useful for programmatic
 #' usage, they are actually used within glitter code itself.

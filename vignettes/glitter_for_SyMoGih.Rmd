@@ -37,7 +37,7 @@ tib=spq_init() %>%
   spq_add("?i sym:knowledgeUnitStandardLabel ?stLabel") %>% 
   spq_add(". sym:knowledgeUnitStandardDate ?stDate") %>% 
   spq_add(". sym:hasKnowledgeUnitType ?KUTy") %>% 
-  spq_add("?KUTy rdfs:label ?KUTyLabel") %>% 
+  spq_label(KUTy, .languages = NULL) %>% 
   spq_head(n=10) %>% 
   spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
   

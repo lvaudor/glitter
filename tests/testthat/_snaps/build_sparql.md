@@ -23,3 +23,24 @@
       
       LIMIT 10
 
+---
+
+    Code
+      spq_init() %>% spq_add("?item wdt:P31 wd:Q13442814") %>% spq_label(item) %>%
+        spq_filter(str_detect(str_to_lower(item_label), "wikidata")) %>% spq_head(n = 5)
+    Output
+      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+      SELECT ?item ?item_label
+      WHERE {
+      
+      ?item wdt:P31 wd:Q13442814.
+      OPTIONAL {
+      	?item rdfs:label ?item_labell.
+      	FILTER(lang(?item_labell) IN ('en'))
+      }
+      
+      BIND(COALESCE(?item_labell,'') AS ?item_label)FILTER(REGEX(LCASE(?item_label),"wikidata"))
+      }
+      
+      LIMIT 5
+

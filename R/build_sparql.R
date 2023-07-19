@@ -65,7 +65,7 @@ spq_assemble = function(.query,
         dplyr::distinct() %>%
         dplyr::left_join(.query[["structure"]], by = "name")
 
-      nongrouping_selected <- dplyr::filter(selected_df, !grouping) %>%
+      nongrouping_selected_df = dplyr::filter(selected_df, !grouping) %>%
         dplyr::group_by(name) %>%
         # TODO it'd probably be weird to have >1 formula
         # so check that
@@ -73,8 +73,12 @@ spq_assemble = function(.query,
           any(!is.na(formula)),
           formula[!is.na(formula)][1],
           name[1]
-        )) %>%
-        dplyr::pull(.data$selected_pattern)
+        ))
+        nongrouping_selected = nongrouping_selected_df[["selected_pattern"]]
+        nongrouping_selected = rlang::set_names(
+          nongrouping_selected,
+          nongrouping_selected_df[["name"]]
+        )
 
       # hack to have formulas last
       # more readability if formulas use vars from select
@@ -88,10 +92,12 @@ spq_assemble = function(.query,
       # we get this to be sure to include any ancestor
       # of selected var in a BIND
       selected_vars = .query[["vars"]][.query[["vars"]][["name"]] %in% selected_df[["name"]],]
-      selected_vars = selected_vars[!is.na(selected_vars[["ancestor"]]),]
+      ancestor_vars = selected_vars[!is.na(selected_vars[["ancestor"]]),]
 
-      potential_binded <- c(grouping_selected, selected_vars[["ancestor"]])
-      if (length(grouping_selected) > 0) {
+      filtered_vars = selected_vars[selected_vars[["name"]] %in% .query[["filters"]][["var"]],]
+
+      potential_binded <- c(grouping_selected, ancestor_vars[["ancestor"]], filtered_vars[["name"]])
+      if (length(potential_binded) > 0) {
         to_bind <- dplyr::filter(.query[["vars"]],
           name %in% potential_binded,
           !is.na(formula))
@@ -102,10 +108,17 @@ spq_assemble = function(.query,
           )
           bind <- paste0(binded, "\n")
         }
+      } else {
+        to_bind = NULL
       }
 
       # nicer to put grouping variables first
-      c(grouping_selected, nongrouping_selected)
+      select = c(grouping_selected, nongrouping_selected)
+      # do not use formula both in BIND and SELECT
+      # so remove it from SELECT
+      select[names(select) %in% to_bind[["name"]]] =
+        names(select)[names(select) %in% to_bind[["name"]]]
+      select
     }
 
   }

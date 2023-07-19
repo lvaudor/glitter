@@ -8,4 +8,12 @@ test_that("build_sparql() works - bindings", {
       spq_summarise(subject_label_concat=str_c(subject_label,sep="; ")) %>%
       spq_head(10)
   )
+
+  expect_snapshot(
+    spq_init() %>%
+      spq_add("?item wdt:P31 wd:Q13442814") %>%
+      spq_label(item) %>%
+      spq_filter(str_detect(str_to_lower(item_label), 'wikidata')) %>%
+      spq_head(n = 5)
+  )
 })

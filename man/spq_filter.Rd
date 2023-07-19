@@ -38,13 +38,15 @@ Filters results by adding conditions
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{spq_init() \%>\%
 spq_filter(item == wdt::P31(wd::Q13442814))
-# Corpus of articles with "wikidata" in the title
-spq_init() \%>\%
-spq_add("?item wdt:P31 wd:Q13442814") \%>\%
-spq_add("?item rdfs:label ?itemTitle") \%>\%
-spq_filter(str_detect(str_to_lower(itemTitle), 'wikidata')) \%>\%
-spq_filter(lang(itemTitle)=="en") \%>\%
-spq_head(n = 5)
+
+# Lexemes in English that match an expression
+# here starting with "pota"
+query <- spq_init() |>
+  spq_prefix(prefixes = c(dct = "http://purl.org/dc/terms/")) |>
+  spq_add(spq('?lexemeId dct:language wd:Q1860')) |>
+  spq_mutate(lemma = wikibase::lemma(lexemeId)) |>
+  spq_filter(str_detect(lemma, '^pota.*')) |>
+  spq_select(lexemeId, lemma)
 }\if{html}{\out{</div>}}
 }
 

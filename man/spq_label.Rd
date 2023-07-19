@@ -4,7 +4,12 @@
 \alias{spq_label}
 \title{Label variables}
 \usage{
-spq_label(.query, ..., .languages = getOption("glitter.lang", "en$"))
+spq_label(
+  .query,
+  ...,
+  .required = FALSE,
+  .languages = getOption("glitter.lang", "en$")
+)
 }
 \arguments{
 \item{.query}{a list with elements of the query}
@@ -12,7 +17,12 @@ spq_label(.query, ..., .languages = getOption("glitter.lang", "en$"))
 \item{...}{variables by which to arrange
 (or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
 
-\item{.languages}{Languages for which to query labels. If you write "en" you
+\item{.required}{whether the existence of a value for the triple is required or not (defaults to TRUE).
+If set to FALSE, then other triples in the query are returned even if this particular triple is missing)}
+
+\item{.languages}{Languages for which to query labels. Use \code{NULL} for removing
+restrictions on language (defined or not), \code{"*"} for any defined language.
+If you write "en" you
 can get labels for regional variants such as "en-GB". If you want results for
 "en" only, write "en$".}
 }

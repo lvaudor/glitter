@@ -52,8 +52,10 @@ Add a triple pattern statement to a query
 The arguments \code{.subject}, \code{.verb}, \code{.object} are most useful for programmatic
 usage, they are actually used within glitter code itself.
 }
-\examples{
-# find the cities
+\section{Examples}{
+
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# find the cities
 spq_init() \%>\%
   spq_add("?city wdt:P31/wdt:P279* wd:Q486972") \%>\%
   spq_label(city) \%>\%
@@ -62,7 +64,6 @@ spq_init() \%>\%
                                radius=5)) \%>\%
   spq_perform()
 
-\dontrun{
 # find the individuals of the species
 spq_init() \%>\%
   spq_add("?mayor wdt:P31 ?species") \%>\%
@@ -75,5 +76,7 @@ spq_init() \%>\%
   # of some places
   spq_add("?node pq:P642 ?place") \%>\%
   spq_perform()
+
+}\if{html}{\out{</div>}}
 }
-}
+
