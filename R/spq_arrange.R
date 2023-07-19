@@ -8,7 +8,8 @@
 #' @examples
 #' # descending length, ascending itemLabel, "R" syntax
 #' spq_init() %>%
-#'   spq_add("?item wdt:P31/wdt:P279* wd:Q4022", .label = c("?item")) %>%
+#'   spq_add("?item wdt:P31/wdt:P279* wd:Q4022") %>%
+#'   spq_label(item) %>%
 #'   spq_add("?item wdt:P2043 ?length") %>%
 #'   spq_add("?item wdt:P625 ?location") %>%
 #'   spq_arrange(desc(length), itemLabel) %>%
@@ -17,7 +18,8 @@
 #' # descending length, ascending itemLabel, "R" syntax with quotes e.g. for a loop
 #' variable = "length"
 #' spq_init() %>%
-#'   spq_add("?item wdt:P31/wdt:P279* wd:Q4022", .label = c("?item")) %>%
+#'   spq_add("?item wdt:P31/wdt:P279* wd:Q4022") %>%
+#'   spq_label(item) %>%
 #'   spq_add("?item wdt:P2043 ?length") %>%
 #'   spq_add("?item wdt:P625 ?location") %>%
 #'   spq_arrange(sprintf("desc(%s)", variable), itemLabel) %>%
@@ -25,7 +27,8 @@
 #'
 #' # descending length, ascending itemLabel, SPARQL syntax
 #' spq_init() %>%
-#'   spq_add("?item wdt:P31/wdt:P279* wd:Q4022", .label = c("?item")) %>%
+#'   spq_add("?item wdt:P31/wdt:P279* wd:Q4022") %>%
+#'   spq_label(item) %>%
 #'   spq_add("?item wdt:P2043 ?length") %>%
 #'   spq_add("?item wdt:P625 ?location") %>%
 #'   spq_arrange(spq("DESC(?length) ?itemLabel")) %>%
@@ -52,7 +55,8 @@
 #' # Usage of the .replace argument
 #' # .replace = FALSE (default)
 #' spq_init() %>%
-#'   spq_add("?item wdt:P31/wdt:P279* wd:Q4022", .label = c("?item")) %>%
+#'   spq_add("?item wdt:P31/wdt:P279* wd:Q4022") %>%
+#'   spq_label(item) %>%
 #'   spq_add("?item wdt:P2043 ?length") %>%
 #'   spq_add("?item wdt:P625 ?location") %>%
 #'   spq_arrange(desc(length)) %>%
@@ -61,7 +65,8 @@
 #'
 #' # .replace = TRUE
 #' spq_init() %>%
-#'   spq_add("?item wdt:P31/wdt:P279* wd:Q4022", .label = c("?item")) %>%
+#'   spq_add("?item wdt:P31/wdt:P279* wd:Q4022") %>%
+#'   spq_label(item) %>%
 #'   spq_add("?item wdt:P2043 ?length") %>%
 #'   spq_add("?item wdt:P625 ?location") %>%
 #'   spq_arrange(desc(length)) %>%
@@ -70,7 +75,8 @@
 #'
 #' # Mixing syntaxes
 #' spq_init() %>%
-#'   spq_add("?item wdt:P31/wdt:P279* wd:Q4022", .label = c("?item")) %>%
+#'   spq_add("?item wdt:P31/wdt:P279* wd:Q4022") %>%
+#'   spq_label(item) %>%
 #'   spq_add("?item wdt:P2043 ?length") %>%
 #'   spq_add("?item wdt:P625 ?location") %>%
 #'   spq_arrange(desc(length), spq("?location")) %>%

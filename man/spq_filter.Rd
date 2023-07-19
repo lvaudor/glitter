@@ -18,7 +18,7 @@ spq_filter(
 \item{...}{variables by which to arrange
 (or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
 
-\item{.label}{a vector of variables for which to include a label column (defaults to NA)}
+\item{.label}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} See \code{\link[=spq_label]{spq_label()}}.}
 
 \item{.within_box}{if provided, rectangular bounding box for the triple query.
 Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))}

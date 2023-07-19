@@ -23,9 +23,8 @@ Assemble query parts into a proper SPARQL query
 \examples{
 spq_init() \%>\%
   spq_add("?city wdt:P31 wd:Q515") \%>\%
-  spq_label(city) \%>\%
+  spq_label(city, .languages = "fr$") \%>\%
   spq_add("?city wdt:P1082 ?pop") \%>\%
-  spq_language("fr") \%>\%
   spq_assemble() \%>\%
   cat()
 }

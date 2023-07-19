@@ -2,17 +2,22 @@
 
     Code
       spq_init() %>% spq_add("?film wdt:P31 wd:Q11424") %>% spq_mutate(
-        narrative_location = wdt::P840(film), .label = "?narrative_location") %>%
+        narrative_location = wdt::P840(film)) %>% spq_label(narrative_location) %>%
         spq_tally()
     Output
-      
+      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT (COUNT(*) AS ?n)
       WHERE {
       
       ?film wdt:P31 wd:Q11424.
       ?film wdt:P840 ?narrative_location.
+      OPTIONAL {
+      	?narrative_location rdfs:label ?narrative_location_labell.
+      	FILTER(lang(?narrative_location_labell) IN ('en'))
+      }
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
+      
+      
       }
       
 
@@ -20,36 +25,55 @@
 
     Code
       spq_init() %>% spq_add("?film wdt:P31 wd:Q11424", .label = "?film") %>%
-        spq_mutate(narrative_location = wdt::P840(film), .label = "?narrative_location") %>%
-        spq_group_by(narrative_locationLabel) %>% spq_tally(sort = TRUE, name = "n_films")
+        spq_mutate(narrative_location = wdt::P840(film)) %>% spq_label(
+        narrative_location) %>% spq_group_by(narrative_location_label) %>% spq_tally(
+        sort = TRUE, name = "n_films")
+    Warning <lifecycle_warning_deprecated>
+      The `.label` argument of `spq_add()` is deprecated as of glitter 0.2.0.
+      i Ability to use `.label` will be dropped in next release, use `spq_label()` instead.
     Output
-      
-      SELECT ?narrative_locationLabel (COUNT(*) AS ?n_films)
+      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+      SELECT ?narrative_location_label (COUNT(*) AS ?n_films)
       WHERE {
       
       ?film wdt:P31 wd:Q11424.
-      ?film wdt:P840 ?narrative_location.
-      
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
+      OPTIONAL {
+      	?film rdfs:label ?film_labell.
+      	FILTER(lang(?film_labell) IN ('en'))
       }
-      GROUP BY ?narrative_locationLabel
+      
+      ?film wdt:P840 ?narrative_location.
+      OPTIONAL {
+      	?narrative_location rdfs:label ?narrative_location_labell.
+      	FILTER(lang(?narrative_location_labell) IN ('en'))
+      }
+      
+      BIND(COALESCE(?narrative_location_labell,'') AS ?narrative_location_label)
+      
+      }
+      GROUP BY ?narrative_location_label
       ORDER BY DESC(?n_films)
 
 # spq_count() works
 
     Code
       spq_init() %>% spq_add("?film wdt:P31 wd:Q11424") %>% spq_mutate(
-        narrative_location = wdt::P840(film), .label = "?narrative_location") %>%
+        narrative_location = wdt::P840(film)) %>% spq_label(narrative_location) %>%
         spq_count()
     Output
-      
+      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT (COUNT(*) AS ?n)
       WHERE {
       
       ?film wdt:P31 wd:Q11424.
       ?film wdt:P840 ?narrative_location.
+      OPTIONAL {
+      	?narrative_location rdfs:label ?narrative_location_labell.
+      	FILTER(lang(?narrative_location_labell) IN ('en'))
+      }
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
+      
+      
       }
       
 
@@ -57,18 +81,32 @@
 
     Code
       spq_init() %>% spq_add("?film wdt:P31 wd:Q11424", .label = "?film") %>%
-        spq_mutate(narrative_location = wdt::P840(film), .label = "?narrative_location") %>%
-        spq_count(narrative_locationLabel, sort = TRUE, name = "n_films")
+        spq_mutate(narrative_location = wdt::P840(film)) %>% spq_label(
+        narrative_location) %>% spq_count(narrative_location_label, sort = TRUE,
+        name = "n_films")
+    Warning <lifecycle_warning_deprecated>
+      The `.label` argument of `spq_add()` is deprecated as of glitter 0.2.0.
+      i Ability to use `.label` will be dropped in next release, use `spq_label()` instead.
     Output
-      
-      SELECT ?narrative_locationLabel (COUNT(*) AS ?n_films)
+      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+      SELECT ?narrative_location_label (COUNT(*) AS ?n_films)
       WHERE {
       
       ?film wdt:P31 wd:Q11424.
-      ?film wdt:P840 ?narrative_location.
-      
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
+      OPTIONAL {
+      	?film rdfs:label ?film_labell.
+      	FILTER(lang(?film_labell) IN ('en'))
       }
-      GROUP BY ?narrative_locationLabel
+      
+      ?film wdt:P840 ?narrative_location.
+      OPTIONAL {
+      	?narrative_location rdfs:label ?narrative_location_labell.
+      	FILTER(lang(?narrative_location_labell) IN ('en'))
+      }
+      
+      BIND(COALESCE(?narrative_location_labell,'') AS ?narrative_location_label)
+      
+      }
+      GROUP BY ?narrative_location_label
       ORDER BY DESC(?n_films)
 

@@ -6,7 +6,7 @@ test_that("spq_label() works", {
       spq_add("?mayor p:P39 ?node") %>%
       spq_add("?node ps:P39 wd:Q30185") %>%
       spq_add("?node pq:P642 ?place") %>%
-      spq_label(mayor, place, .languages = "nl")
+      spq_label(mayor, place, .languages = "en$")
   )
   expect_snapshot(
     spq_init() %>%

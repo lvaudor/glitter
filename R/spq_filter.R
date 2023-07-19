@@ -37,12 +37,22 @@ spq_filter = function(.query = NULL, ..., .label = NA, .within_box = c(NA, NA), 
           .query,
           .subject = x[["subject"]],
           .verb = x[["verb"]],
-          .object = x[["object"]],
-          .label = .label
+          .object = x[["object"]]
         )
       },
       .init = .query
     )
+  }
+
+  # labelling ----
+  if (!is.na(.label)) {
+    lifecycle::deprecate_warn(
+      when = "0.2.0",
+      what = "spq_add(.label)",
+      details = "Ability to use `.label` will be dropped in next release, use `spq_label()` instead."
+    )
+    .label <- gsub("^\\?", "", .label)
+    .query <- spq_label(.query, !!!.label)
   }
 
   .query

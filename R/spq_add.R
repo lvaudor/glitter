@@ -6,7 +6,7 @@
 #' @param .object an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))
 #' @param .required whether the existence of a value for the triple is required or not (defaults to TRUE).
 #'   If set to FALSE, then other triples in the query are returned even if this particular triple is missing)
-#' @param .label a vector of variables for which to include a label column (defaults to NA)
+#' @param .label `r lifecycle::badge("deprecated")` See [`spq_label()`].
 #' @param .within_box if provided, rectangular bounding box for the triple query.
 #'   Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))
 #' @param .within_distance if provided, circular bounding box for the triple query.
@@ -18,16 +18,11 @@
 #' @examples
 #' # find the cities
 #' spq_init() %>%
-#'   spq_add("?city wdt:P31/wdt:P279* wd:Q515", .label = "?city") %>%
-#'   # and their populations
-#'   spq_add("?city wdt:P1082 ?pop", .required = FALSE) %>%
-#'   # in a bounding box
-#'   spq_add(
-#'     "?city wdt:P625 ?coords",
-#'     .within_box = list(southwest = c(3, 43), northeast = c(7, 47))
-#'   ) %>%
-#'   # limit to 10 lines
-#'   spq_head(n = 10)
+#'   spq_add("?city wdt:P31/wdt:P279* wd:Q486972", .label="?city") %>%
+#'   spq_mutate(coords = wdt::P625(city),
+#'           .within_distance=list(center=c(long=4.84,lat=45.76),
+#'                                radius=5)) %>%
+#'   spq_perform()
 #'
 #' \dontrun{
 #' # find the individuals of the species
@@ -89,9 +84,19 @@ spq_add = function(.query = NULL,
     vars,
     add_one_var,
     triple = triple,
-    .label = .label,
     .init = .query
   )
+
+  # labelling ----
+  if (!is.na(.label)) {
+    lifecycle::deprecate_warn(
+      when = "0.2.0",
+      what = "spq_add(.label)",
+      details = "Ability to use `.label` will be dropped in next release, use `spq_label()` instead."
+    )
+    .label <- gsub("^\\?", "", .label)
+    .query <- spq_label(.query, !!!.label)
+  }
 
   # prefixed elements ----
   .query[["prefixes_used"]] = union(
@@ -103,7 +108,7 @@ spq_add = function(.query = NULL,
   .query
 }
 
-add_one_var <- function(.query, var, triple, .label) {
+add_one_var <- function(.query, var, triple) {
   .query = track_vars(
     .query,
     name = var,
@@ -114,19 +119,6 @@ add_one_var <- function(.query, var, triple, .label) {
     name = var,
     selected = TRUE
   )
-
-  if (var %in% .label) {
-    .query = track_vars(
-      .query,
-      name = sprintf("%sLabel", var),
-      triple = triple
-    )
-    .query = track_structure(
-      .query,
-      name = sprintf("%sLabel", var),
-      selected = TRUE
-    )
-  }
 
   .query
 }

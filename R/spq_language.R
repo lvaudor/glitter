@@ -5,19 +5,14 @@
 #' @export
 #' @examples
 #' spq_init() %>%
-#'  spq_add("?film wdt:P31 wd:Q11424", .label = "?film") %>%
-#'  spq_language("fr,en") %>%
-#'  spq_head(10)
-#'
-#' spq_init() %>%
-#'  spq_add("?film wdt:P31 wd:Q11424", .label = "?film") %>%
-#'  spq_language("auto,es,it,de") %>%
+#'  spq_add("?film wdt:P31 wd:Q11424") %>%
+#'  spq_label(film, .languages = c("fr$", "en$")) %>%
 #'  spq_head(10)
 spq_language = function(.query = NULL,
-                      language = "en"){
-  language = stringr::str_replace(language,"auto","[AUTO_LANGUAGE]")
-  .query[["service"]] = paste0('SERVICE wikibase:label { bd:serviceParam wikibase:language "',
-                       language,
-                       '".}')
+                        language = "en"){
+  lifecycle::deprecate_warn(
+    "0.2.0", "spq_language()", "spq_label()",
+    details = "See the `.languages` argument"
+  )
   return(.query)
 }

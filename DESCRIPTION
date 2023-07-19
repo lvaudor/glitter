@@ -1,7 +1,7 @@
 Type: Package
 Package: glitter
 Title: glitter makes SPARQL
-Version: 0.1.0
+Version: 0.2.999
 Authors@R: c(
     person("Lise", "Vaudor", , "lise.vaudor@ens-lyon.fr", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-1844-6425")),
@@ -25,6 +25,7 @@ Imports:
     ggraph,
     glue,
     httr2,
+    lifecycle,
     magrittr,
     purrr,
     rlang,

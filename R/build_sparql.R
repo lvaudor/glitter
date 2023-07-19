@@ -8,9 +8,8 @@
 #' @examples
 #' spq_init() %>%
 #'   spq_add("?city wdt:P31 wd:Q515") %>%
-#'   spq_label(city) %>%
+#'   spq_label(city, .languages = "fr$") %>%
 #'   spq_add("?city wdt:P1082 ?pop") %>%
-#'   spq_language("fr") %>%
 #'   spq_assemble() %>%
 #'   cat()
 spq_assemble = function(.query,
@@ -40,10 +39,6 @@ spq_assemble = function(.query,
     paste0("GROUP BY ", paste0(grouping_vars, collapse = " "),"\n")
   } else {
     ""
-  }
-
-  if (is.null(.query[["service"]])) {
-    .query = spq_language(.query, language = "en")
   }
 
   ordering <- .query[["structure"]][.query[["structure"]][["ordering"]] != "none",]

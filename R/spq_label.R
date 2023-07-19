@@ -1,7 +1,9 @@
 #' Label variables
 #'
 #' @inheritParams spq_select
-#' @param .languages
+#' @param .languages Languages for which to query labels. If you write "en" you
+#' can get labels for regional variants such as "en-GB". If you want results for
+#' "en" only, write "en$".
 #'
 #' @return A query object
 #' @export
@@ -21,22 +23,25 @@
 #'   spq_label(mayor, place, .languages = c("fr", "en", "de")) %>%
 #'   spq_perform()
 #' }
-spq_label <- function(.query, ..., .languages = getOption("glitter.lang", "en")) {
+spq_label <- function(.query, ..., .languages = getOption("glitter.lang", "en$")) {
   vars = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
   .languages = tolower(.languages)
 
   .query = purrr::reduce(
     vars,
     function(query, x) {
+      languages_filter <- purrr::map_chr(.languages, create_lang_filter, x = x)
+
+      filter = paste(
+          languages_filter,
+          collapse = " || "
+        )
 
       q <- spq_add(
         query,
         sprintf("%s rdfs:label %s_labell", x, x),
         .required = FALSE,
-        .filter = paste(
-          sprintf("langMatches(lang(%s_labell), '%s')", x, .languages),
-          collapse = " || "
-        )
+        .filter = filter
       )
 
       mutate_left <- sprintf("%s_label", sub("\\?", "", x))
@@ -46,17 +51,29 @@ spq_label <- function(.query, ..., .languages = getOption("glitter.lang", "en"))
       q = do.call(spq_mutate, args_list)
       q = spq_select(q, sprintf("-%s_labell", sub("\\?", "", x)))
 
-      # we add the language of the label in all cases
+      # we add the language of the label
       # because of regional variants
-      mutate_left <- sprintf("%s_label_lang", sub("\\?", "", x))
-      mutate_right <- sprintf("lang(%s_labell)", sub("\\?", "", x))
-      args_list <- list(.query = q, m = mutate_right)
-      names(args_list)[2] <- mutate_left
-      do.call(spq_mutate, args_list)
+      if (length(.languages) > 1 || !grepl("\\$$", .languages)) {
+        mutate_left <- sprintf("%s_label_lang", sub("\\?", "", x))
+        mutate_right <- sprintf("lang(%s_labell)", sub("\\?", "", x))
+        args_list <- list(.query = q, m = mutate_right)
+        names(args_list)[2] <- mutate_left
+        q = do.call(spq_mutate, args_list)
+      }
+      q
     },
     .init = .query
   )
 # TODO add .overwrite
   .query
 
+}
+
+create_lang_filter = function(language, x) {
+  if (grepl("\\$$", language)) {
+    language <- sub("\\$$", "", language)
+    sprintf("lang(%s_labell) IN ('%s')", x, language)
+  } else{
+    sprintf("langMatches(lang(%s_labell), '%s')", x, language)
+  }
 }
