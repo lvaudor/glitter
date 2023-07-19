@@ -47,7 +47,7 @@
       SELECT *
       WHERE {
       
-      FILTER(LCASE(str(?scientific_name))IN("lala","lili"))
+      FILTER(LCASE(str(?scientific_name)) IN ("lala","lili"))
       SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       

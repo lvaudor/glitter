@@ -7,7 +7,7 @@
         spq_label(mayor, place, .languages = "nl")
     Output
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-      SELECT ?mayor ?node ?place ?species (COALESCE(?mayor_labell,'') AS ?mayor_label) (COALESCE(?place_labell,'') AS ?place_label)
+      SELECT ?mayor ?node ?place ?species (COALESCE(?mayor_labell,'') AS ?mayor_label) (lang(?mayor_labell) AS ?mayor_label_lang) (COALESCE(?place_labell,'') AS ?place_label) (lang(?place_labell) AS ?place_label_lang)
       WHERE {
       
       ?mayor wdt:P31 ?species.

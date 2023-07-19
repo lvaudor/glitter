@@ -46,10 +46,8 @@ spq_label <- function(.query, ..., .languages = getOption("glitter.lang", "en"))
       q = do.call(spq_mutate, args_list)
       q = spq_select(q, sprintf("-%s_labell", sub("\\?", "", x)))
 
-      if (length(.languages) == 1) {
-        return(q)
-      }
-
+      # we add the language of the label in all cases
+      # because of regional variants
       mutate_left <- sprintf("%s_label_lang", sub("\\?", "", x))
       mutate_right <- sprintf("lang(%s_labell)", sub("\\?", "", x))
       args_list <- list(.query = q, m = mutate_right)

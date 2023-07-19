@@ -1,6 +1,6 @@
 test_that("build_part_body() return strings", {
 
-  x = glitter:::build_part_body(query=NULL,subject="?city",verb="wdt:P625",object="?coords")
+  x = build_part_body(query=NULL,subject="?city",verb="wdt:P625",object="?coords")
   expect_type(x, "character")
 
 })

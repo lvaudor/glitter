@@ -20,7 +20,7 @@ build_part_body = function(query = NA,
 
   part_body = query[["body"]]
 
-  if (!is.na(triple)) {
+  if (!is.null(triple)) {
     elts = decompose_triple_pattern(triple)
     subject = elts[["subject"]]
     verb = elts[["verb"]]
@@ -39,7 +39,7 @@ build_part_body = function(query = NA,
   }
 
   if (!required) {
-    new_triple = if (!is.null(filter)) {
+    new_triple = if (!is.na(filter)) {
       sprintf("OPTIONAL {\n\t%s\n\tFILTER(%s)\n}\n", new_triple, filter)
     } else {
       sprintf("OPTIONAL {%s}", new_triple)
