@@ -8,7 +8,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       ORDER BY DESC(?length) ?itemLabel
 
@@ -22,7 +21,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       ORDER BY DESC(xsd:integer(?mort))
 
@@ -36,7 +34,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       ORDER BY DESC(?length) ?itemLabel
 
@@ -50,7 +47,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       ORDER BY DESC(xsd:integer(?mort))
 
@@ -64,7 +60,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       ORDER BY DESC(xsd:integer(?mort)) ?vie
 
@@ -80,7 +75,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       ORDER BY DESC(?length) ?itemLabel
 
@@ -94,7 +88,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       ORDER BY DESC(?length)
 
@@ -109,7 +102,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       ORDER BY LCASE(?var)
 

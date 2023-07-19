@@ -20,7 +20,6 @@
       
       ?area wdt:P527 ?item.
       BIND(COALESCE(?area_labell,'') AS ?area_label)
-      
       }
       GROUP BY ?area ?area_label
       
@@ -46,7 +45,6 @@
       	?loc rdfs:label ?loc_labell.
       	FILTER(lang(?loc_labell) IN ('en'))
       }
-      
       
       
       }
@@ -76,7 +74,6 @@
       }
       
       
-      
       }
       GROUP BY ?loc
       
@@ -96,7 +93,6 @@
       ?film wdt:P31 wd:Q11424.
       ?film wdt:P577 ?date.
       BIND(YEAR(?date) AS ?year)
-      
       }
       GROUP BY ?year
       
@@ -114,7 +110,6 @@
       
       ?film wdt:P31 wd:Q11424.
       ?film wdt:P840 ?loc.
-      
       
       }
       

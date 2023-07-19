@@ -16,10 +16,6 @@ spq_assemble = function(.query,
                         endpoint = "Wikidata",
                         strict = TRUE) {
 
-  if (endpoint != "Wikidata") {
-    .query[["service"]] = ""
-  }
-
   .query = spq_prefix(.query, auto = TRUE, prefixes = NULL)
 
   # prefixes -----
@@ -189,7 +185,6 @@ spq_assemble = function(.query,
     "WHERE {\n",
     body, "\n", binded,
     filters, "\n",
-    .query[["service"]], "\n",
     "}\n",
     group_by,
     order_by, "\n",

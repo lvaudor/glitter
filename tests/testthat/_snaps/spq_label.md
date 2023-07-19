@@ -7,7 +7,7 @@
         spq_label(mayor, place, .languages = "en$")
     Output
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-      SELECT ?mayor ?node ?place ?species (COALESCE(?mayor_labell,'') AS ?mayor_label) (lang(?mayor_labell) AS ?mayor_label_lang) (COALESCE(?place_labell,'') AS ?place_label) (lang(?place_labell) AS ?place_label_lang)
+      SELECT ?mayor ?node ?place ?species (COALESCE(?mayor_labell,'') AS ?mayor_label) (COALESCE(?place_labell,'') AS ?place_label)
       WHERE {
       
       ?mayor wdt:P31 ?species.
@@ -26,7 +26,6 @@
       
       VALUES ?species {wd:Q144 wd:Q146 wd:Q780}
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       
 
@@ -58,7 +57,6 @@
       
       VALUES ?species {wd:Q144 wd:Q146 wd:Q780}
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       
 

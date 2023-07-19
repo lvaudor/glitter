@@ -14,7 +14,6 @@
       ?item rdfs:label ?itemTitle.
       FILTER(CONTAINS(LCASE(?itemTitle),'wikidata'))
       FILTER(LANG(?itemTitle)='en')
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       
 
@@ -33,7 +32,6 @@
       ?item rdfs:label ?itemTitle.
       FILTER(REGEX(LCASE(?itemTitle),"wikidata"))
       FILTER(lang(?itemTitle)="en")
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       
 
@@ -48,7 +46,6 @@
       WHERE {
       
       FILTER(LCASE(str(?scientific_name)) IN ("lala","lili"))
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       
 
@@ -62,7 +59,6 @@
       WHERE {
       
       FILTER(bound(?date)&&datatype(?date)=xsd:dateTime)
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       
 

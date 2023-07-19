@@ -9,7 +9,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       GROUP BY ?population ?countryLabel
       
@@ -25,7 +24,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       GROUP BY ?population ?countryLabel
       

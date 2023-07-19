@@ -23,7 +23,6 @@ spq_init = function(){
     select = NULL,
     spq_duplicate = NULL,
     body = "",
-    service = NULL,
     filter = NULL,
     limit = NULL,
     group_by = NULL,
@@ -67,7 +66,7 @@ format.sparqle_query <- function(x, ...) {
   )
 
   text <- gsub(
-    "(IN|OPTIONAL|AS|SELECT|DISTINCT|REDUCED|WHERE|PREFIX|FILTER|OFFSET|LIMIT|ORDER BY|GROUP BY|SERVICE)",
+    "(BIND|IN|OPTIONAL|AS|SELECT|DISTINCT|REDUCED|WHERE|PREFIX|FILTER|OFFSET|LIMIT|ORDER BY|GROUP BY|SERVICE)",
     "{.emph \\1}",
     text,
     perl = TRUE
