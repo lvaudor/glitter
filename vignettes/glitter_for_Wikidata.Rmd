@@ -144,7 +144,7 @@ The resulting table may then be used easily with (for instance) package `leaflet
 ```{r}
 leaflet::leaflet(stations_metro_Lyon) %>%
   leaflet::addTiles() %>%
-  leaflet::addCircles(popup=~stationsLabel)
+  leaflet::addCircles(popup=~stations_label)
 ```
 
 

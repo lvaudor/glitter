@@ -99,7 +99,7 @@ get_claims=function(id, with_labels = FALSE){
     dplyr::select(property=.data$item,
            propertyLabel=.data$label,
            value=.data$val,
-           valueLabel=.data$valLabel,
+           valueLabel=.data$val_label,
            propertyType=.data$type,
            propertyDescription=.data$description,
            propertyAltLabel=.data$altLabel)

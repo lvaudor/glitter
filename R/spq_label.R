@@ -8,7 +8,7 @@
 #' @return A query object
 #' @export
 #'
-#' @examples
+#' @section Example:
 #' \dontrun{
 #' spq_init() %>%
 #'   spq_add("?mayor wdt:P31 ?species") %>%

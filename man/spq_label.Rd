@@ -22,19 +22,21 @@ A query object
 \description{
 Label variables
 }
-\examples{
+\section{Example}{
+
 \dontrun{
-spq_init() \%>\%
-  spq_add("?mayor wdt:P31 ?species") \%>\%
+spq_init() %>%
+  spq_add("?mayor wdt:P31 ?species") %>%
 # dog, cat or chicken
-  spq_set(species = c('wd:Q144','wd:Q146', 'wd:Q780')) \%>\%
+  spq_set(species = c('wd:Q144','wd:Q146', 'wd:Q780')) %>%
 # who occupy the function
-  spq_add("?mayor p:P39 ?node") \%>\%
+  spq_add("?mayor p:P39 ?node") %>%
 # of mayor
-  spq_add("?node ps:P39 wd:Q30185") \%>\%
+  spq_add("?node ps:P39 wd:Q30185") %>%
 # of some places
-  spq_add("?node pq:P642 ?place") \%>\%
-  spq_label(mayor, place, .languages = c("fr", "en", "de")) \%>\%
+  spq_add("?node pq:P642 ?place") %>%
+  spq_label(mayor, place, .languages = c("fr", "en", "de")) %>%
   spq_perform()
 }
 }
+

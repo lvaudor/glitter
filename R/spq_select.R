@@ -7,7 +7,7 @@
 #' @examples
 #'
 #' query = spq_init()
-#' spq_select(query, count = n (human), eyecolorLabel, haircolorLabel)
+#' spq_select(query, count = n (human), eyecolor_label, haircolor_label)
 spq_select = function(.query = NULL, ..., .spq_duplicate = NULL){
   if (!is.null(.spq_duplicate)) {
     original_spq_duplicate <- .spq_duplicate
