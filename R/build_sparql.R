@@ -122,7 +122,8 @@ spq_assemble = function(.query,
         triple = .x[["triple"]],
         required = .x[["required"]],
         within_box = .x[["within_box"]],
-        within_distance = .x[["within_distance"]]
+        within_distance = .x[["within_distance"]],
+        filter = .x[["filter"]]
       ),
       .query = .query
     ) |>

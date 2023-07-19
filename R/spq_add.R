@@ -13,6 +13,7 @@
 #'   Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
 #'   The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.
 #' @param .prefixes Custom prefixes
+#' @param .filter Filter for the triple. Only use this with `.required=FALSE`
 #' @export
 #' @examples
 #' # find the cities
@@ -54,7 +55,8 @@ spq_add = function(.query = NULL,
                     .required = TRUE,
                     .label = NA,
                     .within_box = c(NA, NA),
-                    .within_distance = c(NA, NA)) {
+                    .within_distance = c(NA, NA),
+                    .filter = NULL) {
   .query = .query %||% spq_init()
 
   elts = decompose_triple_pattern(
@@ -77,7 +79,8 @@ spq_add = function(.query = NULL,
     triple = triple,
     required = .required,
     within_box = list(.within_box),
-    within_distance = list(.within_distance)
+    within_distance = list(.within_distance),
+    filter = .filter
   )
 
   # variable tracking ----

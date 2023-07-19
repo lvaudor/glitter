@@ -14,7 +14,8 @@ spq_add(
   .required = TRUE,
   .label = NA,
   .within_box = c(NA, NA),
-  .within_distance = c(NA, NA)
+  .within_distance = c(NA, NA),
+  .filter = NULL
 )
 }
 \arguments{
@@ -41,6 +42,8 @@ Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))}
 \item{.within_distance}{if provided, circular bounding box for the triple query.
 Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
 The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.}
+
+\item{.filter}{Filter for the triple. Only use this with \code{.required=FALSE}}
 }
 \description{
 Add a triple pattern statement to a query
