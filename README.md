@@ -32,21 +32,23 @@ For instance, to find a corpus of 5 articles with a title in English and
 library("glitter")
 query <- spq_init() %>%
   spq_add("?item wdt:P31 wd:Q13442814") %>%
-  spq_add("?item rdfs:label ?itemTitle") %>%
-  spq_filter(str_detect(str_to_lower(itemTitle), 'wikidata')) %>%
-  spq_filter(lang(itemTitle) == "en") %>%
+  spq_label(item) %>%
+  spq_filter(str_detect(str_to_lower(item_label), 'wikidata')) %>%
   spq_head(n = 5)
 
 query
 #> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-#> SELECT ?item ?itemTitle
+#> SELECT ?item ?item_label
 #> WHERE {
 #> 
 #> ?item wdt:P31 wd:Q13442814.
-#> ?item rdfs:label ?itemTitle.
-#> FILTER(REGEX(LCASE(?itemTitle),"wikidata"))
-#> FILTER(lang(?itemTitle)="en")
-#> SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
+#> OPTIONAL {
+#> ?item rdfs:label ?item_labell.
+#> FILTER(lang(?item_labell) IN ('en'))
+#> }
+#> 
+#> BIND(COALESCE(?item_labell,'') AS
+#> ?item_label)FILTER(REGEX(LCASE(?item_label),"wikidata"))
 #> }
 #> 
 #> LIMIT 5
@@ -60,7 +62,7 @@ To perform the query,
 ``` r
 spq_perform(query)
 #> # A tibble: 5 × 2
-#>   item                                     itemTitle                            
+#>   item                                     item_label                           
 #>   <chr>                                    <chr>                                
 #> 1 http://www.wikidata.org/entity/Q18507561 Wikidata: A Free Collaborative Knowl…
 #> 2 http://www.wikidata.org/entity/Q21503276 Utilizing the Wikidata system to imp…

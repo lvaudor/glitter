@@ -15,7 +15,8 @@ build_part_body = function(query = NA,
                            object = NULL,
                            required = TRUE,
                            within_box = c(NA, NA),
-                           within_distance = c(NA, NA)) {
+                           within_distance = c(NA, NA),
+                           filter = NA) {
 
   part_body = query[["body"]]
 
@@ -38,7 +39,11 @@ build_part_body = function(query = NA,
   }
 
   if (!required) {
-    new_triple = sprintf("OPTIONAL {%s}", new_triple)
+    new_triple = if (!is.na(filter)) {
+      sprintf("OPTIONAL {\n\t%s\n\tFILTER(%s)\n}\n", new_triple, filter)
+    } else {
+      sprintf("OPTIONAL {%s}", new_triple)
+    }
   }
 
   # when arg within_box is provided use service wikibase:box

@@ -57,10 +57,11 @@ track_vars <- function(.query,
 }
 
 track_triples <- function(.query,
-  triple,
-  required,
-  within_box,
-  within_distance) {
+                          triple,
+                          required,
+                          within_box,
+                          within_distance,
+                          filter = NULL) {
   if (triple %in% .query[["triples"]][["triple"]]) {
     cli::cli_abort("Duplicate triple {.val triple}")
   }
@@ -74,11 +75,15 @@ track_triples <- function(.query,
   if (no_within_distance) {
     within_distance = NA
   }
+
+  filter = filter %||% NA
+
   new_triple <- tibble::tibble(
     triple = triple,
     required = required,
     within_box = within_box,
-    within_distance = within_distance
+    within_distance = within_distance,
+    filter = filter
   )
 
   .query[["triples"]] <- rbind(.query[["triples"]], new_triple)

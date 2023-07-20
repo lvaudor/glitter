@@ -24,5 +24,5 @@ Select (and create) particular variables
 \examples{
 
 query = spq_init()
-spq_select(query, count = n (human), eyecolorLabel, haircolorLabel)
+spq_select(query, count = n (human), eyecolor_label, haircolor_label)
 }

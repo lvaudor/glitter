@@ -43,10 +43,12 @@ A query object
 Assemble query parts into a sparql query and send it to endpoint to get a tibble as a result.
 }
 \examples{
-query=spq_init() \%>\%
-spq_add(.subject="?city",.verb="wdt:P31",.object="wd:Q515") \%>\%
-spq_add(.subject="?city",.verb="wdt:P1082",.object="?pop", .label="?city") \%>\%
-spq_head(n=5) \%>\%
-
-spq_perform()
+\dontrun{
+spq_init() \%>\%
+  spq_add(.subject="?city",.verb="wdt:P31",.object="wd:Q515") \%>\%
+  spq_add(.subject="?city",.verb="wdt:P1082",.object="?pop") \%>\%
+  spq_label(city) \%>\%
+  spq_head(n=5) \%>\%
+  spq_perform()
+}
 }

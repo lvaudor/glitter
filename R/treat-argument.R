@@ -19,7 +19,6 @@ spq_treat_argument = function(arg) {
 }
 
 spq_translate_dsl <- function(code) {
-
   code_data = parse_code(code)
 
   xml2::xml_find_all(code_data, ".//SYMBOL_FUNCTION_CALL") %>%
@@ -140,7 +139,7 @@ treat_symbol_function_call = function(symbol_function_call) {
     }
 
     # Remove ,
-    if (!(equivalent[["SPARQL"]] %in% c("REGEX", ""))) {
+    if (!(equivalent[["SPARQL"]] %in% c("REGEX", "", "COALESCE"))) {
       commas = xml2::xml_find_all(expr, ".//OP-COMMA")
       xml2::xml_text(commas) = ";"
     }
@@ -187,6 +186,6 @@ replace_special <- function(special) {
   text <- xml2::xml_text(special)
 
   if (text == "%in%") {
-    xml2::xml_text(special) <- "IN"
+    xml2::xml_text(special) <- " IN "
   }
 }

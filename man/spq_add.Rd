@@ -14,7 +14,8 @@ spq_add(
   .required = TRUE,
   .label = NA,
   .within_box = c(NA, NA),
-  .within_distance = c(NA, NA)
+  .within_distance = c(NA, NA),
+  .filter = NULL
 )
 }
 \arguments{
@@ -33,7 +34,7 @@ spq_add(
 \item{.required}{whether the existence of a value for the triple is required or not (defaults to TRUE).
 If set to FALSE, then other triples in the query are returned even if this particular triple is missing)}
 
-\item{.label}{a vector of variables for which to include a label column (defaults to NA)}
+\item{.label}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} See \code{\link[=spq_label]{spq_label()}}.}
 
 \item{.within_box}{if provided, rectangular bounding box for the triple query.
 Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))}
@@ -41,6 +42,8 @@ Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))}
 \item{.within_distance}{if provided, circular bounding box for the triple query.
 Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
 The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.}
+
+\item{.filter}{Filter for the triple. Only use this with \code{.required=FALSE}}
 }
 \description{
 Add a triple pattern statement to a query
@@ -49,21 +52,18 @@ Add a triple pattern statement to a query
 The arguments \code{.subject}, \code{.verb}, \code{.object} are most useful for programmatic
 usage, they are actually used within glitter code itself.
 }
-\examples{
-# find the cities
-spq_init() \%>\%
-  spq_add("?city wdt:P31/wdt:P279* wd:Q515", .label = "?city") \%>\%
-  # and their populations
-  spq_add("?city wdt:P1082 ?pop", .required = FALSE) \%>\%
-  # in a bounding box
-  spq_add(
-    "?city wdt:P625 ?coords",
-    .within_box = list(southwest = c(3, 43), northeast = c(7, 47))
-  ) \%>\%
-  # limit to 10 lines
-  spq_head(n = 10)
+\section{Examples}{
 
-\dontrun{
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# find the cities
+spq_init() \%>\%
+  spq_add("?city wdt:P31/wdt:P279* wd:Q486972") \%>\%
+  spq_label(city) \%>\%
+  spq_mutate(coords = wdt::P625(city),
+          .within_distance=list(center=c(long=4.84,lat=45.76),
+                               radius=5)) \%>\%
+  spq_perform()
+
 # find the individuals of the species
 spq_init() \%>\%
   spq_add("?mayor wdt:P31 ?species") \%>\%
@@ -76,5 +76,7 @@ spq_init() \%>\%
   # of some places
   spq_add("?node pq:P642 ?place") \%>\%
   spq_perform()
+
+}\if{html}{\out{</div>}}
 }
-}
+

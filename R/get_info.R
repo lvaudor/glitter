@@ -91,15 +91,15 @@ get_one_claim=function(res){
 #' get_claims("wd:Q431603")
 get_claims=function(id, with_labels = FALSE){
   claims = spq_add(.query = NULL,
-    glue::glue("{id} ?prop ?val"),
-    .label = c("?val")) %>%
+    glue::glue("{id} ?prop ?val")) %>%
+    spq_label("val") %>%
     spq_add("?item wikibase:directClaim ?prop") %>%
     spq_perform() %>%
     dplyr::left_join(wd_properties,by=c("prop"="id")) %>%
     dplyr::select(property=.data$item,
            propertyLabel=.data$label,
            value=.data$val,
-           valueLabel=.data$valLabel,
+           valueLabel=.data$val_label,
            propertyType=.data$type,
            propertyDescription=.data$description,
            propertyAltLabel=.data$altLabel)

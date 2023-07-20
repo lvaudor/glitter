@@ -8,7 +8,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       
 
@@ -23,7 +22,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       
 
@@ -37,7 +35,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       
 
@@ -51,7 +48,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       
 
@@ -65,7 +61,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       
 
@@ -79,7 +74,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       
 
@@ -93,7 +87,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       
 
@@ -125,7 +118,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       
 
@@ -139,7 +131,6 @@
       WHERE {
       
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       
 

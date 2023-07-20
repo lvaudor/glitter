@@ -5,12 +5,14 @@
 #' @return A query object
 #' @export
 #' @examples
-#' query=spq_init() %>%
-#' spq_add(.subject="?city",.verb="wdt:P31",.object="wd:Q515") %>%
-#' spq_add(.subject="?city",.verb="wdt:P1082",.object="?pop", .label="?city") %>%
-#' spq_head(n=5) %>%
-#'
-#' spq_perform()
+#' \dontrun{
+#' spq_init() %>%
+#'   spq_add(.subject="?city",.verb="wdt:P31",.object="wd:Q515") %>%
+#'   spq_add(.subject="?city",.verb="wdt:P1082",.object="?pop") %>%
+#'   spq_label(city) %>%
+#'   spq_head(n=5) %>%
+#'   spq_perform()
+#' }
 spq_perform = function(.query,
                        endpoint = "Wikidata",
                        user_agent = getOption("glitter.ua", "glitter R package (https://github.com/lvaudor/glitter)"),

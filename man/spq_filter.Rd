@@ -18,7 +18,7 @@ spq_filter(
 \item{...}{variables by which to arrange
 (or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
 
-\item{.label}{a vector of variables for which to include a label column (defaults to NA)}
+\item{.label}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} See \code{\link[=spq_label]{spq_label()}}.}
 
 \item{.within_box}{if provided, rectangular bounding box for the triple query.
 Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))}
@@ -38,13 +38,15 @@ Filters results by adding conditions
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{spq_init() \%>\%
 spq_filter(item == wdt::P31(wd::Q13442814))
-# Corpus of articles with "wikidata" in the title
-spq_init() \%>\%
-spq_add("?item wdt:P31 wd:Q13442814") \%>\%
-spq_add("?item rdfs:label ?itemTitle") \%>\%
-spq_filter(str_detect(str_to_lower(itemTitle), 'wikidata')) \%>\%
-spq_filter(lang(itemTitle)=="en") \%>\%
-spq_head(n = 5)
+
+# Lexemes in English that match an expression
+# here starting with "pota"
+query <- spq_init() |>
+  spq_prefix(prefixes = c(dct = "http://purl.org/dc/terms/")) |>
+  spq_add(spq('?lexemeId dct:language wd:Q1860')) |>
+  spq_mutate(lemma = wikibase::lemma(lexemeId)) |>
+  spq_filter(str_detect(lemma, '^pota.*')) |>
+  spq_select(lexemeId, lemma)
 }\if{html}{\out{</div>}}
 }
 

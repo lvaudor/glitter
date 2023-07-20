@@ -15,7 +15,8 @@
 #' \dontrun{
 #' spq_init() %>%
 #' spq_add("?film wdt:P31 wd:Q11424") %>%
-#' spq_mutate(narrative_location = wdt::P840(film), .label = "?narrative_location") %>%
+#' spq_mutate(narrative_location = wdt::P840(film)) %>%
+#' spq_label(narrative_location) %>%
 #' spq_tally(name = "n_films") %>%
 #' spq_perform()
 #'
@@ -23,24 +24,27 @@
 #'
 #' spq_init() %>%
 #' spq_add("?film wdt:P31 wd:Q11424") %>%
-#' spq_mutate(narrative_location = wdt::P840(film), .label = "?narrative_location") %>%
+#' spq_mutate(narrative_location = wdt::P840(film)) %>%
+#' spq_label(narrative_location) %>%
 #' spq_count(name = "n_films") %>%
 #' spq_perform()
 #'
 #' # Now with grouping
 #' spq_init() %>%
-#' spq_add("?film wdt:P31 wd:Q11424",.label="?film") %>%
-#' spq_mutate(narrative_location = wdt::P840(film), .label = "?narrative_location") %>%
-#' spq_group_by(narrative_locationLabel) %>%
+#' spq_add("?film wdt:P31 wd:Q11424") %>%
+#' spq_mutate(narrative_location = wdt::P840(film)) %>%
+#' spq_label(film, narrative_location) %>%
+#' spq_group_by(narrative_location_label) %>%
 #' spq_tally(sort = TRUE, name = "n_films") %>%
 #' spq_perform()
 #'
 #'
 #' # More direct with spq_count()
 #' spq_init() %>%
-#' spq_add("?film wdt:P31 wd:Q11424",.label="?film") %>%
-#' spq_mutate(narrative_location = wdt::P840(film), .label = "?narrative_location") %>%
-#' spq_count(narrative_locationLabel, sort = TRUE, name = "n_films") %>%
+#' spq_add("?film wdt:P31 wd:Q11424") %>%
+#' spq_mutate(narrative_location = wdt::P840(film)) %>%
+#' spq_label(film, narrative_location) %>%
+#' spq_count(narrative_location_label, sort = TRUE, name = "n_films") %>%
 #' spq_perform()
 #'}
 #' @export

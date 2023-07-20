@@ -7,18 +7,14 @@
 #' @export
 #' @examples
 #' spq_init() %>%
-#'   spq_add("?city wdt:P31 wd:Q515", .label="?city") %>%
+#'   spq_add("?city wdt:P31 wd:Q515") %>%
+#'   spq_label(city, .languages = "fr$") %>%
 #'   spq_add("?city wdt:P1082 ?pop") %>%
-#'   spq_language("fr") %>%
 #'   spq_assemble() %>%
 #'   cat()
 spq_assemble = function(.query,
                         endpoint = "Wikidata",
                         strict = TRUE) {
-
-  if (endpoint != "Wikidata") {
-    .query[["service"]] = ""
-  }
 
   .query = spq_prefix(.query, auto = TRUE, prefixes = NULL)
 
@@ -39,10 +35,6 @@ spq_assemble = function(.query,
     paste0("GROUP BY ", paste0(grouping_vars, collapse = " "),"\n")
   } else {
     ""
-  }
-
-  if (is.null(.query[["service"]])) {
-    .query = spq_language(.query, language = "en")
   }
 
   ordering <- .query[["structure"]][.query[["structure"]][["ordering"]] != "none",]
@@ -73,7 +65,7 @@ spq_assemble = function(.query,
         dplyr::distinct() %>%
         dplyr::left_join(.query[["structure"]], by = "name")
 
-      nongrouping_selected <- dplyr::filter(selected_df, !grouping) %>%
+      nongrouping_selected_df = dplyr::filter(selected_df, !grouping) %>%
         dplyr::group_by(name) %>%
         # TODO it'd probably be weird to have >1 formula
         # so check that
@@ -81,8 +73,12 @@ spq_assemble = function(.query,
           any(!is.na(formula)),
           formula[!is.na(formula)][1],
           name[1]
-        )) %>%
-        dplyr::pull(.data$selected_pattern)
+        ))
+        nongrouping_selected = nongrouping_selected_df[["selected_pattern"]]
+        nongrouping_selected = rlang::set_names(
+          nongrouping_selected,
+          nongrouping_selected_df[["name"]]
+        )
 
       # hack to have formulas last
       # more readability if formulas use vars from select
@@ -93,9 +89,17 @@ spq_assemble = function(.query,
         dplyr::summarize(selected_pattern = name[1]) %>%
         dplyr::pull(selected_pattern)
 
-      if (length(grouping_selected) > 0) {
+      # we get this to be sure to include any ancestor
+      # of selected var in a BIND
+      selected_vars = .query[["vars"]][.query[["vars"]][["name"]] %in% selected_df[["name"]],]
+      ancestor_vars = selected_vars[!is.na(selected_vars[["ancestor"]]),]
+
+      filtered_vars = selected_vars[selected_vars[["name"]] %in% .query[["filters"]][["var"]],]
+
+      potential_binded <- c(grouping_selected, ancestor_vars[["ancestor"]], filtered_vars[["name"]])
+      if (length(potential_binded) > 0) {
         to_bind <- dplyr::filter(.query[["vars"]],
-          name %in% grouping_selected,
+          name %in% potential_binded,
           !is.na(formula))
         if (nrow(to_bind) > 0) {
           binded <- paste(
@@ -104,10 +108,17 @@ spq_assemble = function(.query,
           )
           bind <- paste0(binded, "\n")
         }
+      } else {
+        to_bind = NULL
       }
 
       # nicer to put grouping variables first
-      c(grouping_selected, nongrouping_selected)
+      select = c(grouping_selected, nongrouping_selected)
+      # do not use formula both in BIND and SELECT
+      # so remove it from SELECT
+      select[names(select) %in% to_bind[["name"]]] =
+        names(select)[names(select) %in% to_bind[["name"]]]
+      select
     }
 
   }
@@ -122,7 +133,8 @@ spq_assemble = function(.query,
         triple = .x[["triple"]],
         required = .x[["required"]],
         within_box = .x[["within_box"]],
-        within_distance = .x[["within_distance"]]
+        within_distance = .x[["within_distance"]],
+        filter = .x[["filter"]]
       ),
       .query = .query
     ) |>
@@ -192,7 +204,6 @@ spq_assemble = function(.query,
     "WHERE {\n",
     body, "\n", binded,
     filters, "\n",
-    .query[["service"]], "\n",
     "}\n",
     group_by,
     order_by, "\n",

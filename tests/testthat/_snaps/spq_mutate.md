@@ -10,7 +10,6 @@
       
       wd:Q331676 wdt:P1843 ?statement.
       
-      SERVICE wikibase:label { bd:serviceParam wikibase:language "en".}
       }
       
 
