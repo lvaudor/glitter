@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">glitter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.999</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,7 +114,7 @@ Ab0b213)</li>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?i sym:knowledgeUnitStandardLabel ?stLabel"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">". sym:knowledgeUnitStandardDate ?stDate"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">". sym:hasKnowledgeUnitType ?KUTy"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?KUTy rdfs:label ?KUTyLabel"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_label.html">spq_label</a></span><span class="op">(</span><span class="va">KUTy</span>, .languages <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql"</span><span class="op">)</span></span>
 <span>  </span>
@@ -122,111 +122,111 @@ Ab0b213)</li>
 <table class="table">
 <colgroup>
 <col width="13%">
-<col width="8%">
 <col width="14%">
 <col width="14%">
 <col width="2%">
 <col width="46%">
+<col width="8%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">KUTy</th>
-<th align="left">KUTyLabel</th>
 <th align="left">i</th>
 <th align="left">r</th>
 <th align="left">stDate</th>
 <th align="left">stLabel</th>
+<th align="left">KUTy_label</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td align="left"><a href="http://symogih.org/resource/TyIn98" class="external-link uri">http://symogih.org/resource/TyIn98</a></td>
-<td align="left">Formation (suivre une)</td>
 <td align="left"><a href="http://symogih.org/resource/Info105386" class="external-link uri">http://symogih.org/resource/Info105386</a></td>
 <td align="left"><a href="http://symogih.org/resource/InRo292985" class="external-link uri">http://symogih.org/resource/InRo292985</a></td>
 <td align="left">1625</td>
 <td align="left">Hortensius, Martinus - Formation: Mathématiques, auprès
 de: Snellius, Rudolph</td>
+<td align="left">Formation (suivre une)</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://symogih.org/resource/TyIn98" class="external-link uri">http://symogih.org/resource/TyIn98</a></td>
-<td align="left">Formation (suivre une)</td>
 <td align="left"><a href="http://symogih.org/resource/Info105387" class="external-link uri">http://symogih.org/resource/Info105387</a></td>
 <td align="left"><a href="http://symogih.org/resource/InRo292988" class="external-link uri">http://symogih.org/resource/InRo292988</a></td>
 <td align="left">1625</td>
 <td align="left">Hortensius, Martinus - Formation: Mathématiques, auprès
 de: Beeckman, Isaac</td>
+<td align="left">Formation (suivre une)</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://symogih.org/resource/TyIn97" class="external-link uri">http://symogih.org/resource/TyIn97</a></td>
-<td align="left">Enseignement</td>
 <td align="left"><a href="http://symogih.org/resource/Info105390" class="external-link uri">http://symogih.org/resource/Info105390</a></td>
 <td align="left"><a href="http://symogih.org/resource/InRo292996" class="external-link uri">http://symogih.org/resource/InRo292996</a></td>
 <td align="left">1639</td>
 <td align="left">Hortensius, Martinus - Enseigne : Mathématiques, auprès
 de : Université de Leide</td>
+<td align="left">Enseignement</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://symogih.org/resource/TyIn97" class="external-link uri">http://symogih.org/resource/TyIn97</a></td>
-<td align="left">Enseignement</td>
 <td align="left"><a href="http://symogih.org/resource/Info32468" class="external-link uri">http://symogih.org/resource/Info32468</a></td>
 <td align="left"><a href="http://symogih.org/resource/InRo93357" class="external-link uri">http://symogih.org/resource/InRo93357</a></td>
 <td align="left">1598</td>
 <td align="left">Goclenius, Rudolph - Enseigne : Mathématiques, auprès
 de : Universität Marburg</td>
+<td align="left">Enseignement</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://symogih.org/resource/TyIn97" class="external-link uri">http://symogih.org/resource/TyIn97</a></td>
-<td align="left">Enseignement</td>
 <td align="left"><a href="http://symogih.org/resource/Info33312" class="external-link uri">http://symogih.org/resource/Info33312</a></td>
 <td align="left"><a href="http://symogih.org/resource/InRo95391" class="external-link uri">http://symogih.org/resource/InRo95391</a></td>
 <td align="left">1559</td>
 <td align="left">Ramus, Petrus - Enseigne : Mathématiques, auprès de :
 Collège de France</td>
+<td align="left">Enseignement</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://symogih.org/resource/TyIn97" class="external-link uri">http://symogih.org/resource/TyIn97</a></td>
-<td align="left">Enseignement</td>
 <td align="left"><a href="http://symogih.org/resource/Info34690" class="external-link uri">http://symogih.org/resource/Info34690</a></td>
 <td align="left"><a href="http://symogih.org/resource/InRo98987" class="external-link uri">http://symogih.org/resource/InRo98987</a></td>
 <td align="left">1588</td>
 <td align="left">Reimarus Ursus, Nicolaus - Enseigne : Astronomie;
 Mathématiques, auprès de : Université de Strasbourg</td>
+<td align="left">Enseignement</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://symogih.org/resource/TyIn98" class="external-link uri">http://symogih.org/resource/TyIn98</a></td>
-<td align="left">Formation (suivre une)</td>
 <td align="left"><a href="http://symogih.org/resource/Info35164" class="external-link uri">http://symogih.org/resource/Info35164</a></td>
 <td align="left"><a href="http://symogih.org/resource/InRo100273" class="external-link uri">http://symogih.org/resource/InRo100273</a></td>
 <td align="left">1550 p</td>
 <td align="left">Zabarella, Giacomo - Formation: Humanités; Logique;
 Mathématiques; Philosophie naturelle, auprès de: Université de
 Padoue</td>
+<td align="left">Formation (suivre une)</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://symogih.org/resource/TyIn98" class="external-link uri">http://symogih.org/resource/TyIn98</a></td>
-<td align="left">Formation (suivre une)</td>
 <td align="left"><a href="http://symogih.org/resource/Info35173" class="external-link uri">http://symogih.org/resource/Info35173</a></td>
 <td align="left"><a href="http://symogih.org/resource/InRo100298" class="external-link uri">http://symogih.org/resource/InRo100298</a></td>
 <td align="left">1699</td>
 <td align="left">Wolff, Christian - Formation: Mathématiques; Théologie,
 auprès de: Universität Jena</td>
+<td align="left">Formation (suivre une)</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://symogih.org/resource/TyIn97" class="external-link uri">http://symogih.org/resource/TyIn97</a></td>
-<td align="left">Enseignement</td>
 <td align="left"><a href="http://symogih.org/resource/Info35208" class="external-link uri">http://symogih.org/resource/Info35208</a></td>
 <td align="left"><a href="http://symogih.org/resource/InRo100387" class="external-link uri">http://symogih.org/resource/InRo100387</a></td>
 <td align="left">1655</td>
 <td align="left">Tellin, Ignatius - Enseigne : Mathématiques, auprès de
 : Collège romain</td>
+<td align="left">Enseignement</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://symogih.org/resource/TyIn97" class="external-link uri">http://symogih.org/resource/TyIn97</a></td>
-<td align="left">Enseignement</td>
 <td align="left"><a href="http://symogih.org/resource/Info35386" class="external-link uri">http://symogih.org/resource/Info35386</a></td>
 <td align="left"><a href="http://symogih.org/resource/InRo100902" class="external-link uri">http://symogih.org/resource/InRo100902</a></td>
 <td align="left">1624</td>
 <td align="left">Vatier, Antoine - Enseigne : Mathématiques, auprès de :
 La Flèche, Collège des Jésuites</td>
+<td align="left">Enseignement</td>
 </tr>
 </tbody>
 </table>
@@ -250,77 +250,77 @@ La Flèche, Collège des Jésuites</td>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="30%">
-<col width="33%">
-<col width="6%">
-<col width="30%">
+<col width="27%">
+<col width="24%">
+<col width="42%">
+<col width="5%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">cl</th>
+<th align="left">cl1</th>
 <th align="left">p</th>
 <th align="left">effectif</th>
-<th align="left">cl1</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
+<td align="left"><a href="http://symogih.org/ontology/InformationRole" class="external-link uri">http://symogih.org/ontology/InformationRole</a></td>
+<td align="left"><a href="http://symogih.org/ontology/Information" class="external-link uri">http://symogih.org/ontology/Information</a></td>
+<td align="left"><a href="http://symogih.org/ontology/isComponentOf" class="external-link uri">http://symogih.org/ontology/isComponentOf</a></td>
+<td align="left">43585</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://symogih.org/ontology/InformationRole" class="external-link uri">http://symogih.org/ontology/InformationRole</a></td>
+<td align="left">NA</td>
+<td align="left"><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" class="external-link uri">http://www.w3.org/1999/02/22-rdf-syntax-ns#type</a></td>
+<td align="left">42683</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://symogih.org/ontology/InformationRole" class="external-link uri">http://symogih.org/ontology/InformationRole</a></td>
+<td align="left"><a href="http://symogih.org/ontology/RoleType" class="external-link uri">http://symogih.org/ontology/RoleType</a></td>
+<td align="left"><a href="http://symogih.org/ontology/hasRoleType" class="external-link uri">http://symogih.org/ontology/hasRoleType</a></td>
+<td align="left">42530</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://symogih.org/ontology/InformationRole" class="external-link uri">http://symogih.org/ontology/InformationRole</a></td>
+<td align="left"><a href="http://symogih.org/ontology/Object" class="external-link uri">http://symogih.org/ontology/Object</a></td>
+<td align="left"><a href="http://symogih.org/ontology/associatesObject" class="external-link uri">http://symogih.org/ontology/associatesObject</a></td>
+<td align="left">30432</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://symogih.org/ontology/InformationRole" class="external-link uri">http://symogih.org/ontology/InformationRole</a></td>
+<td align="left">NA</td>
+<td align="left"><a href="http://purl.org/dc/terms/license" class="external-link uri">http://purl.org/dc/terms/license</a></td>
+<td align="left">28392</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://symogih.org/ontology/InformationRole" class="external-link uri">http://symogih.org/ontology/InformationRole</a></td>
+<td align="left">NA</td>
+<td align="left"><a href="http://symogih.org/ontology/associatedObjectIdentificationCertainty" class="external-link uri">http://symogih.org/ontology/associatedObjectIdentificationCertainty</a></td>
+<td align="left">28392</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://symogih.org/ontology/InformationRole" class="external-link uri">http://symogih.org/ontology/InformationRole</a></td>
+<td align="left">NA</td>
+<td align="left"><a href="http://symogih.org/ontology/hasCreator" class="external-link uri">http://symogih.org/ontology/hasCreator</a></td>
+<td align="left">28392</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://symogih.org/ontology/InformationRole" class="external-link uri">http://symogih.org/ontology/InformationRole</a></td>
+<td align="left">NA</td>
+<td align="left"><a href="http://purl.org/dc/terms/publisher" class="external-link uri">http://purl.org/dc/terms/publisher</a></td>
+<td align="left">28392</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://symogih.org/ontology/InformationRole" class="external-link uri">http://symogih.org/ontology/InformationRole</a></td>
+<td align="left">NA</td>
+<td align="left"><a href="http://purl.org/dc/terms/created" class="external-link uri">http://purl.org/dc/terms/created</a></td>
+<td align="left">28392</td>
+</tr>
+<tr class="even">
 <td align="left"><a href="https://ontome.dataforhistory.org/class/365" class="external-link uri">https://ontome.dataforhistory.org/class/365</a></td>
+<td align="left">NA</td>
 <td align="left"><a href="https://ontome.dataforhistory.org/property/1113" class="external-link uri">https://ontome.dataforhistory.org/property/1113</a></td>
-<td align="left">22228</td>
-<td align="left">NA</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://ontome.dataforhistory.org/class/365" class="external-link uri">https://ontome.dataforhistory.org/class/365</a></td>
-<td align="left"><a href="http://www.w3.org/2000/01/rdf-schema#label" class="external-link uri">http://www.w3.org/2000/01/rdf-schema#label</a></td>
-<td align="left">22222</td>
-<td align="left">NA</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://ontome.dataforhistory.org/class/365" class="external-link uri">https://ontome.dataforhistory.org/class/365</a></td>
-<td align="left"><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" class="external-link uri">http://www.w3.org/1999/02/22-rdf-syntax-ns#type</a></td>
-<td align="left">22222</td>
-<td align="left">NA</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://ontome.dataforhistory.org/class/365" class="external-link uri">https://ontome.dataforhistory.org/class/365</a></td>
-<td align="left"><a href="https://ontome.dataforhistory.org/property/1111" class="external-link uri">https://ontome.dataforhistory.org/property/1111</a></td>
-<td align="left">13936</td>
-<td align="left"><a href="https://ontome.dataforhistory.org/class/21" class="external-link uri">https://ontome.dataforhistory.org/class/21</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://ontome.dataforhistory.org/class/523" class="external-link uri">https://ontome.dataforhistory.org/class/523</a></td>
-<td align="left"><a href="http://www.w3.org/2000/01/rdf-schema#label" class="external-link uri">http://www.w3.org/2000/01/rdf-schema#label</a></td>
-<td align="left">8189</td>
-<td align="left">NA</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://ontome.dataforhistory.org/class/523" class="external-link uri">https://ontome.dataforhistory.org/class/523</a></td>
-<td align="left"><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" class="external-link uri">http://www.w3.org/1999/02/22-rdf-syntax-ns#type</a></td>
-<td align="left">8189</td>
-<td align="left">NA</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://ontome.dataforhistory.org/class/21" class="external-link uri">https://ontome.dataforhistory.org/class/21</a></td>
-<td align="left"><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" class="external-link uri">http://www.w3.org/1999/02/22-rdf-syntax-ns#type</a></td>
-<td align="left">8182</td>
-<td align="left">NA</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://ontome.dataforhistory.org/class/21" class="external-link uri">https://ontome.dataforhistory.org/class/21</a></td>
-<td align="left"><a href="http://www.w3.org/2000/01/rdf-schema#label" class="external-link uri">http://www.w3.org/2000/01/rdf-schema#label</a></td>
-<td align="left">8182</td>
-<td align="left">NA</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://ontome.dataforhistory.org/class/523" class="external-link uri">https://ontome.dataforhistory.org/class/523</a></td>
-<td align="left"><a href="https://ontome.dataforhistory.org/property/1338" class="external-link uri">https://ontome.dataforhistory.org/property/1338</a></td>
-<td align="left">8166</td>
-<td align="left"><a href="https://ontome.dataforhistory.org/class/522" class="external-link uri">https://ontome.dataforhistory.org/class/522</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://ontome.dataforhistory.org/class/523" class="external-link uri">https://ontome.dataforhistory.org/class/523</a></td>
-<td align="left"><a href="https://ontome.dataforhistory.org/property/1335" class="external-link uri">https://ontome.dataforhistory.org/property/1335</a></td>
-<td align="left">8163</td>
-<td align="left"><a href="https://ontome.dataforhistory.org/class/363" class="external-link uri">https://ontome.dataforhistory.org/class/363</a></td>
+<td align="left">23826</td>
 </tr>
 </tbody>
 </table>

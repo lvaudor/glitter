@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">glitter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.999</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,7 +78,7 @@
 
 
 <dt>.label</dt>
-<dd><p>a vector of variables for which to include a label column (defaults to NA)</p></dd>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> See <code><a href="spq_label.html">spq_label()</a></code>.</p></dd>
 
 
 <dt>.within_box</dt>
@@ -105,13 +105,15 @@ The center can also be provided as a variable (for instance, "?location") for th
 
 <p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span><span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="va">item</span> <span class="op">==</span> <span class="fu">wdt</span><span class="fu">::</span><span class="fu">P31</span><span class="op">(</span><span class="fu">wd</span><span class="fu">::</span><span class="va">Q13442814</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co"># Corpus of articles with "wikidata" in the title</span></span>
-<span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?item wdt:P31 wd:Q13442814"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?item rdfs:label ?itemTitle"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="fu">str_detect</span><span class="op">(</span><span class="fu">str_to_lower</span><span class="op">(</span><span class="va">itemTitle</span><span class="op">)</span>, <span class="st">'wikidata'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="fu">lang</span><span class="op">(</span><span class="va">itemTitle</span><span class="op">)</span><span class="op">==</span><span class="st">"en"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre><p></p></div>
+<span></span>
+<span><span class="co"># Lexemes in English that match an expression</span></span>
+<span><span class="co"># here starting with "pota"</span></span>
+<span><span class="va">query</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span>prefixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>dct <span class="op">=</span> <span class="st">"http://purl.org/dc/terms/"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="fu"><a href="../reference/spq.html">spq</a></span><span class="op">(</span><span class="st">'?lexemeId dct:language wd:Q1860'</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/spq_mutate.html">spq_mutate</a></span><span class="op">(</span>lemma <span class="op">=</span> <span class="fu">wikibase</span><span class="fu">::</span><span class="fu">lemma</span><span class="op">(</span><span class="va">lexemeId</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="fu">str_detect</span><span class="op">(</span><span class="va">lemma</span>, <span class="st">'^pota.*'</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="va">lexemeId</span>, <span class="va">lemma</span><span class="op">)</span></span></code></pre><p></p></div>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

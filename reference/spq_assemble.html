@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">glitter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.999</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,19 +85,23 @@ and error in case a problem is detected.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?city wdt:P31 wd:Q515"</span>, .label<span class="op">=</span><span class="st">"?city"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?city wdt:P31 wd:Q515"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="spq_label.html">spq_label</a></span><span class="op">(</span><span class="va">city</span>, .languages <span class="op">=</span> <span class="st">"fr$"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?city wdt:P1082 ?pop"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="spq_language.html">spq_language</a></span><span class="op">(</span><span class="st">"fr"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">spq_assemble</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?city ?cityLabel ?pop</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SELECT ?city ?pop (COALESCE(?city_labell,'') AS ?city_label)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> WHERE {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ?city wdt:P31 wd:Q515.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> OPTIONAL {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	?city rdfs:label ?city_labell.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	FILTER(lang(?city_labell) IN ('fr'))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ?city wdt:P1082 ?pop.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SERVICE wikibase:label { bd:serviceParam wikibase:language "fr".}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>

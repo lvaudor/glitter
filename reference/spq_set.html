@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">glitter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.999</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,12 +85,13 @@
 <span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span><span class="co"># dog, cat or chicken</span></span>
 <span><span class="fu"><a href="../reference/spq_set.html">spq_set</a></span><span class="op">(</span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'wd:Q144'</span>,<span class="st">'wd:Q146'</span>, <span class="st">'wd:Q780'</span><span class="op">)</span>, mayorcode <span class="op">=</span> <span class="st">"wd:Q30185"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="va">mayor</span> <span class="op">==</span> <span class="fu">wdt</span><span class="fu">::</span><span class="fu">P31</span><span class="op">(</span><span class="va">species</span><span class="op">)</span>, .label <span class="op">=</span> <span class="st">"?species"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span><span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?mayor p:P39 ?node"</span>, .label <span class="op">=</span> <span class="st">"?mayor"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="va">mayor</span> <span class="op">==</span> <span class="fu">wdt</span><span class="fu">::</span><span class="fu">P31</span><span class="op">(</span><span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?mayor p:P39 ?node"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span><span class="co"># of mayor</span></span>
 <span><span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?node ps:P39 ?mayorcode"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span><span class="co"># of some places</span></span>
-<span><span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?node pq:P642 ?place"</span>, .label <span class="op">=</span> <span class="st">"?place"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?node pq:P642 ?place"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="fu"><a href="../reference/spq_label.html">spq_label</a></span><span class="op">(</span><span class="va">species</span>, <span class="va">mayor</span>, <span class="va">place</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span><span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="op">-</span><span class="va">species</span>, <span class="op">-</span><span class="va">place</span>, <span class="op">-</span><span class="va">node</span>, <span class="op">-</span><span class="va">mayor</span>, <span class="op">-</span><span class="va">mayorcode</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span></code></pre><p></p></div>
     </div>

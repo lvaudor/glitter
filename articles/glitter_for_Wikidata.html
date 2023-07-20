@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">glitter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.999</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -167,14 +167,14 @@ string.</p>
 <code class="sourceCode R"><span><span class="va">parts_metro_Lyon</span><span class="op">=</span><span class="fu"><a href="../reference/get_triple.html">get_triple</a></span><span class="op">(</span><span class="st">"?items wdt:P16 wd:Q1552"</span>, label<span class="op">=</span><span class="st">"?items"</span><span class="op">)</span></span>
 <span><span class="va">parts_metro_Lyon</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
-<span><span class="co">#&gt;   items                                  itemsLabel                        </span></span>
+<span><span class="co">#&gt;   items                                  items_label                       </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                             </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> http://www.wikidata.org/entity/Q2944   Lyon Metro Line A                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> http://www.wikidata.org/entity/Q2965   Lyon Metro Line B                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> http://www.wikidata.org/entity/Q2969   Lyon Metro Line C                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> http://www.wikidata.org/entity/Q2976   Lyon Metro Line D                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> http://www.wikidata.org/entity/Q5298   Bellecour                         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> http://www.wikidata.org/entity/Q599865 Place Guichard - Bourse du Travail</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> http://www.wikidata.org/entity/Q599865 Place Guichard - Bourse du Travail</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> http://www.wikidata.org/entity/Q613893 Hôtel de Ville - Louis Pradel     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> http://www.wikidata.org/entity/Q776088 Cordeliers                        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> http://www.wikidata.org/entity/Q934869 Gare de Vénissieux                </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> http://www.wikidata.org/entity/Q2944   Lyon Metro Line A                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> http://www.wikidata.org/entity/Q2965   Lyon Metro Line B</span></span></code></pre></div>
 <p>For now, we get 50 items, not only stations but also other types of
 items such as metro lines. Let’s have a look at the item “Place Guichard
 - Bourse du Travail” (Q59855) which we know correspond to a station.</p>
@@ -186,25 +186,25 @@ properties (and their values) based on an item’s id.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 19 × 7</span></span></span>
 <span><span class="co">#&gt;    property      propertyLabel value valueLabel propertyType propertyDescription</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… Lyon Metro <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… Europe     <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… France     <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… http://co… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… Europe     <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… metro sta… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… station l… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… Lyon Metr… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… 3rd arron… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… Saxe - Ga… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… Gare Part… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> http://www.w… <span style="color: #BB0000;">NA</span>            43    43         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> http://www.w… <span style="color: #BB0000;">NA</span>            Plac… Place Gui… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> http://www.w… <span style="color: #BB0000;">NA</span>            1981… 1981-09-1… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> http://www.w… <span style="color: #BB0000;">NA</span>            Poin… Point(4.8… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> http://www.w… <span style="color: #BB0000;">NA</span>            2.0   2          <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> http://www.w… <span style="color: #BB0000;">NA</span>            1981… 1981-09-1… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> http://www.w… <span style="color: #BB0000;">NA</span>            /g/1… /g/1s04bf… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… in use     <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">19</span> http://www.w… <span style="color: #BB0000;">NA</span>            9469… 9469971777 <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… Lyon Metro <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… metro sta… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… Lyon Metr… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… 3rd arron… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… Saxe - Ga… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… Gare Part… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… station l… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… in use     <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> http://www.w… <span style="color: #BB0000;">NA</span>            Poin… <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> http://www.w… <span style="color: #BB0000;">NA</span>            /g/1… <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> http://www.w… <span style="color: #BB0000;">NA</span>            Plac… <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> http://www.w… <span style="color: #BB0000;">NA</span>            9469… <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> http://www.w… <span style="color: #BB0000;">NA</span>            2.0   <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> http://www.w… <span style="color: #BB0000;">NA</span>            43    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span> http://www.w… <span style="color: #BB0000;">NA</span>            1981… <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">19</span> http://www.w… <span style="color: #BB0000;">NA</span>            1981… <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: propertyAltLabel &lt;chr&gt;</span></span></span></code></pre></div>
 <p>Property “wdt:P31” should enable us to collect only stations
 (“wd:Q928830”) instead of all parts of the Lyon Metro network.</p>
@@ -219,7 +219,7 @@ requests) :</p>
 <span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stations_metro_Lyon</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 0 × 2</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 variables: stations &lt;chr&gt;, stationsLabel &lt;chr&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 variables: stations &lt;chr&gt;, stations_label &lt;chr&gt;</span></span></span></code></pre></div>
 <p>Or we could use glitter DSL (domain-specific language) a bit more,
 making use of <code><a href="../reference/spq_set.html">spq_set()</a></code> and the <code><a href="../reference/spq_filter.html">spq_filter()</a></code>
 fonction.</p>
@@ -233,7 +233,7 @@ fonction.</p>
 <span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stations_metro_Lyon</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 0 × 2</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 variables: stations &lt;chr&gt;, stationsLabel &lt;chr&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 variables: stations &lt;chr&gt;, stations_label &lt;chr&gt;</span></span></span></code></pre></div>
 <p>We now get 42 stations that are part of the Lyon metro network.</p>
 <p>If we wanted to get other properties and associated values for these
 stations (for instance their location (“wdt:P625”)) we could proceed
@@ -249,7 +249,7 @@ this way:</p>
 <span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stations_metro_Lyon</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 0 × 3</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 3 variables: coords &lt;chr&gt;, stations &lt;chr&gt;, stationsLabel &lt;chr&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 3 variables: coords &lt;chr&gt;, stations &lt;chr&gt;, stations_label &lt;chr&gt;</span></span></span></code></pre></div>
 <p>This tibble can be easily transform into a Simple feature collection
 (sfc) :</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -273,9 +273,9 @@ package <code>leaflet</code>:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html" class="external-link">leaflet</a></span><span class="op">(</span><span class="va">stations_metro_Lyon</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addTiles</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addCircles</a></span><span class="op">(</span>popup<span class="op">=</span><span class="op">~</span><span class="va">stationsLabel</span><span class="op">)</span></span></code></pre></div>
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d210363de718d8c3512a" style="width:700px;height:432.632880098888px;"></div>
-<script type="application/json" data-for="htmlwidget-d210363de718d8c3512a">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircles","args":[[],[],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},[],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]}],"limits":[]},"evals":[],"jsHooks":[]}</script>
+<span>  <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addCircles</a></span><span class="op">(</span>popup<span class="op">=</span><span class="op">~</span><span class="va">stations_label</span><span class="op">)</span></span></code></pre></div>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-a8b62b49f5b5babbd44b" style="width:700px;height:432.632880098888px;"></div>
+<script type="application/json" data-for="htmlwidget-a8b62b49f5b5babbd44b">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircles","args":[[],[],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},[],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]}],"limits":[]},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="section level2">
 <h2 id="example-2-cities-around-lyon">Example 2 : cities around Lyon<a class="anchor" aria-label="anchor" href="#example-2-cities-around-lyon"></a>
@@ -328,15 +328,15 @@ argument <code>limit</code></p>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 2</span></span></span>
-<span><span class="co">#&gt;    city                                     cityLabel         </span></span>
+<span><span class="co">#&gt;    city                                     city_label        </span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.wikidata.org/entity/Q5242247  Daw's Castle      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> http://www.wikidata.org/entity/Q309436   Aït Benhaddou     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> http://www.wikidata.org/entity/Q817274   Beni Isguen       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> http://www.wikidata.org/entity/Q2670896  Ksar Ouled Soltane</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> http://www.wikidata.org/entity/Q3200131  Ksar Ifegh        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> http://www.wikidata.org/entity/Q3200135  Ksar of Lamaarka  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> http://www.wikidata.org/entity/Q3818705  Ksar Nalut        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.wikidata.org/entity/Q309436   Aït Benhaddou     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> http://www.wikidata.org/entity/Q817274   Beni Isguen       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> http://www.wikidata.org/entity/Q2670896  Ksar Ouled Soltane</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> http://www.wikidata.org/entity/Q3200131  Ksar Ifegh        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> http://www.wikidata.org/entity/Q3200135  Ksar of Lamaarka  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> http://www.wikidata.org/entity/Q3818705  Ksar Nalut        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> http://www.wikidata.org/entity/Q5242247  Daw's Castle      </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> http://www.wikidata.org/entity/Q11736787 Ksar Hallouf      </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> http://www.wikidata.org/entity/Q12233025 Ksar Beni Barka   </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> http://www.wikidata.org/entity/Q16593169 Ksar of Taourirt</span></span></code></pre></div>
@@ -348,39 +348,40 @@ argument <code>limit</code></p>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
-<span><span class="co">#&gt;    city                                     cityLabel                     coords</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.wikidata.org/entity/Q63638210 Ksar of Taddamoute            Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> http://www.wikidata.org/entity/Q63638675 Ksar of Tamoussa ou Ali       Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> http://www.wikidata.org/entity/Q63638831 Ksar of Tatiouine             Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> http://www.wikidata.org/entity/Q63639134 Ksar of Tissouit Ait Seghrou… Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> http://www.wikidata.org/entity/Q63639176 Ksar of Tissouit Sidi Hamza   Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> http://www.wikidata.org/entity/Q65643514 Ksar El Atteuf                Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> http://www.wikidata.org/entity/Q65643515 Ksar Bounoura                 Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> http://www.wikidata.org/entity/Q65643516 Ksar Melika                   Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> http://www.wikidata.org/entity/Q65921574 Ksar of Ouadane               Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> http://www.wikidata.org/entity/Q65921575 Ksar of Chinguetti            Point…</span></span></code></pre></div>
+<span><span class="co">#&gt;    city                                     coords                    city_label</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.wikidata.org/entity/Q63638210 Point(-4.78 32.704444444) Ksar of T…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> http://www.wikidata.org/entity/Q63638675 Point(-4.446111111 32.40… Ksar of T…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> http://www.wikidata.org/entity/Q63638831 Point(-4.455555555 32.35… Ksar of T…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> http://www.wikidata.org/entity/Q63639134 Point(-4.431944444 32.36… Ksar of T…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> http://www.wikidata.org/entity/Q63639176 Point(-4.443611111 32.38… Ksar of T…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> http://www.wikidata.org/entity/Q65643514 Point(3.7449 32.4755)     Ksar El A…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> http://www.wikidata.org/entity/Q65643515 Point(3.7039 32.4827)     Ksar Boun…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> http://www.wikidata.org/entity/Q65643516 Point(3.6867 32.4831)     Ksar Meli…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> http://www.wikidata.org/entity/Q65921574 Point(-11.6236 20.9289)   Ksar of O…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> http://www.wikidata.org/entity/Q65921575 Point(-12.3667 20.4633)   Ksar of C…</span></span></code></pre></div>
 <p>We can refine this query, stating that we want cities (or items of
 subclasses of city) in a radius of 5km around Lyon (which has lat-long
 coordinates ~ 45.76 and 4.84). We will use the argument
 <code>within_distance</code>:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cities_around_Lyon</span> <span class="op">=</span> <span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?city wdt:P31/wdt:P279* wd:Q486972"</span>, .label<span class="op">=</span><span class="st">"?city"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?city wdt:P31/wdt:P279* wd:Q486972"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_label.html">spq_label</a></span><span class="op">(</span><span class="va">city</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_mutate.html">spq_mutate</a></span><span class="op">(</span>coords <span class="op">=</span> <span class="fu">wdt</span><span class="fu">::</span><span class="fu">P625</span><span class="op">(</span><span class="va">city</span><span class="op">)</span>,</span>
 <span>          .within_distance<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>center<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>long<span class="op">=</span><span class="fl">4.84</span>,lat<span class="op">=</span><span class="fl">45.76</span><span class="op">)</span>,</span>
 <span>                               radius<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cities_around_Lyon</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 3</span></span></span>
-<span><span class="co">#&gt;   city                                     cityLabel                  coords    </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> http://www.wikidata.org/entity/Q2904730  Bissardon                  Point(4.8…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> http://www.wikidata.org/entity/Q8297     Les Brotteaux              Point(4.8…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> http://www.wikidata.org/entity/Q21209234 Q21209234                  Point(4.8…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> http://www.wikidata.org/entity/Q3007889  Cusset                     Point(4.9…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> http://www.wikidata.org/entity/Q3337     1st arrondissement of Lyon Point(4.8…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> http://www.wikidata.org/entity/Q3320450  Q3320450                   Point(4.8…</span></span></code></pre></div>
+<span><span class="co">#&gt;   city                                coords                          city_label</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon</span></span></code></pre></div>
 <!-- Actually, rather than getting Lyon's long-lat coordinates "by hand" we could get them directly through our query, which means we have to add a triple about Lyon ("wd:456") and its coordinates: -->
 <!-- ```{r, eval=FALSE} -->
 <!-- spq_init() %>%  -->

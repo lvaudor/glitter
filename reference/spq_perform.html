@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">glitter</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.999</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,12 +114,14 @@ rather than of <code><a href="https://httr2.r-lib.org/reference/req_perform.html
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">query</span><span class="op">=</span><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span>.subject<span class="op">=</span><span class="st">"?city"</span>,.verb<span class="op">=</span><span class="st">"wdt:P31"</span>,.object<span class="op">=</span><span class="st">"wd:Q515"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span>.subject<span class="op">=</span><span class="st">"?city"</span>,.verb<span class="op">=</span><span class="st">"wdt:P1082"</span>,.object<span class="op">=</span><span class="st">"?pop"</span>, .label<span class="op">=</span><span class="st">"?city"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span><span class="fu"><a href="spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">5</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">spq_perform</span><span class="op">(</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span>.subject<span class="op">=</span><span class="st">"?city"</span>,.verb<span class="op">=</span><span class="st">"wdt:P31"</span>,.object<span class="op">=</span><span class="st">"wd:Q515"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span>.subject<span class="op">=</span><span class="st">"?city"</span>,.verb<span class="op">=</span><span class="st">"wdt:P1082"</span>,.object<span class="op">=</span><span class="st">"?pop"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="spq_label.html">spq_label</a></span><span class="op">(</span><span class="va">city</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">5</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">spq_perform</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
