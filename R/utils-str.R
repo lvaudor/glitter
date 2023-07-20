@@ -118,7 +118,7 @@ interpret_svo = function(string){
 #' @noRd
 is_svo_correct = function(string){
   # if element is a special syntax element
-  if (string %in% c(".","a","is","==","%in%","[]")) return(TRUE)
+  if (string %in% c(".","a","is","==","%in%","[]", "true", "false")) return(TRUE)
 
   # if element is a variable
   if (is_variable(string)) return(TRUE)
