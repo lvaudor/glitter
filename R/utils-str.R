@@ -186,3 +186,15 @@ get_varformula = function(selected) {
     args = args
   )
 }
+
+question_mark <- function(x) {
+  sprintf("?%s", x)
+}
+
+question_mark_escape <- function(x) {
+  sprintf("\\?%s(:blank:]|[:punct:]|\\b)", x)
+}
+
+un_question_mark <- function(x) {
+  sub("\\?", "", x)
+}

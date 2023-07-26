@@ -8,7 +8,8 @@ spq_label(
   .query,
   ...,
   .required = FALSE,
-  .languages = getOption("glitter.lang", "en$")
+  .languages = getOption("glitter.lang", "en$"),
+  .overwrite = FALSE
 )
 }
 \arguments{
@@ -25,6 +26,11 @@ restrictions on language (defined or not), \code{"*"} for any defined language.
 If you write "en" you
 can get labels for regional variants such as "en-GB". If you want results for
 "en" only, write "en$".}
+
+\item{.overwrite}{whether to replace variables with their labels.
+\code{spq_select(blop)} means you get both \code{blop} and \code{blop_label}.
+\code{spq_select(blop, .overwrite = TRUE)} means you get the label as \code{blop},
+the "original" blop variable isn't returned.}
 }
 \value{
 A query object
