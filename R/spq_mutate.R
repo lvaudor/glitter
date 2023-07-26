@@ -17,6 +17,17 @@ spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within
   variables = purrr::map(rlang::enquos(...), spq_treat_mutate_argument)
   variable_names = names(variables)
 
+  if (any(question_mark(variable_names) %in% .query[["vars"]][["name"]])) {
+    to_rename = un_question_mark(
+      intersect(question_mark(variable_names), .query[["vars"]][["name"]])
+    )
+    .query = purrr::reduce(
+      to_rename,
+      \(.query, x) spq_rename_var(.query, old = x, new = sprintf("%s0", x)),
+      .init = .query
+    )
+  }
+
   # Non-triple variables :-)
   normal_variables = variables[purrr::map_lgl(variables, is.character)]
   normal_variables[nzchar(names(normal_variables))] = purrr::map2_chr(
@@ -24,7 +35,6 @@ spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within
     names(normal_variables)[nzchar(names(normal_variables))],
     add_as
   )
-
   for (var in normal_variables) {
     name = sprintf("?%s", names(normal_variables)[normal_variables == var])
 
