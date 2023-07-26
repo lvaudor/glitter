@@ -94,19 +94,11 @@ spq_label <- function(.query,
   )
 
   if (.overwrite) {
-    for (var in vars) {
-      .query <- spq_select(.query, sprintf("-%s", un_question_mark(var)))
-      .query <- spq_rename_var(
-        .query,
-        old = un_question_mark(var),
-        new = sprintf("%s0", un_question_mark(var))
-      )
-      .query <- spq_rename_var(
-        .query,
-        old = sprintf("%s_label", un_question_mark(var)),
-        new = un_question_mark(var)
-      )
-    }
+    .query <- purrr::reduce(
+      vars,
+      \(.query, x) overwrite_with_label(.query, x),
+      .init = .query
+    )
   }
 
   .query
@@ -120,4 +112,21 @@ create_lang_filter = function(language, x) {
   } else{
     sprintf("langMatches(lang(%s_labell), '%s')", x, language)
   }
+}
+
+overwrite_with_label <- function(.query, x) {
+  remove_x <- sprintf("-%s", un_question_mark(x))
+  .query <- spq_select(.query, remove_x)
+  .query <- spq_rename_var(
+    .query,
+    old = un_question_mark(x),
+    new = sprintf("%s0", un_question_mark(x))
+  )
+  .query <- spq_rename_var(
+    .query,
+    old = sprintf("%s_label", un_question_mark(x)),
+    new = un_question_mark(x)
+  )
+
+  .query
 }

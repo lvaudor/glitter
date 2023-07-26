@@ -9,16 +9,12 @@ spq_rename_var <- function(.query, old, new) {
     cli::cli_abort("Can't rename {.field {old}} to {.field {new}} as {.field {new}} already exists.")
   }
 
-  # rename in vars df (name, value, formula)
   .query[["vars"]] <- spq_rename_var_in_df(.query[["vars"]], old, new)
 
-  # rename in structure df (name)
   .query[["structure"]] <- spq_rename_var_in_df(.query[["structure"]], old, new)
 
-  # rename in triple df (triple)
   .query[["triples"]] <- spq_rename_var_in_df(.query[["triples"]], old, new)
 
-  # rename in filters df (filter and var)
   if (!is.null(.query[["filters"]])) {
     .query[["filters"]] <- spq_rename_var_in_df(.query[["filters"]], old, new)
   }
