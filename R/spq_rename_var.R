@@ -22,11 +22,18 @@ spq_rename_var <- function(.query, old, new) {
 }
 
 spq_rename_var_in_df <- function(df, old, new) {
-  columns_to_transform <- names(df)[unlist(lapply(df, class)) == "character"]
-   dplyr::mutate(
-    df,
-    dplyr::across(
-    tidyselect::all_of(columns_to_transform),
-    \(x) sub(question_mark_escape(old), question_mark(new), x)
-  ))
+  columns_to_transform = names(df)[unlist(lapply(df, class)) == "character"]
+  replaced = question_mark_escape(old)
+  replacer = question_mark(new)
+
+  purrr::reduce(
+    columns_to_transform,
+    \(df, x) rename_col(df, x, replaced, replacer),
+    .init = df
+  )
+}
+
+rename_col <- function(df, x, replaced, replacer) {
+  df[[x]] = sub(replaced, replacer, df[[x]])
+  return(df)
 }
