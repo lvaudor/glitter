@@ -7,6 +7,10 @@
 #' If you write "en" you
 #' can get labels for regional variants such as "en-GB". If you want results for
 #' "en" only, write "en$".
+#' @param .overwrite whether to replace variables with their labels.
+#' `spq_select(blop)` means you get both `blop` and `blop_label`.
+#' `spq_select(blop, .overwrite = TRUE)` means you get the label as `blop`,
+#' the "original" blop variable isn't returned.
 #'
 #' @return A query object
 #' @export
@@ -26,7 +30,11 @@
 #'   spq_label(mayor, place, .languages = c("fr", "en", "de")) %>%
 #'   spq_perform()
 #' ```
-spq_label <- function(.query, ..., .required = FALSE,.languages = getOption("glitter.lang", "en$")) {
+spq_label <- function(.query,
+                      ...,
+                      .required = FALSE,
+                      .languages = getOption("glitter.lang", "en$"),
+                      .overwrite = FALSE) {
   vars = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
   if (!is.null(.languages)) .languages = tolower(.languages)
@@ -63,18 +71,18 @@ spq_label <- function(.query, ..., .required = FALSE,.languages = getOption("gli
 
 
       mutate_left <- sprintf("%s_label", sub("\\?", "", x))
-      mutate_right <- sprintf("coalesce(%s_labell, '')", sub("\\?", "", x))
+      mutate_right <- sprintf("coalesce(%s_labell, '')", un_question_mark(x))
       args_list <- list(.query = q, m = mutate_right)
       names(args_list)[2] <- mutate_left
       q = do.call(spq_mutate, args_list)
-      q = spq_select(q, sprintf("-%s_labell", sub("\\?", "", x)))
+      q = spq_select(q, sprintf("-%s_labell", un_question_mark(x)))
 
       # we add the language of the label
       # because of regional variants
       if (!is.null(.languages)) {
         if (length(.languages) > 1 || !grepl("\\$$", .languages)) {
-          mutate_left <- sprintf("%s_label_lang", sub("\\?", "", x))
-          mutate_right <- sprintf("lang(%s_labell)", sub("\\?", "", x))
+          mutate_left <- sprintf("%s_label_lang", un_question_mark(x))
+          mutate_right <- sprintf("lang(%s_labell)", un_question_mark(x))
           args_list <- list(.query = q, m = mutate_right)
           names(args_list)[2] <- mutate_left
           q = do.call(spq_mutate, args_list)
@@ -84,7 +92,15 @@ spq_label <- function(.query, ..., .required = FALSE,.languages = getOption("gli
     },
     .init = .query
   )
-# TODO add .overwrite
+
+  if (.overwrite) {
+    .query <- purrr::reduce(
+      vars,
+      \(.query, x) overwrite_with_label(.query, x),
+      .init = .query
+    )
+  }
+
   .query
 
 }
@@ -96,4 +112,21 @@ create_lang_filter = function(language, x) {
   } else{
     sprintf("langMatches(lang(%s_labell), '%s')", x, language)
   }
+}
+
+overwrite_with_label <- function(.query, x) {
+  remove_x <- sprintf("-%s", un_question_mark(x))
+  .query <- spq_select(.query, remove_x)
+  .query <- spq_rename_var(
+    .query,
+    old = un_question_mark(x),
+    new = sprintf("%s0", un_question_mark(x))
+  )
+  .query <- spq_rename_var(
+    .query,
+    old = sprintf("%s_label", un_question_mark(x)),
+    new = un_question_mark(x)
+  )
+
+  .query
 }

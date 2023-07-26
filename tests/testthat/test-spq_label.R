@@ -34,3 +34,16 @@ test_that("spq_label() works", {
       "place_label", "place_label_lang")
   )
 })
+
+test_that("spq_label() .overwrite", {
+
+  expect_snapshot(
+    spq_init() %>%
+      spq_add("?mayor wdt:P31 ?species") %>%
+      spq_set(species = c('wd:Q144','wd:Q146', 'wd:Q780')) %>%
+      spq_add("?mayor p:P39 ?node") %>%
+      spq_add("?node ps:P39 wd:Q30185") %>%
+      spq_add("?node pq:P642 ?place") %>%
+      spq_label(mayor, place, .languages = "en$", .overwrite = TRUE)
+  )
+})

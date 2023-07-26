@@ -32,6 +32,7 @@ Imports:
     stringr,
     tibble,
     tidygraph,
+    tidyselect,
     WikidataQueryServiceR,
     WikidataR,
     xml2,
