@@ -61,7 +61,8 @@
 <span>  <span class="va">.query</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  .required <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  .languages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"glitter.lang"</span>, <span class="st">"en$"</span><span class="op">)</span></span>
+<span>  .languages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"glitter.lang"</span>, <span class="st">"en$"</span><span class="op">)</span>,</span>
+<span>  .overwrite <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -87,6 +88,13 @@ restrictions on language (defined or not), <code>"*"</code> for any defined lang
 If you write "en" you
 can get labels for regional variants such as "en-GB". If you want results for
 "en" only, write "en$".</p></dd>
+
+
+<dt>.overwrite</dt>
+<dd><p>whether to replace variables with their labels.
+<code>spq_select(blop)</code> means you get both <code>blop</code> and <code>blop_label</code>.
+<code>spq_select(blop, .overwrite = TRUE)</code> means you get the label as <code>blop</code>,
+the "original" blop variable isn't returned.</p></dd>
 
 </dl></div>
     <div class="section level2">
