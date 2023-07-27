@@ -17,7 +17,9 @@ spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within
   variables = purrr::map(rlang::enquos(...), spq_treat_mutate_argument)
   variable_names = names(variables)
 
+  # when trying to overwrite a variable name ----
   if (any(question_mark(variable_names) %in% .query[["vars"]][["name"]])) {
+
     to_rename = un_question_mark(
       intersect(question_mark(variable_names), .query[["vars"]][["name"]])
     )
@@ -26,6 +28,16 @@ spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within
       \(.query, x) spq_rename_var(.query, old = x, new = sprintf("%s0", x)),
       .init = .query
     )
+    rename_in_defs = function(x, variables) {
+      gsub(question_mark_escape(x), question_mark(sprintf("%s0", x)), variables)
+    }
+    variables = purrr::reduce(
+      to_rename,
+      \(variables, x) rename_in_defs(x, variables),
+      .init = variables
+    )
+    variables = rlang::set_names(variables, variable_names)
+    .query <- spq_select(.query, !!!sprintf("-%s0", to_rename))
   }
 
   # Non-triple variables :-)
@@ -73,8 +85,8 @@ spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within
       what = "spq_add(.label)",
       details = "Ability to use `.label` will be dropped in next release, use `spq_label()` instead."
     )
-    .label <- gsub("^\\?", "", .label)
-    .query <- spq_label(.query, !!!.label)
+    .label = gsub("^\\?", "", .label)
+    .query = spq_label(.query, !!!.label)
   }
 
   return(.query)
