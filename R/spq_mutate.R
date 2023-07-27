@@ -18,8 +18,9 @@ spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within
   variable_names = names(variables)
 
   # when trying to overwrite a variable name ----
-  if (any(question_mark(variable_names) %in% .query[["vars"]][["name"]])) {
-
+  renaming_to_do = any(question_mark(variable_names) %in% .query[["vars"]][["name"]])
+  if (renaming_to_do) {
+    ## rename in existing query object ----
     to_rename = un_question_mark(
       intersect(question_mark(variable_names), .query[["vars"]][["name"]])
     )
@@ -28,6 +29,7 @@ spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within
       \(.query, x) spq_rename_var(.query, old = x, new = sprintf("%s0", x)),
       .init = .query
     )
+    ## rename in current arguments ----
     rename_in_defs = function(x, variables) {
       gsub(question_mark_escape(x), question_mark(sprintf("%s0", x)), variables)
     }
@@ -37,6 +39,7 @@ spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within
       .init = variables
     )
     variables = rlang::set_names(variables, variable_names)
+    ## unselect the overwritten variable ----
     .query <- spq_select(.query, !!!sprintf("-%s0", to_rename))
   }
 
