@@ -145,20 +145,20 @@
     Code
       spq_init() %>% spq_add("?film wdt:P31 wd:Q11424") %>% spq_add(
         "?film wdt:P840 ?loc") %>% spq_add("?film wdt:P577 ?date") %>% spq_mutate(
-        year = year(date)) %>% spq_mutate(yearmin = min(year)) %>% spq_group_by(loc,
-        yearmin) %>% spq_summarize(n_films = n())
+        year = year(date)) %>% spq_mutate(year = min(year)) %>% spq_group_by(loc,
+        year) %>% spq_summarize(n_films = n())
     Output
       
-      SELECT ?loc ?yearmin (COUNT(*) AS ?n_films)
+      SELECT ?loc ?year (COUNT(*) AS ?n_films)
       WHERE {
       
       ?film wdt:P31 wd:Q11424.
       ?film wdt:P840 ?loc.
       ?film wdt:P577 ?date.
-      BIND(YEAR(?date) AS ?year)
-      BIND(MIN(?year) AS ?yearmin)
+      BIND(YEAR(?date) AS ?year0)
+      BIND(MIN(?year0) AS ?year)
       }
-      GROUP BY ?loc ?yearmin
+      GROUP BY ?loc ?year
       
 
 ---

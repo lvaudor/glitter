@@ -64,8 +64,8 @@ test_that("spq_summarize() works with renaming", {
       spq_add("?film wdt:P840 ?loc") %>%
       spq_add("?film wdt:P577 ?date") %>%
       spq_mutate(year=year(date)) %>%
-      spq_mutate(yearmin = min(year)) %>%
-      spq_group_by(loc, yearmin) %>%
+      spq_mutate(year = min(year)) %>%
+      spq_group_by(loc, year) %>%
       spq_summarize(n_films = n())
   )
 
