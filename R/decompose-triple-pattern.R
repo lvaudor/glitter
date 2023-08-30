@@ -14,19 +14,19 @@ decompose_triple_pattern = function(triple_pattern, subject, verb, object){
   } else {
     # if there is a trailing period
     triple_pattern = sub("\\.$", "", triple_pattern)
-    if (stringr::str_detect(triple_pattern,"\\s*==\\s*")){
-      triple_pattern = stringr::str_replace(triple_pattern,"\\s*==\\s*"," == ")
+    if (str_detect(triple_pattern, "\\s*==\\s*")){
+      triple_pattern = str_replace(triple_pattern, "\\s*==\\s*"," == ")
     }
 
     # if one part of triple_pattern is of the type 'Cristiano_Ronaldo'@en
-    if (stringr::str_detect(triple_pattern, "[\'\"].*[\'\"]")) {
-      part_pb = stringr::str_extract(triple_pattern, "[\'\"].*[\'\"]")
-      part_ok = stringr::str_replace_all(part_pb, "\\s","_")
-      triple_pattern = stringr::str_replace(triple_pattern, part_pb,part_ok)
+    if (str_detect(triple_pattern, "[\'\"].*[\'\"]")) {
+      part_pb = str_extract(triple_pattern, "[\'\"].*[\'\"]")
+      part_ok = str_replace_all(part_pb, "\\s","_")
+      triple_pattern = str_replace(triple_pattern, part_pb, part_ok)
     }
 
     # decompose triple, splitting elements based on spaces
-    elements = stringr::str_split(triple_pattern, "\\s+") %>% unlist()
+    elements = str_split(triple_pattern, "\\s+") %>% unlist()
     elements = list(
       subject = elements[1],
       verb = elements[2],

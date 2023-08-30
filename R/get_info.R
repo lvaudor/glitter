@@ -6,8 +6,8 @@
 #' get_thing("wd:Q431603")
 get_thing=function(id){
   if(is.na(id)){return(NA)}
-  QorP=stringr::str_extract(id,"(?<=\\:).")
-  id_short=stringr::str_extract(id,"(?<=\\:).*")
+  QorP=str_extract(id,"(?<=\\:).")
+  id_short=str_extract(id,"(?<=\\:).*")
   if(QorP=="Q"){thing=WikidataR::get_item(id_short)}
   if(QorP=="P"){thing=WikidataR::get_property(id_short)}
   return(thing)

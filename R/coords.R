@@ -20,8 +20,8 @@ transform_wikidata_coords=function(data,coord_column, prefix=""){
     return(x)
   }
   result=data[[coord_column]] %>%
-    stringr::str_extract("(?<=Point\\()[\\d\\.\\-\\s]*") %>%
-    stringr::str_split(" ") %>%
+    str_extract("(?<=Point\\()[\\d\\.\\-\\s]*") %>%
+    str_split(" ") %>%
     purrr::map(f)
 
   lat=result %>%
