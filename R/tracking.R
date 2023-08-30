@@ -49,7 +49,8 @@ track_vars <- function(.query,
     values = values,
     formula = formula,
     fun = fun,
-    ancestor = ancestor
+    ancestor = ancestor,
+    renamed = FALSE
   )
   .query[["vars"]] <- rbind(.query[["vars"]], new_var)
 

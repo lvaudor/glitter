@@ -13,3 +13,48 @@
       }
       
 
+# spq_mutate with renaming
+
+    Code
+      spq_init() %>% spq_add("?film wdt:P31 wd:Q11424") %>% spq_label(film) %>%
+        spq_add("?film wdt:P577 ?date") %>% spq_mutate(date = year(date)) %>%
+        spq_head(10)
+    Output
+      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+      SELECT ?film (YEAR(?date0) AS ?date) (COALESCE(?film_labell,'') AS ?film_label)
+      WHERE {
+      
+      ?film wdt:P31 wd:Q11424.
+      OPTIONAL {
+      	?film rdfs:label ?film_labell.
+      	FILTER(lang(?film_labell) IN ('en'))
+      }
+      
+      ?film wdt:P577 ?date0.
+      
+      }
+      
+      LIMIT 10
+
+# spq_mutate with double renaming
+
+    Code
+      spq_init() %>% spq_add("?film wdt:P31 wd:Q11424") %>% spq_label(film) %>%
+        spq_add("?film wdt:P577 ?date") %>% spq_mutate(date = year(date)) %>%
+        spq_mutate(date = date - 2000)
+    Output
+      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+      SELECT ?film (?date0-2000 AS ?date) (COALESCE(?film_labell,'') AS ?film_label)
+      WHERE {
+      
+      ?film wdt:P31 wd:Q11424.
+      OPTIONAL {
+      	?film rdfs:label ?film_labell.
+      	FILTER(lang(?film_labell) IN ('en'))
+      }
+      
+      ?film wdt:P577 ?date00.
+      BIND(YEAR(?date00) AS ?date0)
+      }
+      
+
