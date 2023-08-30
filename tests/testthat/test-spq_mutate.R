@@ -17,3 +17,14 @@ test_that("spq_mutate with renaming", {
   )
 })
 
+test_that("spq_mutate with double renaming", {
+  expect_snapshot(
+    spq_init() %>%
+      spq_add("?film wdt:P31 wd:Q11424") %>%
+      spq_label(film) %>%
+      spq_add("?film wdt:P577 ?date") %>%
+      spq_mutate(date = year(date)) %>%
+      spq_mutate(date = date - 2000)
+  )
+})
+
