@@ -70,16 +70,16 @@ as_values = function(string){
   }
 
   # if string is not within {...}
-  if (!stringr::str_detect(string,"(?<=^\\{).*(?=\\}$)")) {
+  if (!str_detect(string,"(?<=^\\{).*(?=\\}$)")) {
     return(string)
   }
 
-  result = stringr::str_extract("(?<=^\\{).*(?=\\}$)", string)
+  result = str_extract("(?<=^\\{).*(?=\\}$)", string)
   # if remaining string contains c(...)
-  if (stringr::str_detect(result, "(?<=^c\\().*(?=\\)$)")) {
+  if (str_detect(result, "(?<=^c\\().*(?=\\)$)")) {
     result = result %>%
-      stringr::str_extract("(?<=^c\\().*(?=\\)$)") %>%
-      stringr::str_split(",") %>%
+      str_extract("(?<=^c\\().*(?=\\)$)") %>%
+      str_split(",") %>%
       unlist()
   } else {
     # object corresponds to name
@@ -100,14 +100,14 @@ as_values = function(string){
 #' obj3="'Cristiano_Ronaldo'@en"
 #' interpret_svo(obj3)
 interpret_svo = function(string){
-  if (stringr::str_detect(string,"[\'\"]")) {
-    string=stringr::str_replace(string,"_"," ")
+  if (str_detect(string,"[\'\"]")) {
+    string=str_replace(string,"_"," ")
     return(string)
   }
-  if(!stringr::str_detect(string,"[{}]")){
+  if(!str_detect(string,"[{}]")){
     return(string)
   }
-  string = stringr::str_extract(string,
+  string = str_extract(string,
                        "(?<=\\{).*(?=\\})")
   string = get(string, envir = parent.env(environment()))
   return(string)
@@ -146,17 +146,16 @@ is_svo_correct = function(string){
 #' keep_prefix("'11992081'^^xsd:integer") # xsd:integer
 #' keep_prefix(c("wd:P343","wdt:P249"))
 keep_prefix = function(string){
-
   if (!is_prefixed(string) || is_url(string)) {
     return(NA)
   }
 
   prefixed = string
-  if(stringr::str_detect(string,"\\/")){
-    prefixed = stringr::str_split(string,"\\/") %>% unlist()
+  if (str_detect(string,"\\/")) {
+    prefixed = strsplit(string,"\\/") %>% unlist()
   }
 
-  prefix = stringr::str_extract(prefixed, "[^\\s^\\^]*(?=\\:)") %>% unique()
+  prefix = str_extract(prefixed, "[^\\s^\\^]*(?=\\:)") %>% unique()
 
   return(prefix)
 }
@@ -169,10 +168,10 @@ keep_prefix = function(string){
 #' @examples
 #' get_varformula(c("?author","?document","(year(?date) AS ?year)"))
 get_varformula = function(selected) {
-    if (stringr::str_detect(selected,"\\(.* AS .*\\)")) {
-      formula = stringr::str_extract(selected, "(?<=\\().*(?= AS )")
-      name = stringr::str_extract(selected, "(?<= AS ).*(?=\\))")
-      args = list(stringr::str_extract(formula, "\\?[a-zA-Z0-9\\_]+"))
+    if (str_detect(selected,"\\(.* AS .*\\)")) {
+      formula = str_extract(selected, "(?<=\\().*(?= AS )")
+      name = str_extract(selected, "(?<= AS ).*(?=\\))")
+      args = list(str_extract(formula, "\\?[a-zA-Z0-9\\_]+"))
     } else {
       formula = selected
       name = selected
@@ -197,4 +196,36 @@ question_mark_escape <- function(x) {
 
 un_question_mark <- function(x) {
   sub("\\?", "", x)
+}
+
+str_detect <- function(x, pattern) {
+  grepl(pattern, x)
+}
+
+str_replace <- function(x, pattern, replacement) {
+  sub(pattern, replacement, x)
+}
+
+str_replace_all <- function(x, pattern, replacement) {
+  gsub(pattern, replacement, x)
+}
+
+str_remove <- function(x, pattern) {
+  sub(pattern, "", x)
+}
+
+str_extract <- function(x, pattern) {
+  m <- gregexec(pattern, x, perl = TRUE)
+  r <- regmatches(x, m) %>%
+    unlist() %>%
+    purrr::discard(\(x) x == "")
+  r[1]
+}
+
+str_split <- function(x, split) {
+  strsplit(x, split)[[1]]
+}
+
+str_subset <- function(x, pattern, negate = FALSE) {
+  grep(pattern, x, value = TRUE, invert = negate)
 }

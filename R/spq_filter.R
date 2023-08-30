@@ -72,7 +72,7 @@ spq_treat_filter_argument = function(arg) {
     eval_try
   } else {
     # e.g. `desc(length)`, without quotes
-    rlang::expr_text(arg) %>% stringr::str_replace("^~", "")
+    rlang::expr_text(arg) %>% str_remove("^~")
   }
 
   if (!grepl("::", code)) {

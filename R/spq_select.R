@@ -31,11 +31,11 @@ spq_select = function(.query = NULL, ..., .spq_duplicate = NULL){
   )
 
   minus_variables = variables %>%
-    stringr::str_subset("^\\-\\?") %>%
-    stringr::str_remove("\\-")
+    str_subset("^\\-\\?") %>%
+    str_remove("\\-")
 
   plus_variables = variables %>%
-    stringr::str_subset("^\\-\\?", negate = TRUE)
+    str_subset("^\\-\\?", negate = TRUE)
 
   for (var in plus_variables) {
     .query <- track_structure(.query, name = var, selected = TRUE)

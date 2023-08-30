@@ -134,14 +134,14 @@ stations_metro_Lyon=clean_wikidata_table(stations_metro_Lyon)
 
 Function `transform_wikidata_coords()` get the coordinates as longitude (`lng`) and latitude (`lat`) based on the Wikidata WKT formatting of spatial coordinates ("Point(*lng* *lat*)").
 
-```{r}
+```r
 stations_metro_Lyon=stations_metro_Lyon %>% 
   transform_wikidata_coords("coords")
 ```
 
 The resulting table may then be used easily with (for instance) package `leaflet`:
 
-```{r}
+```r
 leaflet::leaflet(stations_metro_Lyon) %>%
   leaflet::addTiles() %>%
   leaflet::addCircles(popup=~stations_label)

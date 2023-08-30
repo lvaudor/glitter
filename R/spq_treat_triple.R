@@ -17,7 +17,7 @@ spq_treat_triple_pattern <- function(triple_pattern) {
     eval_try
   } else {
     # e.g. `desc(length)`, without quotes
-    rlang::expr_text(triple_pattern) %>% stringr::str_replace("^~", "")
+    rlang::expr_text(triple_pattern) %>% str_remove("^~")
   }
 
   spq_parse_verb_object(code)
