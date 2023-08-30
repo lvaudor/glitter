@@ -4,6 +4,7 @@
 #' @param prefix the prefix to be appended to "lat-lng" columns (defaults to "" -no prefix-)
 #' @export
 #' @examples
+#' \dontrun{
 #' query='SELECT ?item ?itemLabel ?coords ?date
 #' {
 #'   ?item wdt:P361 wd:Q1552;
@@ -14,6 +15,7 @@
 #' '
 #' tib=send_sparql(query)
 #' transform_wikidata_coords(tib, "coords")
+#' }
 transform_wikidata_coords=function(data,coord_column, prefix=""){
   f=function(x){
     if(is.na(x[1])){x=c(NA,NA)}

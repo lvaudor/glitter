@@ -17,6 +17,7 @@ transform_wikidata_coords(data, coord_column, prefix = "")
 Get coords at lat-lng from Wikidata format
 }
 \examples{
+\dontrun{
 query='SELECT ?item ?itemLabel ?coords ?date
 {
   ?item wdt:P361 wd:Q1552;
@@ -27,4 +28,5 @@ query='SELECT ?item ?itemLabel ?coords ?date
 '
 tib=send_sparql(query)
 transform_wikidata_coords(tib, "coords")
+}
 }
