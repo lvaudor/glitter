@@ -12,7 +12,8 @@ decompose_triple_pattern = function(triple_pattern, subject, verb, object){
       object = object)
 
   } else {
-
+    # if there is a trailing period
+    triple_pattern = sub("\\.$", "", triple_pattern)
     if (stringr::str_detect(triple_pattern,"\\s*==\\s*")){
       triple_pattern = stringr::str_replace(triple_pattern,"\\s*==\\s*"," == ")
     }

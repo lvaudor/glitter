@@ -103,7 +103,8 @@ spq_add = function(.query = NULL,
   # prefixed elements ----
   .query[["prefixes_used"]] = union(
     .query[["prefixes_used"]],
-    purrr::map_chr(unname(elts), keep_prefix)
+    purrr::map(unname(elts), keep_prefix) %>%
+    unlist() %>% purrr::discard(is.na)
   ) %>%
     stats::na.omit()
 
