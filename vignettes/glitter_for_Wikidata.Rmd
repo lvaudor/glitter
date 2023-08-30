@@ -48,7 +48,7 @@ So you'd be interested, for instance, in all the subway stations that are part o
 find_property("part of")
 ```
 
-So you're looking for all the stations that are part of ("wd:P361") the Lyon metro network ("wd:Q1552").
+So you're looking for all the stations that are part of ("wd:P16") the Lyon metro network ("wd:Q1552").
 
 You could access this information through:
 
