@@ -71,6 +71,35 @@ spq_perform(query)
 #> 5 http://www.wikidata.org/entity/Q24074986 From Freebase to Wikidata: The Great…
 ```
 
+To get a random subset of movies with the date they were released, you
+could use
+
+``` r
+spq_init() %>%
+  spq_add("?film wdt:P31 wd:Q11424") %>%
+  spq_label(film) %>%
+  spq_add("?film wdt:P577 ?date") %>%
+  spq_mutate(date = year(date)) %>%
+  spq_head(10) %>%
+  spq_perform()
+#> # A tibble: 10 × 3
+#>    film                                  date film_label       
+#>    <chr>                                <dbl> <chr>            
+#>  1 http://www.wikidata.org/entity/Q372   2009 We Live in Public
+#>  2 http://www.wikidata.org/entity/Q595   2011 The Intouchables 
+#>  3 http://www.wikidata.org/entity/Q595   2011 The Intouchables 
+#>  4 http://www.wikidata.org/entity/Q595   2012 The Intouchables 
+#>  5 http://www.wikidata.org/entity/Q595   2012 The Intouchables 
+#>  6 http://www.wikidata.org/entity/Q593   2011 A Gang Story     
+#>  7 http://www.wikidata.org/entity/Q1365  1974 Swept Away       
+#>  8 http://www.wikidata.org/entity/Q1365  1974 Swept Away       
+#>  9 http://www.wikidata.org/entity/Q1365  1975 Swept Away       
+#> 10 http://www.wikidata.org/entity/Q1365  1975 Swept Away
+```
+
+Note that we were able to “overwrite” the date variable, which is
+straightforward in dplyr, but not so much in SPARQL.
+
 ## Installation
 
 Install this packages through R-universe:

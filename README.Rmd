@@ -51,6 +51,20 @@ To perform the query,
 spq_perform(query)
 ```
 
+To get a random subset of movies with the date they were released, you could use
+
+```{r}
+spq_init() %>%
+  spq_add("?film wdt:P31 wd:Q11424") %>%
+  spq_label(film) %>%
+  spq_add("?film wdt:P577 ?date") %>%
+  spq_mutate(date = year(date)) %>%
+  spq_head(10) %>%
+  spq_perform()
+```
+
+Note that we were able to "overwrite" the date variable, which is straightforward in dplyr, but not so much in SPARQL.
+
 ## Installation
 
 Install this packages through R-universe:
