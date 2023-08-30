@@ -11,7 +11,7 @@ spq_treat_argument = function(arg) {
     eval_try
   } else {
     # e.g. `desc(length)`, without quotes
-    rlang::expr_text(arg) %>% stringr::str_replace("^~", "")
+    rlang::expr_text(arg) %>% str_remove("^~")
   }
 
   spq_translate_dsl(code)

@@ -93,7 +93,7 @@ track_triples <- function(.query,
 }
 
 track_filters <- function(.query, filter) {
-  var <- stringr::str_extract(filter, "\\(\\?(.*?)\\)")
+  var <- str_extract(filter, "\\(\\?(.*?)\\)")
   var <- sub("\\,.*", "", sub("\\(", "", sub("\\)", "", var)))
   new_filter <- tibble::tibble(filter = filter, var = var)
 
