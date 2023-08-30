@@ -127,14 +127,37 @@
 <span><span class="co">#&gt; 3 http://www.wikidata.org/entity/Q21503284 Wikidata: A platform for data integr…</span></span>
 <span><span class="co">#&gt; 4 http://www.wikidata.org/entity/Q23712646 Wikidata as a semantic framework for…</span></span>
 <span><span class="co">#&gt; 5 http://www.wikidata.org/entity/Q24074986 From Freebase to Wikidata: The Great…</span></span></code></pre></div>
+<p>To get a random subset of movies with the date they were released, you could use</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?film wdt:P31 wd:Q11424"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/spq_label.html">spq_label</a></span><span class="op">(</span><span class="va">film</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?film wdt:P577 ?date"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/spq_mutate.html">spq_mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu">year</span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 10 × 3</span></span>
+<span><span class="co">#&gt;    film                                  date film_label       </span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                                &lt;dbl&gt; &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt;  1 http://www.wikidata.org/entity/Q372   2009 We Live in Public</span></span>
+<span><span class="co">#&gt;  2 http://www.wikidata.org/entity/Q595   2011 The Intouchables </span></span>
+<span><span class="co">#&gt;  3 http://www.wikidata.org/entity/Q595   2011 The Intouchables </span></span>
+<span><span class="co">#&gt;  4 http://www.wikidata.org/entity/Q595   2012 The Intouchables </span></span>
+<span><span class="co">#&gt;  5 http://www.wikidata.org/entity/Q595   2012 The Intouchables </span></span>
+<span><span class="co">#&gt;  6 http://www.wikidata.org/entity/Q593   2011 A Gang Story     </span></span>
+<span><span class="co">#&gt;  7 http://www.wikidata.org/entity/Q1365  1974 Swept Away       </span></span>
+<span><span class="co">#&gt;  8 http://www.wikidata.org/entity/Q1365  1974 Swept Away       </span></span>
+<span><span class="co">#&gt;  9 http://www.wikidata.org/entity/Q1365  1975 Swept Away       </span></span>
+<span><span class="co">#&gt; 10 http://www.wikidata.org/entity/Q1365  1975 Swept Away</span></span></code></pre></div>
+<p>Note that we were able to “overwrite” the date variable, which is straightforward in dplyr, but not so much in SPARQL.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>Install this packages through R-universe:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"glitter"</span>, repos <span class="op">=</span> <span class="st">"https://lvaudor.r-universe.dev"</span><span class="op">)</span></span></code></pre></div>
 <p>Or through GitHub:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span> <span class="co">#if remotes is not already installed</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"lvaudor/glitter"</span><span class="op">)</span></span></code></pre></div>
 </div>
