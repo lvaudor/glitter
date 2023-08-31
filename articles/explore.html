@@ -93,11 +93,18 @@
 provided by the Swiss Federal Archives</a>. You might be able to read
 examples and docs if present. But in any case, you could get inspired by
 the Chapter 11 “SPARQL cookbook” of the <a href="https://www.goodreads.com/book/show/18198885-learning-sparql" class="external-link">“Learning
-SPARQL” book by Bob DuCharme</a>. Let’s go through an example.</p>
+SPARQL” book by Bob DuCharme</a> to explore the dataset. Let’s go
+through an example.</p>
+<div class="section level2">
+<h2 id="a-word-of-caution">A word of caution<a class="anchor" aria-label="anchor" href="#a-word-of-caution"></a>
+</h2>
+<p>Depending on the dataset you’re working with, some queries might just
+ask <em>too much</em> of the service so proceed with caution.</p>
+</div>
 <div class="section level2">
 <h2 id="asking-for-a-subset-of-all-triples">Asking for a subset of all triples<a class="anchor" aria-label="anchor" href="#asking-for-a-subset-of-all-triples"></a>
 </h2>
-<p>In the code below we’ll ask for 50 triples. Note that we use the
+<p>In the code below we’ll ask for 10 triples. Note that we use the
 <code>endpoint</code> argument of <code><a href="../reference/spq_perform.html">spq_perform()</a></code> to indicate
 where to send the query, as well as the <code>request_type</code>
 argument.</p>
@@ -114,7 +121,7 @@ the query in the body.</li>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://lvaudor.github.io/glitter/">"glitter"</a></span><span class="op">)</span> </span>
 <span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s ?p ?o"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
 <span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
 <span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
@@ -180,206 +187,6 @@ the query in the body.</li>
 <tr class="even">
 <td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
 <td align="left"><a href="https://lod.opentransportdata.swiss/didok/8518155" class="external-link uri">https://lod.opentransportdata.swiss/didok/8518155</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8505580" class="external-link uri">https://lod.opentransportdata.swiss/didok/8505580</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8505591" class="external-link uri">https://lod.opentransportdata.swiss/didok/8505591</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8515442" class="external-link uri">https://lod.opentransportdata.swiss/didok/8515442</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8517369" class="external-link uri">https://lod.opentransportdata.swiss/didok/8517369</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8515419" class="external-link uri">https://lod.opentransportdata.swiss/didok/8515419</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8516896" class="external-link uri">https://lod.opentransportdata.swiss/didok/8516896</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8515427" class="external-link uri">https://lod.opentransportdata.swiss/didok/8515427</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8501019" class="external-link uri">https://lod.opentransportdata.swiss/didok/8501019</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8515522" class="external-link uri">https://lod.opentransportdata.swiss/didok/8515522</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8516275" class="external-link uri">https://lod.opentransportdata.swiss/didok/8516275</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8504320" class="external-link uri">https://lod.opentransportdata.swiss/didok/8504320</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8501240" class="external-link uri">https://lod.opentransportdata.swiss/didok/8501240</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8501074" class="external-link uri">https://lod.opentransportdata.swiss/didok/8501074</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8517275" class="external-link uri">https://lod.opentransportdata.swiss/didok/8517275</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8505589" class="external-link uri">https://lod.opentransportdata.swiss/didok/8505589</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8505596" class="external-link uri">https://lod.opentransportdata.swiss/didok/8505596</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8516185" class="external-link uri">https://lod.opentransportdata.swiss/didok/8516185</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8517370" class="external-link uri">https://lod.opentransportdata.swiss/didok/8517370</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8505861" class="external-link uri">https://lod.opentransportdata.swiss/didok/8505861</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8518796" class="external-link uri">https://lod.opentransportdata.swiss/didok/8518796</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8506029" class="external-link uri">https://lod.opentransportdata.swiss/didok/8506029</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8506028" class="external-link uri">https://lod.opentransportdata.swiss/didok/8506028</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8500129" class="external-link uri">https://lod.opentransportdata.swiss/didok/8500129</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8516013" class="external-link uri">https://lod.opentransportdata.swiss/didok/8516013</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8505874" class="external-link uri">https://lod.opentransportdata.swiss/didok/8505874</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8507121" class="external-link uri">https://lod.opentransportdata.swiss/didok/8507121</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8507122" class="external-link uri">https://lod.opentransportdata.swiss/didok/8507122</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8519371" class="external-link uri">https://lod.opentransportdata.swiss/didok/8519371</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8519376" class="external-link uri">https://lod.opentransportdata.swiss/didok/8519376</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8519378" class="external-link uri">https://lod.opentransportdata.swiss/didok/8519378</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8517098" class="external-link uri">https://lod.opentransportdata.swiss/didok/8517098</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8516914" class="external-link uri">https://lod.opentransportdata.swiss/didok/8516914</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8516911" class="external-link uri">https://lod.opentransportdata.swiss/didok/8516911</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8516913" class="external-link uri">https://lod.opentransportdata.swiss/didok/8516913</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8518448" class="external-link uri">https://lod.opentransportdata.swiss/didok/8518448</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8505171" class="external-link uri">https://lod.opentransportdata.swiss/didok/8505171</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8516965" class="external-link uri">https://lod.opentransportdata.swiss/didok/8516965</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8518111" class="external-link uri">https://lod.opentransportdata.swiss/didok/8518111</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8516988" class="external-link uri">https://lod.opentransportdata.swiss/didok/8516988</a></td>
-<td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
-<td align="left"><a href="https://lod.opentransportdata.swiss/didok/8516415" class="external-link uri">https://lod.opentransportdata.swiss/didok/8516415</a></td>
 <td align="left"><a href="http://classifications.data.admin.ch/canton/" class="external-link uri">http://classifications.data.admin.ch/canton/</a></td>
 </tr>
 </tbody>
@@ -662,6 +469,134 @@ provides.</p>
 </tr>
 </tbody>
 </table>
+<p>In this case the class names are quite self explanatory but if they
+were not we could use</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?instance a ?class"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="va">class</span>, .spq_duplicate <span class="op">=</span> <span class="st">"distinct"</span><span class="op">)</span>  <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_label.html">spq_label</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_tally.html">spq_count</a></span><span class="op">(</span><span class="va">class</span>, <span class="va">class_label</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
+<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
+<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="18%">
+<col width="71%">
+<col width="10%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">class_label</th>
+<th align="left">class</th>
+<th align="left">n</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><a href="https://cube.link/Observation" class="external-link uri">https://cube.link/Observation</a></td>
+<td align="left">8721537</td>
+</tr>
+<tr class="even">
+<td align="left">Date Range</td>
+<td align="left"><a href="https://www.ica.org/standards/RiC/ontology#DateRange" class="external-link uri">https://www.ica.org/standards/RiC/ontology#DateRange</a></td>
+<td align="left">4827519</td>
+</tr>
+<tr class="odd">
+<td align="left">Record Set</td>
+<td align="left"><a href="https://www.ica.org/standards/RiC/ontology#RecordSet" class="external-link uri">https://www.ica.org/standards/RiC/ontology#RecordSet</a></td>
+<td align="left">4566445</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><a href="http://schema.org/DefinedTerm" class="external-link uri">http://schema.org/DefinedTerm</a></td>
+<td align="left">2982118</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><a href="http://schema.org/PropertyValue" class="external-link uri">http://schema.org/PropertyValue</a></td>
+<td align="left">2189308</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><a href="http://schema.org/Place" class="external-link uri">http://schema.org/Place</a></td>
+<td align="left">1042148</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><a href="http://schema.org/PostalAddress" class="external-link uri">http://schema.org/PostalAddress</a></td>
+<td align="left">740887</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><a href="http://schema.org/Organization" class="external-link uri">http://schema.org/Organization</a></td>
+<td align="left">735312</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><a href="http://www.w3.org/ns/locn#Address" class="external-link uri">http://www.w3.org/ns/locn#Address</a></td>
+<td align="left">729680</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><a href="https://schema.ld.admin.ch/ZefixOrganisation" class="external-link uri">https://schema.ld.admin.ch/ZefixOrganisation</a></td>
+<td align="left">729680</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><a href="http://filteredpush.org/ontologies/oa/dwcFP#TaxonConcept" class="external-link uri">http://filteredpush.org/ontologies/oa/dwcFP#TaxonConcept</a></td>
+<td align="left">670506</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><a href="http://filteredpush.org/ontologies/oa/dwcFP#TaxonName" class="external-link uri">http://filteredpush.org/ontologies/oa/dwcFP#TaxonName</a></td>
+<td align="left">653880</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><a href="http://plazi.org/vocab/treatment#Treatment" class="external-link uri">http://plazi.org/vocab/treatment#Treatment</a></td>
+<td align="left">650410</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><a href="http://purl.org/spar/fabio/JournalArticle" class="external-link uri">http://purl.org/spar/fabio/JournalArticle</a></td>
+<td align="left">327322</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><a href="http://purl.org/spar/fabio/Figure" class="external-link uri">http://purl.org/spar/fabio/Figure</a></td>
+<td align="left">304064</td>
+</tr>
+<tr class="even">
+<td align="left">Man</td>
+<td align="left"><a href="https://ld.zh.ch/elodzh-ontology/Man" class="external-link uri">https://ld.zh.ch/elodzh-ontology/Man</a></td>
+<td align="left">296206</td>
+</tr>
+<tr class="odd">
+<td align="left">Woman</td>
+<td align="left"><a href="https://ld.zh.ch/elodzh-ontology/Woman" class="external-link uri">https://ld.zh.ch/elodzh-ontology/Woman</a></td>
+<td align="left">296206</td>
+</tr>
+<tr class="even">
+<td align="left">Marriage entry</td>
+<td align="left"><a href="https://ld.zh.ch/elodzh-ontology/MarriageEntry" class="external-link uri">https://ld.zh.ch/elodzh-ontology/MarriageEntry</a></td>
+<td align="left">296206</td>
+</tr>
+<tr class="odd">
+<td align="left">Record</td>
+<td align="left"><a href="https://www.ica.org/standards/RiC/ontology#Record" class="external-link uri">https://www.ica.org/standards/RiC/ontology#Record</a></td>
+<td align="left">261074</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><a href="http://rs.tdwg.org/dwc/terms/MaterialCitation" class="external-link uri">http://rs.tdwg.org/dwc/terms/MaterialCitation</a></td>
+<td align="left">201348</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section level2">
@@ -673,7 +608,7 @@ provides.</p>
 <p>Note that you could instead use
 <code>spq_add("?property a rdfs:Property")</code> but in this case it
 returned nothing.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?property a owl:DatatypeProperty"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -721,7 +656,7 @@ returned nothing.</p>
 </table>
 <p>How many classes are defined in total? This query might be too big
 for the service.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?property a owl:DatatypeProperty"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_tally.html">spq_count</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -735,9 +670,9 @@ for the service.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 241</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="what-properties-are-used">What properties are used<a class="anchor" aria-label="anchor" href="#what-properties-are-used"></a>
+<h3 id="what-properties-are-used">What properties are used?<a class="anchor" aria-label="anchor" href="#what-properties-are-used"></a>
 </h3>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s ?property ?o"</span><span class="op">)</span>  <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="op">-</span> <span class="va">s</span>, <span class="op">-</span> <span class="va">o</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -786,13 +721,76 @@ for the service.</p>
 </tbody>
 </table>
 </div>
+<div class="section level3">
+<h3 id="what-values-does-a-given-property-have">What values does a given property have?<a class="anchor" aria-label="anchor" href="#what-values-does-a-given-property-have"></a>
+</h3>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span>  <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span>prefixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"schema"</span> <span class="op">=</span> <span class="st">"http://schema.org/"</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s schema:addressRegion ?value"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_tally.html">spq_count</a></span><span class="op">(</span><span class="va">value</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
+<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
+<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">value</th>
+<th align="left">n</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">ZH</td>
+<td align="left">127640</td>
+</tr>
+<tr class="even">
+<td align="left">BE</td>
+<td align="left">66316</td>
+</tr>
+<tr class="odd">
+<td align="left">VD</td>
+<td align="left">63874</td>
+</tr>
+<tr class="even">
+<td align="left">GE</td>
+<td align="left">53487</td>
+</tr>
+<tr class="odd">
+<td align="left">AG</td>
+<td align="left">43179</td>
+</tr>
+<tr class="even">
+<td align="left">TI</td>
+<td align="left">41967</td>
+</tr>
+<tr class="odd">
+<td align="left">SG</td>
+<td align="left">40396</td>
+</tr>
+<tr class="even">
+<td align="left">ZG</td>
+<td align="left">39446</td>
+</tr>
+<tr class="odd">
+<td align="left">LU</td>
+<td align="left">32829</td>
+</tr>
+<tr class="even">
+<td align="left">VS</td>
+<td align="left">32127</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="which-class-use-a-particular-property">Which class use a particular property?<a class="anchor" aria-label="anchor" href="#which-class-use-a-particular-property"></a>
 </h2>
 <p>One of the properties is <code>https://gont.ch/longName</code>. Which
 class uses it?</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span>prefixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gont"</span> <span class="op">=</span> <span class="st">"https://gont.ch/"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s gont:longName ?o"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -818,6 +816,377 @@ class uses it?</p>
 </tr>
 <tr class="odd">
 <td align="left"><a href="https://gont.ch/DistrictEntityVersion" class="external-link uri">https://gont.ch/DistrictEntityVersion</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level2">
+<h2 id="what-data-is-stored-about-a-classs-instance">What data is stored about a class’s instance?<a class="anchor" aria-label="anchor" href="#what-data-is-stored-about-a-classs-instance"></a>
+</h2>
+<p>For each organization, what data is there?</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span>prefixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"schema"</span> <span class="op">=</span> <span class="st">"http://schema.org/"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s a schema:Organization"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s ?property ?value"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="op">-</span><span class="va">value</span>, <span class="op">-</span><span class="va">s</span>, <span class="va">class</span>, .spq_duplicate <span class="op">=</span> <span class="st">"distinct"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
+<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
+<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">property</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" class="external-link uri">http://www.w3.org/1999/02/22-rdf-syntax-ns#type</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/name" class="external-link uri">http://schema.org/name</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/url" class="external-link uri">http://schema.org/url</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/dateModified" class="external-link uri">http://schema.org/dateModified</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/identifier" class="external-link uri">http://schema.org/identifier</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/telephone" class="external-link uri">http://schema.org/telephone</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/email" class="external-link uri">http://schema.org/email</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/address" class="external-link uri">http://schema.org/address</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/publicAccess" class="external-link uri">http://schema.org/publicAccess</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/memberOf" class="external-link uri">http://schema.org/memberOf</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/knowsAbout" class="external-link uri">http://schema.org/knowsAbout</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/faxNumber" class="external-link uri">http://schema.org/faxNumber</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/validFrom" class="external-link uri">http://schema.org/validFrom</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/description" class="external-link uri">http://schema.org/description</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/inDefinedTermSet" class="external-link uri">http://schema.org/inDefinedTermSet</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/image" class="external-link uri">http://schema.org/image</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/areaServed" class="external-link uri">http://schema.org/areaServed</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/sameAs" class="external-link uri">http://schema.org/sameAs</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/additionalType" class="external-link uri">http://schema.org/additionalType</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/legalName" class="external-link uri">http://schema.org/legalName</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://www.w3.org/ns/locn#address" class="external-link uri">http://www.w3.org/ns/locn#address</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://schema.ld.admin.ch/municipality" class="external-link uri">https://schema.ld.admin.ch/municipality</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/replacer" class="external-link uri">http://schema.org/replacer</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/dissolutionDate" class="external-link uri">http://schema.org/dissolutionDate</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://www.w3.org/2000/01/rdf-schema#seeAlso" class="external-link uri">http://www.w3.org/2000/01/rdf-schema#seeAlso</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://www.w3.org/2002/07/owl#sameAs" class="external-link uri">http://www.w3.org/2002/07/owl#sameAs</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/alternateName" class="external-link uri">http://schema.org/alternateName</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/about" class="external-link uri">http://schema.org/about</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/member" class="external-link uri">http://schema.org/member</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/parentOrganization" class="external-link uri">http://schema.org/parentOrganization</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/subOrganization" class="external-link uri">http://schema.org/subOrganization</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/position" class="external-link uri">http://schema.org/position</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/startDate" class="external-link uri">http://schema.org/startDate</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://version.link/version" class="external-link uri">https://version.link/version</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://version.link/inVersionedIdentitySet" class="external-link uri">https://version.link/inVersionedIdentitySet</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://www.w3.org/2000/01/rdf-schema#label" class="external-link uri">http://www.w3.org/2000/01/rdf-schema#label</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://lod.opentransportdata.swiss/vocab/organizationTyp" class="external-link uri">https://lod.opentransportdata.swiss/vocab/organizationTyp</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://lod.opentransportdata.swiss/vocab/organizationTypLabel" class="external-link uri">https://lod.opentransportdata.swiss/vocab/organizationTypLabel</a></td>
+</tr>
+<tr class="odd">
+<td align="left">#SAID</td>
+</tr>
+<tr class="even">
+<td align="left">#SBOID</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://www.w3.org/2006/vcard/ns#name" class="external-link uri">http://www.w3.org/2006/vcard/ns#name</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://lod.opentransportdata.swiss/vocab/printLabel" class="external-link uri">https://lod.opentransportdata.swiss/vocab/printLabel</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://lod.opentransportdata.swiss/vocab/printCustomerCode" class="external-link uri">https://lod.opentransportdata.swiss/vocab/printCustomerCode</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://lod.opentransportdata.swiss/vocab/screenLabel" class="external-link uri">https://lod.opentransportdata.swiss/vocab/screenLabel</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/endDate" class="external-link uri">http://schema.org/endDate</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/validThrough" class="external-link uri">http://schema.org/validThrough</a></td>
+</tr>
+</tbody>
+</table>
+<p>And for each postal address?</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span>prefixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"schema"</span> <span class="op">=</span> <span class="st">"http://schema.org/"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s a schema:PostalAddress"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s ?property ?value"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="op">-</span><span class="va">value</span>, <span class="op">-</span><span class="va">s</span>, <span class="va">class</span>, .spq_duplicate <span class="op">=</span> <span class="st">"distinct"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
+<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
+<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">property</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" class="external-link uri">http://www.w3.org/1999/02/22-rdf-syntax-ns#type</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/streetAddress" class="external-link uri">http://schema.org/streetAddress</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/postalCode" class="external-link uri">http://schema.org/postalCode</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/addressLocality" class="external-link uri">http://schema.org/addressLocality</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/addressRegion" class="external-link uri">http://schema.org/addressRegion</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/addressCountry" class="external-link uri">http://schema.org/addressCountry</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/postOfficeBoxNumber" class="external-link uri">http://schema.org/postOfficeBoxNumber</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/name" class="external-link uri">http://schema.org/name</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/sameAs" class="external-link uri">http://schema.org/sameAs</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://www.w3.org/ns/locn#thoroughfare" class="external-link uri">http://www.w3.org/ns/locn#thoroughfare</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://www.w3.org/ns/locn#locatorDesignator" class="external-link uri">http://www.w3.org/ns/locn#locatorDesignator</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://www.w3.org/ns/locn#postCode" class="external-link uri">http://www.w3.org/ns/locn#postCode</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://www.w3.org/ns/locn#postName" class="external-link uri">http://www.w3.org/ns/locn#postName</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://www.w3.org/ns/locn#adminUnitL2" class="external-link uri">http://www.w3.org/ns/locn#adminUnitL2</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://www.w3.org/ns/locn#locatorName" class="external-link uri">http://www.w3.org/ns/locn#locatorName</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/areaServed" class="external-link uri">http://schema.org/areaServed</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://www.w3.org/ns/locn#addressArea" class="external-link uri">http://www.w3.org/ns/locn#addressArea</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://www.w3.org/ns/locn#poBox" class="external-link uri">http://www.w3.org/ns/locn#poBox</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level2">
+<h2 id="which-data-or-property-name-includes-a-certain-substring">Which data or property name includes a certain substring?<a class="anchor" aria-label="anchor" href="#which-data-or-property-name-includes-a-certain-substring"></a>
+</h2>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s ?p ?o"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="fu">str_detect</span><span class="op">(</span><span class="va">o</span>, <span class="st">"[Hh]ydro"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="op">-</span><span class="va">s</span>, .spq_duplicate <span class="op">=</span> <span class="st">"distinct"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
+<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
+<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">p</th>
+<th align="left">o</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/name" class="external-link uri">http://schema.org/name</a></td>
+<td align="left">Labor Durchfluss und Hydrometrie</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/name" class="external-link uri">http://schema.org/name</a></td>
+<td align="left">Labor Durchfluss und Hydrometrie</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/name" class="external-link uri">http://schema.org/name</a></td>
+<td align="left">Labor Durchfluss und Hydrometrie</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/name" class="external-link uri">http://schema.org/name</a></td>
+<td align="left">Abteilung Hydrologie</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/name" class="external-link uri">http://schema.org/name</a></td>
+<td align="left">Division Hydrologie</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/name" class="external-link uri">http://schema.org/name</a></td>
+<td align="left">Etat-major Hydrologie</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/name" class="external-link uri">http://schema.org/name</a></td>
+<td align="left">Sektion Hydrometrie</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/name" class="external-link uri">http://schema.org/name</a></td>
+<td align="left">Section Hydrométrie</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://schema.org/name" class="external-link uri">http://schema.org/name</a></td>
+<td align="left">Sektion Hydrologische Information</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://schema.org/name" class="external-link uri">http://schema.org/name</a></td>
+<td align="left">Section Informations hydrologiques</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level2">
+<h2 id="an-example-query-based-on-what-we-now-know">An example query based on what we now know<a class="anchor" aria-label="anchor" href="#an-example-query-based-on-what-we-now-know"></a>
+</h2>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span>prefixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"schema"</span> <span class="op">=</span> <span class="st">"http://schema.org/"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s a schema:Organization"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s schema:name ?name"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="fu">str_detect</span><span class="op">(</span><span class="va">name</span>, <span class="st">"swiss"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
+<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
+<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="42%">
+<col width="57%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">s</th>
+<th align="left">name</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="https://culture.ld.admin.ch/isil/CH-000765-0/organization" class="external-link uri">https://culture.ld.admin.ch/isil/CH-000765-0/organization</a></td>
+<td align="left">Bibliothek Erziehungswissenschaft der Universität
+Bern</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://culture.ld.admin.ch/isil/CH-000141-6/organization" class="external-link uri">https://culture.ld.admin.ch/isil/CH-000141-6/organization</a></td>
+<td align="left">Office fédéral de topographie swisstopo</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://culture.ld.admin.ch/isil/CH-000141-6/organization" class="external-link uri">https://culture.ld.admin.ch/isil/CH-000141-6/organization</a></td>
+<td align="left">Ufficio federale di topografia swisstopo</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://culture.ld.admin.ch/isil/CH-000141-6/organization" class="external-link uri">https://culture.ld.admin.ch/isil/CH-000141-6/organization</a></td>
+<td align="left">Federal Office of Topography swisstopo</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://culture.ld.admin.ch/isil/CH-000141-6/organization" class="external-link uri">https://culture.ld.admin.ch/isil/CH-000141-6/organization</a></td>
+<td align="left">Bundesamt für Landestopografie swisstopo</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://culture.ld.admin.ch/isil/CH-001252-X/organization" class="external-link uri">https://culture.ld.admin.ch/isil/CH-001252-X/organization</a></td>
+<td align="left">Geologische Informationsstelle / Bundesamt für
+Landestopografie swisstopo</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://culture.ld.admin.ch/isil/CH-001064-X/organization" class="external-link uri">https://culture.ld.admin.ch/isil/CH-001064-X/organization</a></td>
+<td align="left">Kurzwellendienst (KWD), Schweizer Radio International
+(SRI) / swissinfo</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://culture.ld.admin.ch/isil/CH-001064-X/organization" class="external-link uri">https://culture.ld.admin.ch/isil/CH-001064-X/organization</a></td>
+<td align="left">Kurzwellendienst (KWD), Schweizer Radio International
+(SRI) / swissinfo</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://culture.ld.admin.ch/isil/CH-001064-X/organization" class="external-link uri">https://culture.ld.admin.ch/isil/CH-001064-X/organization</a></td>
+<td align="left">Service des ondes courtes (SOC) / Radio suisse
+international (RSI) / swissinfo</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://culture.ld.admin.ch/isil/CH-000589-1/organization" class="external-link uri">https://culture.ld.admin.ch/isil/CH-000589-1/organization</a></td>
+<td align="left">Universitätsbibliothek Bern / Bibliothek
+Wirtschafswissenschaften</td>
 </tr>
 </tbody>
 </table>
