@@ -38,7 +38,7 @@ spq_perform = function(.query,
   )
 
   if (replace_prefixes) {
-    results <- purrr::reduce(
+    results = purrr::reduce(
       .query[["prefixes_used"]],
       \(results, x) replace_prefix(x, results, .query = .query),
       .init = results
