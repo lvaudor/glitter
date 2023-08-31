@@ -49,41 +49,6 @@ get_description=function(id,language="en"){
   return(description)
 }
 
-#' Format information about one claim (for use in get_claims)
-#' @param res result
-#' @noRd
-get_one_claim=function(res){
-  datavalue=res$datavalue
-  type=unique(datavalue$type)
-  if(type=="wikibase-entityid"){
-    value=datavalue$value$id
-  }
-  if(type=="globecoordinate"){
-    value=paste0("Point(",
-                 datavalue$value$latitude,
-                 " ",
-                 datavalue$value$longitude,
-                 ")")
-  }
-  if(type=="quantity"){
-    value=datavalue$value$amount
-  }
-  if(type=="time"){
-    value=datavalue$value$time
-  }
-  if(type=="monolingualtext"){
-    value=datavalue$value$text
-  }
-  if(type=="string"){
-    value=datavalue$value
-  }
-  result=tibble::tibble(property=res$property,
-                     type=rep(type,nrow(res)),
-                     value=value)
-  return(result)
-}
-
-
 utils::globalVariables("wd_properties")
 
 #' Get description of Wikidata thing
@@ -97,9 +62,7 @@ get_info=function(id,language="en",with_labels=FALSE){
   if(inherits(id, "character")){thing=get_thing(id)}else{thing=id}
   label=get_label(thing)
   description=get_description(thing)
-  claims=get_claims(id, with_labels=with_labels)
   result=list(label=label,
-              description=description,
-              claims=claims)
+              description=description)
   return(result)
 }

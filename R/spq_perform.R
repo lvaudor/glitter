@@ -54,7 +54,7 @@ replace_prefix = function(prefix, results, .query) {
    dplyr::mutate(
      results,
      dplyr::across(
-       where(is.character),
+       dplyr::where(is.character),
        \(x) str_replace(
          x,
          pattern = prefixes[["url"]][prefixes[["name"]] == prefix],

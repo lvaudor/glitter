@@ -68,12 +68,6 @@ parts_metro_Lyon %>% head()
 
 For now, we get 50 items, not only stations but also other types of items such as metro lines. Let's have a look at the item "Place Guichard - Bourse du Travail" (Q59855) which we know correspond to a station.
 
-The function `get_claims()` of package `glitter` enables you to see all the direct wikidata properties (and their values) based on an item's id. 
-
-```{r}
-get_claims("wd:Q599865")
-```
-
 Property "wdt:P31" should enable us to collect only stations ("wd:Q928830") instead of all parts of the Lyon Metro network.
 
 We can enrich and refine our query incrementally with `spq_filter()` before sending it (whereas `get_triple()` was a shortcut to build and send simple requests) :
