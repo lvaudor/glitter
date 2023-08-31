@@ -45,7 +45,7 @@ Code using glitter will feature:
 
 # glitter query object
 
-The query object is a list with elements corresponding to e.g. the FILTER part.
+The query object is a list with elements such as the variables (vars), filters, etc.
 Later we might make it an actual class, maybe an R6 one?
 
 It is built by the different calls to `spq_` functions.
