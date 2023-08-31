@@ -98,6 +98,7 @@ spq_init() %>%
   spq_add("?instance a ?class") %>%
   spq_arrange(class) %>%
   spq_head(n = 10) %>%
+  spq_select(- instance) %>%
   spq_select(class, .spq_duplicate = "distinct") %>%
   spq_perform(
     endpoint = "https://ld.admin.ch/query", 
@@ -120,3 +121,69 @@ spq_init() %>%
   ) %>%
   knitr::kable()
 ```
+
+## Properties
+
+### Find which properties are declared
+
+Note that you could instead use `spq_add("?property a rdfs:Property")` but in this case it returned nothing.
+
+```{r}
+spq_init() %>%
+  spq_add("?property a owl:DatatypeProperty") %>%
+  spq_head(n = 10) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+How many classes are defined in total?
+This query might be too big for the service.
+
+```{r}
+spq_init() %>%
+  spq_add("?property a owl:DatatypeProperty") %>%
+  spq_count() %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  )
+```
+
+### What properties are used
+
+```{r}
+spq_init() %>%
+  spq_add("?s ?property ?o")  %>%
+  spq_select(- s, - o) %>%
+  spq_select(property, .spq_duplicate = "distinct") %>%
+  spq_head(10) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+
+## Which class use a particular property?
+
+One of the properties is `	
+https://gont.ch/longName`. 
+Which class uses it?
+
+```{r}
+spq_init() %>%
+  spq_prefix(prefixes = c("gont" = "https://gont.ch/")) %>%
+  spq_add("?s gont:longName ?o") %>%
+  spq_add("?s a ?class") %>%
+  spq_select(-o, -s) %>%
+  spq_select(class, .spq_duplicate = "distinct") %>%
+  spq_head(10) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+
