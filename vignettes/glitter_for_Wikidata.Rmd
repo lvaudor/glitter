@@ -125,11 +125,6 @@ plot(stations_metro_Lyon.shp$coords)
 
 `glitter` provides functions to clean and transform "raw" Wikidata tibbles into tibbles that are easier to use in R.
 
-Function `clean_wikidata_table()` lightens some columns with wikidata-formatted URIs:
-
-```{r}
-stations_metro_Lyon=clean_wikidata_table(stations_metro_Lyon)
-```
 
 
 Function `transform_wikidata_coords()` get the coordinates as longitude (`lng`) and latitude (`lat`) based on the Wikidata WKT formatting of spatial coordinates ("Point(*lng* *lat*)").

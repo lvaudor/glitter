@@ -17,7 +17,6 @@ subclasses_of=function(id, include_self=FALSE){
   }
   if(nrow(classes)!=0){
     classes=classes %>%
-      clean_wikidata_table() %>%
       dplyr::mutate(from=id,
                     to=classes) %>%
       dplyr::select(.data$from,.data$to,dplyr::everything())
@@ -45,7 +44,6 @@ superclasses_of=function(id, include_self=FALSE){
   }
   if(nrow(classes)!=0){
     classes=classes %>%
-      clean_wikidata_table()%>%
       dplyr::mutate(from=classes,
                     to=id) %>%
       dplyr::select(.data$from,.data$to,dplyr::everything())
