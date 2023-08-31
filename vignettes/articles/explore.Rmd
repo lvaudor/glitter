@@ -21,6 +21,7 @@ Let's go through an example.
 ## A word of caution
 
 Depending on the dataset you're working with, some queries might just ask _too much_ of the service so proceed with caution.
+When in doubt, add a `spq_head()` in your query pipeline, to ask less at a time, or use `spq_count()` to get a sense of how many results there are in total.
 
 ## Asking for a subset of all triples
 
