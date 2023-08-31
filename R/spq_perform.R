@@ -1,6 +1,8 @@
 #' Assemble query parts into a sparql query and send it to endpoint to get a tibble as a result.
 #' @param .query a list with elements of the query
 #' @param endpoint a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
+#' @param replace_prefixes Boolean indicating whether to replace used prefixes in the results table,
+#' for instance making, for instance "http://www.wikidata.org/entity/" "wd:".
 #' @inheritParams send_sparql
 #' @return A query object
 #' @export
@@ -20,10 +22,11 @@ spq_perform = function(.query,
                        max_seconds = getOption("glitter.max_seconds", 120L),
                        timeout = getOption("glitter.timeout", 1000L),
                        request_type = c("url", "body-form"),
-                       dry_run = FALSE){
+                       dry_run = FALSE,
+                       replace_prefixes = FALSE){
   sparql_query = spq_assemble(.query = .query, endpoint = endpoint)
 
-  send_sparql(
+  results = send_sparql(
     sparql_query,
     endpoint = endpoint,
     user_agent = user_agent,
@@ -34,4 +37,28 @@ spq_perform = function(.query,
     dry_run = FALSE
   )
 
+  if (replace_prefixes) {
+    results <- purrr::reduce(
+      .query[["prefixes_used"]],
+      \(results, x) replace_prefix(x, results, .query = .query),
+      .init = results
+    )
+  }
+
+  results
+
+}
+
+replace_prefix = function(prefix, results, .query) {
+   prefixes = rbind(usual_prefixes[, c("name", "url")], .query[["prefixes_provided"]])
+   dplyr::mutate(
+     results,
+     dplyr::across(
+       where(is.character),
+       \(x) str_replace(
+         x,
+         pattern = prefixes[["url"]][prefixes[["name"]] == prefix],
+         replacement = sprintf("%s:", prefix))
+     )
+   )
 }

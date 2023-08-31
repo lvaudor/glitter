@@ -31,7 +31,6 @@ reference:
   - send_sparql
 - title: "Wikidata"
 - contents:
-  - clean_wikidata_table
   - get_claim
   - get_claims
   - get_description
