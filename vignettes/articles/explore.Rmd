@@ -15,12 +15,16 @@ library(glitter)
 
 Imagine you are tasked with exploring the [Linked Data Service LINDAS provided by the Swiss Federal Archives](https://lindas.admin.ch/sparql#).
 You might be able to read examples and docs if present.
-But in any case, you could get inspired by the Chapter 11 "SPARQL cookbook" of the ["Learning SPARQL" book by Bob DuCharme](https://www.goodreads.com/book/show/18198885-learning-sparql).
+But in any case, you could get inspired by the Chapter 11 "SPARQL cookbook" of the ["Learning SPARQL" book by Bob DuCharme](https://www.goodreads.com/book/show/18198885-learning-sparql) to explore the dataset.
 Let's go through an example.
+
+## A word of caution
+
+Depending on the dataset you're working with, some queries might just ask _too much_ of the service so proceed with caution.
 
 ## Asking for a subset of all triples
 
-In the code below we'll ask for 50 triples.
+In the code below we'll ask for 10 triples.
 Note that we use the `endpoint` argument of `spq_perform()` to indicate where to send the query, as well as the `request_type` argument.
 
 How can one know whether a service needs `request_type = "body-form"`?
@@ -33,7 +37,7 @@ How can one know whether a service needs `request_type = "body-form"`?
 library("glitter") 
 spq_init() %>%
   spq_add("?s ?p ?o") %>%
-  spq_head(n = 50) %>%
+  spq_head(n = 10) %>%
   spq_perform(
     endpoint = "https://ld.admin.ch/query", 
     request_type = "body-form"
@@ -122,6 +126,22 @@ spq_init() %>%
   knitr::kable()
 ```
 
+In this case the class names are quite self explanatory but if they were not we could use
+
+```{r}
+spq_init() %>%
+  spq_add("?instance a ?class") %>%
+  spq_select(class, .spq_duplicate = "distinct")  %>%
+  spq_label(class) %>%
+  spq_count(class, class_label, sort = TRUE) %>%
+  spq_head(20) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+
 ## Properties
 
 ### Find which properties are declared
@@ -151,7 +171,7 @@ spq_init() %>%
   )
 ```
 
-### What properties are used
+### What properties are used?
 
 ```{r}
 spq_init() %>%
@@ -164,6 +184,22 @@ spq_init() %>%
     request_type = "body-form"
   ) %>%
   knitr::kable()
+```
+
+### What values does a given property have? 
+
+```{r}
+spq_init()  %>%
+  spq_prefix(prefixes = c("schema" = "http://schema.org/"))%>%
+  spq_add("?s schema:addressRegion ?value") %>%
+  spq_count(value, sort = TRUE) %>%
+  spq_head(10) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+
 ```
 
 ## Which class use a particular property?
@@ -187,3 +223,68 @@ spq_init() %>%
   knitr::kable()
 ```
 
+## What data is stored about a class's instance?
+
+For each organization, what data is there?
+
+```{r}
+spq_init() %>%
+  spq_prefix(prefixes = c("schema" = "http://schema.org/")) %>%
+  spq_add("?s a schema:Organization") %>%
+  spq_add("?s ?property ?value") %>%
+  spq_select(-value, -s, class, .spq_duplicate = "distinct") %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+
+And for each postal address?
+
+```{r}
+spq_init() %>%
+  spq_prefix(prefixes = c("schema" = "http://schema.org/")) %>%
+  spq_add("?s a schema:PostalAddress") %>%
+  spq_add("?s ?property ?value") %>%
+  spq_select(-value, -s, class, .spq_duplicate = "distinct") %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+
+## Which data or property name includes a certain substring?
+
+```{r}
+spq_init() %>%
+  spq_add("?s ?p ?o") %>%
+  spq_filter(str_detect(o, "[Hh]ydro")) %>%
+  spq_select(-s, .spq_duplicate = "distinct") %>%
+  spq_head(10) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+
+## An example query based on what we now know
+
+
+
+```{r}
+spq_init() %>%
+  spq_prefix(prefixes = c("schema" = "http://schema.org/")) %>%
+  spq_add("?s a schema:Organization") %>%
+  spq_add("?s schema:name ?name") %>%
+  spq_filter(str_detect(name, "swiss")) %>%
+  spq_head(10) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+
+```
