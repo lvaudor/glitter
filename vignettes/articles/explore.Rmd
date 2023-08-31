@@ -159,7 +159,7 @@ spq_init() %>%
   ) %>%
   knitr::kable()
 ```
-How many classes are defined in total?
+How many properties are defined in total?
 This query might be too big for the service.
 
 ```{r}
