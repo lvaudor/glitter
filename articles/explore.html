@@ -515,6 +515,7 @@ provides.</p>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?instance a ?class"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="op">-</span> <span class="va">instance</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="va">class</span>, .spq_duplicate <span class="op">=</span> <span class="st">"distinct"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
 <span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
@@ -522,54 +523,39 @@ provides.</p>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
-<colgroup>
-<col width="57%">
-<col width="42%">
-</colgroup>
 <thead><tr class="header">
-<th align="left">instance</th>
 <th align="left">class</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left"><a href="https://environment.ld.admin.ch/foen/hydro/station/2099" class="external-link uri">https://environment.ld.admin.ch/foen/hydro/station/2099</a></td>
 <td align="left"><a href="http://example.com/HydroMeasuringStation" class="external-link uri">http://example.com/HydroMeasuringStation</a></td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://environment.ld.admin.ch/foen/hydro/station/2176" class="external-link uri">https://environment.ld.admin.ch/foen/hydro/station/2176</a></td>
-<td align="left"><a href="http://example.com/HydroMeasuringStation" class="external-link uri">http://example.com/HydroMeasuringStation</a></td>
+<td align="left"><a href="http://filteredpush.org/ontologies/oa/dwcFP#TaxonConcept" class="external-link uri">http://filteredpush.org/ontologies/oa/dwcFP#TaxonConcept</a></td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://environment.ld.admin.ch/foen/hydro/station/2200" class="external-link uri">https://environment.ld.admin.ch/foen/hydro/station/2200</a></td>
-<td align="left"><a href="http://example.com/HydroMeasuringStation" class="external-link uri">http://example.com/HydroMeasuringStation</a></td>
+<td align="left"><a href="http://filteredpush.org/ontologies/oa/dwcFP#TaxonName" class="external-link uri">http://filteredpush.org/ontologies/oa/dwcFP#TaxonName</a></td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://environment.ld.admin.ch/foen/hydro/station/2477" class="external-link uri">https://environment.ld.admin.ch/foen/hydro/station/2477</a></td>
-<td align="left"><a href="http://example.com/HydroMeasuringStation" class="external-link uri">http://example.com/HydroMeasuringStation</a></td>
+<td align="left"><a href="http://plazi.org/vocab/treatment#Treatment" class="external-link uri">http://plazi.org/vocab/treatment#Treatment</a></td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://environment.ld.admin.ch/foen/hydro/station/2450" class="external-link uri">https://environment.ld.admin.ch/foen/hydro/station/2450</a></td>
-<td align="left"><a href="http://example.com/HydroMeasuringStation" class="external-link uri">http://example.com/HydroMeasuringStation</a></td>
+<td align="left"><a href="http://publications.europa.eu/ontology/euvoc#Continent" class="external-link uri">http://publications.europa.eu/ontology/euvoc#Continent</a></td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://environment.ld.admin.ch/foen/hydro/station/2304" class="external-link uri">https://environment.ld.admin.ch/foen/hydro/station/2304</a></td>
-<td align="left"><a href="http://example.com/HydroMeasuringStation" class="external-link uri">http://example.com/HydroMeasuringStation</a></td>
+<td align="left"><a href="http://publications.europa.eu/ontology/euvoc#Country" class="external-link uri">http://publications.europa.eu/ontology/euvoc#Country</a></td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://environment.ld.admin.ch/foen/hydro/station/2319" class="external-link uri">https://environment.ld.admin.ch/foen/hydro/station/2319</a></td>
-<td align="left"><a href="http://example.com/HydroMeasuringStation" class="external-link uri">http://example.com/HydroMeasuringStation</a></td>
+<td align="left"><a href="http://publications.europa.eu/ontology/euvoc#DataTheme" class="external-link uri">http://publications.europa.eu/ontology/euvoc#DataTheme</a></td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://environment.ld.admin.ch/foen/hydro/station/2369" class="external-link uri">https://environment.ld.admin.ch/foen/hydro/station/2369</a></td>
-<td align="left"><a href="http://example.com/HydroMeasuringStation" class="external-link uri">http://example.com/HydroMeasuringStation</a></td>
+<td align="left"><a href="http://publications.europa.eu/ontology/euvoc#Frequency" class="external-link uri">http://publications.europa.eu/ontology/euvoc#Frequency</a></td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://environment.ld.admin.ch/foen/hydro/station/2126" class="external-link uri">https://environment.ld.admin.ch/foen/hydro/station/2126</a></td>
-<td align="left"><a href="http://example.com/HydroMeasuringStation" class="external-link uri">http://example.com/HydroMeasuringStation</a></td>
+<td align="left"><a href="http://publications.europa.eu/ontology/euvoc#PlannedAvailability" class="external-link uri">http://publications.europa.eu/ontology/euvoc#PlannedAvailability</a></td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://environment.ld.admin.ch/foen/hydro/station/2155" class="external-link uri">https://environment.ld.admin.ch/foen/hydro/station/2155</a></td>
-<td align="left"><a href="http://example.com/HydroMeasuringStation" class="external-link uri">http://example.com/HydroMeasuringStation</a></td>
+<td align="left"><a href="http://purl.org/dc/terms/LicenseDocument" class="external-link uri">http://purl.org/dc/terms/LicenseDocument</a></td>
 </tr>
 </tbody>
 </table>
@@ -677,6 +663,164 @@ provides.</p>
 </tbody>
 </table>
 </div>
+</div>
+<div class="section level2">
+<h2 id="properties">Properties<a class="anchor" aria-label="anchor" href="#properties"></a>
+</h2>
+<div class="section level3">
+<h3 id="find-which-properties-are-declared">Find which properties are declared<a class="anchor" aria-label="anchor" href="#find-which-properties-are-declared"></a>
+</h3>
+<p>Note that you could instead use
+<code>spq_add("?property a rdfs:Property")</code> but in this case it
+returned nothing.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?property a owl:DatatypeProperty"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
+<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
+<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">property</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="http://purl.org/dc/terms/description" class="external-link uri">http://purl.org/dc/terms/description</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://qudt.org/schema/qudt/informativeReference" class="external-link uri">http://qudt.org/schema/qudt/informativeReference</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://qudt.org/schema/qudt/dbpediaMatch" class="external-link uri">http://qudt.org/schema/qudt/dbpediaMatch</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://qudt.org/schema/qudt/conversionMultiplier" class="external-link uri">http://qudt.org/schema/qudt/conversionMultiplier</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://qudt.org/schema/qudt/ucumCode" class="external-link uri">http://qudt.org/schema/qudt/ucumCode</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://qudt.org/schema/qudt/iec61360Code" class="external-link uri">http://qudt.org/schema/qudt/iec61360Code</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://qudt.org/schema/qudt/symbol" class="external-link uri">http://qudt.org/schema/qudt/symbol</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://qudt.org/schema/qudt/uneceCommonCode" class="external-link uri">http://qudt.org/schema/qudt/uneceCommonCode</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://qudt.org/schema/qudt/plainTextDescription" class="external-link uri">http://qudt.org/schema/qudt/plainTextDescription</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://qudt.org/schema/qudt/abbreviation" class="external-link uri">http://qudt.org/schema/qudt/abbreviation</a></td>
+</tr>
+</tbody>
+</table>
+<p>How many classes are defined in total? This query might be too big
+for the service.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?property a owl:DatatypeProperty"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_tally.html">spq_count</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
+<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
+<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 1</span></span></span>
+<span><span class="co">#&gt;   n    </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 241</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="what-properties-are-used">What properties are used<a class="anchor" aria-label="anchor" href="#what-properties-are-used"></a>
+</h3>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s ?property ?o"</span><span class="op">)</span>  <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="op">-</span> <span class="va">s</span>, <span class="op">-</span> <span class="va">o</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="va">property</span>, .spq_duplicate <span class="op">=</span> <span class="st">"distinct"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
+<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
+<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">property</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="http://www.w3.org/2002/07/owl#sameAs" class="external-link uri">http://www.w3.org/2002/07/owl#sameAs</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" class="external-link uri">http://www.w3.org/1999/02/22-rdf-syntax-ns#type</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://purl.org/dc/terms/identifier" class="external-link uri">http://purl.org/dc/terms/identifier</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://gont.ch/id" class="external-link uri">https://gont.ch/id</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://gont.ch/longName" class="external-link uri">https://gont.ch/longName</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://gont.ch/date" class="external-link uri">https://gont.ch/date</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://gont.ch/cantonAbbreviation" class="external-link uri">https://gont.ch/cantonAbbreviation</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://www.w3.org/2000/01/rdf-schema#seeAlso" class="external-link uri">http://www.w3.org/2000/01/rdf-schema#seeAlso</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://gont.ch/municipalityVersion" class="external-link uri">https://gont.ch/municipalityVersion</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section level2">
+<h2 id="which-class-use-a-particular-property">Which class use a particular property?<a class="anchor" aria-label="anchor" href="#which-class-use-a-particular-property"></a>
+</h2>
+<p>One of the properties is <code>https://gont.ch/longName</code>. Which
+class uses it?</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span>prefixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gont"</span> <span class="op">=</span> <span class="st">"https://gont.ch/"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s gont:longName ?o"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s a ?class"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="op">-</span><span class="va">o</span>, <span class="op">-</span><span class="va">s</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="va">class</span>, .spq_duplicate <span class="op">=</span> <span class="st">"distinct"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
+<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
+<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">class</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="https://gont.ch/Canton" class="external-link uri">https://gont.ch/Canton</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://gont.ch/MunicipalityVersion" class="external-link uri">https://gont.ch/MunicipalityVersion</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://gont.ch/DistrictEntityVersion" class="external-link uri">https://gont.ch/DistrictEntityVersion</a></td>
+</tr>
+</tbody>
+</table>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
