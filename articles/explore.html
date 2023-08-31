@@ -99,7 +99,10 @@ through an example.</p>
 <h2 id="a-word-of-caution">A word of caution<a class="anchor" aria-label="anchor" href="#a-word-of-caution"></a>
 </h2>
 <p>Depending on the dataset you’re working with, some queries might just
-ask <em>too much</em> of the service so proceed with caution.</p>
+ask <em>too much</em> of the service so proceed with caution. When in
+doubt, add a <code><a href="../reference/spq_head.html">spq_head()</a></code> in your query pipeline, to ask less
+at a time, or use <code><a href="../reference/spq_tally.html">spq_count()</a></code> to get a sense of how many
+results there are in total.</p>
 </div>
 <div class="section level2">
 <h2 id="asking-for-a-subset-of-all-triples">Asking for a subset of all triples<a class="anchor" aria-label="anchor" href="#asking-for-a-subset-of-all-triples"></a>
