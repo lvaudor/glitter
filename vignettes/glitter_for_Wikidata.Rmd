@@ -18,189 +18,224 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(glitter)
 library(WikidataR)
+library(tidyverse)
+library(sf)
+library(leaflet)
 ```
 
-This first vignette shows how to use `glitter` to extract data from the **Wikidata SPARQL endpoint**.
-
+This first vignette shows how to use `glitter` to extract data from the **Wikidata SPARQL endpoint**. We imagine here a case study in which one is interested in the **Wikidata items available regarding the Lyon metro network**.
 
 # Find items and properties to build your query
 
-To find the identifiers of items and properties of interest, you can:
+To find the identifiers of items and properties of interest for a particular case study, you can:
 
-- browse [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page) 
-- use package `WikidataR` (functions `find_item()`,`find_property()`).
+- browse [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page)
+- use package `WikidataR` (functions `find_item()`,`find_property()`). Here, we will explore that second option
 
-Then `glitter` functions might be used to start exploring data.
-
-# Example 1: Lyon Metro
-
-Imagine you are interested in the Wikidata available regarding the **Lyon Metro network**.
-
-Let's try and see if there are Wikidata about it:
+Let's try and find the Wikidata identifier for the Lyon metro network:
 
 ```{r}
-find_item("Metro Lyon")
+WikidataR::find_item("Metro Lyon")
 ```
 
-So you'd be interested, for instance, in all the subway stations that are part of this network.
+So you'd be interested, for instance, in all the subway stations that are part of this network. Let's try and find the property identifier that corresponds to this notion:
 
 ```{r}
-find_property("part of")
+WikidataR::find_property("part of")
 ```
 
-So you're looking for all the stations that are part of ("wd:P16") the Lyon metro network ("wd:Q1552").
+So you're looking for all the stations that are part of ("wdt:P16") the Lyon metro network ("wd:Q1552").
 
-You could access this information through:
+# Use glitter functions to start exploring data
 
-```{r}
+## Simple single-line query
+
+The `glitter` functions might now be used to start exploring data.
+
+We're looking for items (the "unknown" in our query below, hence the use of a "?") which are part of the Lyon metro network:
+
+```{r single_line}
 stations=get_triple("?items wdt:P16 wd:Q1552")
-stations %>% head()
+head(stations)
 ```
-
-Notice that we do not have values yet for the stations (that's what we're looking for) hence the use of "?" at the beginning of the subject string.
 
 To also get the labels for stations, we can use the argument `label`:
 
-```{r}
-parts_metro_Lyon=get_triple("?items wdt:P16 wd:Q1552", label="?items")
-parts_metro_Lyon %>% head()
+```{r single_line_with_label}
+parts_metro_Lyon=get_triple("?items wdt:P16 wd:Q1552",
+                            label="items")
+head(parts_metro_Lyon)
 ```
 
-For now, we get 50 items, not only stations but also other types of items such as metro lines. Let's have a look at the item "Place Guichard - Bourse du Travail" (Q59855) which we know correspond to a station.
+## Simple multi-line query
 
-The function `get_claims()` of package `glitter` enables you to see all the direct wikidata properties (and their values) based on an item's id. 
+The `get_triple()` function we used above is a good option when you want to send **a very simple query**, yet more often than not one will wish to **gradually complexify** their initial query, so that it's actually preferable to use the **multi-line equivalent** to get_triple, which allows for such increments:
 
-```{r}
-get_claims("wd:Q599865")
-```
-
-Property "wdt:P31" should enable us to collect only stations ("wd:Q928830") instead of all parts of the Lyon Metro network.
-
-We can enrich and refine our query incrementally with `spq_filter()` before sending it (whereas `get_triple()` was a shortcut to build and send simple requests) :
-
-```{r}
-stations_metro_Lyon=spq_init() %>% 
-  spq_add("?stations wdt:P361 wd:Q1552", .label = "?stations") %>% 
-  spq_add("?stations wdt:P31 wd:Q928830") %>% 
+```{r multi_line}
+parts_metro_Lyon=spq_init() %>% 
+  spq_add("?items wdt:P16 wd:Q1552") %>% 
+  spq_label("items") %>% 
   spq_perform()
-head(stations_metro_Lyon)
+dim(parts_metro_Lyon)
+head(parts_metro_Lyon)
 ```
 
-Or we could use glitter DSL (domain-specific language) a bit more, making use of `spq_set()` and the `spq_filter()` fonction.
+## Labelling
 
-```{r}
-stations_metro_Lyon = spq_init() %>% 
-  spq_set(stations_code = "wd:Q1552") %>%
-  spq_filter(stations == wdt::P361(stations_code), .label="?stations") %>% 
-  spq_set(lyon_code = "wd:Q928830") %>% 
-  spq_filter(stations == wdt::P31(lyon_code)) %>% 
-  spq_select(- stations_code, - lyon_code) %>%
+The query above, with `spq_label(?items)`, will return a table comprising both `items` (with the Wikidata identifiers) and `itemsLabel` (with the human-readable label corresponding to these items). If the Wikidata unique identifier is not particularly useful, one can use the argument `.overwrite=FALSE` so that only labels will be returned, under the shorter name `items`:
+
+```{r overwrite_labelling}
+parts_metro_Lyon=spq_init() %>% 
+  spq_add("?items wdt:P16 wd:Q1552") %>% 
+  spq_label("items",.overwrite=TRUE) %>% 
   spq_perform()
-head(stations_metro_Lyon)
+
+head(parts_metro_Lyon)
 ```
 
-We now get 42 stations that are part of the Lyon metro network.
 
-If we wanted to get other properties and associated values for these stations (for instance their location ("wdt:P625")) we could proceed this way:
 
-```{r}
-stations_metro_Lyon = spq_init() %>% 
-  spq_set(stations_code = "wd:Q1552") %>%
-  spq_filter(stations == wdt::P361(stations_code), .label="?stations") %>% 
-  spq_set(lyon_code = "wd:Q928830") %>% 
-  spq_filter(stations == wdt::P31(lyon_code)) %>% 
-  spq_select(- stations_code, - lyon_code) %>% 
-  spq_mutate(coords = wdt::P625(stations)) %>% 
+# Detail query 
+
+## Add another triple pattern
+
+For now, we get `r nrow(parts_metro_Lyon)` items, which correspond not only to stations but also to other types of items such as metro lines.
+
+Let's have a look at the item "Place Guichard - Bourse du Travail" ("wd:Q599865") which we know correspond to a station. We can do that e.g. through [the Wikidata url associated to this item](https://www.wikidata.org/wiki/Q599865){target="_blank"}.
+
+Hence, the property called "wdt:P31" ("is an instance of") should enable us to collect specifically stations ("wd:Q928830") instead of any part of the Lyon metro network.
+
+```{r stations}
+stations=spq_init() %>% 
+  spq_add("?station wdt:P16 wd:Q1552") %>% 
+  spq_add("?station wdt:P31 wd:Q928830") %>%   # added instruction
+  spq_label(station,.overwrite=TRUE) %>% 
   spq_perform()
-head(stations_metro_Lyon)
+dim(stations)
+head(stations)
 ```
 
-This tibble can be easily transform into a Simple feature collection (sfc) :
+## Get coordinates
 
-```{r, eval=FALSE}
-stations_metro_Lyon.shp=sf::st_as_sf(stations_metro_Lyon, wkt = "coords")
-plot(stations_metro_Lyon.shp$coords)
-```
+If we want to get the geographical coordinate of these stations (property "wdt:P625") we can proceed this way:
 
-
-`glitter` provides functions to clean and transform "raw" Wikidata tibbles into tibbles that are easier to use in R.
-
-Function `clean_wikidata_table()` lightens some columns with wikidata-formatted URIs:
-
-```{r}
-stations_metro_Lyon=clean_wikidata_table(stations_metro_Lyon)
-```
-
-
-Function `transform_wikidata_coords()` get the coordinates as longitude (`lng`) and latitude (`lat`) based on the Wikidata WKT formatting of spatial coordinates ("Point(*lng* *lat*)").
-
-```r
-stations_metro_Lyon=stations_metro_Lyon %>% 
-  transform_wikidata_coords("coords")
-```
-
-The resulting table may then be used easily with (for instance) package `leaflet`:
-
-```r
-leaflet::leaflet(stations_metro_Lyon) %>%
-  leaflet::addTiles() %>%
-  leaflet::addCircles(popup=~stations_label)
-```
-
-
-# Example 2 : cities around Lyon
-
-Now, let's imagine that we are interested in the cities in a 200km radius around Lyon.
-
-```{r}
-find_item("Lyon")
-find_item("city")
-```
-
-We could start exploring Wikidata with this query which finds all items that are instances ("wdt:P31") of "city" or of any subclass ("wdt:P279") of "city" . This query might return many items so that it seems reasonable to limit the number of items retrieved for now with the argument `limit`
-
-```{r}
-spq_init() %>% 
-  spq_add("?city wdt:P31/wdt:P279* wd:Q515", .label="?city") %>%
-  spq_head(n = 10) %>% 
+```{r add_coords}
+stations_coords=spq_init() %>% 
+  spq_add("?station wdt:P16 wd:Q1552") %>% 
+  spq_add("?station wdt:P31 wd:Q928830") %>%
+  spq_add("?station wdt:P625 ?coords") %>%      # added instruction
+  spq_label(station,.overwrite=TRUE) %>% 
   spq_perform()
+dim(stations_coords)
+head(stations_coords)
 ```
 
-Now, let's get the location ("wdt:P625") of the cities
+This tibble can be easily transformed into a Simple feature collection (sfc) object using package `sf` :
 
-```{r}
-spq_init() %>% 
-  spq_add("?city wdt:P31/wdt:P279* wd:Q515", .label="?city") %>% 
-  spq_mutate(coords = wdt::P625(city)) %>%
-  spq_head(n = 10) %>% 
-  spq_perform()
+```{r stations_as_sf}
+stations_sf=st_as_sf(stations_coords, wkt = "coords")
+head(stations_sf)
 ```
 
-We can refine this query, stating that we want cities (or items of subclasses of city) in a radius of 5km around Lyon (which has lat-long coordinates ~ 45.76 and 4.84). We will use the argument `within_distance`:
+The resulting object may then be used easily with (for instance) package `leaflet`:
 
-
-```{r}
-cities_around_Lyon = spq_init() %>% 
-  spq_add("?city wdt:P31/wdt:P279* wd:Q486972") %>% 
-  spq_label(city) %>%
-  spq_mutate(coords = wdt::P625(city),
-          .within_distance=list(center=c(long=4.84,lat=45.76),
-                               radius=5)) %>% 
-  spq_perform()
-head(cities_around_Lyon)
+```{r leaflet_stations}
+leaflet(stations_sf) %>%
+  addTiles() %>%
+  addCircles(popup=~station)
 ```
 
-<!-- Actually, rather than getting Lyon's long-lat coordinates "by hand" we could get them directly through our query, which means we have to add a triple about Lyon ("wd:456") and its coordinates: -->
+# Add property qualifiers
 
-<!-- ```{r, eval=FALSE} -->
-<!-- spq_init() %>%  -->
-<!--   spq_add("wd:Q456 wdt:P625 ?coordLyon") %>%  -->
-<!--   spq_add("?city wdt:P625 ?coords", -->
-<!--           within_distance=list(center="?coordLyon", radius=2)) %>% -->
-<!--   spq_add("?city wdt:P31/wdt:P279* wd:Q486972", -->
-<!--           label="?city") %>% -->
-<!--   spq_perform() -->
-<!-- ``` -->  
+Now, we would like not only to view the stations but also the connecting lines. One property is of particular interest in this prospect: P197, which indicates **which other stations one station is connected to**. To form connecting lines, this information about the connection to other stations need to be complemented by *the involved line* and *direction* of that connection. Hence, we are not only interested in the **values** of the property P197, but also in the **property qualifiers** corresponding to the connecting line (P81) and direction (P5051)
 
-<!-- This does not work => two triples unrelated. Maybe add example and modify spq_add() to use {} for reference to R values -->
+We can thus complete our query this way:
+
+```{r query_prop_qualifiers}
+stations_adjacency=spq_init() %>% 
+  spq_add("?station wdt:P16 wd:Q1552") %>% 
+  spq_add("?station wdt:P31 wd:Q928830") %>%
+  spq_add("?station wdt:P625 ?coords") %>%
+  spq_add("?station p:P197 ?statement") %>%          # added instruction
+  spq_add("?statement ps:P197 ?adjacent") %>%        # added instruction
+  spq_add("?statement pq:P81 ?line") %>%             # added instruction
+  spq_add("?statement pq:P5051 ?direction") %>%      # added instruction
+  spq_label("station", "adjacent", "line", "direction",.overwrite=TRUE) %>% 
+  spq_select(-statement) %>% 
+  spq_perform() %>% 
+  na.omit() %>% 
+  select(coords,station,adjacent,line,direction)
+
+head(stations_adjacency)
+```
+
+Now, we would like to put the stations **in the right order** so that we will be able to form the connecting lines. 
+
+This **data-wrangling part is a bit tricky** though not directly due to any glitter-related operation).
+
+We define a function `form_line()` which will put the rows in the table of stations in the correct order.
+
+```{r form_line}
+form_line=function(adjacencies,direction){
+  N=nrow(adjacencies)
+  num=rep(NA,N)
+  ind=which(adjacencies$adjacent==direction)
+  i=N
+  num[ind]=i
+  while(i>1){
+    indnew=which(adjacencies$adjacent==adjacencies$station[ind])
+    ind=indnew
+    i=i-1
+    num[ind]=i
+  }
+  adjacencies=adjacencies %>% 
+    mutate(num=num) %>%
+    arrange(num) 
+  adjacencies=c(adjacencies$station,
+                direction)
+  return(adjacencies)
+}
+```
+
+Now let's **apply this function to all lines and directions possible**:
+
+```{r calc_lines}
+stations_lines=stations_adjacency %>% 
+  sf::st_drop_geometry() %>% # make this a regular tibble
+  group_by(direction,line) %>% 
+  na.omit() %>% 
+  tidyr::nest(.key="adj") %>% # have nested "adj" table for each direction-line
+  mutate(station=purrr::map(.x=adj,.y=direction,
+                        ~form_line(.x,.y))) %>% 
+  tidyr::unnest(cols="station") %>% 
+  ungroup() %>% 
+  left_join(unique(stations_coords), # get corresponding coordinates
+            by=c("station")) %>%
+  na.omit()
+head(stations_lines)
+```
+
+`stations_lines` is now properly formatted (the stations are in the right order for each line-direction, and the associated coordinates are provided in the table). Hence, we transform it into an **sf points object**, and then an **sf lines object**:
+
+```{r stations_lines_sf}
+stations_lines_sf=stations_lines %>% 
+  sf::st_as_sf(wkt="coords") %>% 
+  group_by(direction,line) %>% 
+  summarise(do_union=FALSE) %>%   # for each group, and keeping order of points,
+  sf::st_cast("LINESTRING")       # form a linestring geometry
+head(stations_lines_sf)
+```
+
+We can now use this new object to **display the Lyon metro lines on a leaflet map**:
+
+```{r leaflet_lines}
+factpal <- colorFactor(topo.colors(8),
+                       unique(stations_lines$direction))
+leaflet(data=stations_sf) %>%
+  addTiles() %>%
+  addCircles(popup=~station) %>% 
+  addPolylines(data=stations_lines_sf,
+               color=~factpal(direction), popup=~direction)
+```
+
 
