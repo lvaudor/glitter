@@ -49,63 +49,6 @@ get_description=function(id,language="en"){
   return(description)
 }
 
-#' Format information about one claim (for use in get_claims)
-#' @param res result
-#' @noRd
-get_one_claim=function(res){
-  datavalue=res$datavalue
-  type=unique(datavalue$type)
-  if(type=="wikibase-entityid"){
-    value=datavalue$value$id
-  }
-  if(type=="globecoordinate"){
-    value=paste0("Point(",
-                 datavalue$value$latitude,
-                 " ",
-                 datavalue$value$longitude,
-                 ")")
-  }
-  if(type=="quantity"){
-    value=datavalue$value$amount
-  }
-  if(type=="time"){
-    value=datavalue$value$time
-  }
-  if(type=="monolingualtext"){
-    value=datavalue$value$text
-  }
-  if(type=="string"){
-    value=datavalue$value
-  }
-  result=tibble::tibble(property=res$property,
-                     type=rep(type,nrow(res)),
-                     value=value)
-  return(result)
-}
-
-#' Get claims regarding one Wikidata thing
-#' @param id a Wikidata ID, either of an item ("wd:Qxxxxx") or of a property ("wdt:Pxxxxx"), or the item itself.
-#' @param with_labels Whether to keep labels (Boolean)
-#' @export
-#' @examples
-#' get_claims("wd:Q431603")
-get_claims=function(id, with_labels = FALSE){
-  claims = spq_add(.query = NULL,
-    glue::glue("{id} ?prop ?val")) %>%
-    spq_label("val") %>%
-    spq_add("?item wikibase:directClaim ?prop") %>%
-    spq_perform() %>%
-    dplyr::left_join(wd_properties,by=c("prop"="id")) %>%
-    dplyr::select(property=.data$item,
-           propertyLabel=.data$label,
-           value=.data$val,
-           valueLabel=.data$val_label,
-           propertyType=.data$type,
-           propertyDescription=.data$description,
-           propertyAltLabel=.data$altLabel)
-  return(claims)
-}
-
 utils::globalVariables("wd_properties")
 
 #' Get description of Wikidata thing
@@ -119,24 +62,7 @@ get_info=function(id,language="en",with_labels=FALSE){
   if(inherits(id, "character")){thing=get_thing(id)}else{thing=id}
   label=get_label(thing)
   description=get_description(thing)
-  claims=get_claims(id, with_labels=with_labels)
   result=list(label=label,
-              description=description,
-              claims=claims)
+              description=description)
   return(result)
 }
-
-#' Get claims regarding one Wikidata thing
-#' @param id a Wikidata ID, either of an item ("Qxxxxx") or of a property ("Pxxxxx"), or the item itself.
-#' @param property_name the name of property to get
-#' @export
-#' @examples
-#' get_claim("wd:Q188743", "wd:P625")
-get_claim=function(id, property_name="wd:P31"){
-  claims=get_claims(id)
-  that_claim=claims %>%
-    clean_wikidata_table() %>%
-    dplyr::filter(.data$property==property_name)
-  return(that_claim)
-}
-
