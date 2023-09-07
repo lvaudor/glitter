@@ -172,8 +172,8 @@ d’auteurs d’un document</strong> (par version)</p>
 <span><span class="va">tib_nbAutDoc</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   version                                                     nbperson</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/inria-00362381v1 5</span></span></code></pre>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> https://data.archives-ouvertes.fr/document/inria-00362381v1        5</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="rechercher-luri-et-les-types-et-létiquette-associée-de-toutes-les-versions-de-ce-document">Rechercher l’URI et les types (et l’étiquette associée) de [toutes
@@ -258,11 +258,11 @@ associée):</p>
 <span><span class="va">tib_foAutNbDoc</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 3</span></span></span>
 <span><span class="co">##   label                                     type                           nbdoc</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> Ouvrages                                  https://data.archives-ouverte… 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> Direction d'ouvrage, Proceedings, Dossier https://data.archives-ouverte… 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> Article dans une revue                    https://data.archives-ouverte… 4    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> Communication dans un congrès             https://data.archives-ouverte… 3</span></span></code></pre>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> Ouvrages                                  https://data.archives-ouverte…     1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> Direction d'ouvrage, Proceedings, Dossier https://data.archives-ouverte…     1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> Article dans une revue                    https://data.archives-ouverte…     4</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> Communication dans un congrès             https://data.archives-ouverte…     3</span></span></code></pre>
 <p>On peut afficher ces résultats en <strong>ordonnant</strong> les
 lignes selon le nombre de documents décroissant:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
@@ -274,11 +274,11 @@ lignes selon le nombre de documents décroissant:</p>
 <span><span class="va">tib_foAutNbDocOrd</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 3</span></span></span>
 <span><span class="co">##   label                                     type                           nbdoc</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> Article dans une revue                    https://data.archives-ouverte… 4    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> Communication dans un congrès             https://data.archives-ouverte… 3    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> Ouvrages                                  https://data.archives-ouverte… 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> Direction d'ouvrage, Proceedings, Dossier https://data.archives-ouverte… 1</span></span></code></pre>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> Article dans une revue                    https://data.archives-ouverte…     4</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> Communication dans un congrès             https://data.archives-ouverte…     3</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> Ouvrages                                  https://data.archives-ouverte…     1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> Direction d'ouvrage, Proceedings, Dossier https://data.archives-ouverte…     1</span></span></code></pre>
 <p>On peut également s’intéresser aux <strong>dates</strong> de
 publication. Par exemple ici, on récupère la date de publication,
 l’année correspondante, et on résume l’information en calculant le
@@ -297,14 +297,14 @@ nombre de documents par année.</p>
 <span></span>
 <span><span class="va">tib_dat</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
-<span><span class="co">##   year  nbdoc</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> 2015  1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> 2017  2    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> 2019  1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> 2020  1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> 2021  2    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> 2022  3</span></span></code></pre>
+<span><span class="co">##    year nbdoc</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>015     1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>017     2</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>019     1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>020     1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span>  <span style="text-decoration: underline;">2</span>021     2</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span>  <span style="text-decoration: underline;">2</span>022     3</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
