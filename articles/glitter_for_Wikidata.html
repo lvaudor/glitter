@@ -176,41 +176,13 @@ string.</p>
 <p>For now, we get 50 items, not only stations but also other types of
 items such as metro lines. Let’s have a look at the item “Place Guichard
 - Bourse du Travail” (Q59855) which we know correspond to a station.</p>
-<p>The function <code><a href="../reference/get_claims.html">get_claims()</a></code> of package
-<code>glitter</code> enables you to see all the direct wikidata
-properties (and their values) based on an item’s id.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_claims.html">get_claims</a></span><span class="op">(</span><span class="st">"wd:Q599865"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 19 × 7</span></span></span>
-<span><span class="co">#&gt;    property      propertyLabel value valueLabel propertyType propertyDescription</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… Europe     <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… metro sta… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… Lyon Metr… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… 3rd arron… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… France     <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… Lyon Metro <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… in use     <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… Saxe - Ga… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… Gare Part… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… station l… <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> http://www.w… <span style="color: #BB0000;">NA</span>            Poin… <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> http://www.w… <span style="color: #BB0000;">NA</span>            http… <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> http://www.w… <span style="color: #BB0000;">NA</span>            /g/1… <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> http://www.w… <span style="color: #BB0000;">NA</span>            Plac… <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> http://www.w… <span style="color: #BB0000;">NA</span>            9469… <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> http://www.w… <span style="color: #BB0000;">NA</span>            2.0   <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> http://www.w… <span style="color: #BB0000;">NA</span>            43    <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span> http://www.w… <span style="color: #BB0000;">NA</span>            1981… <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">19</span> http://www.w… <span style="color: #BB0000;">NA</span>            1981… <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: propertyAltLabel &lt;chr&gt;</span></span></span></code></pre></div>
 <p>Property “wdt:P31” should enable us to collect only stations
 (“wd:Q928830”) instead of all parts of the Lyon Metro network.</p>
 <p>We can enrich and refine our query incrementally with
 <code><a href="../reference/spq_filter.html">spq_filter()</a></code> before sending it (whereas
 <code><a href="../reference/get_triple.html">get_triple()</a></code> was a shortcut to build and send simple
 requests) :</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">stations_metro_Lyon</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?stations wdt:P361 wd:Q1552"</span>, .label <span class="op">=</span> <span class="st">"?stations"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?stations wdt:P31 wd:Q928830"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
@@ -221,7 +193,7 @@ requests) :</p>
 <p>Or we could use glitter DSL (domain-specific language) a bit more,
 making use of <code><a href="../reference/spq_set.html">spq_set()</a></code> and the <code><a href="../reference/spq_filter.html">spq_filter()</a></code>
 fonction.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">stations_metro_Lyon</span> <span class="op">=</span> <span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_set.html">spq_set</a></span><span class="op">(</span>stations_code <span class="op">=</span> <span class="st">"wd:Q1552"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="va">stations</span> <span class="op">==</span> <span class="fu">wdt</span><span class="fu">::</span><span class="fu">P361</span><span class="op">(</span><span class="va">stations_code</span><span class="op">)</span>, .label<span class="op">=</span><span class="st">"?stations"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
@@ -236,7 +208,7 @@ fonction.</p>
 <p>If we wanted to get other properties and associated values for these
 stations (for instance their location (“wdt:P625”)) we could proceed
 this way:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">stations_metro_Lyon</span> <span class="op">=</span> <span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_set.html">spq_set</a></span><span class="op">(</span>stations_code <span class="op">=</span> <span class="st">"wd:Q1552"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="va">stations</span> <span class="op">==</span> <span class="fu">wdt</span><span class="fu">::</span><span class="fu">P361</span><span class="op">(</span><span class="va">stations_code</span><span class="op">)</span>, .label<span class="op">=</span><span class="st">"?stations"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
@@ -250,25 +222,21 @@ this way:</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 3 variables: coords &lt;chr&gt;, stations &lt;chr&gt;, stations_label &lt;chr&gt;</span></span></span></code></pre></div>
 <p>This tibble can be easily transform into a Simple feature collection
 (sfc) :</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">stations_metro_Lyon.shp</span><span class="op">=</span><span class="fu">sf</span><span class="fu">::</span><span class="fu">st_as_sf</span><span class="op">(</span><span class="va">stations_metro_Lyon</span>, wkt <span class="op">=</span> <span class="st">"coords"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">stations_metro_Lyon.shp</span><span class="op">$</span><span class="va">coords</span><span class="op">)</span></span></code></pre></div>
 <p><code>glitter</code> provides functions to clean and transform “raw”
 Wikidata tibbles into tibbles that are easier to use in R.</p>
-<p>Function <code><a href="../reference/clean_wikidata_table.html">clean_wikidata_table()</a></code> lightens some columns
-with wikidata-formatted URIs:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">stations_metro_Lyon</span><span class="op">=</span><span class="fu"><a href="../reference/clean_wikidata_table.html">clean_wikidata_table</a></span><span class="op">(</span><span class="va">stations_metro_Lyon</span><span class="op">)</span></span></code></pre></div>
 <p>Function <code><a href="../reference/transform_wikidata_coords.html">transform_wikidata_coords()</a></code> get the coordinates
 as longitude (<code>lng</code>) and latitude (<code>lat</code>) based on
 the Wikidata WKT formatting of spatial coordinates (“Point(<em>lng</em>
 <em>lat</em>)”).</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">stations_metro_Lyon</span><span class="op">=</span><span class="va">stations_metro_Lyon</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/transform_wikidata_coords.html">transform_wikidata_coords</a></span><span class="op">(</span><span class="st">"coords"</span><span class="op">)</span></span></code></pre></div>
 <p>The resulting table may then be used easily with (for instance)
 package <code>leaflet</code>:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html" class="external-link">leaflet</a></span><span class="op">(</span><span class="va">stations_metro_Lyon</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addTiles</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addCircles</a></span><span class="op">(</span>popup<span class="op">=</span><span class="op">~</span><span class="va">stations_label</span><span class="op">)</span></span></code></pre></div>
@@ -278,7 +246,7 @@ package <code>leaflet</code>:</p>
 </h2>
 <p>Now, let’s imagine that we are interested in the cities in a 200km
 radius around Lyon.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/WikidataR/man/find_item.html" class="external-link">find_item</a></span><span class="op">(</span><span class="st">"Lyon"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Wikidata item search</span></span>
@@ -318,7 +286,7 @@ items that are instances (“wdt:P31”) of “city” or of any subclass
 (“wdt:P279”) of “city” . This query might return many items so that it
 seems reasonable to limit the number of items retrieved for now with the
 argument <code>limit</code></p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?city wdt:P31/wdt:P279* wd:Q515"</span>, .label<span class="op">=</span><span class="st">"?city"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
@@ -337,7 +305,7 @@ argument <code>limit</code></p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> http://www.wikidata.org/entity/Q12233025 Ksar Beni Barka   </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> http://www.wikidata.org/entity/Q16593169 Ksar of Taourirt</span></span></code></pre></div>
 <p>Now, let’s get the location (“wdt:P625”) of the cities</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?city wdt:P31/wdt:P279* wd:Q515"</span>, .label<span class="op">=</span><span class="st">"?city"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_mutate.html">spq_mutate</a></span><span class="op">(</span>coords <span class="op">=</span> <span class="fu">wdt</span><span class="fu">::</span><span class="fu">P625</span><span class="op">(</span><span class="va">city</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -360,7 +328,7 @@ argument <code>limit</code></p>
 subclasses of city) in a radius of 5km around Lyon (which has lat-long
 coordinates ~ 45.76 and 4.84). We will use the argument
 <code>within_distance</code>:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cities_around_Lyon</span> <span class="op">=</span> <span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?city wdt:P31/wdt:P279* wd:Q486972"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_label.html">spq_label</a></span><span class="op">(</span><span class="va">city</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>

@@ -66,7 +66,8 @@
 <span>  max_seconds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"glitter.max_seconds"</span>, <span class="fl">120L</span><span class="op">)</span>,</span>
 <span>  timeout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"glitter.timeout"</span>, <span class="fl">1000L</span><span class="op">)</span>,</span>
 <span>  request_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"url"</span>, <span class="st">"body-form"</span><span class="op">)</span>,</span>
-<span>  dry_run <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  dry_run <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  replace_prefixes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -103,6 +104,11 @@ URL (<code>url</code>, default, most common) or as a body form (<code>body-form<
 <dt>dry_run</dt>
 <dd><p>Boolean indicating whether to return the output of <code><a href="https://httr2.r-lib.org/reference/req_dry_run.html" class="external-link">httr2::req_dry_run()</a></code>
 rather than of <code><a href="https://httr2.r-lib.org/reference/req_perform.html" class="external-link">httr2::req_perform</a></code>. Useful for debugging.</p></dd>
+
+
+<dt>replace_prefixes</dt>
+<dd><p>Boolean indicating whether to replace used prefixes in the results table,
+for instance making, for instance "http://www.wikidata.org/entity/" "wd:".</p></dd>
 
 </dl></div>
     <div class="section level2">
