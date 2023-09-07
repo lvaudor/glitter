@@ -49,7 +49,7 @@ send_sparql = function(.query,
   endpoint = tolower(endpoint)
 
   # if endpoint wikidata, use WikidataQueryServiceR::query_wikidata()
-  if(endpoint=="wikidata"){
+  if (endpoint == "wikidata") {
     return(purrr::quietly(WikidataQueryServiceR::query_wikidata)(.query)$result)
   }
   # else, use httr2
@@ -102,7 +102,8 @@ send_sparql = function(.query,
           switch(
           type,
           character = x,
-          integer = x, # easier for now as dbpedia can return different things with the same name
+            # easier for now as dbpedia can return different things with the same name
+          integer = ifelse(endpoint == "dbpedia", x, as.integer(x)),
           datetime = anytime::anytime(x),
             x
         )

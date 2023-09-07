@@ -36,7 +36,7 @@ test_that("send_sparql() works with dbpedia", {
       spq_add("?person rdfs:label 'David Bowie'@en") %>%
       spq_add("?person ?p ?o") %>%
       spq_head(300) %>%
-      spq_perform("dbpedia.org/sparql")
+      spq_perform("dbpedia")
   })
   expect_s3_class(tib, "tbl")
   expect_gt(nrow(tib), 100)
