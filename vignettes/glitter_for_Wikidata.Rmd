@@ -201,12 +201,12 @@ Now let's **apply this function to all lines and directions possible**:
 
 ```{r calc_lines}
 stations_lines=stations_adjacency %>% 
-  sf::st_drop_geometry() %>% # make this a regular tibble
+  sf::st_drop_geometry() %>% # make this a regular tibble, not sf
   group_by(direction,line) %>% 
   na.omit() %>% 
   tidyr::nest(.key="adj") %>% # have nested "adj" table for each direction-line
   mutate(station=purrr::map(.x=adj,.y=direction,
-                        ~form_line(.x,.y))) %>% 
+                            ~form_line(.x,.y))) %>% 
   tidyr::unnest(cols="station") %>% 
   ungroup() %>% 
   left_join(unique(stations_coords), # get corresponding coordinates
@@ -215,7 +215,7 @@ stations_lines=stations_adjacency %>%
 head(stations_lines)
 ```
 
-`stations_lines` is now properly formatted (the stations are in the right order for each line-direction, and the associated coordinates are provided in the table). Hence, we transform it into an **sf points object**, and then an **sf lines object**:
+`stations_lines` is now an **sf points object** which is properly formatted to be transformed into an **sf lines object** (the stations are in the right order for each line-direction, and the associated coordinates are provided in the table):
 
 ```{r stations_lines_sf}
 stations_lines_sf=stations_lines %>% 
@@ -223,7 +223,7 @@ stations_lines_sf=stations_lines %>%
   group_by(direction,line) %>% 
   summarise(do_union=FALSE) %>%   # for each group, and keeping order of points,
   sf::st_cast("LINESTRING")       # form a linestring geometry
-head(stations_lines_sf)
+stations_lines_sf
 ```
 
 We can now use this new object to **display the Lyon metro lines on a leaflet map**:
