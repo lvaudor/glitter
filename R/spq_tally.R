@@ -81,5 +81,5 @@ spq_count = function(.query, ..., sort = FALSE, name = "n") {
     .query <- spq_group_by(.query, ...)
   }
 
-    spq_tally(.query, sort = sort, name = name)
+  spq_tally(.query, sort = sort, name = name)
 }

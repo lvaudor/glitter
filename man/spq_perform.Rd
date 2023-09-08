@@ -13,7 +13,8 @@ spq_perform(
   max_seconds = getOption("glitter.max_seconds", 120L),
   timeout = getOption("glitter.timeout", 1000L),
   request_type = c("url", "body-form"),
-  dry_run = FALSE
+  dry_run = FALSE,
+  replace_prefixes = FALSE
 )
 }
 \arguments{
@@ -35,6 +36,9 @@ URL (\code{url}, default, most common) or as a body form (\code{body-form}).}
 
 \item{dry_run}{Boolean indicating whether to return the output of \code{httr2::req_dry_run()}
 rather than of \code{httr2::req_perform}. Useful for debugging.}
+
+\item{replace_prefixes}{Boolean indicating whether to replace used prefixes in the results table,
+for instance making, for instance "http://www.wikidata.org/entity/" "wd:".}
 }
 \value{
 A query object

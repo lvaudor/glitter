@@ -1,0 +1,291 @@
+---
+title: "How to explore a new base with glitter"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(glitter)
+```
+
+Imagine you are tasked with exploring the [Linked Data Service LINDAS provided by the Swiss Federal Archives](https://lindas.admin.ch/sparql#).
+You might be able to read examples and docs if present.
+But in any case, you could get inspired by the Chapter 11 "SPARQL cookbook" of the ["Learning SPARQL" book by Bob DuCharme](https://www.goodreads.com/book/show/18198885-learning-sparql) to explore the dataset.
+Let's go through an example.
+
+## A word of caution
+
+Depending on the dataset you're working with, some queries might just ask _too much_ of the service so proceed with caution.
+When in doubt, add a `spq_head()` in your query pipeline, to ask less at a time, or use `spq_count()` to get a sense of how many results there are in total.
+
+## Asking for a subset of all triples
+
+In the code below we'll ask for 10 triples.
+Note that we use the `endpoint` argument of `spq_perform()` to indicate where to send the query, as well as the `request_type` argument.
+
+How can one know whether a service needs `request_type = "body-form"`?
+
+- The docs might mention it.
+- Trial and error.
+- In LINDAS' case if you run a request via https://lindas.admin.ch/sparql/ and use your browser's web developer console at the request tab, you can see the request sends the query in the body.
+
+```{r}
+library("glitter") 
+spq_init() %>%
+  spq_add("?s ?p ?o") %>%
+  spq_head(n = 10) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+
+This first query is helpful in that it shows you can do a query!
+Its results however can be... more or less helpful.
+
+## Classes
+
+### Find which classes are declared
+
+At this point you might think you need to use some prefixes in your query.
+If these prefixes are present in `glitter::usual_prefixes`, you don't need to do anything.
+If they're not, use `glitter::spq_prefix()`.
+
+```{r}
+spq_init() %>%
+  spq_add("?class a rdfs:Class") %>%
+  spq_head(n = 10) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+
+How many classes are defined in total?
+This query might be too big for the service.
+
+```{r}
+spq_init() %>%
+  spq_add("?class a rdfs:Class") %>%
+  spq_count() %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  )
+```
+
+We can do the same query for owl classes instead.
+
+```{r}
+spq_init() %>%
+  spq_add("?class a rdfs:Class") %>%
+  spq_head(n = 10) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+
+Until now we could still be very in the dark as to what the service provides.
+
+### Which classes have instances?
+
+```{r}
+spq_init() %>%
+  spq_add("?instance a ?class") %>%
+  spq_arrange(class) %>%
+  spq_head(n = 10) %>%
+  spq_select(- instance) %>%
+  spq_select(class, .spq_duplicate = "distinct") %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+
+### Which classes have the most instances?
+
+```{r}
+spq_init() %>%
+  spq_add("?instance a ?class") %>%
+  spq_select(class, .spq_duplicate = "distinct")  %>%
+  spq_count(class, sort = TRUE) %>%
+  spq_head(20) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+
+In this case the class names are quite self explanatory but if they were not we could use
+
+```{r}
+spq_init() %>%
+  spq_add("?instance a ?class") %>%
+  spq_select(class, .spq_duplicate = "distinct")  %>%
+  spq_label(class) %>%
+  spq_count(class, class_label, sort = TRUE) %>%
+  spq_head(20) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+
+## Properties
+
+### Find which properties are declared
+
+Note that you could instead use `spq_add("?property a rdfs:Property")` but in this case it returned nothing.
+
+```{r}
+spq_init() %>%
+  spq_add("?property a owl:DatatypeProperty") %>%
+  spq_head(n = 10) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+How many properties are defined in total?
+This query might be too big for the service.
+
+```{r}
+spq_init() %>%
+  spq_add("?property a owl:DatatypeProperty") %>%
+  spq_count() %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  )
+```
+
+### What properties are used?
+
+```{r}
+spq_init() %>%
+  spq_add("?s ?property ?o")  %>%
+  spq_select(- s, - o) %>%
+  spq_select(property, .spq_duplicate = "distinct") %>%
+  spq_head(10) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+
+### What values does a given property have? 
+
+```{r}
+spq_init()  %>%
+  spq_prefix(prefixes = c("schema" = "http://schema.org/"))%>%
+  spq_add("?s schema:addressRegion ?value") %>%
+  spq_count(value, sort = TRUE) %>%
+  spq_head(10) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+
+```
+
+## Which class use a particular property?
+
+One of the properties is `	
+https://gont.ch/longName`. 
+Which class uses it?
+
+```{r}
+spq_init() %>%
+  spq_prefix(prefixes = c("gont" = "https://gont.ch/")) %>%
+  spq_add("?s gont:longName ?o") %>%
+  spq_add("?s a ?class") %>%
+  spq_select(-o, -s) %>%
+  spq_select(class, .spq_duplicate = "distinct") %>%
+  spq_head(10) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+
+## What data is stored about a class's instance?
+
+For each organization, what data is there?
+
+```{r}
+spq_init() %>%
+  spq_prefix(prefixes = c("schema" = "http://schema.org/")) %>%
+  spq_add("?s a schema:Organization") %>%
+  spq_add("?s ?property ?value") %>%
+  spq_select(-value, -s, class, .spq_duplicate = "distinct") %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+
+And for each postal address?
+
+```{r}
+spq_init() %>%
+  spq_prefix(prefixes = c("schema" = "http://schema.org/")) %>%
+  spq_add("?s a schema:PostalAddress") %>%
+  spq_add("?s ?property ?value") %>%
+  spq_select(-value, -s, class, .spq_duplicate = "distinct") %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+
+## Which data or property name includes a certain substring?
+
+```{r}
+spq_init() %>%
+  spq_add("?s ?p ?o") %>%
+  spq_filter(str_detect(o, "[Hh]ydro")) %>%
+  spq_select(-s, .spq_duplicate = "distinct") %>%
+  spq_head(10) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+```
+
+## An example query based on what we now know
+
+
+
+```{r}
+spq_init() %>%
+  spq_prefix(prefixes = c("schema" = "http://schema.org/")) %>%
+  spq_add("?s a schema:Organization") %>%
+  spq_add("?s schema:name ?name") %>%
+  spq_filter(str_detect(name, "swiss")) %>%
+  spq_head(10) %>%
+  spq_perform(
+    endpoint = "https://ld.admin.ch/query", 
+    request_type = "body-form"
+  ) %>%
+  knitr::kable()
+
+```
