@@ -142,7 +142,7 @@ knitr::kable(tib)
 # Tous les auteurs morts avant 1924
 
 ```{r auteurs_morts_avant_1024}
-tib=spq_init() %>% 
+tib=spq_init(endpoint="dataBNF") %>% 
   spq_add("?oeuvre dcterms:creator ?auteur") %>% 
   spq_add("?auteur bio:death ?mort") %>% 
   spq_add("?auteur foaf:familyName ?nom") %>%
