@@ -8,7 +8,7 @@ test_that("spq_set() works", {
 
 test_that("spq_set() in query", {
   httptest2::with_mock_dir(file.path("fixtures", "auteurset"), {
-    tibble = spq_init(request_control = spq_control_request(endpoint = "dataBNF")) %>%
+    tibble = spq_init(endpoint = "dataBNF") %>%
       spq_set(anniv = "foaf:birthday") %>%
       spq_add("?auteur ?anniv ?jour") %>%
       spq_add("?auteur bio:birth ?date1") %>%

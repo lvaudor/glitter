@@ -1,6 +1,6 @@
 #' Send SPARQL query to endpoint and get tibble as a result
 #' @param query_string a string corresponding to a SPARQL query
-#' @param endpoint `r lifecycle::badge('deprecated')` a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
+#' @param endpoint a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
 #' @param user_agent `r lifecycle::badge('deprecated')` a string indicating the user agent to send with the query.
 #' @param max_tries,max_seconds `r lifecycle::badge('deprecated')` Cap the maximal number of
 #' attemps with `max_tries` or the total elapsed time from the first request with `max_seconds`.
@@ -32,7 +32,7 @@
 #'
 #' @export
 send_sparql = function(query_string,
-                       endpoint = lifecycle::deprecated(),
+                       endpoint = NULL,
                        user_agent = lifecycle::deprecated(),
                        max_tries = lifecycle::deprecated(),
                        max_seconds = lifecycle::deprecated(),

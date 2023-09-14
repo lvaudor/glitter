@@ -6,7 +6,7 @@
 \usage{
 send_sparql(
   query_string,
-  endpoint = lifecycle::deprecated(),
+  endpoint = NULL,
   user_agent = lifecycle::deprecated(),
   max_tries = lifecycle::deprecated(),
   max_seconds = lifecycle::deprecated(),
@@ -19,7 +19,7 @@ send_sparql(
 \arguments{
 \item{query_string}{a string corresponding to a SPARQL query}
 
-\item{endpoint}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"}
+\item{endpoint}{a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"}
 
 \item{user_agent}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} a string indicating the user agent to send with the query.}
 
