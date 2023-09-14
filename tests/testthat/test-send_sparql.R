@@ -9,13 +9,17 @@ test_that("send_sparql() returns tibble", {
   } ORDER BY ?itemLabel
   LIMIT 3
   '
-  x=send_sparql(metro_query, request_control = spq_control_request())
+  x=send_sparql(
+    metro_query,
+    endpoint = "https://query.wikidata.org/",
+    request_control = spq_control_request()
+  )
   expect_s3_class(x,"tbl")
 })
 
 test_that("send_sparql() works with dataBNF", {
   httptest2::with_mock_dir(file.path("fixtures", "auteurs"), {
-    tib = spq_init(request_control = spq_control_request(endpoint = "dataBNF")) %>%
+    tib = spq_init(endpoint = "dataBNF") %>%
       spq_add("?auteur foaf:birthday ?jour") %>%
       spq_add("?auteur bio:birth ?date1") %>%
       spq_add("?auteur bio:death ?date2") %>%
@@ -31,7 +35,7 @@ test_that("send_sparql() works with dataBNF", {
 
 test_that("send_sparql() works with dbpedia", {
   httptest2::with_mock_dir(file.path("fixtures", "bowie"), {
-    tib = spq_init(request_control = spq_control_request(endpoint = "dbpedia")) %>%
+    tib = spq_init(endpoint = "dbpedia") %>%
       spq_prefix(prefixes=c(dbo="http://dbpedia.org/ontology")) %>%
       spq_add("?person rdfs:label 'David Bowie'@en") %>%
       spq_add("?person ?p ?o") %>%
@@ -45,7 +49,7 @@ test_that("send_sparql() works with dbpedia", {
 
 test_that("send_sparql() works with SyMoGIH", {
   httptest2::with_mock_dir(file.path("fixtures", "symogih"), {
-tib=spq_init(request_control = spq_control_request(endpoint = "http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")) %>%
+tib=spq_init(endpoint = "http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql") %>%
   spq_prefix(prefixes=c(sym="http://symogih.org/ontology/",
                         syr="http://symogih.org/resource/")) %>%
   spq_add("?r sym:associatesObject syr:AbOb213") %>%
@@ -67,10 +71,8 @@ test_that("httr2 options", {
   skip_if_not_installed("httpuv")
 
   custom_ua_query = spq_init(
-    spq_control_request(
-      endpoint = "http://example.com",
-      user_agent = "lalala"
-    )
+    endpoint = "http://example.com",
+    spq_control_request(user_agent = "lalala")
   ) %>%
     spq_perform(dry_run = TRUE)
   expect_equal(custom_ua_query[["headers"]][["user-agent"]], "lalala")
@@ -81,10 +83,8 @@ test_that("httr2 options", {
   )
 
   body_form_query = spq_init(
-    request_control = spq_control_request(
-      endpoint = "http://example.com",
-      request_type = "body-form"
-    )
+    endpoint = "http://example.com",
+    request_control = spq_control_request(request_type = "body-form")
   ) %>%
     spq_perform(dry_run = TRUE)
   expect_equal(body_form_query[["headers"]][["host"]], "example.com")

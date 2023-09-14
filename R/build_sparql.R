@@ -15,7 +15,7 @@
 spq_assemble = function(.query,
                         strict = TRUE) {
 
-  endpoint = .query[["request_control"]][["endpoint"]]
+  endpoint = .query[["endpoint"]]
 
   .query = spq_prefix(.query, auto = TRUE, prefixes = NULL)
 

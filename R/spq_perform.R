@@ -25,6 +25,17 @@ spq_perform = function(.query,
                        dry_run = FALSE,
                        replace_prefixes = FALSE){
 
+  if (lifecycle::is_present(endpoint)) {
+     lifecycle::deprecate_warn(
+       "0.3.0",
+       "spq_perform(endpoint)",
+       "spq_init(endpoint)",
+       details = control_explanation()
+    )
+  } else {
+    endpoint = .query[["endpoint"]]
+  }
+
 
   sparql_query = spq_assemble(.query = .query)
 

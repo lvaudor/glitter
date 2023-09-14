@@ -41,17 +41,6 @@ send_sparql = function(query_string,
                        dry_run = FALSE,
                        request_control = NULL) {
 
-  if (lifecycle::is_present(endpoint)) {
-     lifecycle::deprecate_warn(
-       "0.3.0",
-       "spq_perform(endpoint)",
-       "spq_request_control(endpoint)",
-       details = control_explanation()
-    )
-  } else {
-  endpoint = request_control[["endpoint"]]
-  }
-
   if (lifecycle::is_present(user_agent)) {
      lifecycle::deprecate_warn(
        "0.3.0",

@@ -5,7 +5,6 @@
 \title{Create the request control object for \code{spq_init()}}
 \usage{
 spq_control_request(
-  endpoint = "wikidata",
   user_agent = getOption("glitter.ua",
     "glitter R package (https://github.com/lvaudor/glitter)"),
   max_tries = getOption("glitter.max_tries", 3L),
@@ -15,8 +14,6 @@ spq_control_request(
 )
 }
 \arguments{
-\item{endpoint}{a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"}
-
 \item{user_agent}{a string indicating the user agent to send with the query.}
 
 \item{max_tries, max_seconds}{Cap the maximal number of
@@ -27,6 +24,8 @@ with \code{max_seconds}.}
 
 \item{request_type}{a string indicating how the query should be sent: in the
 URL (\code{url}, default, most common) or as a body form (\code{body-form}).}
+
+\item{endpoint}{a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"}
 }
 \value{
 A list to be used in \code{spq_init()}'s \code{request_control} argument.

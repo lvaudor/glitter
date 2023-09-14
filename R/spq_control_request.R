@@ -23,22 +23,12 @@
 #'   timeout = 10L,
 #'   request_type = "url"
 #' )
-spq_control_request <- function(endpoint = "wikidata",
-                                user_agent = getOption("glitter.ua", "glitter R package (https://github.com/lvaudor/glitter)"),
+spq_control_request <- function(user_agent = getOption("glitter.ua", "glitter R package (https://github.com/lvaudor/glitter)"),
                                 max_tries = getOption("glitter.max_tries", 3L),
                                 max_seconds = getOption("glitter.max_seconds", 120L),
                                 timeout = getOption("glitter.timeout", 1000L),
                                 request_type = c("url", "body-form")) {
 
-  # if endpoint passed as name, get url
-  endpoint = tolower(endpoint)
-  usual_endpoint_info = usual_endpoints %>%
-    dplyr::filter(.data$name == endpoint)
-  endpoint = if (nrow(usual_endpoint_info) > 0) {
-    dplyr::pull(usual_endpoint_info, .data$url)
-  } else {
-    endpoint
-  }
 
   if (!is.character(user_agent)) {
     cli::cli_abort("Must provide a character as {.arg user_agent}.")
@@ -68,7 +58,6 @@ spq_control_request <- function(endpoint = "wikidata",
   request_type = rlang::arg_match(request_type, c("url", "body-form"))
 
   list(
-    endpoint = endpoint,
     user_agent = user_agent,
     max_tries = max_tries,
     max_seconds = max_seconds,
