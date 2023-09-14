@@ -4,15 +4,15 @@
 \alias{spq_assemble}
 \title{Assemble query parts into a proper SPARQL query}
 \usage{
-spq_assemble(.query, endpoint = "Wikidata", strict = TRUE)
+spq_assemble(.query, strict = TRUE)
 }
 \arguments{
 \item{.query}{a list with elements of the query}
 
-\item{endpoint}{SPARQL endpoint to send the query to}
-
 \item{strict}{whether to perform some linting on the query,
 and error in case a problem is detected.}
+
+\item{endpoint}{SPARQL endpoint to send the query to}
 }
 \value{
 A query object

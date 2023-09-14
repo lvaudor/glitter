@@ -26,7 +26,7 @@ spq_perform = function(.query,
                        replace_prefixes = FALSE){
 
 
-  sparql_query = spq_assemble(.query = .query, endpoint = endpoint)
+  sparql_query = spq_assemble(.query = .query)
 
   results = send_sparql(
     sparql_query,
@@ -36,7 +36,7 @@ spq_perform = function(.query,
     max_seconds = max_seconds,
     timeout = timeout,
     request_type = request_type,
-    dry_run = FALSE,
+    dry_run = dry_run,
     request_control = .query[["request_control"]]
   )
 

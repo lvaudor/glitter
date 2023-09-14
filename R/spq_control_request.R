@@ -31,9 +31,10 @@ spq_control_request <- function(endpoint = "wikidata",
                                 request_type = c("url", "body-form")) {
 
   # if endpoint passed as name, get url
+  endpoint = tolower(endpoint)
   usual_endpoint_info = usual_endpoints %>%
     dplyr::filter(.data$name == endpoint)
-  url = if (nrow(usual_endpoint_info) > 0) {
+  endpoint = if (nrow(usual_endpoint_info) > 0) {
     dplyr::pull(usual_endpoint_info, .data$url)
   } else {
     endpoint

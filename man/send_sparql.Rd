@@ -5,18 +5,19 @@
 \title{Send SPARQL query to endpoint and get tibble as a result}
 \usage{
 send_sparql(
-  .query,
+  query_string,
   endpoint = lifecycle::deprecated(),
   user_agent = lifecycle::deprecated(),
   max_tries = lifecycle::deprecated(),
   max_seconds = lifecycle::deprecated(),
   timeout = lifecycle::deprecated(),
   request_type = lifecycle::deprecated(),
-  dry_run = FALSE
+  dry_run = FALSE,
+  request_control = NULL
 )
 }
 \arguments{
-\item{.query}{a string corresponding to a SPARQL query}
+\item{query_string}{a string corresponding to a SPARQL query}
 
 \item{endpoint}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"}
 
@@ -32,6 +33,8 @@ URL (\code{url}, default, most common) or as a body form (\code{body-form}).}
 
 \item{dry_run}{Boolean indicating whether to return the output of \code{httr2::req_dry_run()}
 rather than of \code{httr2::req_perform()}. Useful for debugging.}
+
+\item{request_control}{An object as returned by \code{\link[=spq_control_request]{spq_control_request()}}}
 }
 \description{
 Send SPARQL query to endpoint and get tibble as a result
@@ -44,13 +47,14 @@ corresponding to the SPARQL service you are using, and then use it as
 the basis of all your subsequent glitter pipelines.
 }
 \examples{
-metro_query='SELECT ?item ?itemLabel ?coords
-{
- ?item wdt:P361 wd:Q1552;
- wdt:P625 ?coords.
- OPTIONAL{?item wdt:P1619 ?date.}
- SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
-} ORDER BY ?itemLabel
-'
-send_sparql(metro_query)
+\dontrun{
+query_string = spq_init() \%>\%
+  spq_add("?city wdt:P31/wdt:P279* wd:Q486972") \%>\%
+  spq_label(city) \%>\%
+  spq_mutate(coords = wdt::P625(city),
+          .within_distance=list(center=c(long=4.84,lat=45.76),
+                               radius=5)) \%>\%
+ spq_assemble()
+ send_sparql(query_string)
+ }
 }

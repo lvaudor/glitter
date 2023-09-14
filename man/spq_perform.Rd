@@ -6,13 +6,12 @@
 \usage{
 spq_perform(
   .query,
-  endpoint = "Wikidata",
-  user_agent = getOption("glitter.ua",
-    "glitter R package (https://github.com/lvaudor/glitter)"),
-  max_tries = getOption("glitter.max_tries", 3L),
-  max_seconds = getOption("glitter.max_seconds", 120L),
-  timeout = getOption("glitter.timeout", 1000L),
-  request_type = c("url", "body-form"),
+  endpoint = lifecycle::deprecated(),
+  user_agent = lifecycle::deprecated(),
+  max_tries = lifecycle::deprecated(),
+  max_seconds = lifecycle::deprecated(),
+  timeout = lifecycle::deprecated(),
+  request_type = lifecycle::deprecated(),
   dry_run = FALSE,
   replace_prefixes = FALSE
 )

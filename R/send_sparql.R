@@ -11,15 +11,16 @@
 #' rather than of `httr2::req_perform()`. Useful for debugging.
 #' @inheritParams spq_init
 #' @examples
-#'metro_query='SELECT ?item ?itemLabel ?coords
-#'{
-#'  ?item wdt:P361 wd:Q1552;
-#'  wdt:P625 ?coords.
-#'  OPTIONAL{?item wdt:P1619 ?date.}
-#'  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
-#'} ORDER BY ?itemLabel
-#''
-#'send_sparql(metro_query)
+#' \dontrun{
+#' query_string = spq_init() %>%
+#'   spq_add("?city wdt:P31/wdt:P279* wd:Q486972") %>%
+#'   spq_label(city) %>%
+#'   spq_mutate(coords = wdt::P625(city),
+#'           .within_distance=list(center=c(long=4.84,lat=45.76),
+#'                                radius=5)) %>%
+#'  spq_assemble()
+#'  send_sparql(query_string)
+#'  }
 #' @details
 #'
 #' Control the way the query is performed via the `control_request`
@@ -30,7 +31,7 @@
 #'
 #'
 #' @export
-send_sparql = function(.query,
+send_sparql = function(query_string,
                        endpoint = lifecycle::deprecated(),
                        user_agent = lifecycle::deprecated(),
                        max_tries = lifecycle::deprecated(),
@@ -38,7 +39,7 @@ send_sparql = function(.query,
                        timeout = lifecycle::deprecated(),
                        request_type = lifecycle::deprecated(),
                        dry_run = FALSE,
-                       request_control = spq_control_request()) {
+                       request_control = NULL) {
 
   if (lifecycle::is_present(endpoint)) {
      lifecycle::deprecate_warn(
@@ -106,25 +107,23 @@ send_sparql = function(.query,
     request_type = request_control[["request_type"]]
   }
 
-  endpoint = tolower(endpoint)
-
   # if endpoint wikidata, use WikidataQueryServiceR::query_wikidata()
-  if (endpoint == "wikidata") {
-    return(purrr::quietly(WikidataQueryServiceR::query_wikidata)(.query)$result)
+  if (endpoint == "https://query.wikidata.org/") {
+    return(purrr::quietly(WikidataQueryServiceR::query_wikidata)(query_string)$result)
   }
   # else, use httr2
 
-  initial_request = httr2::request(url) %>%
+  initial_request = httr2::request(endpoint) %>%
     httr2::req_method("POST") %>%
     httr2::req_headers(Accept = "application/sparql-results+json") %>%
     httr2::req_user_agent(user_agent) %>%
     httr2::req_retry(max_tries = max_tries, max_seconds = max_seconds) %>%
     httr2::req_timeout(timeout)
 
-  request <- if (request_type == "url") {
-    httr2::req_url_query(initial_request, query = .query)
+  request = if (request_type == "url") {
+    httr2::req_url_query(initial_request, query = query_string)
   } else {
-    httr2::req_body_form(initial_request, query = .query)
+    httr2::req_body_form(initial_request, query = query_string)
   }
 
   if (dry_run) {
@@ -154,7 +153,7 @@ send_sparql = function(.query,
           type,
           character = x,
             # easier for now as dbpedia can return different things with the same name
-          integer = ifelse(endpoint == "dbpedia", x, as.integer(x)),
+          integer = ifelse(endpoint == "https://dbpedia.org/sparql", x, as.integer(x)),
           datetime = anytime::anytime(x),
             x
         )

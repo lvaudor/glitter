@@ -13,8 +13,9 @@
 #'   spq_assemble() %>%
 #'   cat()
 spq_assemble = function(.query,
-                        endpoint = "Wikidata",
                         strict = TRUE) {
+
+  endpoint = .query[["request_control"]][["endpoint"]]
 
   .query = spq_prefix(.query, auto = TRUE, prefixes = NULL)
 
