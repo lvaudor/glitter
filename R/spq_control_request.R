@@ -7,6 +7,7 @@
 #' @param timeout maximum number of seconds to wait (`httr2::req_timeout()`).
 #' @param request_type a string indicating how the query should be sent: in the
 #' URL (`url`, default, most common) or as a body form (`body-form`).
+#' @inheritParams httr2::req_throttle
 #'
 #' @return A list to be used in `spq_init()`'s `request_control` argument.
 #' @export
@@ -26,7 +27,9 @@ spq_control_request <- function(user_agent = getOption("glitter.ua", "glitter R 
                                 max_tries = getOption("glitter.max_tries", 3L),
                                 max_seconds = getOption("glitter.max_seconds", 120L),
                                 timeout = getOption("glitter.timeout", 1000L),
-                                request_type = c("url", "body-form")) {
+                                request_type = c("url", "body-form"),
+                                rate = NULL,
+                                realm = NULL) {
 
 
   if (!is.character(user_agent)) {
@@ -61,7 +64,9 @@ spq_control_request <- function(user_agent = getOption("glitter.ua", "glitter R 
       max_tries = max_tries,
       max_seconds = max_seconds,
       timeout = timeout,
-      request_type = request_type
+      request_type = request_type,
+      rate = rate,
+      realm = realm
     ),
     class = "glitter_request_control"
   )

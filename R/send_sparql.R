@@ -109,6 +109,16 @@ send_sparql = function(query_string,
     httr2::req_retry(max_tries = max_tries, max_seconds = max_seconds) %>%
     httr2::req_timeout(timeout)
 
+  rate = request_control[["rate"]]
+  if (!is.null(rate)) {
+    realm = request_control[["realm"]]
+    initial_request = httr2::req_throttle(
+      initial_request,
+      rate = rate,
+      realm = realm
+    )
+  }
+
   request = if (request_type == "url") {
     httr2::req_url_query(initial_request, query = query_string)
   } else {
@@ -121,13 +131,13 @@ send_sparql = function(query_string,
 
   resp <- httr2::req_perform(request)
 
-    httr2::resp_check_status(resp)
+  httr2::resp_check_status(resp)
 
-    if (httr2::resp_content_type(resp) != "application/sparql-results+json") {
-      rlang::abort("Not right response type") #TODO:better message, more flexibility
-    }
+  if (httr2::resp_content_type(resp) != "application/sparql-results+json") {
+    rlang::abort("Not right response type") #TODO:better message, more flexibility
+  }
 
-    content = httr2::resp_body_json(resp)
+  content = httr2::resp_body_json(resp)
 
     # Adapted from https://github.com/wikimedia/WikidataQueryServiceR/blob/accff89a06ad4ac4af1bef369f589175c92837b6/R/query.R#L56
     if (length(content$results$bindings) > 0) {

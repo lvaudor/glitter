@@ -10,7 +10,9 @@ spq_control_request(
   max_tries = getOption("glitter.max_tries", 3L),
   max_seconds = getOption("glitter.max_seconds", 120L),
   timeout = getOption("glitter.timeout", 1000L),
-  request_type = c("url", "body-form")
+  request_type = c("url", "body-form"),
+  rate = NULL,
+  realm = NULL
 )
 }
 \arguments{
@@ -24,6 +26,14 @@ with \code{max_seconds}.}
 
 \item{request_type}{a string indicating how the query should be sent: in the
 URL (\code{url}, default, most common) or as a body form (\code{body-form}).}
+
+\item{rate}{Maximum rate, i.e. maximum number of requests per second.
+Usually easiest expressed as a fraction,
+\code{number_of_requests / number_of_seconds}, e.g. 15 requests per minute
+is \code{15 / 60}.}
+
+\item{realm}{An unique identifier that for throttle pool. If not supplied,
+defaults to the hostname of the request.}
 }
 \value{
 A list to be used in \code{spq_init()}'s \code{request_control} argument.
