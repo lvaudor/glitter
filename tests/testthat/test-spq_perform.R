@@ -1,9 +1,6 @@
 test_that("spq_perform() works, replace_prefixes", {
   httptest2::with_mock_dir(file.path("fixtures", "symogih"), {
-    tib = spq_init(
-      request_control = spq_control_request(
-        endpoint = "http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql"
-      )
+    tib = spq_init(endpoint = "http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql"
     ) %>%
       spq_prefix(prefixes=c(sym="http://symogih.org/ontology/",
         syr="http://symogih.org/resource/")) %>%
