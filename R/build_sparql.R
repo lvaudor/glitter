@@ -114,6 +114,20 @@ spq_assemble = function(.query,
 
       # nicer to put grouping variables first
       select = c(grouping_selected, nongrouping_selected)
+
+      # put labels near variables
+      any_label = any(grepl("_label", select))
+      if (any_label) {
+        new_select = select[!grepl("_label", select)]
+        labels = select[grepl("_label", select)]
+        select = purrr::reduce2(
+          labels,
+          names(labels),
+          \(new_select, x, y) add_label(new_select, x, y, old_select = select),
+          .init = new_select
+        )
+      }
+
       # do not use formula both in BIND and SELECT
       # so remove it from SELECT
       select[names(select) %in% to_bind[["name"]]] =
@@ -213,3 +227,22 @@ spq_assemble = function(.query,
 }
 
 utils::globalVariables(c("usual_prefixes", "formula", "selected_pattern"))
+
+add_label = function(vector, label, label_name, old_select) {
+  unlabelled = which(sprintf("%s_label", vector) == label_name)
+  unlabelled_present = (length(unlabelled) == 1)
+
+  if (unlabelled_present) {
+   return(append(vector, label, after = unlabelled))
+  }
+
+   old_position = which(old_select == label)
+   if (old_position == 1) {
+     return(append(vector, label, after = 0))
+   }
+
+   old_neighbour = old_select[old_position - 1]
+   old_neighbour_current_position = which(vector == old_neighbour)
+   append(vector, label, after = old_neighbour_current_position)
+
+}

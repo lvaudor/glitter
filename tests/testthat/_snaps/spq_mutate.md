@@ -21,7 +21,7 @@
         spq_head(10)
     Output
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-      SELECT ?film (YEAR(?date0) AS ?date) (COALESCE(?film_labell,'') AS ?film_label)
+      SELECT ?film (COALESCE(?film_labell,'') AS ?film_label) (YEAR(?date0) AS ?date)
       WHERE {
       
       ?film wdt:P31 wd:Q11424.
@@ -44,7 +44,7 @@
         spq_mutate(date = date - 2000)
     Output
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-      SELECT ?film (?date0-2000 AS ?date) (COALESCE(?film_labell,'') AS ?film_label)
+      SELECT ?film (COALESCE(?film_labell,'') AS ?film_label) (?date0-2000 AS ?date)
       WHERE {
       
       ?film wdt:P31 wd:Q11424.

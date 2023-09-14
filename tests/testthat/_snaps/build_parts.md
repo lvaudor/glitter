@@ -6,7 +6,7 @@
           lat = 45.76), radius = 5))
     Output
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-      SELECT ?city ?coords (COALESCE(?city_labell,'') AS ?city_label)
+      SELECT ?city (COALESCE(?city_labell,'') AS ?city_label) ?coords
       WHERE {
       
       ?city wdt:P31/wdt:P279* wd:Q486972.
