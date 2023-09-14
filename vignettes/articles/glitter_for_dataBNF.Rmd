@@ -26,10 +26,10 @@ Pour limiter la taille et le temps d'exécution de cette vignette chaque jeu de 
 # Explorer les données
 
 ```{r explordata}
-tib=spq_init() %>% 
+tib=spq_init(endpoint="dataBNF") %>% 
   spq_add("?s ?p ?o") %>% 
   spq_head(10) %>% 
-  spq_perform(endpoint="dataBNF")
+  spq_perform()
 
 knitr::kable(tib)
 ```
@@ -37,7 +37,7 @@ knitr::kable(tib)
 # Dates biographiques d'un auteur
 
 ```{r dates_biog}
-tib=spq_init() %>% 
+tib=spq_init(endpoint="dataBNF") %>% 
   spq_add("?auteur foaf:birthday ?jour") %>% 
   spq_add("?auteur bio:birth ?date1") %>% 
   spq_add("?auteur bio:death ?date2") %>% 
@@ -45,7 +45,7 @@ tib=spq_init() %>%
   spq_arrange(jour) %>% 
   spq_prefix() %>% 
   spq_head(n=10) %>%
-  spq_perform(endpoint="dataBNF")
+  spq_perform()
 
 knitr::kable(tib)
 ```
@@ -74,11 +74,11 @@ knitr::kable(tib)
 ```{r doc_num_gallica}
 doc="<http://data.bnf.fr/ark:/12148/cb42712156j#about>"
 
-tib=spq_init() %>% 
+tib=spq_init(endpoint="dataBNF") %>% 
   spq_add("{doc} rdarelationships:electronicReproduction ?URLGallica") %>% 
   spq_add("{doc} dcterms:title ?title") %>% 
   spq_prefix() %>%
-  spq_perform(endpoint="dataBNF")
+  spq_perform()
 
 knitr::kable(tib)
 ```
@@ -89,12 +89,12 @@ knitr::kable(tib)
 ```{r expo_virtuelles_bnf}
 expo="<http://data.bnf.fr/ontology/bnf-onto/ExpositionVirtuelle>"
 
-tib=spq_init() %>% 
+tib=spq_init(endpoint="dataBNF") %>% 
   spq_add("?exposition a {expo}") %>% 
   spq_add("?exposition dcterms:title ?titre") %>% 
   spq_add("?exposition dcterms:subject ?sujet") %>% 
   spq_head(n=30) %>% 
-  spq_perform(endpoint="dataBNF")
+  spq_perform()
 
 knitr::kable(tib)
 ```
@@ -102,12 +102,12 @@ knitr::kable(tib)
 # Retrouver un nom de personne à partir d'un ISNI
 
 ```{r nom_from_isni}
-tib=spq_init() %>% 
+tib=spq_init(endpoint="dataBNF") %>% 
   spq_add("?person isni:identifierValid '0000000121012885'") %>% 
   spq_add("?person foaf:focus ?identity") %>% 
   spq_add("?identity foaf:familyName ?nom") %>% 
   spq_add("?identity foaf:givenName ?prenom") %>% 
-  spq_perform(endpoint="dataBNF")
+  spq_perform()
 
 knitr::kable(tib)
 ```

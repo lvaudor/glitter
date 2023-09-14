@@ -27,10 +27,10 @@ On s'intéresse à ce document: haldoc:inria-00362381.
 ## Rechercher toutes les informations associées à ce document
 
 ```{r}
-tib_info=spq_init() %>% 
+tib_info=spq_init(endpoint = "hal") %>% 
   spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
   spq_add("?version ?p ?object") %>%                               # ?version a des prop. ?p les liant à ?object
-  spq_perform(e="hal")
+  spq_perform()
 
 head(tib_info)
 ```
@@ -38,7 +38,7 @@ head(tib_info)
 ## Rechercher l’URI, le titre, le lien vers le PDF et les auteurs de [toutes les versions de] ce document
 
 ```{r}
-query_doc = spq_init() %>% 
+query_doc = spq_init(endpoint = "hal") %>% 
   spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
   spq_add("?version dcterms:title ?title") %>%                     # ?version a pour titre ?titre
   spq_add(". dcterms:creator ?creator") %>%                        # ...... et pour créateur ?creator
@@ -46,7 +46,7 @@ query_doc = spq_init() %>%
   spq_add("?creator hal:person ?person") %>%                       # ?creator est une personne ?person
   spq_add("?person foaf:name ?name")                               # ?person a pour nom ?name
 
-tib_doc=spq_perform(query_doc,"hal")
+tib_doc=spq_perform(query_doc)
 
 tib_doc
 ```
@@ -58,7 +58,7 @@ query_doc_autConcat = query_doc %>%
   spq_group_by(version, title,pdf) %>%             # Groupe les résultats par ?version, ?title, ?pdf
   spq_summarise(authors = str_c(name, sep = ', '))      # Concatène les noms d'auteur dans ?authors
 
-tib_doc_autConcat = spq_perform(query_doc_autConcat,"hal")
+tib_doc_autConcat = spq_perform(query_doc_autConcat)
 
 tib_doc_autConcat
 ```
@@ -66,13 +66,13 @@ tib_doc_autConcat
 On peut également **agréger/résumer** les résultats renvoyés par la requête, par exemple en **recherchant le nombre d’auteurs d’un document** (par version)
 
 ```{r}
-tib_nbAutDoc=spq_init() %>% 
+tib_nbAutDoc=spq_init(endpoint = "hal") %>% 
   spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
   spq_add("?version dcterms:creator ?creator") %>%                 # ?version a pour créateur ?creator
   spq_add("?creator hal:person ?person") %>%                       # ?creator est une personne ?person
   spq_group_by(version) %>%                                     # Groupe par ?version
   spq_summarise(nbperson = n(unique(person))) %>%      # Résume: ?nbperson = nb de ?person dist.  
-  spq_perform(e="hal")
+  spq_perform()
 
 tib_nbAutDoc
 ```
@@ -82,12 +82,12 @@ tib_nbAutDoc
 On cherche les types associés aux versions de documents. Ces types sont associés à des étiquettes (dans plusieurs langues) qui permettent de comprendre de quoi il s'agit "en langage ordinaire".
 
 ```{r}
-query_docType=spq_init() %>% 
+query_docType=spq_init(endpoint = "hal") %>% 
   spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
   spq_add("?version dcterms:type ?type") %>%                       # ?version est un document de type ?type
   spq_add("?type skos:prefLabel ?label")                           # ?type a pour étiquette ?label
 
-tib_docType=spq_perform(query_docType,"hal")
+tib_docType=spq_perform(query_docType)
 
 tib_docType
 ```
@@ -99,7 +99,7 @@ On peut **filtrer les résultats** pour n'afficher que la ligne de résultats po
 query_docTypeFr=query_docType %>% 
   spq_filter(lang(label) == 'fr')     # Filtre pour garder les étiquettes en français
 
-tib_docTypeFr=spq_perform(query_docTypeFr,"hal")
+tib_docTypeFr=spq_perform(query_docTypeFr)
 
 tib_docTypeFr
 ```
@@ -114,14 +114,14 @@ Considérons une des "forme-auteur" de Fabien Gandon, [https://data.archives-ouv
 ```{r}
 fabien_gandon="<https://data.archives-ouvertes.fr/author/827904>" # fabien_gandon = cette forme auteur
 
-query_foAut=spq_init() %>% 
+query_foAut=spq_init(endpoint = "hal") %>% 
   spq_add("?document dcterms:hasVersion ?version") %>%  # ?document a des versions ?version
   spq_add("?version dcterms:creator ?creator") %>%      # ?version a pour créateur ?creator
   spq_add("?creator hal:person {fabien_gandon}") %>%    # ?creator est fabien_gandon ({déf. de l'objet dans R})
   spq_add("?version dcterms:type ?type") %>%            # ?version a pour type ?type
   spq_add("?type skos:prefLabel ?label") %>%            # ?type a pour étiquette ?label
   spq_filter(lang(label) == 'fr')                       # Filtre pour garder les ?label en français
-tib_foAut=spq_perform(query_foAut,"hal")
+tib_foAut=spq_perform(query_foAut)
 
 head(tib_foAut)
 ```
@@ -136,7 +136,7 @@ query_foAutNbDoc=query_foAut %>%
   spq_group_by(type, label) %>%                      # Groupe par ?type et ?label
   spq_summarise(nbdoc = n(unique(document)))    
 
-tib_foAutNbDoc=spq_perform(query_foAutNbDoc,"hal")
+tib_foAutNbDoc=spq_perform(query_foAutNbDoc)
 
 tib_foAutNbDoc
 ```
@@ -147,7 +147,7 @@ On peut afficher ces résultats en **ordonnant** les lignes selon le nombre de d
 query_foAutNbDocOrd=query_foAutNbDoc%>% 
   spq_arrange(desc(nbdoc))        # Ordonne par ordre décroissant de ?nbdoc
 
-tib_foAutNbDocOrd=spq_perform(query_foAutNbDocOrd,"hal")
+tib_foAutNbDocOrd=spq_perform(query_foAutNbDocOrd)
 
 tib_foAutNbDocOrd
 ```
@@ -155,7 +155,7 @@ tib_foAutNbDocOrd
 On peut également s'intéresser aux **dates** de publication. Par exemple ici, on récupère la date de publication, l'année correspondante, et on résume l'information en calculant le nombre de documents par année.
 
 ```{r}
-tib_dat=spq_init() %>% 
+tib_dat=spq_init(endpoint = "hal") %>% 
   spq_add("?document dcterms:hasVersion ?version") %>% 
   spq_add("?version dcterms:creator ?creator") %>%
   spq_add(". dcterms:issued ?date") %>%                      # ?version est sortie à ?date
@@ -164,7 +164,7 @@ tib_dat=spq_init() %>%
   spq_group_by(year) %>%                               # Groupe par ?year
   spq_summarise(nbdoc = n(unique(document))) %>% 
   spq_arrange(year) %>% 
-  spq_perform(e="hal")
+  spq_perform()
 
 tib_dat
 ```
@@ -176,11 +176,11 @@ Une personne=un IdHAL=plusieurs formes-auteur
 ## Afficher les URIs de toutes les formes-auteur associées à la forme « Fabien Gandon » via l’IdHAL
 
 ```{r}
-query_aut=spq_init() %>% 
+query_aut=spq_init(endpoint = "hal") %>% 
   spq_add("{fabien_gandon} ore:isAggregatedBy ?o") %>% # {fabien gandon} correspond à ?o
   spq_add("?forme ore:isAggregatedBy ?o")              # ?forme correspond à ?o
 
-tib_aut=spq_perform(query_aut,"hal")
+tib_aut=spq_perform(query_aut)
 
 tib_aut
 ```
@@ -200,7 +200,7 @@ query_autNbDocYear=query_aut %>%
   spq_arrange(year) %>%                              # Ordonne par ordre décroissant de ?year
   spq_summarise(nbdoc = n(unique(document)))
 
-tib_autNbDocYear=spq_perform(query_autNbDocYear,"hal")
+tib_autNbDocYear=spq_perform(query_autNbDocYear)
 
 tib_autNbDocYear
 ```

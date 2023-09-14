@@ -24,8 +24,6 @@ with \code{max_seconds}.}
 
 \item{request_type}{a string indicating how the query should be sent: in the
 URL (\code{url}, default, most common) or as a body form (\code{body-form}).}
-
-\item{endpoint}{a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"}
 }
 \value{
 A list to be used in \code{spq_init()}'s \code{request_control} argument.

@@ -1,6 +1,5 @@
 #' Create the request control object for `spq_init()`
 #'
-#' @param endpoint a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
 #' @param user_agent a string indicating the user agent to send with the query.
 #' @param max_tries,max_seconds Cap the maximal number of
 #' attemps with `max_tries` or the total elapsed time from the first request

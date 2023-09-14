@@ -1,6 +1,6 @@
 #' Assemble query parts into a sparql query and send it to endpoint to get a tibble as a result.
 #' @param .query a list with elements of the query
-#' @param endpoint a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
+#' @param endpoint `r lifecycle::badge('deprecated')` a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
 #' @param replace_prefixes Boolean indicating whether to replace used prefixes in the results table,
 #' for instance making, for instance "http://www.wikidata.org/entity/" "wd:".
 #' @inheritParams send_sparql
@@ -29,8 +29,7 @@ spq_perform = function(.query,
      lifecycle::deprecate_warn(
        "0.3.0",
        "spq_perform(endpoint)",
-       "spq_init(endpoint)",
-       details = control_explanation()
+       "spq_init(endpoint)"
     )
   } else {
     endpoint = .query[["endpoint"]]
