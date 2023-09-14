@@ -11,8 +11,6 @@ spq_assemble(.query, strict = TRUE)
 
 \item{strict}{whether to perform some linting on the query,
 and error in case a problem is detected.}
-
-\item{endpoint}{SPARQL endpoint to send the query to}
 }
 \value{
 A query object
