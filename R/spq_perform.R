@@ -16,14 +16,16 @@
 #'   spq_perform()
 #' }
 spq_perform = function(.query,
-                       endpoint = "Wikidata",
-                       user_agent = getOption("glitter.ua", "glitter R package (https://github.com/lvaudor/glitter)"),
-                       max_tries = getOption("glitter.max_tries", 3L),
-                       max_seconds = getOption("glitter.max_seconds", 120L),
-                       timeout = getOption("glitter.timeout", 1000L),
-                       request_type = c("url", "body-form"),
+                       endpoint = lifecycle::deprecated(),
+                       user_agent = lifecycle::deprecated(),
+                       max_tries = lifecycle::deprecated(),
+                       max_seconds = lifecycle::deprecated(),
+                       timeout = lifecycle::deprecated(),
+                       request_type = lifecycle::deprecated(),
                        dry_run = FALSE,
                        replace_prefixes = FALSE){
+
+
   sparql_query = spq_assemble(.query = .query, endpoint = endpoint)
 
   results = send_sparql(
@@ -34,7 +36,8 @@ spq_perform = function(.query,
     max_seconds = max_seconds,
     timeout = timeout,
     request_type = request_type,
-    dry_run = FALSE
+    dry_run = FALSE,
+    request_control = .query[["request_control"]]
   )
 
   if (replace_prefixes) {
@@ -61,4 +64,9 @@ replace_prefix = function(prefix, results, .query) {
          replacement = sprintf("%s:", prefix))
      )
    )
+}
+
+control_explanation <- function() {
+  "Parameters controlling how the request is made have to be
+       passed to `spq_init()`'s `request_control` argument."
 }
