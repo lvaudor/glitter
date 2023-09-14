@@ -55,7 +55,7 @@ knitr::kable(tib)
 ```{r fleurs_du_mal}
 fleurs_du_mal="<http://data.bnf.fr/ark:/12148/cb11947965f>" 
 
-tib=spq_init() %>% 
+tib=spq_init(endpoint = "dataBNF") %>% 
   spq_add("{fleurs_du_mal} foaf:focus ?Oeuvre") %>% 
   spq_add("?edition rdarelationships:workManifested ?Oeuvre") %>% 
   spq_add("?edition dcterms:date ?date", .required=FALSE) %>% 
@@ -63,7 +63,7 @@ tib=spq_init() %>%
   spq_add("?edition dcterms:publisher ?editeur") %>% 
   spq_head(n=10) %>% 
   spq_prefix() %>% 
-  spq_perform("dataBNF")
+  spq_perform()
 
 
 knitr::kable(tib)
@@ -116,10 +116,10 @@ knitr::kable(tib)
 # Identifiant ARK d'une notice à partir du numéro FRBNF
 
 ```{r ark_from_frbnf}
-tib=spq_init() %>% 
+tib=spq_init(endpoint="dataBNF") %>% 
   spq_add("?pidArk bnf-onto:FRBNF '11992081'^^xsd:integer") %>% 
   spq_head(n=10) %>% 
-  spq_perform(e="dataBNF")
+  spq_perform()
 
 knitr::kable(tib)
 ```
@@ -127,14 +127,14 @@ knitr::kable(tib)
 # Retrouver une oeuvre à partir d'un ISBN
 
 ```{r oeuvre_from_isbn}
-tib=spq_init() %>% 
+tib=spq_init(endpoint="dataBNF") %>% 
   spq_add("?work rdfs:label ?title") %>% 
   spq_add("?work dcterms:creator ?creator") %>% 
   spq_add("?manifestation bnf-onto:isbn '2-7028-4777-3'") %>% 
   spq_add("?manifestation rdarelationships:workManifested ?work") %>% 
   spq_add("?creator foaf:name ?name") %>% 
   spq_head(n=10) %>% 
-  spq_perform(e="dataBNF")
+  spq_perform()
 
 knitr::kable(tib)
 ```
@@ -150,7 +150,7 @@ tib=spq_init() %>%
   spq_group_by(auteur, nom, mort) %>% 
   spq_arrange(desc(as.integer(mort))) %>% 
   spq_head(n=10) %>% 
-  spq_perform(e="dataBNF")
+  spq_perform()
 
 knitr::kable(tib)
 ```
@@ -158,10 +158,10 @@ knitr::kable(tib)
 # Images dans data.bnf.fr
 
 ```{r images_databnf}
-tib=spq_init() %>%
+tib=spq_init(endpoint="dataBNF") %>%
   spq_add("?image dcterms:type <http://purl.org/dc/dcmitype/StillImage>") %>%
   spq_head(n=10) %>% 
-  spq_perform(e="dataBNF")
+  spq_perform()
 
 knitr::kable(tib)
 ```
@@ -170,13 +170,13 @@ knitr::kable(tib)
 # Ouvrages adaptés pour la jeunesse
 
 ```{r ouvrages_jeunesse}
-tib=spq_init() %>% 
+tib=spq_init(endpoint="dataBNF") %>% 
   spq_add("?manifestation bnf-onto:ouvrageJeunesse 'true'^^xsd:boolean") %>% 
   spq_add(". rdarelationships:workManifested ?oeuvre") %>% 
   spq_add(". rdfs:seeAlso ?uri") %>% 
   spq_group_by(uri, oeuvre) %>% 
   spq_head(n=10) %>% 
-  spq_perform(e="dataBNF")
+  spq_perform()
 
 knitr::kable(tib)
 ```
@@ -184,7 +184,7 @@ knitr::kable(tib)
 # Portraits d'auteur, issus de Gallica
 
 ```{r}
-tib=spq_init() %>% 
+tib=spq_init(endpoint="dataBNF") %>% 
   spq_add("?auteur rdf:type skos:Concept") %>% 
   spq_add(". foaf:focus ?person") %>% 
   spq_add("?doc rdarelationships:electronicReproduction ?url") %>% 
@@ -192,7 +192,7 @@ tib=spq_init() %>%
   spq_add(". dcterms:subject <http://data.bnf.fr/ark:/12148/cb11932843f>") %>% 
   spq_head(n=10) %>% 
   spq_group_by(auteur, url) %>% 
-  spq_perform(e="dataBNF")
+  spq_perform()
 
 knitr::kable(tib)
 ```
@@ -200,14 +200,14 @@ knitr::kable(tib)
 # Termes spécifiques d'un sujet (RAMEAU)
 
 ```{r}
-tib=spq_init() %>% 
+tib=spq_init(endpoint="dataBNF") %>% 
   spq_add("?sujet1 skos:prefLabel ?label") %>% 
   spq_add(". skos:narrower ?uri2") %>% 
   spq_add("?uri2 skos:prefLabel ?label2") %>% 
   spq_add("?uri2 skos:narrower ?uri3", .required = FALSE) %>% 
   spq_add("?uri3 skos:prefLabel ?label3", .required = FALSE) %>% 
   spq_head(n=10) %>% 
-  spq_perform(e="dataBNF")
+  spq_perform()
 
 knitr::kable(tib)
 ```
@@ -215,11 +215,11 @@ knitr::kable(tib)
 # Sujets RAMEAU de type nom commun
 
 ```{r}
-tib=spq_init() %>% 
+tib=spq_init(endpoint="dataBNF") %>% 
   spq_add("?sujet dcterms:isPartOf <http://data.bnf.fr/vocabulary/rameau/r166>") %>% 
   spq_add(". skos:prefLabel ?label") %>% 
   spq_head(n=10) %>% 
-  spq_perform(e="dataBNF")
+  spq_perform()
 
 knitr::kable(tib)
 ```
@@ -227,13 +227,13 @@ knitr::kable(tib)
 # Alignement entre les sujets RAMEAU et lieux
 
 ```{r rameau_et_lieux}
-tib=spq_init() %>% 
+tib=spq_init(endpoint="dataBNF") %>% 
   spq_add("?c a <http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing>") %>% 
   spq_add("?lieu foaf:focus ?c") %>% 
   spq_add("?lieu skos:closeMatch ?concept") %>% 
   spq_group_by(lieu, concept , c) %>% 
   spq_head(n=100) %>% 
-  spq_perform(e="dataBNF")
+  spq_perform()
 
 knitr::kable(tib)
 ```
@@ -241,13 +241,13 @@ knitr::kable(tib)
 # Liens vers wikipedia pour les auteurs
 
 ```{r}
-tib=spq_init() %>% 
+tib=spq_init(endpoint="dataBNF") %>% 
   spq_add("?ConceptA foaf:focus ?auteur") %>% 
   spq_add("?oeuvre dcterms:creator ?auteur") %>% 
   spq_add("?ConceptA rdfs:seeAlso ?wikipedia") %>% 
   spq_filter(str_detect(wikipedia,'wikipedia')) %>% 
   spq_head(n=10) %>% 
-  spq_perform(e="dataBNF")
+  spq_perform()
 
 knitr::kable(tib)
 ```
