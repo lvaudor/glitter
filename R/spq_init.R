@@ -30,7 +30,9 @@ spq_init = function(
       request_type = c("url", "body-form")
     )
   ) {
-
+ if (!inherits(request_control, "glitter_request_control")) {
+    cli::cli_abort("{.arg request_control} must be created by {.fun spq_control_request}.")
+  }
 
   # if endpoint passed as name, get url
   endpoint = tolower(endpoint)

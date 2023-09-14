@@ -7,3 +7,10 @@ test_that("formatting works", {
       spq_count(narrative_location_label, sort = TRUE, name = "n_films")
   })
 })
+
+test_that("spq_init() errors for DIY request control", {
+  testthat::expect_snapshot({
+    spq_init(request_control = list(max_tries = 1L))
+  }, error = TRUE)
+})
+

@@ -55,13 +55,15 @@ spq_control_request <- function(user_agent = getOption("glitter.ua", "glitter R 
   }
 
   request_type = rlang::arg_match(request_type, c("url", "body-form"))
-
-  list(
-    user_agent = user_agent,
-    max_tries = max_tries,
-    max_seconds = max_seconds,
-    timeout = timeout,
-    request_type = request_type
+  structure(
+    list(
+      user_agent = user_agent,
+      max_tries = max_tries,
+      max_seconds = max_seconds,
+      timeout = timeout,
+      request_type = request_type
+    ),
+    class = "glitter_request_control"
   )
 
 }
