@@ -54,6 +54,8 @@ navbar:
     - text: Explore a new database
       href: articles/explore.html
     - text: glitter for dataBNF
-      href: articles/glitter_for_hal.html
+      href: articles/glitter_for_dataBNF.html
     - text: Bibliometry with HAL
       href: articles/glitter_for_hal.html
+    - text: Learn more about how glitter works
+      href: articles/internals.html
