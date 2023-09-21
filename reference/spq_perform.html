@@ -115,6 +115,17 @@ for instance making, for instance "http://www.wikidata.org/entity/" "wd:".</p></
 
 <p>A query object</p>
     </div>
+    <div class="section level2">
+    <h2 id="request-control">Request control<a class="anchor" aria-label="anchor" href="#request-control"></a></h2>
+    
+
+
+<p>Control the way the query is performed via the <code>control_request</code>
+argument of <code><a href="spq_init.html">spq_init()</a></code>.
+This way you can create a basic spq object with all the correct options
+corresponding to the SPARQL service you are using, and then use it as
+the basis of all your subsequent glitter pipelines.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -126,6 +137,7 @@ for instance making, for instance "http://www.wikidata.org/entity/" "wd:".</p></
 <span class="r-in"><span>  <span class="fu"><a href="spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">5</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">spq_perform</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

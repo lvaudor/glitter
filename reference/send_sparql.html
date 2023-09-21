@@ -109,8 +109,11 @@ rather than of <code><a href="https://httr2.r-lib.org/reference/req_perform.html
 
 </dl></div>
     <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Control the way the query is performed via the <code>control_request</code>
+    <h2 id="request-control">Request control<a class="anchor" aria-label="anchor" href="#request-control"></a></h2>
+    
+
+
+<p>Control the way the query is performed via the <code>control_request</code>
 argument of <code><a href="spq_init.html">spq_init()</a></code>.
 This way you can create a basic spq object with all the correct options
 corresponding to the SPARQL service you are using, and then use it as
@@ -126,8 +129,8 @@ the basis of all your subsequent glitter pipelines.</p>
 <span class="r-in"><span>  <span class="fu"><a href="spq_mutate.html">spq_mutate</a></span><span class="op">(</span>coords <span class="op">=</span> <span class="fu">wdt</span><span class="fu">::</span><span class="fu">P625</span><span class="op">(</span><span class="va">city</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>          .within_distance<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>center<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>long<span class="op">=</span><span class="fl">4.84</span>,lat<span class="op">=</span><span class="fl">45.76</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                               radius<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="spq_assemble.html">spq_assemble</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span> <span class="fu">send_sparql</span><span class="op">(</span><span class="va">query_string</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="spq_assemble.html">spq_assemble</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">send_sparql</span><span class="op">(</span><span class="va">query_string</span>, endpoint <span class="op">=</span> <span class="st">"https://query.wikidata.org/"</span><span class="op">)</span></span></span>
 <span class="r-in"><span> <span class="op">}</span></span></span>
 </code></pre></div>
     </div>
