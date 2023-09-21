@@ -49,11 +49,13 @@ navbar:
    articles:
     text: Articles
     menu:
-    - text: Wikidata
+    - text: Get started with Wikidata
       href: articles/glitter_for_Wikidata.html
-    - text: dataBNF
+    - text: Explore a new database
+      href: articles/explore.html
+    - text: glitter for dataBNF
       href: articles/glitter_for_dataBNF.html
-    - text: HAL
+    - text: Bibliometry with HAL
       href: articles/glitter_for_hal.html
-    - text: SyMoGih
-      href: articles/glitter_for_SyMoGih.html
+    - text: Learn more about how glitter works
+      href: articles/internals.html
