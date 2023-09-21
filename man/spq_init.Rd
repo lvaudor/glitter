@@ -4,7 +4,20 @@
 \alias{spq_init}
 \title{Initialize a query object.}
 \usage{
-spq_init()
+spq_init(
+  endpoint = "wikidata",
+  request_control = spq_control_request(user_agent = getOption("glitter.ua",
+    "glitter R package (https://github.com/lvaudor/glitter)"), max_tries =
+    getOption("glitter.max_tries", 3L), max_seconds = getOption("glitter.max_seconds",
+    120L), timeout = getOption("glitter.timeout", 1000L), request_type = c("url",
+    "body-form"))
+)
+}
+\arguments{
+\item{endpoint}{Endpoint, either name if it is in \code{usual_endpoints},
+or an URL}
+
+\item{request_control}{An object as returned by \code{\link[=spq_control_request]{spq_control_request()}}}
 }
 \value{
 A query object

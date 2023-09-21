@@ -1,6 +1,6 @@
 #' Assemble query parts into a sparql query and send it to endpoint to get a tibble as a result.
 #' @param .query a list with elements of the query
-#' @param endpoint a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
+#' @param endpoint `r lifecycle::badge('deprecated')` a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
 #' @param replace_prefixes Boolean indicating whether to replace used prefixes in the results table,
 #' for instance making, for instance "http://www.wikidata.org/entity/" "wd:".
 #' @inheritParams send_sparql
@@ -16,15 +16,27 @@
 #'   spq_perform()
 #' }
 spq_perform = function(.query,
-                       endpoint = "Wikidata",
-                       user_agent = getOption("glitter.ua", "glitter R package (https://github.com/lvaudor/glitter)"),
-                       max_tries = getOption("glitter.max_tries", 3L),
-                       max_seconds = getOption("glitter.max_seconds", 120L),
-                       timeout = getOption("glitter.timeout", 1000L),
-                       request_type = c("url", "body-form"),
+                       endpoint = lifecycle::deprecated(),
+                       user_agent = lifecycle::deprecated(),
+                       max_tries = lifecycle::deprecated(),
+                       max_seconds = lifecycle::deprecated(),
+                       timeout = lifecycle::deprecated(),
+                       request_type = lifecycle::deprecated(),
                        dry_run = FALSE,
                        replace_prefixes = FALSE){
-  sparql_query = spq_assemble(.query = .query, endpoint = endpoint)
+
+  if (lifecycle::is_present(endpoint)) {
+     lifecycle::deprecate_warn(
+       "0.3.0",
+       "spq_perform(endpoint)",
+       "spq_init(endpoint)"
+    )
+  } else {
+    endpoint = .query[["endpoint"]]
+  }
+
+
+  sparql_query = spq_assemble(.query = .query)
 
   results = send_sparql(
     sparql_query,
@@ -34,7 +46,8 @@ spq_perform = function(.query,
     max_seconds = max_seconds,
     timeout = timeout,
     request_type = request_type,
-    dry_run = FALSE
+    dry_run = dry_run,
+    request_control = .query[["request_control"]]
   )
 
   if (replace_prefixes) {
@@ -61,4 +74,9 @@ replace_prefix = function(prefix, results, .query) {
          replacement = sprintf("%s:", prefix))
      )
    )
+}
+
+control_explanation <- function() {
+  "Parameters controlling how the request is made have to be
+       passed to `spq_init()`'s `request_control` argument."
 }

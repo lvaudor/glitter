@@ -29,7 +29,7 @@ library(glitter)
 - KUTy a pour étiquette KUTyLabel
 
 ```{r ressources_maths}
-tib=spq_init() %>%
+tib=spq_init(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql") %>%
   spq_prefix(prefixes=c(sym="http://symogih.org/ontology/",
                         syr="http://symogih.org/resource/")) %>% 
   spq_add("?r sym:associatesObject syr:AbOb213") %>% 
@@ -39,7 +39,7 @@ tib=spq_init() %>%
   spq_add(". sym:hasKnowledgeUnitType ?KUTy") %>% 
   spq_label(KUTy, .languages = NULL) %>% 
   spq_head(n=10) %>% 
-  spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
+  spq_perform()
   
 knitr::kable(tib)
 ```
@@ -47,7 +47,7 @@ knitr::kable(tib)
 ## Structure de la partie abstraite de l'ontologie
 
 ```{r}
-tib=spq_init() %>%
+tib=spq_init(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql") %>%
   spq_prefix(prefixes=c(sym="http://symogih.org/ontology/",
                         syr="http://symogih.org/resource/")) %>%  
   spq_add("?s a ?cl") %>% 
@@ -57,7 +57,7 @@ tib=spq_init() %>%
   spq_head(n=10) %>% 
   spq_summarise(effectif = n("*")) %>% 
   spq_arrange(desc(effectif)) %>% 
-  spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
+  spq_perform()
 
 knitr::kable(tib)
 ```
@@ -65,7 +65,7 @@ knitr::kable(tib)
 ## Structure de la partie instanciée de l'ontologie
 
 ```{r}
-tib=spq_init() %>%
+tib=spq_init(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql") %>%
   spq_prefix(prefixes=c(sym="http://symogih.org/ontology/",
                         syr="http://symogih.org/resource/")) %>% 
   spq_add("?s sym:hasKnowledgeUnitType ?tyin") %>% 
@@ -75,14 +75,14 @@ tib=spq_init() %>%
   spq_summarise(effectif = n("*")) %>% 
   spq_arrange(tyin,tyro,desc(effectif)) %>% 
   spq_head(n=10) %>% 
-  spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
+  spq_perform()
 ```
 
 ## Types d'informations et types de rôles, avec effectifs
 
 
 ```{r}
-tib=spq_init() %>% 
+tib=spq_init(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql") %>% 
   spq_prefix(prefixes=c(sym="http://symogih.org/ontology/",
                         syr="http://symogih.org/resource/")) %>% 
   spq_add("?s sym:hasKnowledgeUnitType ?tyin") %>% 
@@ -92,7 +92,7 @@ tib=spq_init() %>%
   spq_summarise(effectif = n("*")) %>% 
   spq_arrange(tyin, tyro, effectif) %>% 
   spq_head(n=10) %>%
-  spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
+  spq_perform()
 
 knitr::kable(tib)
 ```
@@ -100,7 +100,7 @@ knitr::kable(tib)
 ## Le parcours biographique de Gaston,Louis, Henry May (1849 - 1940)
 
 ```{r}
-tib=spq_init() %>% 
+tib=spq_init(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql") %>% 
   spq_prefix(prefixes=c(sym="http://symogih.org/ontology/",
                         syr="http://symogih.org/resource/")) %>% 
   spq_add("?tyro rdfs:label ?TyRoLabel") %>% 
@@ -113,7 +113,7 @@ tib=spq_init() %>%
   spq_add(". sym:hasKnowledgeUnitType ?tyin") %>% 
   spq_arrange(infoStandardDate) %>% 
   spq_head(n=10) %>% 
-  spq_perform(endpoint="http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql")
+  spq_perform()
 
 knitr::kable(tib)
 ```

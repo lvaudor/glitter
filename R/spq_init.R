@@ -1,4 +1,9 @@
 #' Initialize a query object.
+#'
+#' @param endpoint Endpoint, either name if it is in `usual_endpoints`,
+#' or an URL
+#' @param request_control An object as returned by [`spq_control_request()`]
+#'
 #' @return A query object
 #' @export
 #' @section Printing:
@@ -15,7 +20,30 @@
 #' You can also turn off the cli behavior by setting the environment variable
 #' `"GLITTER.NOCLI"` to any non-empty string.
 #' That's what we do in glitter snapshot tests.
-spq_init = function(){
+spq_init = function(
+    endpoint = "wikidata",
+    request_control = spq_control_request(
+      user_agent = getOption("glitter.ua", "glitter R package (https://github.com/lvaudor/glitter)"),
+      max_tries = getOption("glitter.max_tries", 3L),
+      max_seconds = getOption("glitter.max_seconds", 120L),
+      timeout = getOption("glitter.timeout", 1000L),
+      request_type = c("url", "body-form")
+    )
+  ) {
+ if (!inherits(request_control, "glitter_request_control")) {
+    cli::cli_abort("{.arg request_control} must be created by {.fun spq_control_request}.")
+  }
+
+  # if endpoint passed as name, get url
+  endpoint = tolower(endpoint)
+  usual_endpoint_info = usual_endpoints %>%
+    dplyr::filter(.data$name == endpoint)
+  endpoint = if (nrow(usual_endpoint_info) > 0) {
+    dplyr::pull(usual_endpoint_info, .data$url)
+  } else {
+    endpoint
+  }
+
   query = list(
     prefixes_provided = tibble::tibble(name = NULL, url = NULL),
     prefixes_used = NULL,
@@ -27,7 +55,9 @@ spq_init = function(){
     limit = NULL,
     group_by = NULL,
     order_by = NULL,
-    offset = NULL
+    offset = NULL,
+    endpoint = endpoint,
+    request_control = request_control
   )
 
   structure(query, class = c("sparqle_query", "list"))
