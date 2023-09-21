@@ -96,15 +96,12 @@ send_sparql = function(query_string,
     request_type = request_control[["request_type"]]
   }
 
-  # if endpoint wikidata, use WikidataQueryServiceR::query_wikidata()
-  if (endpoint == "https://query.wikidata.org/") {
-    return(purrr::quietly(WikidataQueryServiceR::query_wikidata)(query_string)$result)
-  }
-  # else, use httr2
-
   initial_request = httr2::request(endpoint) %>%
     httr2::req_method("POST") %>%
-    httr2::req_headers(Accept = "application/sparql-results+json") %>%
+    httr2::req_headers(
+      Accept = "application/sparql-results+json",
+      `Content-length` = 0
+    ) %>%
     httr2::req_user_agent(user_agent) %>%
     httr2::req_retry(max_tries = max_tries, max_seconds = max_seconds) %>%
     httr2::req_timeout(timeout)
@@ -142,10 +139,10 @@ send_sparql = function(query_string,
     # Adapted from https://github.com/wikimedia/WikidataQueryServiceR/blob/accff89a06ad4ac4af1bef369f589175c92837b6/R/query.R#L56
     if (length(content$results$bindings) > 0) {
       parse_binding = function(binding, name) {
-        type <- sub(
+        type <- tolower(sub(
           "http://www.w3.org/2001/XMLSchema#", "",
           binding[["datatype"]] %||% "http://www.w3.org/2001/XMLSchema#character"
-        )
+        ))
 
         parse = function(x, type) {
           switch(
