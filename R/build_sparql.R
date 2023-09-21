@@ -215,7 +215,7 @@ spq_assemble = function(.query, strict = TRUE) {
     part_prefixes, "\n",
     "SELECT ", spq_duplicate, paste0(select,collapse = " "), "\n",
     "WHERE {\n",
-    body, "\n", binded,
+    body, "\n", binded, "\n",
     filters, "\n",
     "}\n",
     group_by,
