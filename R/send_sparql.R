@@ -97,11 +97,22 @@ send_sparql = function(query_string,
   }
 
   initial_request = httr2::request(endpoint) %>%
-    httr2::req_method("POST") %>%
+    httr2::req_method("POST")
+
+  if (request_type == "url") {
+    initial_request = initial_request %>%
     httr2::req_headers(
       Accept = "application/sparql-results+json",
       `Content-length` = 0
-    ) %>%
+    )
+  } else {
+    initial_request = initial_request %>%
+      httr2::req_headers(
+        Accept = "application/sparql-results+json"
+      )
+  }
+
+  initial_request = initial_request %>%
     httr2::req_user_agent(user_agent) %>%
     httr2::req_retry(max_tries = max_tries, max_seconds = max_seconds) %>%
     httr2::req_timeout(timeout)
