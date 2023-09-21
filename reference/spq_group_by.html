@@ -83,12 +83,13 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?item wdt:P361 wd:Q297853"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?item wdt:P1082 ?folkm_ngd"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?area wdt:P31 wd:Q1907114"</span>, .label <span class="op">=</span> <span class="st">"?area"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?area wdt:P31 wd:Q1907114"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu"><a href="spq_label.html">spq_label</a></span><span class="op">(</span><span class="va">area</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span><span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?area wdt:P527 ?item"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span><span class="fu">spq_group_by</span><span class="op">(</span><span class="va">area</span>, <span class="va">areaLabel</span><span class="op">)</span>  <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu">spq_group_by</span><span class="op">(</span><span class="va">area</span>, <span class="va">area_label</span><span class="op">)</span>  <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span><span class="fu"><a href="spq_summarise.html">spq_summarise</a></span><span class="op">(</span>total_folkm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">folkm_ngd</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">PREFIX</span> rdfs: <span style="color: #AF00FF; font-style: italic;">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?area</span> (<span style="color: #008700; font-weight: bold;">SUM</span>(<span style="color: #000087;">?folkm_ngd</span>) <span style="color: #008700; font-weight: bold;">AS</span> <span style="color: #000087;">?total_folkm</span>)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?area</span> <span style="color: #000087;">?area_label</span> (<span style="color: #008700; font-weight: bold;">SUM</span>(<span style="color: #000087;">?folkm_ngd</span>) <span style="color: #008700; font-weight: bold;">AS</span> <span style="color: #000087;">?total_folkm</span>)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">WHERE</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P361</span> <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q297853</span>.</span>
@@ -100,9 +101,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?area</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P527</span> <span style="color: #000087;">?item</span>.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">BIND</span>(<span style="color: #008700; font-weight: bold;">COALESCE</span>(<span style="color: #000087;">?area_labell</span>,'') <span style="color: #008700; font-weight: bold;">AS</span> <span style="color: #000087;">?area_label</span>)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">GROUP BY</span> <span style="color: #000087;">?area</span> <span style="color: #000087;">?areaLabel</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">GROUP BY</span> <span style="color: #000087;">?area</span> <span style="color: #000087;">?area_label</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
