@@ -60,6 +60,30 @@
       }
       
 
+# spq_label() for not rdfs:label
+
+    Code
+      spq_init(endpoint = "hal") %>% spq_add(
+        "haldoc:inria-00362381 dcterms:hasVersion ?version") %>% spq_add(
+        "?version dcterms:type ?type") %>% spq_label(type)
+    Output
+      PREFIX dcterms: <http://purl.org/dc/terms/>
+      PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+      PREFIX haldoc: <https://data.archives-ouvertes.fr/document/>
+      SELECT ?type (COALESCE(?type_labell,'') AS ?type_label) ?version
+      WHERE {
+      
+      haldoc:inria-00362381 dcterms:hasVersion ?version.
+      ?version dcterms:type ?type.
+      OPTIONAL {
+      	?type skos:prefLabel ?type_labell.
+      	FILTER(lang(?type_labell) IN ('en'))
+      }
+      
+      
+      }
+      
+
 # spq_label() .overwrite
 
     Code

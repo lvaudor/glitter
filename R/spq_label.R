@@ -35,6 +35,10 @@ spq_label <- function(.query,
                       .required = FALSE,
                       .languages = getOption("glitter.lang", "en$"),
                       .overwrite = FALSE) {
+
+  label_property <- .query[["endpoint_info"]][["label_property"]] %||%
+    "rdfs:label"
+
   vars = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
   if (!is.null(.languages)) .languages = tolower(.languages)
@@ -56,14 +60,14 @@ spq_label <- function(.query,
       if (.required) {
        q = spq_add(
         query,
-        sprintf("%s rdfs:label %s_labell", x, x),
+        sprintf("%s %s %s_labell", x, label_property, x),
         .required = .required
       )
        q = spq_filter(q, spq(filter))
       } else {
       q = spq_add(
         query,
-        sprintf("%s rdfs:label %s_labell", x, x),
+        sprintf("%s %s %s_labell", x,label_property, x),
         .required = .required,
         .filter = filter
       )

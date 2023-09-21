@@ -85,7 +85,7 @@ On cherche les types associés aux versions de documents. Ces types sont associ�
 query_docType=spq_init(endpoint = "hal") %>% 
   spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>% # Ce doc a des versions ?version
   spq_add("?version dcterms:type ?type") %>%                       # ?version est un document de type ?type
-  spq_add("?type skos:prefLabel ?label")                           # ?type a pour étiquette ?label
+  spq_label(type)                           # ?type a pour étiquette ?label
 
 tib_docType=spq_perform(query_docType)
 

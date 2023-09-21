@@ -35,6 +35,15 @@ test_that("spq_label() works", {
   )
 })
 
+test_that("spq_label() for not rdfs:label", {
+  expect_snapshot(
+    spq_init(endpoint = "hal") %>%
+      spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>%
+      spq_add("?version dcterms:type ?type") %>%
+      spq_label(type)
+  )
+})
+
 test_that("spq_label() .overwrite", {
 
   expect_snapshot(

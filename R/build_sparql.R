@@ -13,7 +13,7 @@
 #'   cat()
 spq_assemble = function(.query, strict = TRUE) {
 
-  endpoint = .query[["endpoint"]]
+  endpoint = .query[["endpoint_info"]][["endpoint_url"]]
 
   .query = spq_prefix(.query, auto = TRUE, prefixes = NULL)
 
