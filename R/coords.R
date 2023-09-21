@@ -5,7 +5,7 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' query_string = spq_init() %>%
+#' spq_init() %>%
 #'   spq_add("?city wdt:P31/wdt:P279* wd:Q486972") %>%
 #'   spq_label(city) %>%
 #'   spq_mutate(coords = wdt::P625(city),
