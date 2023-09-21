@@ -15,6 +15,8 @@
 #'   spq_head(n=5) %>%
 #'   spq_perform()
 #' }
+#'
+#' @inheritSection send_sparql Request control
 spq_perform = function(.query,
                        endpoint = lifecycle::deprecated(),
                        user_agent = lifecycle::deprecated(),

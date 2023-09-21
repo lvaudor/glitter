@@ -18,10 +18,10 @@
 #'   spq_mutate(coords = wdt::P625(city),
 #'           .within_distance=list(center=c(long=4.84,lat=45.76),
 #'                                radius=5)) %>%
-#'  spq_assemble()
-#'  send_sparql(query_string)
+#'   spq_assemble()
+#' send_sparql(query_string, endpoint = "https://query.wikidata.org/")
 #'  }
-#' @details
+#' @section Request control:
 #'
 #' Control the way the query is performed via the `control_request`
 #' argument of `spq_init()`.
