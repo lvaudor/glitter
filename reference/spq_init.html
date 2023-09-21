@@ -58,9 +58,27 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">spq_init</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">spq_init</span><span class="op">(</span></span>
+<span>  endpoint <span class="op">=</span> <span class="st">"wikidata"</span>,</span>
+<span>  request_control <span class="op">=</span> <span class="fu"><a href="spq_control_request.html">spq_control_request</a></span><span class="op">(</span>user_agent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"glitter.ua"</span>,</span>
+<span>    <span class="st">"glitter R package (https://github.com/lvaudor/glitter)"</span><span class="op">)</span>, max_tries <span class="op">=</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"glitter.max_tries"</span>, <span class="fl">3L</span><span class="op">)</span>, max_seconds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"glitter.max_seconds"</span>,</span>
+<span>    <span class="fl">120L</span><span class="op">)</span>, timeout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"glitter.timeout"</span>, <span class="fl">1000L</span><span class="op">)</span>, request_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"url"</span>,</span>
+<span>    <span class="st">"body-form"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+    <dl><dt>endpoint</dt>
+<dd><p>Endpoint, either name if it is in <code>usual_endpoints</code>,
+or an URL</p></dd>
+
+
+<dt>request_control</dt>
+<dd><p>An object as returned by <code><a href="spq_control_request.html">spq_control_request()</a></code></p></dd>
+
+</dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     

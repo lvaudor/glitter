@@ -100,10 +100,10 @@ de <code>spq_head(n=10)</code>.</p>
 <h2 id="explorer-les-données">Explorer les données<a class="anchor" aria-label="anchor" href="#explorer-les-donn%C3%A9es"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s ?p ?o"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -175,7 +175,7 @@ de <code>spq_head(n=10)</code>.</p>
 <h2 id="dates-biographiques-dun-auteur">Dates biographiques d’un auteur<a class="anchor" aria-label="anchor" href="#dates-biographiques-dun-auteur"></a>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?auteur foaf:birthday ?jour"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?auteur bio:birth ?date1"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?auteur bio:death ?date2"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
@@ -183,16 +183,16 @@ de <code>spq_head(n=10)</code>.</p>
 <span>  <span class="fu"><a href="../reference/spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="va">jour</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="48%">
+<col width="50%">
 <col width="11%">
 <col width="11%">
 <col width="6%">
-<col width="24%">
+<col width="20%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">auteur</th>
@@ -210,67 +210,67 @@ de <code>spq_head(n=10)</code>.</p>
 <td align="left">Michel Pourchet</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb17108223f#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb17108223f#about</a></td>
-<td align="left">18..</td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb170590428#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb170590428#about</a></td>
+<td align="left">1895</td>
+<td align="left">1961-03-21</td>
+<td align="left">..-..</td>
+<td align="left">Danny Frush</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb12244106x#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb12244106x#about</a></td>
+<td align="left">1560</td>
+<td align="left">1628</td>
+<td align="left">..-..</td>
+<td align="left">Federico Della Casa</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb137566378#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb137566378#about</a></td>
+<td align="left">1450</td>
+<td align="left">1494-02-04</td>
+<td align="left">..-..</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb17070154s#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb17070154s#about</a></td>
+<td align="left">1896</td>
 <td align="left">19..</td>
 <td align="left">..-..</td>
-<td align="left">Amédée Chivot</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb17112816k#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb17112816k#about</a></td>
-<td align="left">1883</td>
-<td align="left">1945</td>
-<td align="left">..-..</td>
-<td align="left">Hristo Kalfov</td>
+<td align="left">Georges Verger</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb17114771x#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb17114771x#about</a></td>
-<td align="left">1852</td>
-<td align="left">1929-06-11</td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb17071741b#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb17071741b#about</a></td>
+<td align="left">1905</td>
+<td align="left">1928-04-25</td>
 <td align="left">..-..</td>
-<td align="left">Robert Denman</td>
+<td align="left">Henriette Gardelle</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb17102333k#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb17102333k#about</a></td>
-<td align="left">1860</td>
-<td align="left">1929</td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb170750223#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb170750223#about</a></td>
+<td align="left">1900</td>
+<td align="left">19..</td>
 <td align="left">..-..</td>
-<td align="left">Karl Hoppe</td>
+<td align="left">Gladys Joel</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb17103447s#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb17103447s#about</a></td>
-<td align="left">1884</td>
-<td align="left">1952-08-02</td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb17075159q#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb17075159q#about</a></td>
+<td align="left">1857</td>
+<td align="left">1933-12-21</td>
 <td align="left">..-..</td>
-<td align="left">Helen Margareth Kelly</td>
+<td align="left">Eugene Corri</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb177933509#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb177933509#about</a></td>
-<td align="left">1874</td>
-<td align="left">1948-03-18</td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb17077191p#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb17077191p#about</a></td>
+<td align="left">1882</td>
+<td align="left">1934-05-14</td>
 <td align="left">..-..</td>
-<td align="left">A. C. C. Holtz</td>
+<td align="left">Norman Clapham</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb17794344m#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb17794344m#about</a></td>
-<td align="left">1886</td>
-<td align="left">1927-10-03</td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb17078617w#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb17078617w#about</a></td>
+<td align="left">1881</td>
+<td align="left">1937</td>
 <td align="left">..-..</td>
-<td align="left">Francisco Roque Serrano</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb17813535g#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb17813535g#about</a></td>
-<td align="left">1910</td>
-<td align="left">1991</td>
-<td align="left">..-..</td>
-<td align="left">Hilda Sharp</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb178163438#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb178163438#about</a></td>
-<td align="left">1894</td>
-<td align="left">1981</td>
-<td align="left">..-..</td>
-<td align="left">Dorothy Campbell</td>
+<td align="left">Parmely Herrick</td>
 </tr>
 </tbody>
 </table>
@@ -281,7 +281,7 @@ de <code>spq_head(n=10)</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fleurs_du_mal</span><span class="op">=</span><span class="st">"&lt;http://data.bnf.fr/ark:/12148/cb11947965f&gt;"</span> </span>
 <span></span>
-<span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint <span class="op">=</span> <span class="st">"dataBNF"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"{fleurs_du_mal} foaf:focus ?Oeuvre"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?edition rdarelationships:workManifested ?Oeuvre"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?edition dcterms:date ?date"</span>, .required<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
@@ -289,17 +289,17 @@ de <code>spq_head(n=10)</code>.</p>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?edition dcterms:publisher ?editeur"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="st">"dataBNF"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="20%">
+<col width="19%">
 <col width="2%">
-<col width="41%">
-<col width="20%">
-<col width="15%">
+<col width="38%">
+<col width="19%">
+<col width="21%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">Oeuvre</th>
@@ -311,75 +311,75 @@ de <code>spq_head(n=10)</code>.</p>
 <tbody>
 <tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11947965f#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11947965f#about</a></td>
-<td align="left">1989</td>
-<td align="left">[Paris] : la Différence , 1989</td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb35026667v#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb35026667v#about</a></td>
-<td align="left">Les Fleurs du mal</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11947965f#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11947965f#about</a></td>
-<td align="left">2007</td>
-<td align="left">[Bruxelles] : Éd. Paperview ; [Tours] : [“La Nouvelle
-République” diff.] , [2007]</td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb41094643c#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb41094643c#about</a></td>
-<td align="left">Les fleurs du mal : texte de 1861</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11947965f#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11947965f#about</a></td>
-<td align="left">2019</td>
-<td align="left">[Paris] : Flammarion , DL 2019</td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb45787733m#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb45787733m#about</a></td>
+<td align="left">1861</td>
+<td align="left">Paris : Poulet-Malassis et de Broise , 1861.</td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb30066464d#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb30066464d#about</a></td>
 <td align="left">Les fleurs du mal</td>
 </tr>
 <tr class="even">
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11947965f#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11947965f#about</a></td>
+<td align="left">1996</td>
+<td align="left">Paris : Nathan , 1996</td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb36188117z#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb36188117z#about</a></td>
+<td align="left">Les fleurs du mal</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11947965f#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11947965f#about</a></td>
+<td align="left">1919</td>
+<td align="left">Paris : Payot , [1919]</td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb37062594m#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb37062594m#about</a></td>
+<td align="left">Les fleurs du mal</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11947965f#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11947965f#about</a></td>
+<td align="left">2008</td>
+<td align="left">Bruxelles : la Renaissance du livre , DL 2008</td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb42139023c#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb42139023c#about</a></td>
+<td align="left">Les fleurs du mal</td>
+</tr>
+<tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11947965f#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11947965f#about</a></td>
 <td align="left">1974</td>
 <td align="left">Paris : Didier , 1974</td>
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb346207725#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb346207725#about</a></td>
 <td align="left">Les Fleurs du mal : poèmes choisis</td>
 </tr>
-<tr class="odd">
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11947965f#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11947965f#about</a></td>
-<td align="left">2002</td>
-<td align="left">Paris : Hachette éducation , 2002</td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb389339701#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb389339701#about</a></td>
-<td align="left">Les fleurs du mal</td>
-</tr>
 <tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11947965f#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11947965f#about</a></td>
-<td align="left">2014</td>
-<td align="left">Paris : First éd. , DL 2014</td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb43824767v#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb43824767v#about</a></td>
-<td align="left">Les fleurs du mal</td>
+<td align="left">1961</td>
+<td align="left">Paris, Bruxelles : M. Didier , [1961]</td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb329152214#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb329152214#about</a></td>
+<td align="left">Les Fleurs du mal</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11947965f#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11947965f#about</a></td>
 <td align="left">1975</td>
-<td align="left">[Montrouge] : [le Livre de Paris] , 1975</td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb34576959t#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb34576959t#about</a></td>
+<td align="left">Lausanne : Compagnie du livre français , “1975”</td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb34550559v#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb34550559v#about</a></td>
 <td align="left">Les Fleurs du mal</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11947965f#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11947965f#about</a></td>
-<td align="left">1972</td>
-<td align="left">[Paris] : Larousse , 1972</td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb35142139v#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb35142139v#about</a></td>
-<td align="left">Les Fleurs du mal : choix de poèmes</td>
+<td align="left">1980</td>
+<td align="left">Paris : Association pour les aveugles “La Lumière par
+le livre, l’avenir par le travail” , 1980</td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb34944494j#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb34944494j#about</a></td>
+<td align="left">Les Fleurs du mal 6e et dernier livret</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11947965f#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11947965f#about</a></td>
-<td align="left">1973</td>
-<td align="left">[Paris] : Librairie générale française , 1973</td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb354401167#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb354401167#about</a></td>
-<td align="left">Les Fleurs du mal</td>
+<td align="left">1999</td>
+<td align="left">Paris : Librairie générale française , 1999</td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb37079543m#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb37079543m#about</a></td>
+<td align="left">Les fleurs du mal</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11947965f#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11947965f#about</a></td>
-<td align="left">1992</td>
-<td align="left">Paris : Polygram. Division Phonogram ; Antony :
-distrib. Polygram-Division Phonogram , 1992 (P)</td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb38230692k#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb38230692k#about</a></td>
-<td align="left">Les Fleurs du mal : choix de poèmes</td>
+<td align="left">1994</td>
+<td align="left">Levallois-Perret : Éd. Ilias , [1994]</td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb38580509g#about" class="external-link uri">http://data.bnf.fr/ark:/12148/cb38580509g#about</a></td>
+<td align="left">Les fleurs du mal : texte intégral avec
+commentaires</td>
 </tr>
 </tbody>
 </table>
@@ -390,11 +390,11 @@ distrib. Polygram-Division Phonogram , 1992 (P)</td>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">doc</span><span class="op">=</span><span class="st">"&lt;http://data.bnf.fr/ark:/12148/cb42712156j#about&gt;"</span></span>
 <span></span>
-<span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"{doc} rdarelationships:electronicReproduction ?URLGallica"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"{doc} dcterms:title ?title"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -420,19 +420,19 @@ d’orchestre) // printemps 1893 // Paris</td>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">expo</span><span class="op">=</span><span class="st">"&lt;http://data.bnf.fr/ontology/bnf-onto/ExpositionVirtuelle&gt;"</span></span>
 <span></span>
-<span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?exposition a {expo}"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?exposition dcterms:title ?titre"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?exposition dcterms:subject ?sujet"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">30</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="17%">
-<col width="17%">
-<col width="64%">
+<col width="16%">
+<col width="16%">
+<col width="67%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">exposition</th>
@@ -441,10 +441,122 @@ d’orchestre) // printemps 1893 // Paris</td>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm215200570f" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm215200570f</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11876500z" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11876500z</a></td>
-<td align="left">La paix de Brest-Litovsk, le 3 mars 1918 : L’Humanité
-du 4 mars 1918, N° 5069, page une</td>
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm131200508j" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm131200508j</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb15868440r" class="external-link uri">http://data.bnf.fr/ark:/12148/cb15868440r</a></td>
+<td align="left">Folies Bergères. O. Métra</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm131200574f" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm131200574f</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb15868440r" class="external-link uri">http://data.bnf.fr/ark:/12148/cb15868440r</a></td>
+<td align="left">Grands magasins de la Paix</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm215200245c" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm215200245c</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb155660770" class="external-link uri">http://data.bnf.fr/ark:/12148/cb155660770</a></td>
+<td align="left">Concours de cycles nautiques sur le lac d’Enghien</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm215200248h" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm215200248h</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb155660770" class="external-link uri">http://data.bnf.fr/ark:/12148/cb155660770</a></td>
+<td align="left">Le voyage de M. Poincaré à Saint Petersbourg</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm215200361v" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm215200361v</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb155660770" class="external-link uri">http://data.bnf.fr/ark:/12148/cb155660770</a></td>
+<td align="left">En Argonne : une charge à la baïonnette</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm215200395d" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm215200395d</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb155660770" class="external-link uri">http://data.bnf.fr/ark:/12148/cb155660770</a></td>
+<td align="left">Place de la Concorde, enfants traînant un 77 boche</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm2152004348" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm2152004348</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb155660770" class="external-link uri">http://data.bnf.fr/ark:/12148/cb155660770</a></td>
+<td align="left">Réfugiés belges à la gare du Nord à Paris</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm2152004662" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm2152004662</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb155660770" class="external-link uri">http://data.bnf.fr/ark:/12148/cb155660770</a></td>
+<td align="left">Publication d’Au dessus de la mêlée, par Romain
+Rolland, le 15 septembre 1914 : Romain Rolland</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm215200467f" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm215200467f</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb155660770" class="external-link uri">http://data.bnf.fr/ark:/12148/cb155660770</a></td>
+<td align="left">Le bombardement de la cathédrale de Reims, le 17
+septembre 1914 : La cathédrale et l’archevêché après l’incendie.</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm215200477s" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm215200477s</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb155660770" class="external-link uri">http://data.bnf.fr/ark:/12148/cb155660770</a></td>
+<td align="left">Le retour du gouvernement à Paris, le 8 décembre 1914 :
+Le Président de la République visite le Petit Palais, où sont exposés
+les objets religieux des églises bombardées</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm215200485c" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm215200485c</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb155660770" class="external-link uri">http://data.bnf.fr/ark:/12148/cb155660770</a></td>
+<td align="left">La première utilisation des gaz incapacitants à Ypres,
+le 22 avril 1915 : Inspection des masques protecteurs contre les gaz
+asphyxiants</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm2152005001" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm2152005001</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb155660770" class="external-link uri">http://data.bnf.fr/ark:/12148/cb155660770</a></td>
+<td align="left">Le décret instituant la conscription en AOF, le 9
+octobre 1915 : Sénégalais en train de faire la popote</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm215200528r" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm215200528r</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb155660770" class="external-link uri">http://data.bnf.fr/ark:/12148/cb155660770</a></td>
+<td align="left">Ernst Kantorowicz soldat à Verdun, le 10 août 1916 :
+Allemands faisant leurs travaux de nettoyage, recherche de poux dans les
+couvertures</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm2152005684" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm2152005684</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb155660770" class="external-link uri">http://data.bnf.fr/ark:/12148/cb155660770</a></td>
+<td align="left">Les quatorze points de Wilson, le 8 janvier 1918 : Le
+président Wilson à Paris, en compagnie de Poincaré</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm215200606m" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm215200606m</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb155660770" class="external-link uri">http://data.bnf.fr/ark:/12148/cb155660770</a></td>
+<td align="left">Discours de Barrès lors de l’inauguration du monument
+Le Nôtre au jardin des Tuileries</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm1322004940" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm1322004940</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb148218468" class="external-link uri">http://data.bnf.fr/ark:/12148/cb148218468</a></td>
+<td align="left">La Cenerentola : Maquette de costume</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm1322004940" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm1322004940</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb13899927h" class="external-link uri">http://data.bnf.fr/ark:/12148/cb13899927h</a></td>
+<td align="left">La Cenerentola : Maquette de costume</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm1322004940" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm1322004940</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb12286477k" class="external-link uri">http://data.bnf.fr/ark:/12148/cb12286477k</a></td>
+<td align="left">La Cenerentola : Maquette de costume</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm1322004804" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm1322004804</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb118829934" class="external-link uri">http://data.bnf.fr/ark:/12148/cb118829934</a></td>
+<td align="left">Le petit chaperon rouge à découper</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm3232022911" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm3232022911</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb12010444c" class="external-link uri">http://data.bnf.fr/ark:/12148/cb12010444c</a></td>
+<td align="left">Le Chapiteau extraordinaire : Circus Hazzard par le
+Cirque Bidon monté en palc à Bordes-sur-Ariège en 1984</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm3232022911" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm3232022911</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb144056844" class="external-link uri">http://data.bnf.fr/ark:/12148/cb144056844</a></td>
+<td align="left">Le Chapiteau extraordinaire : Circus Hazzard par le
+Cirque Bidon monté en palc à Bordes-sur-Ariège en 1984</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm122240001b" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm122240001b</a></td>
@@ -452,160 +564,53 @@ du 4 mars 1918, N° 5069, page une</td>
 <td align="left">Gallimard, un siècle d’édition : Le site complet</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm1312003722" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm1312003722</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb16546494d" class="external-link uri">http://data.bnf.fr/ark:/12148/cb16546494d</a></td>
-<td align="left">Groupe de femmes de harem</td>
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm108200226b" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm108200226b</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb153030917" class="external-link uri">http://data.bnf.fr/ark:/12148/cb153030917</a></td>
+<td align="left">Bizerte : Itinéraire de Tunis à Bizerte, échelle
+1/100 000, Carte 1880</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm323202367k" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm323202367k</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb166511237" class="external-link uri">http://data.bnf.fr/ark:/12148/cb166511237</a></td>
-<td align="left">Les Hanlon-Lees dans Le Voyage en Suisse : Atelier
-Nadar, tirage de démonstration, vers 1910 d’après une prise de vue de
-1879</td>
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm108200226b" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm108200226b</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb15334801h" class="external-link uri">http://data.bnf.fr/ark:/12148/cb15334801h</a></td>
+<td align="left">Bizerte : Itinéraire de Tunis à Bizerte, échelle
+1/100 000, Carte 1880</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132200559t" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132200559t</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb119381658" class="external-link uri">http://data.bnf.fr/ark:/12148/cb119381658</a></td>
-<td align="left">Rouget de Lisle chantant La Marseillaise : La
-Marseillaise (chant de guerre pour l’armée du Rhin)</td>
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm1312005329" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm1312005329</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb149574917" class="external-link uri">http://data.bnf.fr/ark:/12148/cb149574917</a></td>
+<td align="left">Gil Blas publie Au Bonheur des Dames , grand roman
+inédit par Émile Zola</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132200559t" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132200559t</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb14958019n" class="external-link uri">http://data.bnf.fr/ark:/12148/cb14958019n</a></td>
-<td align="left">Rouget de Lisle chantant La Marseillaise : La
-Marseillaise (chant de guerre pour l’armée du Rhin)</td>
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132200036f" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132200036f</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb14944578c" class="external-link uri">http://data.bnf.fr/ark:/12148/cb14944578c</a></td>
+<td align="left">Lyon, place Bellecour : Élévation des deux bouts de la
+place</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm1292002453" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm1292002453</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb16676107m" class="external-link uri">http://data.bnf.fr/ark:/12148/cb16676107m</a></td>
-<td align="left">Esclave grecque : Maquettes de costumes pour Aelia et
-Mysis ou l’Atellane &amp;nbsp: ballet-pantomime en deux actes</td>
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm215200012k" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm215200012k</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb14944579q" class="external-link uri">http://data.bnf.fr/ark:/12148/cb14944579q</a></td>
+<td align="left">Tour de France, les coureurs groupés pour le départ au
+Parc des Princes : La douzième « Grande boucle »</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm1292002453" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm1292002453</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb14820773n" class="external-link uri">http://data.bnf.fr/ark:/12148/cb14820773n</a></td>
-<td align="left">Esclave grecque : Maquettes de costumes pour Aelia et
-Mysis ou l’Atellane &amp;nbsp: ballet-pantomime en deux actes</td>
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm215200086h" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm215200086h</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb14944579q" class="external-link uri">http://data.bnf.fr/ark:/12148/cb14944579q</a></td>
+<td align="left">Comte Leopold Berchtold (1863-1942) : Ministre des
+Affaires étrangères d’Autriche-Hongrie de 1912 à 1915</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm1292002453" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm1292002453</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb14842861t" class="external-link uri">http://data.bnf.fr/ark:/12148/cb14842861t</a></td>
-<td align="left">Esclave grecque : Maquettes de costumes pour Aelia et
-Mysis ou l’Atellane &amp;nbsp: ballet-pantomime en deux actes</td>
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm2152000943" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm2152000943</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb14944579q" class="external-link uri">http://data.bnf.fr/ark:/12148/cb14944579q</a></td>
+<td align="left">Anniversaire Champigny, 6-12-14 [manifestation de la
+ligue des Patriotes, commémoration des soldats morts en décembre 1870] :
+« Heureux, heureux alors les poètes de France ! »</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132200495c" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132200495c</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11916536w" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11916536w</a></td>
-<td align="left">La cour d’amour : Cendrillon, théâtre du Châtelet</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132200495c" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132200495c</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb41281920z" class="external-link uri">http://data.bnf.fr/ark:/12148/cb41281920z</a></td>
-<td align="left">La cour d’amour : Cendrillon, théâtre du Châtelet</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132200495c" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132200495c</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb14653265n" class="external-link uri">http://data.bnf.fr/ark:/12148/cb14653265n</a></td>
-<td align="left">La cour d’amour : Cendrillon, théâtre du Châtelet</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132200495c" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132200495c</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb12041243b" class="external-link uri">http://data.bnf.fr/ark:/12148/cb12041243b</a></td>
-<td align="left">La cour d’amour : Cendrillon, théâtre du Châtelet</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132200495c" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132200495c</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb14830746z" class="external-link uri">http://data.bnf.fr/ark:/12148/cb14830746z</a></td>
-<td align="left">La cour d’amour : Cendrillon, théâtre du Châtelet</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132202368q" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132202368q</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb14804239n" class="external-link uri">http://data.bnf.fr/ark:/12148/cb14804239n</a></td>
-<td align="left">Le poète mourant : Op. 38 (10) : Dans Mélodies de G.
-Meyerbeer, transcrites pour le piano par A. Méreaux</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132202368q" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132202368q</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb13044731k" class="external-link uri">http://data.bnf.fr/ark:/12148/cb13044731k</a></td>
-<td align="left">Le poète mourant : Op. 38 (10) : Dans Mélodies de G.
-Meyerbeer, transcrites pour le piano par A. Méreaux</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132202368q" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132202368q</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb139966243" class="external-link uri">http://data.bnf.fr/ark:/12148/cb139966243</a></td>
-<td align="left">Le poète mourant : Op. 38 (10) : Dans Mélodies de G.
-Meyerbeer, transcrites pour le piano par A. Méreaux</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm1322002697" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm1322002697</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb14785544s" class="external-link uri">http://data.bnf.fr/ark:/12148/cb14785544s</a></td>
-<td align="left">Le Temple de Gnide, ou le Prix de la Beauté :
-Divertissement en un acte représenté pour la 1 re fois par l’Académie
-royale de musique le 31 novembre 1741</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm1322002697" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm1322002697</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb14819974h" class="external-link uri">http://data.bnf.fr/ark:/12148/cb14819974h</a></td>
-<td align="left">Le Temple de Gnide, ou le Prix de la Beauté :
-Divertissement en un acte représenté pour la 1 re fois par l’Académie
-royale de musique le 31 novembre 1741</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132201415w" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132201415w</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb13546702b" class="external-link uri">http://data.bnf.fr/ark:/12148/cb13546702b</a></td>
-<td align="left">Balais, balais : Marchande de balais</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm1322014168" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm1322014168</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb13546702b" class="external-link uri">http://data.bnf.fr/ark:/12148/cb13546702b</a></td>
-<td align="left">Des noisettes au litron : Marchande de noisettes</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132201417n" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132201417n</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb13546702b" class="external-link uri">http://data.bnf.fr/ark:/12148/cb13546702b</a></td>
-<td align="left">La lanterne magique, pièce curieuse</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm1322014181" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm1322014181</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb13546702b" class="external-link uri">http://data.bnf.fr/ark:/12148/cb13546702b</a></td>
-<td align="left">Nanette, la vielleuse savoyarde</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132201419d" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132201419d</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb13546702b" class="external-link uri">http://data.bnf.fr/ark:/12148/cb13546702b</a></td>
-<td align="left">La marmotte en vie : Montreur d’animaux</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm314200029h" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm314200029h</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb13571858n" class="external-link uri">http://data.bnf.fr/ark:/12148/cb13571858n</a></td>
-<td align="left">Les acteurs Bandô Mitsugorô II à droite, dans le rôle
-de Tsubone Iwafuji, et Nakamura Matsue II ou II, dans le rôle de Chûrô
-Onoe</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132200519f" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132200519f</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb13898702c" class="external-link uri">http://data.bnf.fr/ark:/12148/cb13898702c</a></td>
-<td align="left">Cinderella : Maquette de décor</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132200519f" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132200519f</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb11914081v" class="external-link uri">http://data.bnf.fr/ark:/12148/cb11914081v</a></td>
-<td align="left">Cinderella : Maquette de décor</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132200519f" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132200519f</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb13917236k" class="external-link uri">http://data.bnf.fr/ark:/12148/cb13917236k</a></td>
-<td align="left">Cinderella : Maquette de décor</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132202062h" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132202062h</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb119172903" class="external-link uri">http://data.bnf.fr/ark:/12148/cb119172903</a></td>
-<td align="left">Fantasio , opéra-comique : Costume d’un porteur</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm132202062h" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm132202062h</a></td>
-<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb13898072m" class="external-link uri">http://data.bnf.fr/ark:/12148/cb13898072m</a></td>
-<td align="left">Fantasio , opéra-comique : Costume d’un porteur</td>
+<td align="left"><a href="http://ark.bnf.fr/ark:/12148/mm215200119j" class="external-link uri">http://ark.bnf.fr/ark:/12148/mm215200119j</a></td>
+<td align="left"><a href="http://data.bnf.fr/ark:/12148/cb14944579q" class="external-link uri">http://data.bnf.fr/ark:/12148/cb14944579q</a></td>
+<td align="left">14/7/1914, revue [militaire] à Longchamp [remise de
+médailles] : Politiques et militaires face à face</td>
 </tr>
 </tbody>
 </table>
@@ -614,12 +619,12 @@ Onoe</td>
 <h2 id="retrouver-un-nom-de-personne-à-partir-dun-isni">Retrouver un nom de personne à partir d’un ISNI<a class="anchor" aria-label="anchor" href="#retrouver-un-nom-de-personne-%C3%A0-partir-dun-isni"></a>
 </h2>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?person isni:identifierValid '0000000121012885'"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?person foaf:focus ?identity"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?identity foaf:familyName ?nom"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?identity foaf:givenName ?prenom"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -647,10 +652,10 @@ Onoe</td>
 <h2 id="identifiant-ark-dune-notice-à-partir-du-numéro-frbnf">Identifiant ARK d’une notice à partir du numéro FRBNF<a class="anchor" aria-label="anchor" href="#identifiant-ark-dune-notice-%C3%A0-partir-du-num%C3%A9ro-frbnf"></a>
 </h2>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?pidArk bnf-onto:FRBNF '11992081'^^xsd:integer"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -666,14 +671,14 @@ Onoe</td>
 <h2 id="retrouver-une-oeuvre-à-partir-dun-isbn">Retrouver une oeuvre à partir d’un ISBN<a class="anchor" aria-label="anchor" href="#retrouver-une-oeuvre-%C3%A0-partir-dun-isbn"></a>
 </h2>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?work rdfs:label ?title"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?work dcterms:creator ?creator"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?manifestation bnf-onto:isbn '2-7028-4777-3'"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?manifestation rdarelationships:workManifested ?work"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?creator foaf:name ?name"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -704,7 +709,7 @@ Onoe</td>
 <h2 id="tous-les-auteurs-morts-avant-1924">Tous les auteurs morts avant 1924<a class="anchor" aria-label="anchor" href="#tous-les-auteurs-morts-avant-1924"></a>
 </h2>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?oeuvre dcterms:creator ?auteur"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?auteur bio:death ?mort"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?auteur foaf:familyName ?nom"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -712,7 +717,7 @@ Onoe</td>
 <span>  <span class="fu"><a href="../reference/spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="va">auteur</span>, <span class="va">nom</span>, <span class="va">mort</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">mort</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -796,10 +801,10 @@ Onoe</td>
 <h2 id="images-dans-data-bnf-fr">Images dans data.bnf.fr<a class="anchor" aria-label="anchor" href="#images-dans-data-bnf-fr"></a>
 </h2>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?image dcterms:type &lt;http://purl.org/dc/dcmitype/StillImage&gt;"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -844,13 +849,13 @@ Onoe</td>
 <h2 id="ouvrages-adaptés-pour-la-jeunesse">Ouvrages adaptés pour la jeunesse<a class="anchor" aria-label="anchor" href="#ouvrages-adapt%C3%A9s-pour-la-jeunesse"></a>
 </h2>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?manifestation bnf-onto:ouvrageJeunesse 'true'^^xsd:boolean"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">". rdarelationships:workManifested ?oeuvre"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">". rdfs:seeAlso ?uri"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="va">uri</span>, <span class="va">oeuvre</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -922,7 +927,7 @@ Onoe</td>
 <h2 id="portraits-dauteur-issus-de-gallica">Portraits d’auteur, issus de Gallica<a class="anchor" aria-label="anchor" href="#portraits-dauteur-issus-de-gallica"></a>
 </h2>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?auteur rdf:type skos:Concept"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">". foaf:focus ?person"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?doc rdarelationships:electronicReproduction ?url"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
@@ -930,7 +935,7 @@ Onoe</td>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">". dcterms:subject &lt;http://data.bnf.fr/ark:/12148/cb11932843f&gt;"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="va">auteur</span>, <span class="va">url</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -1014,14 +1019,14 @@ Onoe</td>
 <h2 id="termes-spécifiques-dun-sujet-rameau">Termes spécifiques d’un sujet (RAMEAU)<a class="anchor" aria-label="anchor" href="#termes-sp%C3%A9cifiques-dun-sujet-rameau"></a>
 </h2>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?sujet1 skos:prefLabel ?label"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">". skos:narrower ?uri2"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?uri2 skos:prefLabel ?label2"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?uri2 skos:narrower ?uri3"</span>, .required <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?uri3 skos:prefLabel ?label3"</span>, .required <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -1131,11 +1136,11 @@ ultrapériphériques</td>
 <h2 id="sujets-rameau-de-type-nom-commun">Sujets RAMEAU de type nom commun<a class="anchor" aria-label="anchor" href="#sujets-rameau-de-type-nom-commun"></a>
 </h2>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?sujet dcterms:isPartOf &lt;http://data.bnf.fr/vocabulary/rameau/r166&gt;"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">". skos:prefLabel ?label"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -1195,13 +1200,13 @@ ultrapériphériques</td>
 <h2 id="alignement-entre-les-sujets-rameau-et-lieux">Alignement entre les sujets RAMEAU et lieux<a class="anchor" aria-label="anchor" href="#alignement-entre-les-sujets-rameau-et-lieux"></a>
 </h2>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?c a &lt;http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing&gt;"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?lieu foaf:focus ?c"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?lieu skos:closeMatch ?concept"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="va">lieu</span>, <span class="va">concept</span> , <span class="va">c</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">100</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -1723,13 +1728,13 @@ ultrapériphériques</td>
 <h2 id="liens-vers-wikipedia-pour-les-auteurs">Liens vers wikipedia pour les auteurs<a class="anchor" aria-label="anchor" href="#liens-vers-wikipedia-pour-les-auteurs"></a>
 </h2>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">tib</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?ConceptA foaf:focus ?auteur"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?oeuvre dcterms:creator ?auteur"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?ConceptA rdfs:seeAlso ?wikipedia"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="fu">str_detect</span><span class="op">(</span><span class="va">wikipedia</span>,<span class="st">'wikipedia'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"dataBNF"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tib</span><span class="op">)</span></span></code></pre></div>
 <table class="table">

@@ -105,10 +105,10 @@ comment les formuler dans R à l’aide du package glitter.</p>
 <h3 id="rechercher-toutes-les-informations-associées-à-ce-document">Rechercher toutes les informations associées à ce document<a class="anchor" aria-label="anchor" href="#rechercher-toutes-les-informations-associ%C3%A9es-%C3%A0-ce-document"></a>
 </h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tib_info</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">tib_info</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint <span class="op">=</span> <span class="st">"hal"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"haldoc:inria-00362381 dcterms:hasVersion ?version"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co"># Ce doc a des versions ?version</span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?version ?p ?object"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                               <span class="co"># ?version a des prop. ?p les liant à ?object</span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"hal"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tib_info</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 3</span></span></span>
@@ -126,7 +126,7 @@ comment les formuler dans R à l’aide du package glitter.</p>
 [toutes les versions de] ce document<a class="anchor" aria-label="anchor" href="#rechercher-luri-le-titre-le-lien-vers-le-pdf-et-les-auteurs-de-toutes-les-versions-de-ce-document"></a>
 </h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">query_doc</span> <span class="op">=</span> <span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">query_doc</span> <span class="op">=</span> <span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint <span class="op">=</span> <span class="st">"hal"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"haldoc:inria-00362381 dcterms:hasVersion ?version"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co"># Ce doc a des versions ?version</span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?version dcterms:title ?title"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                     <span class="co"># ?version a pour titre ?titre</span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">". dcterms:creator ?creator"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                        <span class="co"># ...... et pour créateur ?creator</span></span>
@@ -134,7 +134,7 @@ comment les formuler dans R à l’aide du package glitter.</p>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?creator hal:person ?person"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                       <span class="co"># ?creator est une personne ?person</span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?person foaf:name ?name"</span><span class="op">)</span>                               <span class="co"># ?person a pour nom ?name</span></span>
 <span></span>
-<span><span class="va">tib_doc</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_doc</span>,<span class="st">"hal"</span><span class="op">)</span></span>
+<span><span class="va">tib_doc</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_doc</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tib_doc</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 6</span></span></span>
@@ -151,7 +151,7 @@ auteurs par exemple):</p>
 <span>  <span class="fu"><a href="../reference/spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="va">version</span>, <span class="va">title</span>,<span class="va">pdf</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>             <span class="co"># Groupe les résultats par ?version, ?title, ?pdf</span></span>
 <span>  <span class="fu"><a href="../reference/spq_summarise.html">spq_summarise</a></span><span class="op">(</span>authors <span class="op">=</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">name</span>, sep <span class="op">=</span> <span class="st">', '</span><span class="op">)</span><span class="op">)</span>      <span class="co"># Concatène les noms d'auteur dans ?authors</span></span>
 <span></span>
-<span><span class="va">tib_doc_autConcat</span> <span class="op">=</span> <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_doc_autConcat</span>,<span class="st">"hal"</span><span class="op">)</span></span>
+<span><span class="va">tib_doc_autConcat</span> <span class="op">=</span> <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_doc_autConcat</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tib_doc_autConcat</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 4</span></span></span>
@@ -162,13 +162,13 @@ auteurs par exemple):</p>
 renvoyés par la requête, par exemple en <strong>recherchant le nombre
 d’auteurs d’un document</strong> (par version)</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tib_nbAutDoc</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">tib_nbAutDoc</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint <span class="op">=</span> <span class="st">"hal"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"haldoc:inria-00362381 dcterms:hasVersion ?version"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co"># Ce doc a des versions ?version</span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?version dcterms:creator ?creator"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                 <span class="co"># ?version a pour créateur ?creator</span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?creator hal:person ?person"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                       <span class="co"># ?creator est une personne ?person</span></span>
 <span>  <span class="fu"><a href="../reference/spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="va">version</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                                     <span class="co"># Groupe par ?version</span></span>
 <span>  <span class="fu"><a href="../reference/spq_summarise.html">spq_summarise</a></span><span class="op">(</span>nbperson <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">person</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>      <span class="co"># Résume: ?nbperson = nb de ?person dist.  </span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"hal"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tib_nbAutDoc</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
@@ -184,12 +184,12 @@ les versions de] ce document<a class="anchor" aria-label="anchor" href="#recherc
 sont associés à des étiquettes (dans plusieurs langues) qui permettent
 de comprendre de quoi il s’agit “en langage ordinaire”.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">query_docType</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">query_docType</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint <span class="op">=</span> <span class="st">"hal"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"haldoc:inria-00362381 dcterms:hasVersion ?version"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co"># Ce doc a des versions ?version</span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?version dcterms:type ?type"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                       <span class="co"># ?version est un document de type ?type</span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?type skos:prefLabel ?label"</span><span class="op">)</span>                           <span class="co"># ?type a pour étiquette ?label</span></span>
 <span></span>
-<span><span class="va">tib_docType</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_docType</span>,<span class="st">"hal"</span><span class="op">)</span></span>
+<span><span class="va">tib_docType</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_docType</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tib_docType</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 2 × 3</span></span></span>
@@ -203,7 +203,7 @@ ligne de résultats pour laquelle l’étiquette est en français :</p>
 <code class="sourceCode R"><span><span class="va">query_docTypeFr</span><span class="op">=</span><span class="va">query_docType</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="fu">lang</span><span class="op">(</span><span class="va">label</span><span class="op">)</span> <span class="op">==</span> <span class="st">'fr'</span><span class="op">)</span>     <span class="co"># Filtre pour garder les étiquettes en français</span></span>
 <span></span>
-<span><span class="va">tib_docTypeFr</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_docTypeFr</span>,<span class="st">"hal"</span><span class="op">)</span></span>
+<span><span class="va">tib_docTypeFr</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_docTypeFr</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tib_docTypeFr</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 3</span></span></span>
@@ -223,14 +223,14 @@ ligne de résultats pour laquelle l’étiquette est en français :</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fabien_gandon</span><span class="op">=</span><span class="st">"&lt;https://data.archives-ouvertes.fr/author/827904&gt;"</span> <span class="co"># fabien_gandon = cette forme auteur</span></span>
 <span></span>
-<span><span class="va">query_foAut</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">query_foAut</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint <span class="op">=</span> <span class="st">"hal"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?document dcterms:hasVersion ?version"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>  <span class="co"># ?document a des versions ?version</span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?version dcterms:creator ?creator"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>      <span class="co"># ?version a pour créateur ?creator</span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?creator hal:person {fabien_gandon}"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>    <span class="co"># ?creator est fabien_gandon ({déf. de l'objet dans R})</span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?version dcterms:type ?type"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>            <span class="co"># ?version a pour type ?type</span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?type skos:prefLabel ?label"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>            <span class="co"># ?type a pour étiquette ?label</span></span>
 <span>  <span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="fu">lang</span><span class="op">(</span><span class="va">label</span><span class="op">)</span> <span class="op">==</span> <span class="st">'fr'</span><span class="op">)</span>                       <span class="co"># Filtre pour garder les ?label en français</span></span>
-<span><span class="va">tib_foAut</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_foAut</span>,<span class="st">"hal"</span><span class="op">)</span></span>
+<span><span class="va">tib_foAut</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_foAut</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tib_foAut</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
@@ -254,7 +254,7 @@ associée):</p>
 <span>  <span class="fu"><a href="../reference/spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="va">type</span>, <span class="va">label</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                      <span class="co"># Groupe par ?type et ?label</span></span>
 <span>  <span class="fu"><a href="../reference/spq_summarise.html">spq_summarise</a></span><span class="op">(</span>nbdoc <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">document</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>    </span>
 <span></span>
-<span><span class="va">tib_foAutNbDoc</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_foAutNbDoc</span>,<span class="st">"hal"</span><span class="op">)</span></span>
+<span><span class="va">tib_foAutNbDoc</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_foAutNbDoc</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tib_foAutNbDoc</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 3</span></span></span>
@@ -270,7 +270,7 @@ lignes selon le nombre de documents décroissant:</p>
 <code class="sourceCode R"><span><span class="va">query_foAutNbDocOrd</span><span class="op">=</span><span class="va">query_foAutNbDoc</span><span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">nbdoc</span><span class="op">)</span><span class="op">)</span>        <span class="co"># Ordonne par ordre décroissant de ?nbdoc</span></span>
 <span></span>
-<span><span class="va">tib_foAutNbDocOrd</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_foAutNbDocOrd</span>,<span class="st">"hal"</span><span class="op">)</span></span>
+<span><span class="va">tib_foAutNbDocOrd</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_foAutNbDocOrd</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tib_foAutNbDocOrd</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 3</span></span></span>
@@ -285,7 +285,7 @@ publication. Par exemple ici, on récupère la date de publication,
 l’année correspondante, et on résume l’information en calculant le
 nombre de documents par année.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tib_dat</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">tib_dat</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint <span class="op">=</span> <span class="st">"hal"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?document dcterms:hasVersion ?version"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?version dcterms:creator ?creator"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">". dcterms:issued ?date"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                      <span class="co"># ?version est sortie à ?date</span></span>
@@ -294,7 +294,7 @@ nombre de documents par année.</p>
 <span>  <span class="fu"><a href="../reference/spq_group_by.html">spq_group_by</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                               <span class="co"># Groupe par ?year</span></span>
 <span>  <span class="fu"><a href="../reference/spq_summarise.html">spq_summarise</a></span><span class="op">(</span>nbdoc <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">document</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span>e<span class="op">=</span><span class="st">"hal"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tib_dat</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
@@ -317,11 +317,11 @@ nombre de documents par année.</p>
 Fabien Gandon » via l’IdHAL<a class="anchor" aria-label="anchor" href="#afficher-les-uris-de-toutes-les-formes-auteur-associ%C3%A9es-%C3%A0-la-forme-fabien-gandon-via-lidhal"></a>
 </h3>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">query_aut</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">query_aut</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span>endpoint <span class="op">=</span> <span class="st">"hal"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"{fabien_gandon} ore:isAggregatedBy ?o"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co"># {fabien gandon} correspond à ?o</span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?forme ore:isAggregatedBy ?o"</span><span class="op">)</span>              <span class="co"># ?forme correspond à ?o</span></span>
 <span></span>
-<span><span class="va">tib_aut</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_aut</span>,<span class="st">"hal"</span><span class="op">)</span></span>
+<span><span class="va">tib_aut</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_aut</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tib_aut</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 0 × 2</span></span></span>
@@ -342,7 +342,7 @@ Fabien Gandon » via l’IdHAL<a class="anchor" aria-label="anchor" href="#affic
 <span>  <span class="fu"><a href="../reference/spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>                              <span class="co"># Ordonne par ordre décroissant de ?year</span></span>
 <span>  <span class="fu"><a href="../reference/spq_summarise.html">spq_summarise</a></span><span class="op">(</span>nbdoc <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">document</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">tib_autNbDocYear</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_autNbDocYear</span>,<span class="st">"hal"</span><span class="op">)</span></span>
+<span><span class="va">tib_autNbDocYear</span><span class="op">=</span><span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="va">query_autNbDocYear</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tib_autNbDocYear</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 0 × 2</span></span></span>

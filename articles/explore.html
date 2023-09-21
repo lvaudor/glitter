@@ -123,13 +123,16 @@ the query in the body.</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://lvaudor.github.io/glitter/">"glitter"</a></span><span class="op">)</span> </span>
-<span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">query_basis</span> <span class="op">=</span> <span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span></span>
+<span>  endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>,</span>
+<span>  request_control <span class="op">=</span> <span class="fu"><a href="../reference/spq_control_request.html">spq_control_request</a></span><span class="op">(</span></span>
+<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">query_basis</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s ?p ?o"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
-<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
-<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -209,13 +212,10 @@ query. If these prefixes are present in
 <code><a href="../reference/usual_prefixes.html">glitter::usual_prefixes</a></code>, you don’t need to do anything. If
 they’re not, use <code><a href="../reference/spq_prefix.html">glitter::spq_prefix()</a></code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">query_basis</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?class a rdfs:Class"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
-<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
-<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -257,26 +257,20 @@ they’re not, use <code><a href="../reference/spq_prefix.html">glitter::spq_pre
 <p>How many classes are defined in total? This query might be too big
 for the service.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">query_basis</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?class a rdfs:Class"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_tally.html">spq_count</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
-<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
-<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
-<span>  <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 1</span></span></span>
 <span><span class="co">#&gt;       n</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">1</span>195</span></span></code></pre></div>
 <p>We can do the same query for owl classes instead.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">query_basis</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?class a rdfs:Class"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
-<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
-<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -322,16 +316,13 @@ provides.</p>
 <h3 id="which-classes-have-instances">Which classes have instances?<a class="anchor" aria-label="anchor" href="#which-classes-have-instances"></a>
 </h3>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">query_basis</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?instance a ?class"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="op">-</span> <span class="va">instance</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="va">class</span>, .spq_duplicate <span class="op">=</span> <span class="st">"distinct"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
-<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
-<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -375,15 +366,12 @@ provides.</p>
 <h3 id="which-classes-have-the-most-instances">Which classes have the most instances?<a class="anchor" aria-label="anchor" href="#which-classes-have-the-most-instances"></a>
 </h3>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">query_basis</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?instance a ?class"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="va">class</span>, .spq_duplicate <span class="op">=</span> <span class="st">"distinct"</span><span class="op">)</span>  <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_tally.html">spq_count</a></span><span class="op">(</span><span class="va">class</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
-<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
-<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -393,7 +381,7 @@ provides.</p>
 <tbody>
 <tr class="odd">
 <td align="left"><a href="https://cube.link/Observation" class="external-link uri">https://cube.link/Observation</a></td>
-<td align="right">8781518</td>
+<td align="right">8782695</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="https://www.ica.org/standards/RiC/ontology#DateRange" class="external-link uri">https://www.ica.org/standards/RiC/ontology#DateRange</a></td>
@@ -405,7 +393,7 @@ provides.</p>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://schema.org/DefinedTerm" class="external-link uri">http://schema.org/DefinedTerm</a></td>
-<td align="right">2990819</td>
+<td align="right">2987546</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://schema.org/PropertyValue" class="external-link uri">http://schema.org/PropertyValue</a></td>
@@ -417,15 +405,15 @@ provides.</p>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://schema.org/PostalAddress" class="external-link uri">http://schema.org/PostalAddress</a></td>
-<td align="right">740890</td>
+<td align="right">740894</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://schema.org/Organization" class="external-link uri">http://schema.org/Organization</a></td>
-<td align="right">737270</td>
+<td align="right">737286</td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="https://schema.ld.admin.ch/ZefixOrganisation" class="external-link uri">https://schema.ld.admin.ch/ZefixOrganisation</a></td>
-<td align="right">729838</td>
+<td align="right">729846</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://www.w3.org/ns/locn#Address" class="external-link uri">http://www.w3.org/ns/locn#Address</a></td>
@@ -476,16 +464,13 @@ provides.</p>
 <p>In this case the class names are quite self explanatory but if they
 were not we could use</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">query_basis</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?instance a ?class"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="va">class</span>, .spq_duplicate <span class="op">=</span> <span class="st">"distinct"</span><span class="op">)</span>  <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_label.html">spq_label</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_tally.html">spq_count</a></span><span class="op">(</span><span class="va">class</span>, <span class="va">class_label</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
-<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
-<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -502,7 +487,7 @@ were not we could use</p>
 <tr class="odd">
 <td align="left"></td>
 <td align="left"><a href="https://cube.link/Observation" class="external-link uri">https://cube.link/Observation</a></td>
-<td align="right">8781518</td>
+<td align="right">8782695</td>
 </tr>
 <tr class="even">
 <td align="left">Date Range</td>
@@ -517,7 +502,7 @@ were not we could use</p>
 <tr class="even">
 <td align="left"></td>
 <td align="left"><a href="http://schema.org/DefinedTerm" class="external-link uri">http://schema.org/DefinedTerm</a></td>
-<td align="right">2990819</td>
+<td align="right">2987546</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
@@ -532,17 +517,17 @@ were not we could use</p>
 <tr class="odd">
 <td align="left"></td>
 <td align="left"><a href="http://schema.org/PostalAddress" class="external-link uri">http://schema.org/PostalAddress</a></td>
-<td align="right">740890</td>
+<td align="right">740894</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left"><a href="http://schema.org/Organization" class="external-link uri">http://schema.org/Organization</a></td>
-<td align="right">737270</td>
+<td align="right">737286</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
 <td align="left"><a href="https://schema.ld.admin.ch/ZefixOrganisation" class="external-link uri">https://schema.ld.admin.ch/ZefixOrganisation</a></td>
-<td align="right">729838</td>
+<td align="right">729846</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
@@ -613,13 +598,10 @@ were not we could use</p>
 <code>spq_add("?property a rdfs:Property")</code> but in this case it
 returned nothing.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">query_basis</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?property a owl:DatatypeProperty"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
-<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
-<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -661,13 +643,10 @@ returned nothing.</p>
 <p>How many properties are defined in total? This query might be too big
 for the service.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">query_basis</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?property a owl:DatatypeProperty"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_tally.html">spq_count</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
-<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
-<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
-<span>  <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 1</span></span></span>
 <span><span class="co">#&gt;       n</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
@@ -677,15 +656,12 @@ for the service.</p>
 <h3 id="what-properties-are-used">What properties are used?<a class="anchor" aria-label="anchor" href="#what-properties-are-used"></a>
 </h3>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">query_basis</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s ?property ?o"</span><span class="op">)</span>  <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="op">-</span> <span class="va">s</span>, <span class="op">-</span> <span class="va">o</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="va">property</span>, .spq_duplicate <span class="op">=</span> <span class="st">"distinct"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
-<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
-<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -702,25 +678,25 @@ for the service.</p>
 <td align="left"><a href="http://purl.org/dc/terms/identifier" class="external-link uri">http://purl.org/dc/terms/identifier</a></td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://gont.ch/id" class="external-link uri">https://gont.ch/id</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/longName" class="external-link uri">https://gont.ch/longName</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/date" class="external-link uri">https://gont.ch/date</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/cantonAbbreviation" class="external-link uri">https://gont.ch/cantonAbbreviation</a></td>
-</tr>
-<tr class="even">
 <td align="left"><a href="http://www.w3.org/2000/01/rdf-schema#seeAlso" class="external-link uri">http://www.w3.org/2000/01/rdf-schema#seeAlso</a></td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://gont.ch/municipalityVersion" class="external-link uri">https://gont.ch/municipalityVersion</a></td>
+<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://gont.ch/canton" class="external-link uri">https://gont.ch/canton</a></td>
+<td align="left"><a href="https://gont.ch/municipality" class="external-link uri">https://gont.ch/municipality</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://www.w3.org/2004/02/skos/core#notation" class="external-link uri">http://www.w3.org/2004/02/skos/core#notation</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://www.w3.org/2004/02/skos/core#prefLabel" class="external-link uri">http://www.w3.org/2004/02/skos/core#prefLabel</a></td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="http://www.w3.org/2004/02/skos/core#altLabel" class="external-link uri">http://www.w3.org/2004/02/skos/core#altLabel</a></td>
+</tr>
+<tr class="even">
+<td align="left"><a href="http://www.w3.org/2004/02/skos/core#note" class="external-link uri">http://www.w3.org/2004/02/skos/core#note</a></td>
 </tr>
 </tbody>
 </table>
@@ -729,15 +705,12 @@ for the service.</p>
 <h3 id="what-values-does-a-given-property-have">What values does a given property have?<a class="anchor" aria-label="anchor" href="#what-values-does-a-given-property-have"></a>
 </h3>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span>  <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">query_basis</span>  <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span>prefixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"schema"</span> <span class="op">=</span> <span class="st">"http://schema.org/"</span><span class="op">)</span><span class="op">)</span><span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s schema:addressRegion ?value"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_tally.html">spq_count</a></span><span class="op">(</span><span class="va">value</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
-<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
-<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -795,33 +768,20 @@ for the service.</p>
 <p>One of the properties is <code>https://gont.ch/longName</code>. Which
 class uses it?</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">query_basis</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span>prefixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gont"</span> <span class="op">=</span> <span class="st">"https://gont.ch/"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s gont:longName ?o"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s a ?class"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="op">-</span><span class="va">o</span>, <span class="op">-</span><span class="va">s</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="va">class</span>, .spq_duplicate <span class="op">=</span> <span class="st">"distinct"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
-<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
-<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">class</th>
 </tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/Canton" class="external-link uri">https://gont.ch/Canton</a></td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://gont.ch/MunicipalityVersion" class="external-link uri">https://gont.ch/MunicipalityVersion</a></td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://gont.ch/DistrictEntityVersion" class="external-link uri">https://gont.ch/DistrictEntityVersion</a></td>
-</tr>
-</tbody>
+<tbody></tbody>
 </table>
 </div>
 <div class="section level2">
@@ -829,15 +789,12 @@ class uses it?</p>
 </h2>
 <p>For each organization, what data is there?</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">query_basis</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span>prefixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"schema"</span> <span class="op">=</span> <span class="st">"http://schema.org/"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s a schema:Organization"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s ?property ?value"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="op">-</span><span class="va">value</span>, <span class="op">-</span><span class="va">s</span>, <span class="va">class</span>, .spq_duplicate <span class="op">=</span> <span class="st">"distinct"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
-<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
-<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -989,15 +946,12 @@ class uses it?</p>
 </table>
 <p>And for each postal address?</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">query_basis</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span>prefixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"schema"</span> <span class="op">=</span> <span class="st">"http://schema.org/"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s a schema:PostalAddress"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s ?property ?value"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="op">-</span><span class="va">value</span>, <span class="op">-</span><span class="va">s</span>, <span class="va">class</span>, .spq_duplicate <span class="op">=</span> <span class="st">"distinct"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
-<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
-<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -1065,15 +1019,12 @@ class uses it?</p>
 <h2 id="which-data-or-property-name-includes-a-certain-substring">Which data or property name includes a certain substring?<a class="anchor" aria-label="anchor" href="#which-data-or-property-name-includes-a-certain-substring"></a>
 </h2>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">query_basis</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s ?p ?o"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="fu">str_detect</span><span class="op">(</span><span class="va">o</span>, <span class="st">"[Hh]ydro"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="op">-</span><span class="va">s</span>, .spq_duplicate <span class="op">=</span> <span class="st">"distinct"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
-<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
-<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -1128,16 +1079,13 @@ class uses it?</p>
 <h2 id="an-example-query-based-on-what-we-now-know">An example query based on what we now know<a class="anchor" aria-label="anchor" href="#an-example-query-based-on-what-we-now-know"></a>
 </h2>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">query_basis</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_prefix.html">spq_prefix</a></span><span class="op">(</span>prefixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"schema"</span> <span class="op">=</span> <span class="st">"http://schema.org/"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s a schema:Organization"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?s schema:name ?name"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="fu">str_detect</span><span class="op">(</span><span class="va">name</span>, <span class="st">"swiss"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span></span>
-<span>    endpoint <span class="op">=</span> <span class="st">"https://ld.admin.ch/query"</span>, </span>
-<span>    request_type <span class="op">=</span> <span class="st">"body-form"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
