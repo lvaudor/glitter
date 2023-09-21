@@ -55,6 +55,7 @@
       
       ?film wdt:P577 ?date00.
       BIND(YEAR(?date00) AS ?date0)
+      
       }
       
 

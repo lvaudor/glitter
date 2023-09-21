@@ -105,7 +105,7 @@ spq_assemble = function(.query, strict = TRUE) {
             sprintf("BIND%s", to_bind[["formula"]]),
             collapse = "\n"
           )
-          bind <- paste0(binded, "\n")
+          binded <- paste0(binded, "\n")
         }
       } else {
         to_bind = NULL
@@ -215,7 +215,7 @@ spq_assemble = function(.query, strict = TRUE) {
     part_prefixes, "\n",
     "SELECT ", spq_duplicate, paste0(select,collapse = " "), "\n",
     "WHERE {\n",
-    body, "\n", binded, "\n",
+    body, "\n", binded,
     filters, "\n",
     "}\n",
     group_by,

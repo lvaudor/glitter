@@ -20,6 +20,7 @@
       
       ?area wdt:P527 ?item.
       BIND(COALESCE(?area_labell,'') AS ?area_label)
+      
       }
       GROUP BY ?area ?area_label
       
@@ -93,6 +94,7 @@
       ?film wdt:P31 wd:Q11424.
       ?film wdt:P577 ?date.
       BIND(YEAR(?date) AS ?year)
+      
       }
       GROUP BY ?year
       
@@ -136,6 +138,7 @@
       
       ?area wdt:P527 ?item.
       BIND(COALESCE(?area_labell,'') AS ?area_label)
+      
       }
       GROUP BY ?area ?area_label
       
@@ -157,6 +160,7 @@
       ?film wdt:P577 ?date.
       BIND(YEAR(?date) AS ?year0)
       BIND(MIN(?year0) AS ?year)
+      
       }
       GROUP BY ?loc ?year
       
@@ -175,6 +179,7 @@
       ?film wdt:P31 wd:Q11424.
       ?film wdt:P577 ?date.
       BIND(YEAR(?date) AS ?year0)
+      
       }
       GROUP BY ?filmLabel ?loc
       

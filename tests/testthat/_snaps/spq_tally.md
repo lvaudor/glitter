@@ -39,6 +39,7 @@
       }
       
       BIND(COALESCE(?narrative_location_labell,'') AS ?narrative_location_label)
+      
       }
       GROUP BY ?narrative_location_label
       ORDER BY DESC(?n_films)
@@ -84,6 +85,7 @@
       }
       
       BIND(COALESCE(?narrative_location_labell,'') AS ?narrative_location_label)
+      
       }
       GROUP BY ?narrative_location_label
       ORDER BY DESC(?n_films)
