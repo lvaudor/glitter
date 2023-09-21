@@ -36,13 +36,16 @@ How can one know whether a service needs `request_type = "body-form"`?
 
 ```{r}
 library("glitter") 
-spq_init() %>%
+query_basis = spq_init(
+  endpoint = "https://ld.admin.ch/query",
+  request_control = spq_control_request(
+    request_type = "body-form"
+  )
+)
+query_basis %>%
   spq_add("?s ?p ?o") %>%
   spq_head(n = 10) %>%
-  spq_perform(
-    endpoint = "https://ld.admin.ch/query", 
-    request_type = "body-form"
-  ) %>%
+  spq_perform() %>%
   knitr::kable()
 ```
 
@@ -60,13 +63,10 @@ If these prefixes are present in `glitter::usual_prefixes`, you don't need to do
 If they're not, use `glitter::spq_prefix()`.
 
 ```{r}
-spq_init() %>%
+query_basis %>%
   spq_add("?class a rdfs:Class") %>%
   spq_head(n = 10) %>%
-  spq_perform(
-    endpoint = "https://ld.admin.ch/query", 
-    request_type = "body-form"
-  ) %>%
+  spq_perform() %>%
   knitr::kable()
 ```
 
@@ -74,26 +74,19 @@ How many classes are defined in total?
 This query might be too big for the service.
 
 ```{r}
-nclasses=spq_init() %>%
+query_basis %>%
   spq_add("?class a rdfs:Class") %>%
   spq_count() %>%
-  spq_perform(
-    endpoint = "https://ld.admin.ch/query", 
-    request_type = "body-form"
-  )
-nclasses
+  spq_perform()
 ```
 
 There are `r nclasses$n` classes declared in the triplestore. Not so many that we could not get them all in one query, but definitely too many to show them all here! Let us examine a few of these classes:
 
 ```{r}
-spq_init() %>%
+query_basis %>%
   spq_add("?class a rdfs:Class") %>%
   spq_head(n = 10) %>%
-  spq_perform(
-    endpoint = "https://ld.admin.ch/query", 
-    request_type = "body-form"
-  ) %>%
+  spq_perform() %>%
   knitr::kable()
 ```
 
@@ -104,16 +97,13 @@ Until now we could still be very in the dark as to what the service provides.
 A class might be declared although **very few or even no items fall under it**. Getting classes which do have instances actually corresponds to a another triple pattern, "?item is an instance of ?class", a.k.a. "?item a ?class":
 
 ```{r}
-spq_init() %>%
-  spq_add("?item a ?class") %>%                            # ?class have instances
+query_basis %>%
+  spq_add("?instance a ?class") %>%
   spq_arrange(class) %>%
   spq_head(n = 10) %>%
   spq_select(- item) %>%
   spq_select(class, .spq_duplicate = "distinct") %>%
-  spq_perform(
-    endpoint = "https://ld.admin.ch/query", 
-    request_type = "body-form"
-  ) %>%
+  spq_perform() %>%
   knitr::kable()
 ```
 
@@ -122,31 +112,25 @@ spq_init() %>%
 The number of items falling into each class actually gives an even better overview of the contents of a triplestore:
 
 ```{r}
-spq_init() %>%
-  spq_add("?item a ?class") %>%                           
+query_basis %>%
+  spq_add("?instance a ?class") %>%
   spq_select(class, .spq_duplicate = "distinct")  %>%
   spq_count(class, sort = TRUE) %>%                        # count items falling under class
   spq_head(20) %>%
-  spq_perform(
-    endpoint = "https://ld.admin.ch/query", 
-    request_type = "body-form"
-  ) %>%
+  spq_perform() %>%
   knitr::kable()
 ```
 
 In this case the class names are quite self explanatory but if they were not we could use
 
 ```{r}
-spq_init() %>%
+query_basis %>%
   spq_add("?instance a ?class") %>%
   spq_select(class, .spq_duplicate = "distinct")  %>%
   spq_label(class) %>%                                   # label class to get class_label
   spq_count(class, class_label, sort = TRUE) %>%         # group by class and class_label to count
   spq_head(20) %>%
-  spq_perform(
-    endpoint = "https://ld.admin.ch/query", 
-    request_type = "body-form"
-  ) %>%
+  spq_perform() %>%
   knitr::kable()
 ```
 
@@ -157,26 +141,20 @@ spq_init() %>%
 Note that you could instead use `spq_add("?property a rdfs:Property")` but in this case it returned nothing.
 
 ```{r}
-spq_init() %>%
+query_basis %>%
   spq_add("?property a owl:DatatypeProperty") %>%
   spq_head(n = 10) %>%
-  spq_perform(
-    endpoint = "https://ld.admin.ch/query", 
-    request_type = "body-form"
-  ) %>%
+  spq_perform() %>%
   knitr::kable()
 ```
 How many properties are defined in total?
 This query might be too big for the service.
 
 ```{r}
-spq_init() %>%
+query_basis %>%
   spq_add("?property a owl:DatatypeProperty") %>%
   spq_count() %>%
-  spq_perform(
-    endpoint = "https://ld.admin.ch/query", 
-    request_type = "body-form"
-  )
+  spq_perform()
 ```
 
 ### What properties are used?
@@ -184,30 +162,24 @@ spq_init() %>%
 Similarly to counting instances for classes, we wish to get a sense of the **properties that are actually used in the triplestore**.
 
 ```{r}
-spq_init() %>%
+query_basis %>%
   spq_add("?s ?property ?o")  %>%
   spq_select(- s, - o) %>%
   spq_select(property, .spq_duplicate = "distinct") %>%
   spq_head(10) %>%
-  spq_perform(
-    endpoint = "https://ld.admin.ch/query", 
-    request_type = "body-form"
-  ) %>%
+  spq_perform() %>%
   knitr::kable()
 ```
 
 ### What values does a given property have? 
 
 ```{r}
-spq_init()  %>%
+query_basis  %>%
   spq_prefix(prefixes = c("schema" = "http://schema.org/"))%>%
   spq_add("?s schema:addressRegion ?value") %>%
   spq_count(value, sort = TRUE) %>%
   spq_head(10) %>%
-  spq_perform(
-    endpoint = "https://ld.admin.ch/query", 
-    request_type = "body-form"
-  ) %>%
+  spq_perform() %>%
   knitr::kable()
 
 ```
@@ -219,17 +191,14 @@ https://gont.ch/longName`.
 Which class uses it?
 
 ```{r}
-spq_init() %>%
+query_basis %>%
   spq_prefix(prefixes = c("gont" = "https://gont.ch/")) %>%
   spq_add("?s gont:longName ?o") %>%
   spq_add("?s a ?class") %>%
   spq_select(-o, -s) %>%
   spq_select(class, .spq_duplicate = "distinct") %>%
   spq_head(10) %>%
-  spq_perform(
-    endpoint = "https://ld.admin.ch/query", 
-    request_type = "body-form"
-  ) %>%
+  spq_perform() %>%
   knitr::kable()
 ```
 
@@ -240,30 +209,24 @@ The items falling into a given class are likely to be the subject (or object) of
 For instance, in LINDAS, what properties are the schema:Organization class associated to?
 
 ```{r}
-spq_init() %>%
+query_basis %>%
   spq_prefix(prefixes = c("schema" = "http://schema.org/")) %>%
   spq_add("?s a schema:Organization") %>%
   spq_add("?s ?property ?value") %>%
   spq_select(-value, -s, class, .spq_duplicate = "distinct") %>%
-  spq_perform(
-    endpoint = "https://ld.admin.ch/query", 
-    request_type = "body-form"
-  ) %>%
+  spq_perform() %>%
   knitr::kable()
 ```
 
 And what about the properties that the schema:PostalAddress class are associated to?
 
 ```{r}
-spq_init() %>%
+query_basis %>%
   spq_prefix(prefixes = c("schema" = "http://schema.org/")) %>%
   spq_add("?s a schema:PostalAddress") %>%
   spq_add("?s ?property ?value") %>%
   spq_select(-value, -s, class, .spq_duplicate = "distinct") %>%
-  spq_perform(
-    endpoint = "https://ld.admin.ch/query", 
-    request_type = "body-form"
-  ) %>%
+  spq_perform() %>%
   knitr::kable()
 ```
 
@@ -272,15 +235,12 @@ spq_init() %>%
 Let us examine whether there exists in LINDAS some data related to water, through the search of string "hydro" or "Hydro" :
 
 ```{r}
-spq_init() %>%
+query_basis %>%
   spq_add("?s ?p ?o") %>%
   spq_filter(str_detect(o, "[Hh]ydro")) %>%
   spq_select(-s, .spq_duplicate = "distinct") %>%
   spq_head(10) %>%
-  spq_perform(
-    endpoint = "https://ld.admin.ch/query", 
-    request_type = "body-form"
-  ) %>%
+  spq_perform() %>%
   knitr::kable()
 ```
 
@@ -289,16 +249,13 @@ spq_init() %>%
 To wrap it up, let us now use the LINDAS triplestore for an actual data query: we could for instance try and collect all organizations which have "swiss" in their name:
 
 ```{r}
-spq_init() %>%
+query_basis %>%
   spq_prefix(prefixes = c("schema" = "http://schema.org/")) %>%
   spq_add("?s a schema:Organization") %>%
   spq_add("?s schema:name ?name") %>%
   spq_filter(str_detect(name, "swiss")) %>%
   spq_head(10) %>%
-  spq_perform(
-    endpoint = "https://ld.admin.ch/query", 
-    request_type = "body-form"
-  ) %>%
+  spq_perform() %>%
   knitr::kable()
 
 ```

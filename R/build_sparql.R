@@ -1,6 +1,5 @@
 #' Assemble query parts into a proper SPARQL query
 #' @param .query a list with elements of the query
-#' @param endpoint SPARQL endpoint to send the query to
 #' @param strict whether to perform some linting on the query,
 #' and error in case a problem is detected.
 #' @return A query object
@@ -12,9 +11,9 @@
 #'   spq_add("?city wdt:P1082 ?pop") %>%
 #'   spq_assemble() %>%
 #'   cat()
-spq_assemble = function(.query,
-                        endpoint = "Wikidata",
-                        strict = TRUE) {
+spq_assemble = function(.query, strict = TRUE) {
+
+  endpoint = .query[["endpoint"]]
 
   .query = spq_prefix(.query, auto = TRUE, prefixes = NULL)
 
