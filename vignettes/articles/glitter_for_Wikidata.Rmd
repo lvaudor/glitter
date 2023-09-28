@@ -30,7 +30,7 @@ This first vignette shows how to use `glitter` to extract data from the **Wikida
 To find the identifiers of items and properties of interest for a particular case study, you can:
 
 - browse [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page)
-- use package `WikidataR` (functions `find_item()`,`find_property()`). Here, we will explore that second option
+- use package `WikidataR` (functions `WikidataR::find_item()`, `WikidataR::find_property()`). Here, we will explore that second option
 
 Let's try and find the Wikidata identifier for the Lyon metro network:
 
@@ -53,19 +53,21 @@ The `glitter` functions might now be used to start exploring data.
 We're looking for items (the "unknown" in our query below, hence the use of a "?") which are part of the Lyon metro network:
 
 ```{r single_line}
-stations=spq_init() %>% 
+stations = spq_init() %>% 
   spq_add("?items wdt:P16 wd:Q1552") %>% 
   spq_perform()
+
 head(stations)
 ```
 
 To also get the labels for stations, we can use `spq_label()`:
 
 ```{r single_line_with_label}
-stations=spq_init() %>% 
+stations = spq_init() %>% 
   spq_add("?items wdt:P16 wd:Q1552") %>% 
   spq_label(items) %>% 
   spq_perform()
+
 head(stations)
 ```
 
@@ -73,12 +75,12 @@ head(stations)
 
 The query above, with `spq_label(items)`, will return a table comprising both `items` (with the Wikidata identifiers) and `items_label` (with the human-readable label corresponding to these items).
 
-If the Wikidata unique identifier is not particularly useful, one can use the argument `.overwrite=TRUE` so that only labels will be returned, under the shorter name `items`:
+If the Wikidata unique identifier is not particularly useful, one can use the argument `.overwrite = TRUE` so that only labels will be returned, under the shorter name `items`:
 
 ```{r overwrite_labelling}
 stations=spq_init() %>% 
   spq_add("?items wdt:P16 wd:Q1552") %>% 
-  spq_label(items,.overwrite=TRUE) %>% 
+  spq_label(items, .overwrite = TRUE) %>% 
   spq_perform()
 
 head(stations)
@@ -95,11 +97,12 @@ We can do that e.g. through [the Wikidata url associated to this item](https://w
 Hence, the property called "wdt:P31" ("is an instance of") should enable us to collect specifically stations ("wd:Q928830") instead of any part of the Lyon metro network.
 
 ```{r stations}
-stations=spq_init() %>% 
+stations = spq_init() %>% 
   spq_add("?station wdt:P16 wd:Q1552") %>% 
   spq_add("?station wdt:P31 wd:Q928830") %>%   # added instruction
-  spq_label(station,.overwrite=TRUE) %>% 
+  spq_label(station, .overwrite = TRUE) %>% 
   spq_perform()
+
 dim(stations)
 head(stations)
 ```
@@ -109,20 +112,21 @@ head(stations)
 If we want to get the geographical coordinate of these stations (property "wdt:P625") we can proceed this way:
 
 ```{r add_coords}
-stations_coords=spq_init() %>% 
+stations_coords = spq_init() %>% 
   spq_add("?station wdt:P16 wd:Q1552") %>% 
   spq_add("?station wdt:P31 wd:Q928830") %>%
   spq_add("?station wdt:P625 ?coords") %>%      # added instruction
-  spq_label(station,.overwrite=TRUE) %>% 
+  spq_label(station, .overwrite = TRUE) %>% 
   spq_perform()
+
 dim(stations_coords)
 head(stations_coords)
 ```
 
-This tibble can be easily transformed into a Simple feature collection (sfc) object using package `sf` :
+This tibble can be transformed into a Simple feature collection (sfc) object using package `sf`:
 
 ```{r stations_as_sf}
-stations_sf=st_as_sf(stations_coords, wkt = "coords")
+stations_sf = st_as_sf(stations_coords, wkt = "coords")
 head(stations_sf)
 ```
 
@@ -131,7 +135,7 @@ The resulting object may then be used easily with (for instance) package `leafle
 ```{r leaflet_stations}
 leaflet(stations_sf) %>%
   addTiles() %>%
-  addCircles(popup=~station)
+  addCircles(popup = ~station)
 ```
 
 # Add property qualifiers
@@ -152,7 +156,7 @@ stations_adjacency=spq_init() %>%
   spq_add("?statement ps:P197 ?adjacent") %>%        # added instruction
   spq_add("?statement pq:P81 ?line") %>%             # added instruction
   spq_add("?statement pq:P5051 ?direction") %>%      # added instruction
-  spq_label("station", "adjacent", "line", "direction",.overwrite=TRUE) %>% 
+  spq_label("station", "adjacent", "line", "direction",.overwrite = TRUE) %>% 
   spq_select(-statement) %>% 
   spq_perform() %>% 
   na.omit() %>% 
@@ -168,23 +172,22 @@ This **data-wrangling part is a bit tricky** though not directly due to any glit
 We define a function `form_line()` which will put the rows in the table of stations in the correct order.
 
 ```{r form_line}
-form_line=function(adjacencies,direction){
-  N=nrow(adjacencies)
-  num=rep(NA,N)
-  ind=which(adjacencies$adjacent==direction)
-  i=N
-  num[ind]=i
-  while(i>1){
-    indnew=which(adjacencies$adjacent==adjacencies$station[ind])
-    ind=indnew
-    i=i-1
-    num[ind]=i
+form_line = function(adjacencies, direction) {
+  N = nrow(adjacencies)
+  num = rep(NA,N)
+  ind = which(adjacencies$adjacent == direction)
+  i = N
+  num[ind] = i
+  while (i>1) {
+    indnew = which(adjacencies$adjacent == adjacencies$station[ind])
+    ind = indnew
+    i = i-1
+    num[ind] = i
   }
-  adjacencies=adjacencies %>% 
-    mutate(num=num) %>%
+  adjacencies = adjacencies %>% 
+    mutate(num = num) %>%
     arrange(num) 
-  adjacencies=c(adjacencies$station,
-                direction)
+  adjacencies = c(adjacencies$station, direction)
   return(adjacencies)
 }
 ```
@@ -193,14 +196,14 @@ Now let's **apply this function to all lines and directions possible**.
 Making full use of the tidyverse, we can use iteratively this function while not dropping the table-like structure of our data using a combination of tidyr::nest() and purrr::map().
 
 ```{r calc_lines}
-stations_lines=stations_adjacency %>% 
+stations_lines = stations_adjacency %>% 
   sf::st_drop_geometry() %>% # make this a regular tibble, not sf
   group_by(direction,line) %>% 
   na.omit() %>% 
-  tidyr::nest(.key="adj") %>% # have nested "adj" table for each direction-line
-  mutate(station=purrr::map(.x=adj,.y=direction,
+  tidyr::nest(.key = "adj") %>% # have nested "adj" table for each direction-line
+  mutate(station = purrr::map(.x = adj, .y = direction,
                             ~form_line(.x,.y))) %>% 
-  tidyr::unnest(cols="station") %>% 
+  tidyr::unnest(cols = "station") %>% 
   ungroup()
 ```
 
