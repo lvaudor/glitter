@@ -56,7 +56,8 @@ Its results however can be... more or less helpful.
 
 ### Find which classes are declared
 
-The **classes** occurring in the database will provide information as to **the kind of data** you will find there. This can be as varied (across triplestores, or even in a single triplestore) as people, places, buildings, trees, or even things that are more abstract like concepts, philosophical currents, historical periods, etc.
+The **classes** occurring in the database will provide information as to **the kind of data** you will find there. 
+This can be as varied (across triplestores, or even in a single triplestore) as people, places, buildings, trees, or even things that are more abstract like concepts, philosophical currents, historical periods, etc.
 
 At this point you might think you need to use some prefixes in your query.
 If these prefixes are present in `glitter::usual_prefixes`, you don't need to do anything.
