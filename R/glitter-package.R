@@ -1,4 +1,6 @@
 #' @importFrom rlang `%||%`
+#' @importFrom rlang `:=`
+#' @importFrom rlang .data
 #' @keywords internal
 "_PACKAGE"
 
