@@ -139,7 +139,7 @@ treat_symbol_function_call = function(symbol_function_call) {
     }
 
     # Remove ,
-    if (!(equivalent[["SPARQL"]] %in% c("REGEX", "", "COALESCE"))) {
+    if (!(equivalent[["SPARQL"]] %in% c("REGEX", "", "COALESCE", "SUBSTR"))) {
       commas = xml2::xml_find_all(expr, ".//OP-COMMA")
       xml2::xml_text(commas) = ";"
     }

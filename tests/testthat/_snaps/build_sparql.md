@@ -18,6 +18,7 @@
       }
       
       BIND(COALESCE(?subject_labell,'') AS ?subject_label)
+      
       }
       GROUP BY ?film
       
@@ -39,7 +40,8 @@
       	FILTER(lang(?item_labell) IN ('en'))
       }
       
-      BIND(COALESCE(?item_labell,'') AS ?item_label)FILTER(REGEX(LCASE(?item_label),"wikidata"))
+      BIND(COALESCE(?item_labell,'') AS ?item_label)
+      FILTER(REGEX(LCASE(?item_label),"wikidata"))
       }
       
       LIMIT 5

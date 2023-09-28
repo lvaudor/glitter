@@ -105,7 +105,7 @@ spq_assemble = function(.query, strict = TRUE) {
             sprintf("BIND%s", to_bind[["formula"]]),
             collapse = "\n"
           )
-          bind <- paste0(binded, "\n")
+          binded <- paste0(binded, "\n")
         }
       } else {
         to_bind = NULL

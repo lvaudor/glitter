@@ -64,7 +64,7 @@ stringr_common_args = tibble::tibble(
 string_functions = tibble::tribble(
     ~R, ~SPARQL, ~args,
     "str_length", "STRLEN", list(),
-  # !!! the second argument for SPARQL is lenth
+  # !!! the second argument for SPARQL is length
   # And no argument is named
     "str_sub", "SUBSTR", list(
       tibble::tibble(
