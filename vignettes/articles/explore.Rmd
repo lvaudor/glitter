@@ -1,5 +1,5 @@
 ---
-title: "How to explore a new base with glitter"
+title: "How to explore a new database with glitter"
 ---
 
 ```{r, include = FALSE}
@@ -20,13 +20,13 @@ Let's go through an example.
 
 ## A word of caution
 
-Depending on the dataset you're working with, some queries might just ask _too much_ of the service so proceed with caution.
+Depending on the dataset (or triplestore, in our context) you're working with, some queries might just ask _too much_ of the service so proceed with caution.
 When in doubt, add a `spq_head()` in your query pipeline, to ask less at a time, or use `spq_count()` to get a sense of how many results there are in total.
 
 ## Asking for a subset of all triples
 
 In the code below we'll ask for 10 triples.
-Note that we use the `endpoint` argument of `spq_perform()` to indicate where to send the query, as well as the `request_type` argument.
+Note that we use the `endpoint` argument of `spq_init()` to indicate where to send the query, as well as the `request_type` argument.
 
 How can one know whether a service needs `request_type = "body-form"`?
 
@@ -56,6 +56,9 @@ Its results however can be... more or less helpful.
 
 ### Find which classes are declared
 
+The **classes** occurring in the database will provide information as to **the kind of data** you will find there. 
+This can be as varied (across triplestores, or even in a single triplestore) as people, places, buildings, trees, or even things that are more abstract like concepts, philosophical currents, historical periods, etc.
+
 At this point you might think you need to use some prefixes in your query.
 If these prefixes are present in `glitter::usual_prefixes`, you don't need to do anything.
 If they're not, use `glitter::spq_prefix()`.
@@ -72,13 +75,17 @@ How many classes are defined in total?
 This query might be too big for the service.
 
 ```{r}
-query_basis %>%
+nclasses = query_basis %>%
   spq_add("?class a rdfs:Class") %>%
   spq_count() %>%
   spq_perform()
+
+nclasses
 ```
 
-We can do the same query for owl classes instead.
+There are `r nclasses$n` classes declared in the triplestore. 
+Not so many that we could not get them all in one query, but definitely too many to show them all here! 
+Let us examine a few of these classes:
 
 ```{r}
 query_basis %>%
@@ -92,12 +99,15 @@ Until now we could still be very in the dark as to what the service provides.
 
 ### Which classes have instances?
 
+A class might be declared although **very few or even no items fall under it**. 
+Getting classes which do have instances actually corresponds to a another triple pattern, "?item is an instance of ?class", a.k.a. "?item a ?class":
+
 ```{r}
 query_basis %>%
   spq_add("?instance a ?class") %>%
+  spq_select(- instance) %>%
   spq_arrange(class) %>%
   spq_head(n = 10) %>%
-  spq_select(- instance) %>%
   spq_select(class, .spq_duplicate = "distinct") %>%
   spq_perform() %>%
   knitr::kable()
@@ -105,11 +115,13 @@ query_basis %>%
 
 ### Which classes have the most instances?
 
+The number of items falling into each class actually gives an even better overview of the contents of a triplestore:
+
 ```{r}
 query_basis %>%
   spq_add("?instance a ?class") %>%
   spq_select(class, .spq_duplicate = "distinct")  %>%
-  spq_count(class, sort = TRUE) %>%
+  spq_count(class, sort = TRUE) %>%                        # count items falling under class
   spq_head(20) %>%
   spq_perform() %>%
   knitr::kable()
@@ -121,8 +133,8 @@ In this case the class names are quite self explanatory but if they were not we 
 query_basis %>%
   spq_add("?instance a ?class") %>%
   spq_select(class, .spq_duplicate = "distinct")  %>%
-  spq_label(class) %>%
-  spq_count(class, class_label, sort = TRUE) %>%
+  spq_label(class) %>%                                   # label class to get class_label
+  spq_count(class, class_label, sort = TRUE) %>%         # group by class and class_label to count
   spq_head(20) %>%
   spq_perform() %>%
   knitr::kable()
@@ -152,6 +164,8 @@ query_basis %>%
 ```
 
 ### What properties are used?
+
+Similarly to counting instances for classes, we wish to get a sense of the **properties that are actually used in the triplestore**.
 
 ```{r}
 query_basis %>%
@@ -194,9 +208,12 @@ query_basis %>%
   knitr::kable()
 ```
 
-## What data is stored about a class's instance?
+## What data is stored about a class's instances?
 
-For each organization, what data is there?
+The items falling into a given class are likely to be the subject (or object) of a common set of properties. 
+One might wish to explore the **properties actually associated to a class**.
+
+For instance, in LINDAS, what properties are the schema:Organization class associated to?
 
 ```{r}
 query_basis %>%
@@ -208,7 +225,7 @@ query_basis %>%
   knitr::kable()
 ```
 
-And for each postal address?
+And what about the properties that the schema:PostalAddress class are associated to?
 
 ```{r}
 query_basis %>%
@@ -222,6 +239,8 @@ query_basis %>%
 
 ## Which data or property name includes a certain substring?
 
+Let us examine whether there exists in LINDAS some data related to water, through the search of string "hydro" or "Hydro" :
+
 ```{r}
 query_basis %>%
   spq_add("?s ?p ?o") %>%
@@ -234,7 +253,7 @@ query_basis %>%
 
 ## An example query based on what we now know
 
-
+To wrap it up, let us now use the LINDAS triplestore for an actual data query: we could for instance try and collect all organizations which have "swiss" in their name:
 
 ```{r}
 query_basis %>%

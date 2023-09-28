@@ -1,5 +1,5 @@
 name,url,label_property
-wikidata,https://query.wikidata.org/,rdfs:label
+wikidata,https://query.wikidata.org/sparql,rdfs:label
 dbpedia,https://dbpedia.org/sparql,rdfs:label
 databnf,https://data.bnf.fr/sparql,rdfs:label
 isidore,https://isidore.science/sparql,rdfs:label
