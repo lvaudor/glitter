@@ -39,13 +39,16 @@ rather than of \code{httr2::req_perform()}. Useful for debugging.}
 \description{
 Send SPARQL query to endpoint and get tibble as a result
 }
-\details{
+\section{Request control}{
+
+
 Control the way the query is performed via the \code{control_request}
 argument of \code{spq_init()}.
 This way you can create a basic spq object with all the correct options
 corresponding to the SPARQL service you are using, and then use it as
 the basis of all your subsequent glitter pipelines.
 }
+
 \examples{
 \dontrun{
 query_string = spq_init() \%>\%
@@ -54,7 +57,7 @@ query_string = spq_init() \%>\%
   spq_mutate(coords = wdt::P625(city),
           .within_distance=list(center=c(long=4.84,lat=45.76),
                                radius=5)) \%>\%
- spq_assemble()
- send_sparql(query_string)
+  spq_assemble()
+send_sparql(query_string, endpoint = "https://query.wikidata.org/")
  }
 }

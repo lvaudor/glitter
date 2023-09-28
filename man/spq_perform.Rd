@@ -43,6 +43,16 @@ A query object
 \description{
 Assemble query parts into a sparql query and send it to endpoint to get a tibble as a result.
 }
+\section{Request control}{
+
+
+Control the way the query is performed via the \code{control_request}
+argument of \code{spq_init()}.
+This way you can create a basic spq object with all the correct options
+corresponding to the SPARQL service you are using, and then use it as
+the basis of all your subsequent glitter pipelines.
+}
+
 \examples{
 \dontrun{
 spq_init() \%>\%
@@ -52,4 +62,5 @@ spq_init() \%>\%
   spq_head(n=5) \%>\%
   spq_perform()
 }
+
 }

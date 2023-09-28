@@ -215,11 +215,15 @@ str_remove <- function(x, pattern) {
 }
 
 str_extract <- function(x, pattern) {
+  str_extract_all(x, pattern)[1]
+}
+
+str_extract_all <- function(x, pattern) {
   m <- gregexec(pattern, x, perl = TRUE)
   r <- regmatches(x, m) %>%
     unlist() %>%
     purrr::discard(\(x) x == "")
-  r[1]
+  r
 }
 
 str_split <- function(x, split) {

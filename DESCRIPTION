@@ -31,7 +31,6 @@ Imports:
     rlang,
     tibble,
     tidygraph,
-    WikidataQueryServiceR,
     WikidataR,
     xml2,
     xmlparsedata
