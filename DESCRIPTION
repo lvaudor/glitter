@@ -37,6 +37,7 @@ Imports:
     xmlparsedata
 Suggests: 
     covr,
+    DT,
     httptest2,
     httpuv,
     knitr,

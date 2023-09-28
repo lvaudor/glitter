@@ -103,9 +103,9 @@ Getting classes which do have instances actually corresponds to a another triple
 ```{r}
 query_basis %>%
   spq_add("?instance a ?class") %>%
+  spq_select(- instance) %>%
   spq_arrange(class) %>%
   spq_head(n = 10) %>%
-  spq_select(- item) %>%
   spq_select(class, .spq_duplicate = "distinct") %>%
   spq_perform() %>%
   knitr::kable()

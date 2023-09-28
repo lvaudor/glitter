@@ -48,60 +48,49 @@ So you're looking for all the stations that are part of ("wdt:P16") the Lyon met
 
 # Use glitter functions to start exploring data
 
-## Simple single-line query
-
 The `glitter` functions might now be used to start exploring data.
 
 We're looking for items (the "unknown" in our query below, hence the use of a "?") which are part of the Lyon metro network:
 
 ```{r single_line}
-stations=get_triple("?items wdt:P16 wd:Q1552")
+stations=spq_init() %>% 
+  spq_add("?items wdt:P16 wd:Q1552") %>% 
+  spq_perform()
 head(stations)
 ```
 
-To also get the labels for stations, we can use the argument `label`:
+To also get the labels for stations, we can use `spq_label()`:
 
 ```{r single_line_with_label}
-parts_metro_Lyon=get_triple("?items wdt:P16 wd:Q1552",
-                            label="items")
-head(parts_metro_Lyon)
-```
-
-## Simple multi-line query
-
-The `get_triple()` function we used above is a good option when you want to send **a very simple query**, yet more often than not one will wish to **gradually complexify** their initial query, so that it's actually preferable to use the **multi-line equivalent** to get_triple, which allows for such increments:
-
-```{r multi_line}
-parts_metro_Lyon=spq_init() %>% 
+stations=spq_init() %>% 
   spq_add("?items wdt:P16 wd:Q1552") %>% 
   spq_label(items) %>% 
   spq_perform()
-dim(parts_metro_Lyon)
-head(parts_metro_Lyon)
+head(stations)
 ```
 
 ## Labelling
 
-The query above, with `spq_label(?items)`, will return a table comprising both `items` (with the Wikidata identifiers) and `itemsLabel` (with the human-readable label corresponding to these items). If the Wikidata unique identifier is not particularly useful, one can use the argument `.overwrite=FALSE` so that only labels will be returned, under the shorter name `items`:
+The query above, with `spq_label(items)`, will return a table comprising both `items` (with the Wikidata identifiers) and `items_label` (with the human-readable label corresponding to these items).
+
+If the Wikidata unique identifier is not particularly useful, one can use the argument `.overwrite=FALSE` so that only labels will be returned, under the shorter name `items`:
 
 ```{r overwrite_labelling}
-parts_metro_Lyon=spq_init() %>% 
+stations=spq_init() %>% 
   spq_add("?items wdt:P16 wd:Q1552") %>% 
-  spq_label("items",.overwrite=TRUE) %>% 
+  spq_label(items,.overwrite=TRUE) %>% 
   spq_perform()
 
-head(parts_metro_Lyon)
+head(stations)
 ```
-
-
 
 # Detail query 
 
 ## Add another triple pattern
 
-For now, we get `r nrow(parts_metro_Lyon)` items, which correspond not only to stations but also to other types of items such as metro lines.
-
-Let's have a look at the item "Place Guichard - Bourse du Travail" ("wd:Q599865") which we know correspond to a station. We can do that e.g. through [the Wikidata url associated to this item](https://www.wikidata.org/wiki/Q599865){target="_blank"}.
+As it turns out, for now we get `r nrow(stations)` items, which actually correspond not only to stations but also to other types of items such as metro lines.
+Let's have a look at the item "Place Guichard - Bourse du Travail" ("wd:Q599865") which we know correspond to a station.
+We can do that e.g. through [the Wikidata url associated to this item](https://www.wikidata.org/wiki/Q599865){target="_blank"}.
 
 Hence, the property called "wdt:P31" ("is an instance of") should enable us to collect specifically stations ("wd:Q928830") instead of any part of the Lyon metro network.
 
@@ -147,7 +136,10 @@ leaflet(stations_sf) %>%
 
 # Add property qualifiers
 
-Now, we would like not only to view the stations but also the connecting lines. One property is of particular interest in this prospect: P197, which indicates **which other stations one station is connected to**. To form connecting lines, this information about the connection to other stations need to be complemented by *the involved line* and *direction* of that connection. Hence, we are not only interested in the **values** of the property P197, but also in the **property qualifiers** corresponding to the connecting line (P81) and direction (P5051)
+Now, we would like not only to view the stations but also the **connecting lines**.
+One property is of particular interest in this prospect: P197, which indicates **which other stations one station is connected to**. 
+To form connecting lines, this information about the connection to other stations need to be complemented by *the involved line* and *direction* of that connection. 
+Hence, we are not only interested in the **values** of the property P197, but also in the **property qualifiers** corresponding to the connecting line (P81) and direction (P5051)
 
 We can thus complete our query this way:
 
@@ -197,7 +189,8 @@ form_line=function(adjacencies,direction){
 }
 ```
 
-Now let's **apply this function to all lines and directions possible**:
+Now let's **apply this function to all lines and directions possible**.
+Making full use of the tidyverse, we can use iteratively this function while not dropping the table-like structure of our data using a combination of tidyr::nest() and purrr::map().
 
 ```{r calc_lines}
 stations_lines=stations_adjacency %>% 
@@ -208,7 +201,13 @@ stations_lines=stations_adjacency %>%
   mutate(station=purrr::map(.x=adj,.y=direction,
                             ~form_line(.x,.y))) %>% 
   tidyr::unnest(cols="station") %>% 
-  ungroup() %>% 
+  ungroup()
+```
+
+We use left_join() to complete the table ordering the stations into lines with the coordinates of stations:
+
+```{r join_coords}
+stations_lines=stations_lines %>% 
   left_join(unique(stations_coords), # get corresponding coordinates
             by=c("station")) %>%
   na.omit()
@@ -221,7 +220,7 @@ head(stations_lines)
 stations_lines_sf=stations_lines %>% 
   sf::st_as_sf(wkt="coords") %>% 
   group_by(direction,line) %>% 
-  summarise(do_union=FALSE) %>%   # for each group, and keeping order of points,
+  summarise(do_union = FALSE) %>%   # for each group, and keeping order of points,
   sf::st_cast("LINESTRING")       # form a linestring geometry
 stations_lines_sf
 ```
@@ -230,12 +229,12 @@ We can now use this new object to **display the Lyon metro lines on a leaflet ma
 
 ```{r leaflet_lines}
 factpal <- colorFactor(topo.colors(8),
-                       unique(stations_lines$direction))
+                       unique(stations_lines$line))
 leaflet(data=stations_sf) %>%
   addTiles() %>%
   addCircles(popup=~station) %>% 
   addPolylines(data=stations_lines_sf,
-               color=~factpal(direction), popup=~direction)
+               color=~factpal(line), popup=~line)
 ```
 
 
