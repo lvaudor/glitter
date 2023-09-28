@@ -44,7 +44,6 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0),
     withr
-    lvaudor/glitter
 VignetteBuilder: 
     knitr,
     rmarkdown
