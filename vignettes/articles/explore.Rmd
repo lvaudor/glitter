@@ -97,7 +97,8 @@ Until now we could still be very in the dark as to what the service provides.
 
 ### Which classes have instances?
 
-A class might be declared although **very few or even no items fall under it**. Getting classes which do have instances actually corresponds to a another triple pattern, "?item is an instance of ?class", a.k.a. "?item a ?class":
+A class might be declared although **very few or even no items fall under it**. 
+Getting classes which do have instances actually corresponds to a another triple pattern, "?item is an instance of ?class", a.k.a. "?item a ?class":
 
 ```{r}
 query_basis %>%
