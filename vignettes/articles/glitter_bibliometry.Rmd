@@ -60,7 +60,7 @@ interet_LV = query %>%               # garde seulement les étiquettes en franç
 DT::datatable(interet_LV)
 ```
 
-# Documents d'un auteur
+# Documents d'un·e auteur·rice
 
 Une des petites subtilités du modèle de données HAL consiste à considérer que **un document a un créateur -ou auteur- et un créateur correspond à une personne**.
 
