@@ -75,10 +75,12 @@ How many classes are defined in total?
 This query might be too big for the service.
 
 ```{r}
-query_basis %>%
+nclasses = query_basis %>%
   spq_add("?class a rdfs:Class") %>%
   spq_count() %>%
   spq_perform()
+
+nclasses
 ```
 
 There are `r nclasses$n` classes declared in the triplestore. 
