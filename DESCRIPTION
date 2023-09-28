@@ -47,7 +47,7 @@ Config/Needs/website:
     ggplot2,
     leaflet,
     sequins (>= 0.0.0.9000),
-    sf
+    sf,
     tidyr
     
 VignetteBuilder: 
