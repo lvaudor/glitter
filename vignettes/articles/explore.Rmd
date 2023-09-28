@@ -26,7 +26,7 @@ When in doubt, add a `spq_head()` in your query pipeline, to ask less at a time,
 ## Asking for a subset of all triples
 
 In the code below we'll ask for 10 triples.
-Note that we use the `endpoint` argument of `spq_perform()` to indicate where to send the query, as well as the `request_type` argument.
+Note that we use the `endpoint` argument of `spq_init()` to indicate where to send the query, as well as the `request_type` argument.
 
 How can one know whether a service needs `request_type = "body-form"`?
 

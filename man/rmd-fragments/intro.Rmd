@@ -38,3 +38,5 @@ spq_init() %>%
 ```
 
 Note that we were able to "overwrite" the date variable, which is straightforward in dplyr, but not so much in SPARQL.
+
+If you want to learn more about SPARQL, you could read the [Learning SPARQL book by Bob DuCharme](https://www.oreilly.com/library/view/learning-sparql-2nd/9781449371449/).

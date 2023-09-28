@@ -83,22 +83,26 @@ spq_init() %>%
   spq_head(10) %>%
   spq_perform()
 #> # A tibble: 10 × 3
-#>    film                                  film_label       date
-#>    <chr>                                 <chr>           <dbl>
-#>  1 http://www.wikidata.org/entity/Q24585 July 14          1932
-#>  2 http://www.wikidata.org/entity/Q24585 July 14          1933
-#>  3 http://www.wikidata.org/entity/Q24618 Jaded            1998
-#>  4 http://www.wikidata.org/entity/Q24732 The Broken Coin  1915
-#>  5 http://www.wikidata.org/entity/Q24815 Citizen Kane     1941
-#>  6 http://www.wikidata.org/entity/Q24815 Citizen Kane     1941
-#>  7 http://www.wikidata.org/entity/Q24815 Citizen Kane     1946
-#>  8 http://www.wikidata.org/entity/Q24871 Avatar           2009
-#>  9 http://www.wikidata.org/entity/Q24871 Avatar           2009
-#> 10 http://www.wikidata.org/entity/Q24871 Avatar           2009
+#>    film                                 film_label         date
+#>    <chr>                                <chr>             <dbl>
+#>  1 http://www.wikidata.org/entity/Q372  We Live in Public  2009
+#>  2 http://www.wikidata.org/entity/Q595  The Intouchables   2011
+#>  3 http://www.wikidata.org/entity/Q595  The Intouchables   2011
+#>  4 http://www.wikidata.org/entity/Q595  The Intouchables   2012
+#>  5 http://www.wikidata.org/entity/Q595  The Intouchables   2012
+#>  6 http://www.wikidata.org/entity/Q593  A Gang Story       2011
+#>  7 http://www.wikidata.org/entity/Q1365 Swept Away         1974
+#>  8 http://www.wikidata.org/entity/Q2201 Kick-Ass           2010
+#>  9 http://www.wikidata.org/entity/Q2201 Kick-Ass           2010
+#> 10 http://www.wikidata.org/entity/Q2201 Kick-Ass           2010
 ```
 
 Note that we were able to “overwrite” the date variable, which is
 straightforward in dplyr, but not so much in SPARQL.
+
+If you want to learn more about SPARQL, you could read the [Learning
+SPARQL book by Bob
+DuCharme](https://www.oreilly.com/library/view/learning-sparql-2nd/9781449371449/).
 
 ## Installation
 

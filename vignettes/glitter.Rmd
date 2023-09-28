@@ -22,6 +22,57 @@ library(glitter)
 ```{r child="../man/rmd-fragments/intro.Rmd"}
 ```
 
+## How to use glitter
+
+Your usage of glitter will probably be organized in **pipelines** with
+
+- one call to `spq_init()` to initiate a query and its options (endpoint URL, request type, etc.);
+- several calls to `spq_add()`, `spq_mutate()`, `spq_filter()`, etc. to build the query;
+- `spq_perform()` to perform the query;
+- potentially, some more wrangling of the resulting data.frame using your favorite tools (tidyverse?).
+
+### Initiate and re-use a query object
+
+By default, a query created with `spq_init()` will use Wikidata as an endpoint.
+
+Imagine you want to query dbpedia instead, you'd write.
+
+```r
+spq_init(endpoint = "dbpedia")
+```
+
+Now,  `spq_init()` allows you to tweak even more elements depending on the service you will be querying. 
+Instead of typing it all every time you need to query that endpoint in your script, you can create a basic request that you will re-use.
+
+```{r}
+query_basis = spq_init(
+  endpoint = "https://ld.admin.ch/query",
+  request_control = spq_control_request(
+    request_type = "body-form"
+  )
+)
+```
+
+And then you can re-use it:
+
+```r
+query_basis %>%
+  spq_add("?s ?p ?o") %>%
+  spq_head(n = 10) %>%
+  spq_perform() %>%
+  knitr::kable()
+```
+
+### Create a pipeline: draw the &%$!? owl?
+
+_This title is a reference to the ["how to draw an owl" meme](https://knowyourmeme.com/photos/572078-how-to-draw-an-owl)._
+
+How to know what `spq_` functions to add?
+
+- Read examples in glitter docs, such as in the [explore article](https://lvaudor.github.io/glitter/articles/explore.html).
+- If your query uses SPARQL function, you can look whether there's a glitter equivalent (see next section).
+- If you're using a ready-made SPARQL example with triple patterns, you can use them directly in `spq_add()` calls, or transform some of them to use `spq_mutate()` for instance.
+
 ## Correspondences: R-looking functions translated to SPARQL
 
 
