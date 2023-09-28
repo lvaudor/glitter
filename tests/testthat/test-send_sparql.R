@@ -1,19 +1,14 @@
 test_that("send_sparql() returns tibble", {
-  skip_if_offline()
-  metro_query='SELECT ?item ?itemLabel ?coords
-  {
-   ?item wdt:P361 wd:Q1552;
-   wdt:P625 ?coords.
-   OPTIONAL{?item wdt:P1619 ?date.}
-   SERVICE wikibase:label { bd:serviceParam wikibase:language "en" . }
-  } ORDER BY ?itemLabel
-  LIMIT 3
-  '
-  x=send_sparql(
-    metro_query,
-    endpoint = "https://query.wikidata.org/",
-    request_control = spq_control_request()
-  )
+  httptest2::with_mock_dir(file.path("fixtures", "coords"), {
+    x = spq_init() %>%
+    spq_add("?city wdt:P31/wdt:P279* wd:Q486972") %>%
+    spq_label(city) %>%
+    spq_mutate(coords = wdt::P625(city),
+      .within_distance=list(center=c(long=4.84,lat=45.76),
+        radius=5)) %>%
+      spq_head(2) %>%
+    spq_perform()
+  })
   expect_s3_class(x,"tbl")
 })
 
@@ -49,23 +44,33 @@ test_that("send_sparql() works with dbpedia", {
 
 test_that("send_sparql() works with SyMoGIH", {
   httptest2::with_mock_dir(file.path("fixtures", "symogih"), {
-tib=spq_init(endpoint = "http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql") %>%
-  spq_prefix(prefixes=c(sym="http://symogih.org/ontology/",
-                        syr="http://symogih.org/resource/")) %>%
-  spq_add("?r sym:associatesObject syr:AbOb213") %>%
-  spq_add("?r sym:isComponentOf ?i") %>%
-  spq_add("?i sym:knowledgeUnitStandardLabel ?stLabel") %>%
-  spq_add(". sym:knowledgeUnitStandardDate ?stDate") %>%
-  spq_add(". sym:hasKnowledgeUnitType ?KUTy") %>%
-  spq_add("?KUTy rdfs:label ?KUTyLabel") %>%
-  spq_head(n=10) %>%
-  spq_perform()
+    tib=spq_init(endpoint = "http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql") %>%
+      spq_prefix(prefixes=c(sym="http://symogih.org/ontology/",
+        syr="http://symogih.org/resource/")) %>%
+      spq_add("?r sym:associatesObject syr:AbOb213") %>%
+      spq_add("?r sym:isComponentOf ?i") %>%
+      spq_add("?i sym:knowledgeUnitStandardLabel ?stLabel") %>%
+      spq_add(". sym:knowledgeUnitStandardDate ?stDate") %>%
+      spq_add(". sym:hasKnowledgeUnitType ?KUTy") %>%
+      spq_add("?KUTy rdfs:label ?KUTyLabel") %>%
+      spq_head(n=10) %>%
+      spq_perform()
   })
   expect_s3_class(tib, "tbl")
   expect_equal(nrow(tib), 10)
 })
 
-
+test_that("send_sparql() works with HAL query that mixes things", {
+  httptest2::with_mock_dir(file.path("fixtures", "versions"), {
+    tib = spq_init(endpoint = "hal") %>%
+      spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>%
+      spq_add("?version ?p ?object") %>%
+      spq_head(5) %>%
+      spq_perform()
+  })
+  expect_s3_class(tib, "tbl")
+  expect_equal(nrow(tib), 5)
+})
 test_that("httr2 options", {
 
   skip_if_not_installed("httpuv")
