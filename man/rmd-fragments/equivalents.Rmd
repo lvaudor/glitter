@@ -1,0 +1,134 @@
+In glitter functions such as `spq_mutate()` and `spq_filter()` 
+you can use functions that look like R functions, for instance
+`str_detect()` below:
+
+```{r}
+# Lexemes in English that match an expression
+# here starting with "pota"
+query <- spq_init() |>
+  spq_prefix(prefixes = c(dct = "http://purl.org/dc/terms/")) |>
+  spq_add(spq('?lexemeId dct:language wd:Q1860')) |>
+  spq_mutate(lemma = wikibase::lemma(lexemeId)) |>
+  spq_filter(str_detect(lemma, '^pota.*')) |>
+  spq_select(lexemeId, lemma)
+```
+
+The query looks like so in SPARQL, so `str_detect()` has been translated to REGEX.
+
+```{r}
+query
+```
+
+What functions are available?
+
+### Functions operating on sets
+
+```{r}
+set_functions
+```
+
+Note the case of `str_c()`, whose argument `sep` will be translated to the SPARQL argument `SEPARATOR`.
+
+```{r}
+spq_init() %>%
+  spq_add("?film wdt:P31 wd:Q11424") %>%
+  spq_add("?film wdt:P921 ?subject") %>%
+  spq_label(subject) %>%
+  spq_group_by(film) %>%
+  spq_summarise(subject_label_concat = str_c(subject_label, sep="; ")) %>%
+  spq_head(10)
+```
+
+### Functions operating on terms
+
+```{r}
+term_functions
+```
+
+Example with the `lang()` function
+
+```{r}
+spq_init() %>%
+  spq_mutate(statement = wdt::P1843(wd::Q331676)) %>%
+  spq_mutate(lang = lang(statement))
+``` 
+
+### Miscellaneous functions
+
+```{r}
+misc_functions
+```
+
+Example with `desc()`
+
+```{r}
+spq_init() %>%
+  spq_add("?item wdt:P31/wdt:P279* wd:Q4022") %>%
+  spq_label(item) %>%
+  spq_add("?item wdt:P2043 ?length") %>%
+  spq_add("?item wdt:P625 ?location") %>%
+  spq_arrange(desc(length), item_label) %>%
+  spq_head(50)
+```
+
+### Functions operating on strings
+
+```{r}
+string_functions
+```
+
+Example with `str_detect()`.
+
+```{r}
+# Lexemes in English that match an expression
+# here starting with "pota"
+spq_init() |>
+  spq_prefix(prefixes = c(dct = "http://purl.org/dc/terms/")) |>
+  spq_add(spq('?lexemeId dct:language wd:Q1860')) |>
+  spq_mutate(lemma = wikibase::lemma(lexemeId)) |>
+  spq_filter(str_detect(lemma, '^pota.*')) |>
+  spq_select(lexemeId, lemma)
+```
+
+### Functions operating on numbers
+
+```{r}
+numeric_functions
+```
+
+Example (chemical elements)
+
+```{r}
+spq_init() %>%
+  spq_add("?element wdt:P31 wd:Q11344.") %>%
+  spq_mutate(density = wdt::P2054(element)) %>%
+  spq_label(element) %>%
+  spq_mutate(round_density = round(density))
+```
+
+### Functions operating on date-time objects
+
+```{r}
+datetime_functions
+```
+
+Example with `year()`:
+
+```{r}
+spq_init() %>%
+  spq_add("?film wdt:P31 wd:Q11424") %>%
+  spq_label(film) %>%
+  spq_add("?film wdt:P577 ?date") %>%
+  spq_mutate(date = year(date)) %>%
+  spq_head(10)
+```
+
+### All correspondences
+
+```{r}
+all_correspondences
+```
+
+### More correspondences?
+
+Please open an [issue](https://github.com/lvaudor/glitter/issues) if you think we should amend or add a function.

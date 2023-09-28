@@ -1,0 +1,29 @@
+---
+title: "glitter"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{glitter}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(glitter)
+```
+
+
+```{r child="../man/rmd-fragments/intro.Rmd"}
+```
+
+## Correspondences: R-looking functions translated to SPARQL
+
+
+```{r child="../man/rmd-fragments/equivalents.Rmd"}
+```
