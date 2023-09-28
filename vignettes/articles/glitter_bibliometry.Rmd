@@ -38,7 +38,7 @@ test_LV=spq_init() %>%
 DT::datatable(test_LV)
 ```
 
-Il existe bien une personne ayant ce nom dans la base de données, qui fait l'objet d'une fiche consultable [ici](`r test_LV$personne[1]`).
+Il existe bien une personne ayant ce nom dans la base de données, qui fait l'objet d'une [fiche consultable](`r test_LV$personne[1]`).
 
 La consultation de cette page montre que deux propriétés sont souvent renseignées: **foaf:interest** et **foaf:topic_interest**. Cette dernière propriété semble regrouper des mots-clés issus de l'ensemble des publications de l'auteur alors que foaf:interest correspond à des centres d'intérêt déclarés (probablement lors de la création du profil HAL: à vrai dire je ne m'en souviens plus!).
 
