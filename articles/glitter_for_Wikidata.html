@@ -313,18 +313,18 @@ argument <code>limit</code></p>
 <span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
-<span><span class="co">#&gt;    city                                     city_label                    coords</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.wikidata.org/entity/Q63638210 Ksar of Taddamoute            Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> http://www.wikidata.org/entity/Q63638675 Ksar of Tamoussa ou Ali       Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> http://www.wikidata.org/entity/Q63638831 Ksar of Tatiouine             Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> http://www.wikidata.org/entity/Q63639134 Ksar of Tissouit Ait Seghrou… Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> http://www.wikidata.org/entity/Q63639176 Ksar of Tissouit Sidi Hamza   Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> http://www.wikidata.org/entity/Q65643514 Ksar El Atteuf                Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> http://www.wikidata.org/entity/Q65643515 Ksar Bounoura                 Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> http://www.wikidata.org/entity/Q65643516 Ksar Melika                   Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> http://www.wikidata.org/entity/Q65921574 Ksar of Ouadane               Point…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> http://www.wikidata.org/entity/Q65921575 Ksar of Chinguetti            Point…</span></span></code></pre></div>
+<span><span class="co">#&gt;    city                                     coords                    city_label</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.wikidata.org/entity/Q63638210 Point(-4.78 32.704444444) Ksar of T…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> http://www.wikidata.org/entity/Q63638675 Point(-4.446111111 32.40… Ksar of T…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> http://www.wikidata.org/entity/Q63638831 Point(-4.455555555 32.35… Ksar of T…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> http://www.wikidata.org/entity/Q63639134 Point(-4.431944444 32.36… Ksar of T…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> http://www.wikidata.org/entity/Q63639176 Point(-4.443611111 32.38… Ksar of T…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> http://www.wikidata.org/entity/Q65643514 Point(3.7449 32.4755)     Ksar El A…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> http://www.wikidata.org/entity/Q65643515 Point(3.7039 32.4827)     Ksar Boun…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> http://www.wikidata.org/entity/Q65643516 Point(3.6867 32.4831)     Ksar Meli…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> http://www.wikidata.org/entity/Q65921574 Point(-11.6236 20.9289)   Ksar of O…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> http://www.wikidata.org/entity/Q65921575 Point(-12.3667 20.4633)   Ksar of C…</span></span></code></pre></div>
 <p>We can refine this query, stating that we want cities (or items of
 subclasses of city) in a radius of 5km around Lyon (which has lat-long
 coordinates ~ 45.76 and 4.84). We will use the argument
@@ -339,14 +339,14 @@ coordinates ~ 45.76 and 4.84). We will use the argument
 <span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cities_around_Lyon</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 3</span></span></span>
-<span><span class="co">#&gt;   city                                city_label coords                         </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> http://www.wikidata.org/entity/Q456 Lyon       Point(4.841388888 45.758888888)</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> http://www.wikidata.org/entity/Q456 Lyon       Point(4.841388888 45.758888888)</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> http://www.wikidata.org/entity/Q456 Lyon       Point(4.841388888 45.758888888)</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> http://www.wikidata.org/entity/Q456 Lyon       Point(4.841388888 45.758888888)</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> http://www.wikidata.org/entity/Q456 Lyon       Point(4.841388888 45.758888888)</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> http://www.wikidata.org/entity/Q456 Lyon       Point(4.841388888 45.758888888)</span></span></code></pre></div>
+<span><span class="co">#&gt;   city                                coords                          city_label</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon</span></span></code></pre></div>
 <!-- Actually, rather than getting Lyon's long-lat coordinates "by hand" we could get them directly through our query, which means we have to add a triple about Lyon ("wd:456") and its coordinates: -->
 <!-- ```{r, eval=FALSE} -->
 <!-- spq_init() %>%  -->
