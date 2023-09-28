@@ -44,6 +44,7 @@ Suggests:
     leaflet,
     rmarkdown,
     sequins (>= 0.0.0.9000),
+    sf,
     testthat (>= 3.0.0),
     tidyr,
     withr
