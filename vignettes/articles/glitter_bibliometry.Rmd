@@ -66,7 +66,7 @@ Une des petites subtilités du modèle de données HAL consiste à considérer q
 
 ## Affiliations
 
-Par exemple, l'article "How sampling influences the statistical power to detect changes in abundance: an application to river restoration" a pour créatrice (entre autres personnes) "Lise Vaudor à l'époque du Cemagref", qui correspond à la personne "Lise Vaudor" qui elle est intemporelle ;-). Ainsi, c'est en considérant les créateurs de documents que l'on va récupérer les affiliations: **l'affiliation est une information qui se récupère en adoptant une entrée par document plutôt que par auteur**.
+Par exemple, l'article "How sampling influences the statistical power to detect changes in abundance: an application to river restoration" a pour créatrice (entre autres personnes) "Lise Vaudor à l'époque du Cemagref", qui correspond à la personne "Lise Vaudor" qui elle est intemporelle 😉. Ainsi, c'est en considérant les créateurs de documents que l'on va récupérer les affiliations: **l'affiliation est une information qui se récupère en adoptant une entrée par document plutôt que par auteur**.
 
 
 ```{r orga_LV_prep, fig.width=7, fig.height=8}
