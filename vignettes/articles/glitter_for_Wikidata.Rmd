@@ -74,7 +74,7 @@ The `get_triple()` function we used above is a good option when you want to send
 ```{r multi_line}
 parts_metro_Lyon=spq_init() %>% 
   spq_add("?items wdt:P16 wd:Q1552") %>% 
-  spq_label("items") %>% 
+  spq_label(items) %>% 
   spq_perform()
 dim(parts_metro_Lyon)
 head(parts_metro_Lyon)
