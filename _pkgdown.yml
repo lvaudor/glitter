@@ -55,7 +55,7 @@ navbar:
       href: articles/explore.html
     - text: glitter for dataBNF
       href: articles/glitter_for_dataBNF.html
-    - text: Bibliometry with HAL
-      href: articles/glitter_for_hal.html
+    - text: Bibliometry with HAL (French)
+      href: articles/glitter_bibliometry.html
     - text: Learn more about how glitter works
       href: articles/internals.html
