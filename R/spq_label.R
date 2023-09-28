@@ -12,6 +12,12 @@
 #' `spq_select(blop, .overwrite = TRUE)` means you get the label as `blop`,
 #' the "original" blop variable isn't returned.
 #'
+#' @details
+#' `spq_label()` uses the property:
+#' - associated with the usual endpoint see `usual_endpoints`
+#' - the property indicated in [`spq_endpoint_info()`]
+#'
+#'
 #' @return A query object
 #' @export
 #'

@@ -50,8 +50,7 @@ Quoi qu'il en soit, l'information relative aux centres d'intérêt est accessibl
 requete = spq_init("hal") %>%
   spq_add("?personne foaf:name 'Lise Vaudor'")  %>%
   spq_add("?personne foaf:interest ?interet") %>%        # récupère les centres d'intérêt
-  spq_add("?interet skos:prefLabel ?interet_label") %>%  # étiquette les centres d'intérêt
-  spq_filter(lang(interet_label) == 'fr')
+  spq_label(interet, .languages = "fr")  # étiquette les centres d'intérêt
 
 sequins::graph_query(requete, layout = "tree")
 ```
@@ -77,10 +76,10 @@ Ainsi, c'est en considérant les créateurs de documents que l'on va récupérer
 ```{r orga_LV_prep, fig.width=7, fig.height=8}
 requete = spq_init("hal") %>%
   spq_add("?doc dcterms:creator ?createur") %>%        # documents crées par créateur
-  spq_add("?createur hal:structure ?affil") %>%        # créateur correspond à une affiliation
+  spq_add("?createur hal:structure ?affiliation") %>%        # créateur correspond à une affiliation
   spq_add("?createur hal:person ?personne") %>%        # créateur correspond à une personne
   spq_add("?personne foaf:name 'Lise Vaudor'") %>%     
-  spq_add("?affil skos:prefLabel ?affiliation") %>%    # étiquette affiliation
+  spq_label(affiliation, .overwrite = TRUE, .languages = NULL) %>%    # étiquette affiliation
   spq_group_by(affiliation) %>%                        # groupe par affiliation
   spq_summarise(n = n()) %>% 
   spq_arrange(desc(n))
@@ -104,13 +103,12 @@ Si l'on ne s'intéresse pas aux affiliations mais aux **documents** eux-mêmes:
 ```{r docs_LV}
 docs_LV = spq_init(endpoint = "hal") %>%
   spq_add("?doc dcterms:creator ?createur") %>%
-  spq_add("?createur hal:structure ?affil") %>%
+  spq_add("?createur hal:structure ?affiliation") %>%
   spq_add("?createur hal:person ?personne") %>%
   spq_add("?personne foaf:name 'Lise Vaudor'") %>%
-  spq_add("?affil skos:prefLabel ?affiliation") %>%
+  spq_label(affiliation, .overwrite = TRUE, .languages = NULL) %>%
   spq_add("?doc dcterms:type ?type") %>% 
-  spq_add("?type skos:prefLabel ?type_label") %>%
-  spq_filter(lang(type_label) == 'fr') %>% 
+  spq_label(type, .languages = "fr") %>% 
   spq_add("?doc dcterms:bibliographicCitation ?citation") %>%
   spq_add("?doc dcterms:issued ?date") %>%
   spq_mutate(date = str_sub(as.character(date), 1, 4)) %>%
@@ -171,9 +169,7 @@ get_docs_lab = function(lab){
     spq_add("?personne foaf:name ?auteur") %>%
     spq_add("?doc dcterms:creator ?createur") %>% 
     spq_select(-createur) %>%
-    spq_add("?doc dcterms:type ?type") %>%            # récupère le type de document
-    spq_add("?type skos:prefLabel ?type_label") %>%   # étiquette le type de document
-    spq_filter(lang(type_label) == 'fr') %>%          # ... en français
+    spq_label(type, .languages = "fr") %>%   # étiquette le type de document en français
     spq_add("?doc dcterms:bibliographicCitation ?citation") %>% # récupère la citation
     spq_add("?doc dcterms:issued ?date") %>%
     spq_perform() %>%
