@@ -44,6 +44,7 @@ Suggests:
     rmarkdown,
     sequins (>= 0.0.0.9000),
     testthat (>= 3.0.0),
+    tidyr,
     withr
 VignetteBuilder: 
     knitr,

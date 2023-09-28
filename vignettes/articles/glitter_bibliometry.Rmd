@@ -23,7 +23,8 @@ Dans la suite de cet article je montrerai comment explorer et exploiter ces donn
 ```{r libs, message=FALSE}
 library(glitter)
 library(sequins)
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 ```
 
 
