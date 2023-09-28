@@ -51,7 +51,7 @@
     <a class="dropdown-item" href="../articles/glitter_for_Wikidata.html">Get started with Wikidata</a>
     <a class="dropdown-item" href="../articles/explore.html">Explore a new database</a>
     <a class="dropdown-item" href="../articles/glitter_for_dataBNF.html">glitter for dataBNF</a>
-    <a class="dropdown-item" href="../articles/glitter_for_hal.html">Bibliometry with HAL</a>
+    <a class="dropdown-item" href="../articles/glitter_bibliometry.html">Bibliometry with HAL (French)</a>
     <a class="dropdown-item" href="../articles/internals.html">Learn more about how glitter works</a>
   </div>
 </li>
@@ -76,8 +76,10 @@
 
 
 
-
-<div class="row">
+<script src="glitter_for_Wikidata_files/htmlwidgets-1.6.2/htmlwidgets.js"></script><link href="glitter_for_Wikidata_files/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="glitter_for_Wikidata_files/leaflet-1.3.1/leaflet.js"></script><link href="glitter_for_Wikidata_files/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="glitter_for_Wikidata_files/proj4-2.6.2/proj4.min.js"></script><script src="glitter_for_Wikidata_files/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="glitter_for_Wikidata_files/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="glitter_for_Wikidata_files/leaflet-binding-2.2.0/leaflet.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>glitter for Wikidata</h1>
             
@@ -90,31 +92,32 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lvaudor.github.io/glitter/">glitter</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/TS404/WikidataR" class="external-link">WikidataR</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/TS404/WikidataR" class="external-link">WikidataR</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/" class="external-link">leaflet</a></span><span class="op">)</span></span></code></pre></div>
 <p>This first vignette shows how to use <code>glitter</code> to extract
-data from the <strong>Wikidata SPARQL endpoint</strong>.</p>
+data from the <strong>Wikidata SPARQL endpoint</strong>. We imagine here
+a case study in which one is interested in the <strong>Wikidata items
+available regarding the Lyon metro network</strong>.</p>
 <div class="section level2">
 <h2 id="find-items-and-properties-to-build-your-query">Find items and properties to build your query<a class="anchor" aria-label="anchor" href="#find-items-and-properties-to-build-your-query"></a>
 </h2>
-<p>To find the identifiers of items and properties of interest, you
-can:</p>
+<p>To find the identifiers of items and properties of interest for a
+particular case study, you can:</p>
 <ul>
 <li>browse <a href="https://www.wikidata.org/wiki/Wikidata:Main_Page" class="external-link">Wikidata</a>
 </li>
 <li>use package <code>WikidataR</code> (functions
-<code><a href="https://rdrr.io/pkg/WikidataR/man/find_item.html" class="external-link">find_item()</a></code>,<code><a href="https://rdrr.io/pkg/WikidataR/man/find_item.html" class="external-link">find_property()</a></code>).</li>
+<code><a href="https://rdrr.io/pkg/WikidataR/man/find_item.html" class="external-link">WikidataR::find_item()</a></code>,
+<code><a href="https://rdrr.io/pkg/WikidataR/man/find_item.html" class="external-link">WikidataR::find_property()</a></code>). Here, we will explore that
+second option</li>
 </ul>
-<p>Then <code>glitter</code> functions might be used to start exploring
-data.</p>
-</div>
-<div class="section level2">
-<h2 id="example-1-lyon-metro">Example 1: Lyon Metro<a class="anchor" aria-label="anchor" href="#example-1-lyon-metro"></a>
-</h2>
-<p>Imagine you are interested in the Wikidata available regarding the
-<strong>Lyon Metro network</strong>.</p>
-<p>Let’s try and see if there are Wikidata about it:</p>
+<p>Let’s try and find the Wikidata identifier for the Lyon metro
+network:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/WikidataR/man/find_item.html" class="external-link">find_item</a></span><span class="op">(</span><span class="st">"Metro Lyon"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">WikidataR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/WikidataR/man/find_item.html" class="external-link">find_item</a></span><span class="op">(</span><span class="st">"Metro Lyon"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Wikidata item search</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -123,9 +126,10 @@ data.</p>
 <span><span class="co">#&gt; Results:</span></span>
 <span><span class="co">#&gt; 1     Lyon Metro (Q1552) - public transportation network in Lyon, France</span></span></code></pre></div>
 <p>So you’d be interested, for instance, in all the subway stations that
-are part of this network.</p>
+are part of this network. Let’s try and find the property identifier
+that corresponds to this notion:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/WikidataR/man/find_item.html" class="external-link">find_property</a></span><span class="op">(</span><span class="st">"part of"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">WikidataR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/WikidataR/man/find_item.html" class="external-link">find_property</a></span><span class="op">(</span><span class="st">"part of"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  Wikidata property search</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -142,12 +146,22 @@ are part of this network.</p>
 <span><span class="co">#&gt; 8     transport network (P16) - network the infrastructure is a part of </span></span>
 <span><span class="co">#&gt; 9     partially coincident with (P1382) - object that partially overlaps with the subject in its instances, parts, or members </span></span>
 <span><span class="co">#&gt; 10    diaspora (P3833) - diaspora that a cultural group belongs to</span></span></code></pre></div>
-<p>So you’re looking for all the stations that are part of (“wd:P361”)
+<p>So you’re looking for all the stations that are part of (“wdt:P16”)
 the Lyon metro network (“wd:Q1552”).</p>
-<p>You could access this information through:</p>
+</div>
+<div class="section level2">
+<h2 id="use-glitter-functions-to-start-exploring-data">Use glitter functions to start exploring data<a class="anchor" aria-label="anchor" href="#use-glitter-functions-to-start-exploring-data"></a>
+</h2>
+<p>The <code>glitter</code> functions might now be used to start
+exploring data.</p>
+<p>We’re looking for items (the “unknown” in our query below, hence the
+use of a “?”) which are part of the Lyon metro network:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">stations</span><span class="op">=</span><span class="fu"><a href="../reference/get_triple.html">get_triple</a></span><span class="op">(</span><span class="st">"?items wdt:P16 wd:Q1552"</span><span class="op">)</span></span>
-<span><span class="va">stations</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">stations</span> <span class="op">=</span> <span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?items wdt:P16 wd:Q1552"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stations</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 1</span></span></span>
 <span><span class="co">#&gt;   items                                 </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                 </span></span>
@@ -157,14 +171,15 @@ the Lyon metro network (“wd:Q1552”).</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> http://www.wikidata.org/entity/Q2976  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> http://www.wikidata.org/entity/Q5298  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> http://www.wikidata.org/entity/Q599865</span></span></code></pre></div>
-<p>Notice that we do not have values yet for the stations (that’s what
-we’re looking for) hence the use of “?” at the beginning of the subject
-string.</p>
-<p>To also get the labels for stations, we can use the argument
-<code>label</code>:</p>
+<p>To also get the labels for stations, we can use
+<code><a href="../reference/spq_label.html">spq_label()</a></code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">parts_metro_Lyon</span><span class="op">=</span><span class="fu"><a href="../reference/get_triple.html">get_triple</a></span><span class="op">(</span><span class="st">"?items wdt:P16 wd:Q1552"</span>, label<span class="op">=</span><span class="st">"?items"</span><span class="op">)</span></span>
-<span><span class="va">parts_metro_Lyon</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">stations</span> <span class="op">=</span> <span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?items wdt:P16 wd:Q1552"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_label.html">spq_label</a></span><span class="op">(</span><span class="va">items</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stations</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
 <span><span class="co">#&gt;   items                                  items_label                       </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                             </span></span>
@@ -174,190 +189,259 @@ string.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> http://www.wikidata.org/entity/Q2944   Lyon Metro Line A                 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> http://www.wikidata.org/entity/Q2965   Lyon Metro Line B                 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> http://www.wikidata.org/entity/Q2969   Lyon Metro Line C</span></span></code></pre></div>
-<p>For now, we get 50 items, not only stations but also other types of
-items such as metro lines. Let’s have a look at the item “Place Guichard
-- Bourse du Travail” (Q59855) which we know correspond to a station.</p>
-<p>Property “wdt:P31” should enable us to collect only stations
-(“wd:Q928830”) instead of all parts of the Lyon Metro network.</p>
-<p>We can enrich and refine our query incrementally with
-<code><a href="../reference/spq_filter.html">spq_filter()</a></code> before sending it (whereas
-<code><a href="../reference/get_triple.html">get_triple()</a></code> was a shortcut to build and send simple
-requests) :</p>
+<div class="section level3">
+<h3 id="labelling">Labelling<a class="anchor" aria-label="anchor" href="#labelling"></a>
+</h3>
+<p>The query above, with <code>spq_label(items)</code>, will return a
+table comprising both <code>items</code> (with the Wikidata identifiers)
+and <code>items_label</code> (with the human-readable label
+corresponding to these items).</p>
+<p>If the Wikidata unique identifier is not particularly useful, one can
+use the argument <code>.overwrite = TRUE</code> so that only labels will
+be returned, under the shorter name <code>items</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">stations_metro_Lyon</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?stations wdt:P361 wd:Q1552"</span>, .label <span class="op">=</span> <span class="st">"?stations"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?stations wdt:P31 wd:Q928830"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">stations</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?items wdt:P16 wd:Q1552"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_label.html">spq_label</a></span><span class="op">(</span><span class="va">items</span>, .overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stations_metro_Lyon</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 0 × 2</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 variables: stations &lt;chr&gt;, stations_label &lt;chr&gt;</span></span></span></code></pre></div>
-<p>Or we could use glitter DSL (domain-specific language) a bit more,
-making use of <code><a href="../reference/spq_set.html">spq_set()</a></code> and the <code><a href="../reference/spq_filter.html">spq_filter()</a></code>
-fonction.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">stations_metro_Lyon</span> <span class="op">=</span> <span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_set.html">spq_set</a></span><span class="op">(</span>stations_code <span class="op">=</span> <span class="st">"wd:Q1552"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="va">stations</span> <span class="op">==</span> <span class="fu">wdt</span><span class="fu">::</span><span class="fu">P361</span><span class="op">(</span><span class="va">stations_code</span><span class="op">)</span>, .label<span class="op">=</span><span class="st">"?stations"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_set.html">spq_set</a></span><span class="op">(</span>lyon_code <span class="op">=</span> <span class="st">"wd:Q928830"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="va">stations</span> <span class="op">==</span> <span class="fu">wdt</span><span class="fu">::</span><span class="fu">P31</span><span class="op">(</span><span class="va">lyon_code</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="op">-</span> <span class="va">stations_code</span>, <span class="op">-</span> <span class="va">lyon_code</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stations_metro_Lyon</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 0 × 2</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 variables: stations &lt;chr&gt;, stations_label &lt;chr&gt;</span></span></span></code></pre></div>
-<p>We now get 42 stations that are part of the Lyon metro network.</p>
-<p>If we wanted to get other properties and associated values for these
-stations (for instance their location (“wdt:P625”)) we could proceed
-this way:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">stations_metro_Lyon</span> <span class="op">=</span> <span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_set.html">spq_set</a></span><span class="op">(</span>stations_code <span class="op">=</span> <span class="st">"wd:Q1552"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="va">stations</span> <span class="op">==</span> <span class="fu">wdt</span><span class="fu">::</span><span class="fu">P361</span><span class="op">(</span><span class="va">stations_code</span><span class="op">)</span>, .label<span class="op">=</span><span class="st">"?stations"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_set.html">spq_set</a></span><span class="op">(</span>lyon_code <span class="op">=</span> <span class="st">"wd:Q928830"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_filter.html">spq_filter</a></span><span class="op">(</span><span class="va">stations</span> <span class="op">==</span> <span class="fu">wdt</span><span class="fu">::</span><span class="fu">P31</span><span class="op">(</span><span class="va">lyon_code</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="op">-</span> <span class="va">stations_code</span>, <span class="op">-</span> <span class="va">lyon_code</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_mutate.html">spq_mutate</a></span><span class="op">(</span>coords <span class="op">=</span> <span class="fu">wdt</span><span class="fu">::</span><span class="fu">P625</span><span class="op">(</span><span class="va">stations</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stations_metro_Lyon</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 0 × 3</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 3 variables: coords &lt;chr&gt;, stations &lt;chr&gt;, stations_label &lt;chr&gt;</span></span></span></code></pre></div>
-<p>This tibble can be easily transform into a Simple feature collection
-(sfc) :</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">stations_metro_Lyon.shp</span><span class="op">=</span><span class="fu">sf</span><span class="fu">::</span><span class="fu">st_as_sf</span><span class="op">(</span><span class="va">stations_metro_Lyon</span>, wkt <span class="op">=</span> <span class="st">"coords"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">stations_metro_Lyon.shp</span><span class="op">$</span><span class="va">coords</span><span class="op">)</span></span></code></pre></div>
-<p><code>glitter</code> provides functions to clean and transform “raw”
-Wikidata tibbles into tibbles that are easier to use in R.</p>
-<p>Function <code><a href="../reference/transform_wikidata_coords.html">transform_wikidata_coords()</a></code> get the coordinates
-as longitude (<code>lng</code>) and latitude (<code>lat</code>) based on
-the Wikidata WKT formatting of spatial coordinates (“Point(<em>lng</em>
-<em>lat</em>)”).</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">stations_metro_Lyon</span><span class="op">=</span><span class="va">stations_metro_Lyon</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/transform_wikidata_coords.html">transform_wikidata_coords</a></span><span class="op">(</span><span class="st">"coords"</span><span class="op">)</span></span></code></pre></div>
-<p>The resulting table may then be used easily with (for instance)
-package <code>leaflet</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html" class="external-link">leaflet</a></span><span class="op">(</span><span class="va">stations_metro_Lyon</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addTiles</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">leaflet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addCircles</a></span><span class="op">(</span>popup<span class="op">=</span><span class="op">~</span><span class="va">stations_label</span><span class="op">)</span></span></code></pre></div>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stations</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 1</span></span></span>
+<span><span class="co">#&gt;   items                             </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                             </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Place Guichard - Bourse du Travail</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Hôtel de Ville - Louis Pradel     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Cordeliers                        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Lyon Metro Line A                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Lyon Metro Line B                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Lyon Metro Line C</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
-<h2 id="example-2-cities-around-lyon">Example 2 : cities around Lyon<a class="anchor" aria-label="anchor" href="#example-2-cities-around-lyon"></a>
+<h2 id="detail-query">Detail query<a class="anchor" aria-label="anchor" href="#detail-query"></a>
 </h2>
-<p>Now, let’s imagine that we are interested in the cities in a 200km
-radius around Lyon.</p>
+<div class="section level3">
+<h3 id="add-another-triple-pattern">Add another triple pattern<a class="anchor" aria-label="anchor" href="#add-another-triple-pattern"></a>
+</h3>
+<p>As it turns out, for now we get 48 items, which actually correspond
+not only to stations but also to other types of items such as metro
+lines. Let’s have a look at the item “Place Guichard - Bourse du
+Travail” (“wd:Q599865”) which we know correspond to a station. We can do
+that e.g. through <a href="https://www.wikidata.org/wiki/Q599865" target="_blank" class="external-link">the Wikidata url associated to this item</a>.</p>
+<p>Hence, the property called “wdt:P31” (“is an instance of”) should
+enable us to collect specifically stations (“wd:Q928830”) instead of any
+part of the Lyon metro network.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">stations</span> <span class="op">=</span> <span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?station wdt:P16 wd:Q1552"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?station wdt:P31 wd:Q928830"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>   <span class="co"># added instruction</span></span>
+<span>  <span class="fu"><a href="../reference/spq_label.html">spq_label</a></span><span class="op">(</span><span class="va">station</span>, .overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">stations</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 41  1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stations</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 1</span></span></span>
+<span><span class="co">#&gt;   station                           </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                             </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Place Guichard - Bourse du Travail</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Hôtel de Ville - Louis Pradel     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Cordeliers                        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Gare de Vénissieux                </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Stade de Gerland                  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Saxe - Gambetta</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="get-coordinates">Get coordinates<a class="anchor" aria-label="anchor" href="#get-coordinates"></a>
+</h3>
+<p>If we want to get the geographical coordinate of these stations
+(property “wdt:P625”) we can proceed this way:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">stations_coords</span> <span class="op">=</span> <span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?station wdt:P16 wd:Q1552"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?station wdt:P31 wd:Q928830"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?station wdt:P625 ?coords"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>      <span class="co"># added instruction</span></span>
+<span>  <span class="fu"><a href="../reference/spq_label.html">spq_label</a></span><span class="op">(</span><span class="va">station</span>, .overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">stations_coords</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 41  2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stations_coords</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
+<span><span class="co">#&gt;   coords                          station                           </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                             </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Point(4.847308333 45.759261111) Place Guichard - Bourse du Travail</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Point(4.836022222 45.767377777) Hôtel de Ville - Louis Pradel     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Point(4.835894444 45.763511111) Cordeliers                        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Point(4.88804 45.7058)          Gare de Vénissieux                </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Point(4.83038 45.7272)          Stade de Gerland                  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Point(4.8463 45.7543)           Saxe - Gambetta</span></span></code></pre></div>
+<p>This tibble can be transformed into a Simple feature collection (sfc)
+object using package <code>sf</code>:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">stations_sf</span> <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">stations_coords</span>, wkt <span class="op">=</span> <span class="st">"coords"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stations_sf</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Simple feature collection with 6 features and 1 field</span></span>
+<span><span class="co">#&gt; Geometry type: POINT</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: 4.83038 ymin: 45.7058 xmax: 4.88804 ymax: 45.76738</span></span>
+<span><span class="co">#&gt; CRS:           NA</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>
+<span><span class="co">#&gt;                coords station                           </span></span>
+<span><span class="co">#&gt;               <span style="color: #949494; font-style: italic;">&lt;POINT&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                             </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> (4.847308 45.75926) Place Guichard - Bourse du Travail</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> (4.836022 45.76738) Hôtel de Ville - Louis Pradel     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> (4.835894 45.76351) Cordeliers                        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>   (4.88804 45.7058) Gare de Vénissieux                </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>   (4.83038 45.7272) Stade de Gerland                  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>    (4.8463 45.7543) Saxe - Gambetta</span></span></code></pre></div>
+<p>The resulting object may then be used easily with (for instance)
+package <code>leaflet</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html" class="external-link">leaflet</a></span><span class="op">(</span><span class="va">stations_sf</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addTiles</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addCircles</a></span><span class="op">(</span>popup <span class="op">=</span> <span class="op">~</span><span class="va">station</span><span class="op">)</span></span></code></pre></div>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2ed1ae1ae114a339e46f" style="width:700px;height:432.632880098888px;"></div>
+<script type="application/json" data-for="htmlwidget-2ed1ae1ae114a339e46f">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addCircles","args":[[45.759261111,45.767377777,45.763511111,45.7058,45.7272,45.7543,45.761733333,45.767164,45.770599,45.770613888,45.7665,45.7553,45.757958333,45.769038,45.7459,45.7794,45.7855,45.753023,45.7383,45.7455,45.76,45.7516,45.7314,45.770539,45.765528,45.761251,45.714273455,45.701595375,45.7303,45.7795,45.7375,45.7748,45.7195,45.767635,45.743,45.768811111,45.7695,45.764035,45.7475,45.7749,45.716669444],[4.847308333,4.836022222,4.835894444,4.88804,4.83038,4.8463,4.858061111,4.859433,4.873703,4.836366666,4.80542,4.8431,4.83405,4.882184,4.84235,4.80421,4.83293,4.829182,4.88696,4.87136,4.82622,4.85358,4.83366,4.863119,4.901201,4.921998,4.80535659,4.804184911,4.88739,4.8275,4.83736,4.83205,4.88759,4.88978,4.87872,4.843897222,4.85239,4.909215,4.86523,4.80549,4.814544444],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},["Place Guichard - Bourse du Travail","Hôtel de Ville - Louis Pradel","Cordeliers","Gare de Vénissieux","Stade de Gerland","Saxe - Gambetta","Gare Part-Dieu - Vivier Merle","Brotteaux","République - Villeurbanne","Croix-Paquet","Gorge de Loup","Guillotière - Gabriel Péri","Bellecour","Gratte-Ciel","Jean Macé","Gare de Vaise","Cuire","Ampère - Victor Hugo","Laënnec","Monplaisir - Lumière","Vieux Lyon - Cathédrale Saint-Jean","Garibaldi","Debourg","Charpennes - Charles Hernu","Cusset","Vaulx-en-Velin - La Soie","","","Mermoz - Pinel","Hénon","Place Jean Jaurès","Croix-Rousse","Parilly","Flachet - Alain Gilles","Grange Blanche","Foch","Masséna","Laurent Bonnevay - Astroballe","Sans Souci","Valmy","Gare d'Oullins"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]}],"limits":{"lat":[45.701595375,45.7855],"lng":[4.804184911,4.921998]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="section level2">
+<h2 id="add-property-qualifiers">Add property qualifiers<a class="anchor" aria-label="anchor" href="#add-property-qualifiers"></a>
+</h2>
+<p>Now, we would like not only to view the stations but also the
+<strong>connecting lines</strong>. One property is of particular
+interest in this prospect: P197, which indicates <strong>which other
+stations one station is connected to</strong>. To form connecting lines,
+this information about the connection to other stations need to be
+complemented by <em>the involved line</em> and <em>direction</em> of
+that connection. Hence, we are not only interested in the
+<strong>values</strong> of the property P197, but also in the
+<strong>property qualifiers</strong> corresponding to the connecting
+line (P81) and direction (P5051)</p>
+<p>We can thus complete our query this way:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">stations_adjacency</span><span class="op">=</span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?station wdt:P16 wd:Q1552"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?station wdt:P31 wd:Q928830"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?station wdt:P625 ?coords"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?station p:P197 ?statement"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>          <span class="co"># added instruction</span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?statement ps:P197 ?adjacent"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>        <span class="co"># added instruction</span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?statement pq:P81 ?line"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>             <span class="co"># added instruction</span></span>
+<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?statement pq:P5051 ?direction"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>      <span class="co"># added instruction</span></span>
+<span>  <span class="fu"><a href="../reference/spq_label.html">spq_label</a></span><span class="op">(</span><span class="st">"station"</span>, <span class="st">"adjacent"</span>, <span class="st">"line"</span>, <span class="st">"direction"</span>,.overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_select.html">spq_select</a></span><span class="op">(</span><span class="op">-</span><span class="va">statement</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">coords</span>,<span class="va">station</span>,<span class="va">adjacent</span>,<span class="va">line</span>,<span class="va">direction</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stations_adjacency</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
+<span><span class="co">#&gt;   coords                          station          adjacent      line  direction</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Point(4.814544444 45.716669444) <span style="color: #949494;">"</span>Gare d'Oullins<span style="color: #949494;">"</span> <span style="color: #949494;">""</span>            Lyon… <span style="color: #949494;">""</span>       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Point(4.80535659 45.714273455)  <span style="color: #949494;">""</span>               <span style="color: #949494;">""</span>            Lyon… <span style="color: #949494;">""</span>       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Point(4.836366666 45.770613888) <span style="color: #949494;">"</span>Croix-Paquet<span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>Hôtel de Vi… Lyon… <span style="color: #949494;">"</span>Hôtel d…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Point(4.83205 45.7748)          <span style="color: #949494;">"</span>Croix-Rousse<span style="color: #949494;">"</span>   <span style="color: #949494;">"</span>Croix-Paque… Lyon… <span style="color: #949494;">"</span>Hôtel d…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Point(4.83293 45.7855)          <span style="color: #949494;">"</span>Cuire<span style="color: #949494;">"</span>          <span style="color: #949494;">"</span>Hénon<span style="color: #949494;">"</span>       Lyon… <span style="color: #949494;">"</span>Hôtel d…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Point(4.8275 45.7795)           <span style="color: #949494;">"</span>Hénon<span style="color: #949494;">"</span>          <span style="color: #949494;">"</span>Croix-Rouss… Lyon… <span style="color: #949494;">"</span>Hôtel d…</span></span></code></pre></div>
+<p>Now, we would like to put the stations <strong>in the right
+order</strong> so that we will be able to form the connecting lines.</p>
+<p>This <strong>data-wrangling part is a bit tricky</strong> though not
+directly due to any glitter-related operation.</p>
+<p>We define a function <code>form_line()</code> which will put the rows
+in the table of stations in the correct order.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/WikidataR/man/find_item.html" class="external-link">find_item</a></span><span class="op">(</span><span class="st">"Lyon"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Wikidata item search</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Number of results:    10 </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Results:</span></span>
-<span><span class="co">#&gt; 1     Lyon (Q456) - commune in the metropolis of Lyon, France </span></span>
-<span><span class="co">#&gt; 2     Olympique Lyonnais (Q704) - association football club in Lyon, France </span></span>
-<span><span class="co">#&gt; 3     León (Q208151) - city in Nicaragua </span></span>
-<span><span class="co">#&gt; 4     Lyon (Q30102635) - family name </span></span>
-<span><span class="co">#&gt; 5     Marcus Ward Lyon, Jr. (Q3290305) - U.S. mammalogist, bacteriologist, and pathologist (1875–1942) </span></span>
-<span><span class="co">#&gt; 6     Lyon (Q867818) - town in Coahoma County, Mississippi, United States </span></span>
-<span><span class="co">#&gt; 7     9381 Lyon (Q1192758) - asteroid </span></span>
-<span><span class="co">#&gt; 8     Lyon (Q30014648) - male given name </span></span>
-<span><span class="co">#&gt; 9     Jacob Lyon (Q18608055) </span></span>
-<span><span class="co">#&gt; 10    Harold Lloyd Lyon (Q18911234) - botanist (1879-1957)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/WikidataR/man/find_item.html" class="external-link">find_item</a></span><span class="op">(</span><span class="st">"city"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Wikidata item search</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Number of results:    10 </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Results:</span></span>
-<span><span class="co">#&gt; 1     city (Q515) - large permanent human settlement </span></span>
-<span><span class="co">#&gt; 2     Manchester City F.C. (Q50602) - association football club in Manchester, England </span></span>
-<span><span class="co">#&gt; 3     Leicester City F.C. (Q19481) - association football club in Leicester, England </span></span>
-<span><span class="co">#&gt; 4     Stoke City F.C. (Q18736) - association football club in Stoke-on-Trent, England </span></span>
-<span><span class="co">#&gt; 5     Birmingham City F.C. (Q19444) - association football club in Birmingham, England </span></span>
-<span><span class="co">#&gt; 6     Cardiff City F.C. (Q18662) - association football club in Cardiff, Wales </span></span>
-<span><span class="co">#&gt; 7     Norwich City F.C. (Q18721) - association football club in Norwich, England </span></span>
-<span><span class="co">#&gt; 8     Swansea City A.F.C. (Q18659) - association football club in Swansea, Wales </span></span>
-<span><span class="co">#&gt; 9     Hull City A.F.C. (Q19477) - association football club in Hull, England </span></span>
-<span><span class="co">#&gt; 10    Bradford City A.F.C. (Q48879) - association football club in Bradford, England</span></span></code></pre></div>
-<p>We could start exploring Wikidata with this query which finds all
-items that are instances (“wdt:P31”) of “city” or of any subclass
-(“wdt:P279”) of “city” . This query might return many items so that it
-seems reasonable to limit the number of items retrieved for now with the
-argument <code>limit</code></p>
+<code class="sourceCode R"><span><span class="va">form_line</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">adjacencies</span>, <span class="va">direction</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">N</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">adjacencies</span><span class="op">)</span></span>
+<span>  <span class="va">num</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">NA</span>,<span class="va">N</span><span class="op">)</span></span>
+<span>  <span class="va">ind</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">adjacencies</span><span class="op">$</span><span class="va">adjacent</span> <span class="op">==</span> <span class="va">direction</span><span class="op">)</span></span>
+<span>  <span class="va">i</span> <span class="op">=</span> <span class="va">N</span></span>
+<span>  <span class="va">num</span><span class="op">[</span><span class="va">ind</span><span class="op">]</span> <span class="op">=</span> <span class="va">i</span></span>
+<span>  <span class="kw">while</span> <span class="op">(</span><span class="va">i</span><span class="op">&gt;</span><span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">indnew</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">adjacencies</span><span class="op">$</span><span class="va">adjacent</span> <span class="op">==</span> <span class="va">adjacencies</span><span class="op">$</span><span class="va">station</span><span class="op">[</span><span class="va">ind</span><span class="op">]</span><span class="op">)</span></span>
+<span>    <span class="va">ind</span> <span class="op">=</span> <span class="va">indnew</span></span>
+<span>    <span class="va">i</span> <span class="op">=</span> <span class="va">i</span><span class="op">-</span><span class="fl">1</span></span>
+<span>    <span class="va">num</span><span class="op">[</span><span class="va">ind</span><span class="op">]</span> <span class="op">=</span> <span class="va">i</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="va">adjacencies</span> <span class="op">=</span> <span class="va">adjacencies</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>num <span class="op">=</span> <span class="va">num</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">num</span><span class="op">)</span> </span>
+<span>  <span class="va">adjacencies</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">adjacencies</span><span class="op">$</span><span class="va">station</span>, <span class="va">direction</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">adjacencies</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Now let’s <strong>apply this function to all lines and directions
+possible</strong>. Making full use of the tidyverse, we can use
+iteratively this function while not dropping the table-like structure of
+our data using a combination of tidyr::nest() and purrr::map().</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?city wdt:P31/wdt:P279* wd:Q515"</span>, .label<span class="op">=</span><span class="st">"?city"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 2</span></span></span>
-<span><span class="co">#&gt;    city                                     city_label        </span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.wikidata.org/entity/Q309436   Aït Benhaddou     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> http://www.wikidata.org/entity/Q817274   Beni Isguen       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> http://www.wikidata.org/entity/Q2670896  Ksar Ouled Soltane</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> http://www.wikidata.org/entity/Q3200131  Ksar Ifegh        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> http://www.wikidata.org/entity/Q3200135  Ksar of Lamaarka  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> http://www.wikidata.org/entity/Q3818705  Ksar Nalut        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> http://www.wikidata.org/entity/Q5242247  Daw's Castle      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> http://www.wikidata.org/entity/Q11736787 Ksar Hallouf      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> http://www.wikidata.org/entity/Q12233025 Ksar Beni Barka   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> http://www.wikidata.org/entity/Q16593169 Ksar of Taourirt</span></span></code></pre></div>
-<p>Now, let’s get the location (“wdt:P625”) of the cities</p>
+<code class="sourceCode R"><span><span class="va">stations_lines</span> <span class="op">=</span> <span class="va">stations_adjacency</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_drop_geometry</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co"># make this a regular tibble, not sf</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">direction</span>,<span class="va">line</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html" class="external-link">nest</a></span><span class="op">(</span>.key <span class="op">=</span> <span class="st">"adj"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co"># have nested "adj" table for each direction-line</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>station <span class="op">=</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span>.x <span class="op">=</span> <span class="va">adj</span>, .y <span class="op">=</span> <span class="va">direction</span>,</span>
+<span>                            <span class="op">~</span><span class="fu">form_line</span><span class="op">(</span><span class="va">.x</span>,<span class="va">.y</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="st">"station"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>We use left_join() to complete the table ordering the stations into
+lines with the coordinates of stations:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?city wdt:P31/wdt:P279* wd:Q515"</span>, .label<span class="op">=</span><span class="st">"?city"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_mutate.html">spq_mutate</a></span><span class="op">(</span>coords <span class="op">=</span> <span class="fu">wdt</span><span class="fu">::</span><span class="fu">P625</span><span class="op">(</span><span class="va">city</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_head.html">spq_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
-<span><span class="co">#&gt;    city                                     coords                    city_label</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> http://www.wikidata.org/entity/Q63638210 Point(-4.78 32.704444444) Ksar of T…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> http://www.wikidata.org/entity/Q63638675 Point(-4.446111111 32.40… Ksar of T…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> http://www.wikidata.org/entity/Q63638831 Point(-4.455555555 32.35… Ksar of T…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> http://www.wikidata.org/entity/Q63639134 Point(-4.431944444 32.36… Ksar of T…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> http://www.wikidata.org/entity/Q63639176 Point(-4.443611111 32.38… Ksar of T…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> http://www.wikidata.org/entity/Q65643514 Point(3.7449 32.4755)     Ksar El A…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> http://www.wikidata.org/entity/Q65643515 Point(3.7039 32.4827)     Ksar Boun…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> http://www.wikidata.org/entity/Q65643516 Point(3.6867 32.4831)     Ksar Meli…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> http://www.wikidata.org/entity/Q65921574 Point(-11.6236 20.9289)   Ksar of O…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> http://www.wikidata.org/entity/Q65921575 Point(-12.3667 20.4633)   Ksar of C…</span></span></code></pre></div>
-<p>We can refine this query, stating that we want cities (or items of
-subclasses of city) in a radius of 5km around Lyon (which has lat-long
-coordinates ~ 45.76 and 4.84). We will use the argument
-<code>within_distance</code>:</p>
+<code class="sourceCode R"><span><span class="va">stations_lines</span><span class="op">=</span><span class="va">stations_lines</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">stations_coords</span><span class="op">)</span>, <span class="co"># get corresponding coordinates</span></span>
+<span>            by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stations_lines</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
+<span><span class="co">#&gt;   line              direction                       adj      station      coords</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Lyon Metro Line B <span style="color: #949494;">""</span>                              <span style="color: #949494;">&lt;tibble&gt;</span> <span style="color: #949494;">""</span>           Point…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Lyon Metro Line B <span style="color: #949494;">""</span>                              <span style="color: #949494;">&lt;tibble&gt;</span> <span style="color: #949494;">""</span>           Point…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Lyon Metro Line B <span style="color: #949494;">""</span>                              <span style="color: #949494;">&lt;tibble&gt;</span> <span style="color: #949494;">"</span>Gare d'Oul… Point…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Lyon Metro Line B <span style="color: #949494;">""</span>                              <span style="color: #949494;">&lt;tibble&gt;</span> <span style="color: #949494;">""</span>           Point…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Lyon Metro Line B <span style="color: #949494;">""</span>                              <span style="color: #949494;">&lt;tibble&gt;</span> <span style="color: #949494;">""</span>           Point…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Lyon Metro Line C <span style="color: #949494;">"</span>Hôtel de Ville - Louis Pradel<span style="color: #949494;">"</span> <span style="color: #949494;">&lt;tibble&gt;</span> <span style="color: #949494;">"</span>Cuire<span style="color: #949494;">"</span>      Point…</span></span></code></pre></div>
+<p><code>stations_lines</code> is now an <strong>sf points
+object</strong> which is properly formatted to be transformed into an
+<strong>sf lines object</strong> (the stations are in the right order
+for each line-direction, and the associated coordinates are provided in
+the table):</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cities_around_Lyon</span> <span class="op">=</span> <span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_add.html">spq_add</a></span><span class="op">(</span><span class="st">"?city wdt:P31/wdt:P279* wd:Q486972"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_label.html">spq_label</a></span><span class="op">(</span><span class="va">city</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/spq_mutate.html">spq_mutate</a></span><span class="op">(</span>coords <span class="op">=</span> <span class="fu">wdt</span><span class="fu">::</span><span class="fu">P625</span><span class="op">(</span><span class="va">city</span><span class="op">)</span>,</span>
-<span>          .within_distance<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>center<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>long<span class="op">=</span><span class="fl">4.84</span>,lat<span class="op">=</span><span class="fl">45.76</span><span class="op">)</span>,</span>
-<span>                               radius<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="../reference/spq_perform.html">spq_perform</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cities_around_Lyon</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 3</span></span></span>
-<span><span class="co">#&gt;   city                                coords                          city_label</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> http://www.wikidata.org/entity/Q456 Point(4.841388888 45.758888888) Lyon</span></span></code></pre></div>
-<!-- Actually, rather than getting Lyon's long-lat coordinates "by hand" we could get them directly through our query, which means we have to add a triple about Lyon ("wd:456") and its coordinates: -->
-<!-- ```{r, eval=FALSE} -->
-<!-- spq_init() %>%  -->
-<!--   spq_add("wd:Q456 wdt:P625 ?coordLyon") %>%  -->
-<!--   spq_add("?city wdt:P625 ?coords", -->
-<!--           within_distance=list(center="?coordLyon", radius=2)) %>% -->
-<!--   spq_add("?city wdt:P31/wdt:P279* wd:Q486972", -->
-<!--           label="?city") %>% -->
-<!--   spq_perform() -->
-<!-- ``` -->
-<!-- This does not work => two triples unrelated. Maybe add example and modify spq_add() to use {} for reference to R values -->
+<code class="sourceCode R"><span><span class="va">stations_lines_sf</span><span class="op">=</span><span class="va">stations_lines</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span>wkt<span class="op">=</span><span class="st">"coords"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">direction</span>,<span class="va">line</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>do_union <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>   <span class="co"># for each group, and keeping order of points,</span></span>
+<span>  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html" class="external-link">st_cast</a></span><span class="op">(</span><span class="st">"LINESTRING"</span><span class="op">)</span>       <span class="co"># form a linestring geometry</span></span>
+<span><span class="va">stations_lines_sf</span></span>
+<span><span class="co">#&gt; Simple feature collection with 9 features and 2 fields</span></span>
+<span><span class="co">#&gt; Geometry type: LINESTRING</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: 4.804185 ymin: 45.7016 xmax: 4.921998 ymax: 45.7855</span></span>
+<span><span class="co">#&gt; CRS:           NA</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Groups:   direction [9]</span></span></span>
+<span><span class="co">#&gt;   direction                       line                                    coords</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                             <span style="color: #949494; font-style: italic;">&lt;LINESTRING&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> <span style="color: #949494;">""</span>                              Lyon Metro Line B (4.805357 45.71427, 4.80418…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> <span style="color: #949494;">"</span>Charpennes - Charles Hernu<span style="color: #949494;">"</span>    Lyon Metro Line B (4.805357 45.71427, 4.80418…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> <span style="color: #949494;">"</span>Cuire<span style="color: #949494;">"</span>                         Lyon Metro Line C (4.836022 45.76738, 4.83636…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> <span style="color: #949494;">"</span>Gare d'Oullins<span style="color: #949494;">"</span>                Lyon Metro Line B (4.863119 45.77054, 4.85943…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> <span style="color: #949494;">"</span>Gare de Vaise<span style="color: #949494;">"</span>                 Lyon Metro Line D (4.88804 45.7058, 4.88759 4…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> <span style="color: #949494;">"</span>Gare de Vénissieux<span style="color: #949494;">"</span>            Lyon Metro Line D (4.80421 45.7794, 4.80549 4…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> <span style="color: #949494;">"</span>Hôtel de Ville - Louis Pradel<span style="color: #949494;">"</span> Lyon Metro Line C (4.83293 45.7855, 4.8275 45…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> <span style="color: #949494;">"</span>Perrache<span style="color: #949494;">"</span>                      Lyon Metro Line A (4.921998 45.76125, 4.90921…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> <span style="color: #949494;">"</span>Vaulx-en-Velin - La Soie<span style="color: #949494;">"</span>      Lyon Metro Line A (4.829182 45.75302, 4.83405…</span></span></code></pre></div>
+<p>We can now use this new object to <strong>display the Lyon metro
+lines on a leaflet map</strong>:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">factpal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/colorNumeric.html" class="external-link">colorFactor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">topo.colors</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span>,</span>
+<span>                       <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">stations_lines</span><span class="op">$</span><span class="va">line</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html" class="external-link">leaflet</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">stations_sf</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addTiles</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addCircles</a></span><span class="op">(</span>popup<span class="op">=</span><span class="op">~</span><span class="va">station</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addPolylines</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">stations_lines_sf</span>,</span>
+<span>               color<span class="op">=</span><span class="op">~</span><span class="fu">factpal</span><span class="op">(</span><span class="va">line</span><span class="op">)</span>, popup<span class="op">=</span><span class="op">~</span><span class="va">line</span><span class="op">)</span></span></code></pre></div>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e79f1307deb671742a51" style="width:700px;height:432.632880098888px;"></div>
+<script type="application/json" data-for="htmlwidget-e79f1307deb671742a51">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addCircles","args":[[45.759261111,45.767377777,45.763511111,45.7058,45.7272,45.7543,45.761733333,45.767164,45.770599,45.770613888,45.7665,45.7553,45.757958333,45.769038,45.7459,45.7794,45.7855,45.753023,45.7383,45.7455,45.76,45.7516,45.7314,45.770539,45.765528,45.761251,45.714273455,45.701595375,45.7303,45.7795,45.7375,45.7748,45.7195,45.767635,45.743,45.768811111,45.7695,45.764035,45.7475,45.7749,45.716669444],[4.847308333,4.836022222,4.835894444,4.88804,4.83038,4.8463,4.858061111,4.859433,4.873703,4.836366666,4.80542,4.8431,4.83405,4.882184,4.84235,4.80421,4.83293,4.829182,4.88696,4.87136,4.82622,4.85358,4.83366,4.863119,4.901201,4.921998,4.80535659,4.804184911,4.88739,4.8275,4.83736,4.83205,4.88759,4.88978,4.87872,4.843897222,4.85239,4.909215,4.86523,4.80549,4.814544444],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},["Place Guichard - Bourse du Travail","Hôtel de Ville - Louis Pradel","Cordeliers","Gare de Vénissieux","Stade de Gerland","Saxe - Gambetta","Gare Part-Dieu - Vivier Merle","Brotteaux","République - Villeurbanne","Croix-Paquet","Gorge de Loup","Guillotière - Gabriel Péri","Bellecour","Gratte-Ciel","Jean Macé","Gare de Vaise","Cuire","Ampère - Victor Hugo","Laënnec","Monplaisir - Lumière","Vieux Lyon - Cathédrale Saint-Jean","Garibaldi","Debourg","Charpennes - Charles Hernu","Cusset","Vaulx-en-Velin - La Soie","","","Mermoz - Pinel","Hénon","Place Jean Jaurès","Croix-Rousse","Parilly","Flachet - Alain Gilles","Grange Blanche","Foch","Masséna","Laurent Bonnevay - Astroballe","Sans Souci","Valmy","Gare d'Oullins"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]},{"method":"addPolylines","args":[[[[{"lng":[4.80535659,4.804184911,4.814544444,4.80535659,4.804184911],"lat":[45.714273455,45.701595375,45.716669444,45.714273455,45.701595375]}]],[[{"lng":[4.80535659,4.804184911,4.80535659,4.804184911,4.814544444,4.83038,4.83366,4.83736,4.84235,4.8463,4.847308333,4.858061111,4.859433,4.863119],"lat":[45.714273455,45.701595375,45.714273455,45.701595375,45.716669444,45.7272,45.7314,45.7375,45.7459,45.7543,45.759261111,45.761733333,45.767164,45.770539]}]],[[{"lng":[4.836022222,4.836366666,4.83205,4.8275,4.83293],"lat":[45.767377777,45.770613888,45.7748,45.7795,45.7855]}]],[[{"lng":[4.863119,4.859433,4.858061111,4.847308333,4.8463,4.84235,4.83736,4.83366,4.83038,4.814544444],"lat":[45.770539,45.767164,45.761733333,45.759261111,45.7543,45.7459,45.7375,45.7314,45.7272,45.716669444]}]],[[{"lng":[4.88804,4.88759,4.88739,4.88696,4.87872,4.87136,4.86523,4.85358,4.8463,4.8431,4.83405,4.82622,4.80542,4.80549,4.80421],"lat":[45.7058,45.7195,45.7303,45.7383,45.743,45.7455,45.7475,45.7516,45.7543,45.7553,45.757958333,45.76,45.7665,45.7749,45.7794]}]],[[{"lng":[4.80421,4.80549,4.80542,4.82622,4.83405,4.8431,4.8463,4.85358,4.86523,4.87136,4.87872,4.88696,4.88739,4.88759,4.88804],"lat":[45.7794,45.7749,45.7665,45.76,45.757958333,45.7553,45.7543,45.7516,45.7475,45.7455,45.743,45.7383,45.7303,45.7195,45.7058]}]],[[{"lng":[4.83293,4.8275,4.83205,4.836366666,4.836022222],"lat":[45.7855,45.7795,45.7748,45.770613888,45.767377777]}]],[[{"lng":[4.921998,4.909215,4.901201,4.88978,4.882184,4.873703,4.863119,4.85239,4.843897222,4.836022222,4.835894444,4.83405,4.829182],"lat":[45.761251,45.764035,45.765528,45.767635,45.769038,45.770599,45.770539,45.7695,45.768811111,45.767377777,45.763511111,45.757958333,45.753023]}]],[[{"lng":[4.829182,4.83405,4.835894444,4.836022222,4.843897222,4.85239,4.863119,4.873703,4.882184,4.88978,4.901201,4.909215,4.921998],"lat":[45.753023,45.757958333,45.763511111,45.767377777,45.768811111,45.7695,45.770539,45.770599,45.769038,45.767635,45.765528,45.764035,45.761251]}]]],null,null,{"interactive":true,"className":"","stroke":true,"color":["#24A1FF","#24A1FF","#B9FF2A","#24A1FF","#FFE0B3","#FFE0B3","#B9FF2A","#4C00FF","#4C00FF"],"weight":5,"opacity":0.5,"fill":false,"fillColor":["#24A1FF","#24A1FF","#B9FF2A","#24A1FF","#FFE0B3","#FFE0B3","#B9FF2A","#4C00FF","#4C00FF"],"fillOpacity":0.2,"smoothFactor":1,"noClip":false},["Lyon Metro Line B","Lyon Metro Line B","Lyon Metro Line C","Lyon Metro Line B","Lyon Metro Line D","Lyon Metro Line D","Lyon Metro Line C","Lyon Metro Line A","Lyon Metro Line A"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[45.701595375,45.7855],"lng":[4.804184911,4.921998]}},"evals":[],"jsHooks":[]}</script>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
