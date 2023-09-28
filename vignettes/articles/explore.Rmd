@@ -208,7 +208,8 @@ query_basis %>%
 
 ## What data is stored about a class's instances?
 
-The items falling into a given class are likely to be the subject (or object) of a common set of properties. One might wish to explore the **properties actually associated to a class**.
+The items falling into a given class are likely to be the subject (or object) of a common set of properties. 
+One might wish to explore the **properties actually associated to a class**.
 
 For instance, in LINDAS, what properties are the schema:Organization class associated to?
 
