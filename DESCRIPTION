@@ -36,18 +36,20 @@ Imports:
     xmlparsedata
 Suggests: 
     covr,
-    DT,
-    ggplot2,
     httptest2,
     httpuv,
     knitr,
-    leaflet,
     rmarkdown,
-    sequins (>= 0.0.0.9000),
-    sf,
     testthat (>= 3.0.0),
-    tidyr,
     withr
+Config/Needs/website:
+    DT,
+    ggplot2,
+    leaflet,
+    sequins (>= 0.0.0.9000),
+    sf
+    tidyr
+    
 VignetteBuilder: 
     knitr,
     rmarkdown
