@@ -149,33 +149,29 @@ send_sparql = function(query_string,
 
     # Adapted from https://github.com/wikimedia/WikidataQueryServiceR/blob/accff89a06ad4ac4af1bef369f589175c92837b6/R/query.R#L56
     if (length(content$results$bindings) > 0) {
-      parse_binding = function(binding, name) {
-        type <- tolower(sub(
-          "http://www.w3.org/2001/XMLSchema#", "",
-          binding[["datatype"]] %||% "http://www.w3.org/2001/XMLSchema#character"
-        ))
 
-        parse = function(x, type) {
-          switch(
-          type,
-          character = x,
-            # easier for now as dbpedia can return different things with the same name
-          integer = ifelse(endpoint == "https://dbpedia.org/sparql", x, as.integer(x)),
-          datetime = anytime::anytime(x),
-            x
+      parsed_results = purrr::map(
+        content[["results"]][["bindings"]],
+        parse_result,
+        endpoint = endpoint
+      )
+      data_frame = try(
+        dplyr::bind_rows(parsed_results),
+        silent = TRUE
+      )
+
+      # for instance this can happen with HAL
+      binding_failed <- inherits(data_frame, "try-error")
+
+      if (binding_failed) {
+        parsed_results <- purrr::map(
+          content$results$bindings,
+          parse_result,
+          simple = TRUE,
+          endpoint = endpoint
         )
-        }
-        value = parse(binding[["value"]], type)
-        tibble::tibble(.rows = 1) %>%
-          dplyr::mutate({{name}} := value)
+        data_frame <- dplyr::bind_rows(parsed_results)
       }
-
-      parse_result = function(result) {
-        purrr::map2(result, names(result), parse_binding) %>%
-        dplyr::bind_cols()
-      }
-
-      data_frame <- purrr::map_df(content$results$bindings, parse_result)
 
       } else {
         data_frame <- dplyr::as_tibble(
@@ -191,3 +187,42 @@ send_sparql = function(query_string,
 }
 
 utils::globalVariables("usual_endpoints")
+
+parse_result = function(result, simple = FALSE, endpoint) {
+
+  purrr::map2(
+    result,
+    names(result),
+    parse_binding,
+    simple = simple,
+    endpoint = endpoint
+  ) %>%
+  dplyr::bind_cols()
+}
+
+parse_binding = function(binding, name, simple, endpoint) {
+  type <- tolower(sub(
+    "http://www.w3.org/2001/XMLSchema#", "",
+    binding[["datatype"]] %||% "http://www.w3.org/2001/XMLSchema#character"
+  ))
+
+  parse = if (!simple) {
+    function(x, type, endpoint) {
+    switch(
+      type,
+      character = x,
+      # easier for now as dbpedia can return different things with the same name
+      integer = ifelse(endpoint == "https://dbpedia.org/sparql", x, as.integer(x)),
+      datetime = anytime::anytime(x),
+      x
+    )
+    }
+  } else {
+    function(x, type, endpoint) {
+      as.character(x)
+    }
+  }
+  value = parse(binding[["value"]], type, endpoint = endpoint)
+  tibble::tibble(.rows = 1) %>%
+    dplyr::mutate({{name}} := value)
+}

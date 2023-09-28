@@ -60,7 +60,17 @@ test_that("send_sparql() works with SyMoGIH", {
   expect_equal(nrow(tib), 10)
 })
 
-
+test_that("send_sparql() works with HAL query that mixes things", {
+  httptest2::with_mock_dir(file.path("fixtures", "versions"), {
+    tib = spq_init(endpoint = "hal") %>%
+      spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>%
+      spq_add("?version ?p ?object") %>%
+      spq_head(5) %>%
+      spq_perform()
+  })
+  expect_s3_class(tib, "tbl")
+  expect_equal(nrow(tib), 5)
+})
 test_that("httr2 options", {
 
   skip_if_not_installed("httpuv")
