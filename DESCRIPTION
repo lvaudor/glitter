@@ -37,6 +37,7 @@ Imports:
 Suggests: 
     covr,
     DT,
+    ggplot2
     httptest2,
     httpuv,
     knitr,
