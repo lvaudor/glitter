@@ -81,7 +81,9 @@ query_basis %>%
   spq_perform()
 ```
 
-There are `r nclasses$n` classes declared in the triplestore. Not so many that we could not get them all in one query, but definitely too many to show them all here! Let us examine a few of these classes:
+There are `r nclasses$n` classes declared in the triplestore. 
+Not so many that we could not get them all in one query, but definitely too many to show them all here! 
+Let us examine a few of these classes:
 
 ```{r}
 query_basis %>%
