@@ -171,7 +171,7 @@ head(stations_adjacency)
 
 Now, we would like to put the stations **in the right order** so that we will be able to form the connecting lines. 
 
-This **data-wrangling part is a bit tricky** though not directly due to any glitter-related operation).
+This **data-wrangling part is a bit tricky** though not directly due to any glitter-related operation.
 
 We define a function `form_line()` which will put the rows in the table of stations in the correct order.
 
