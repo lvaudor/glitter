@@ -73,7 +73,7 @@ head(stations)
 
 The query above, with `spq_label(items)`, will return a table comprising both `items` (with the Wikidata identifiers) and `items_label` (with the human-readable label corresponding to these items).
 
-If the Wikidata unique identifier is not particularly useful, one can use the argument `.overwrite=FALSE` so that only labels will be returned, under the shorter name `items`:
+If the Wikidata unique identifier is not particularly useful, one can use the argument `.overwrite=TRUE` so that only labels will be returned, under the shorter name `items`:
 
 ```{r overwrite_labelling}
 stations=spq_init() %>% 
