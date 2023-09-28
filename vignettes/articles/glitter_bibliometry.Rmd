@@ -83,6 +83,8 @@ requete=spq_init("hal") %>%
   spq_summarise(n=n()) %>% 
   spq_arrange(desc(n))
 
+requete
+
 sequins::graph_query(requete, layout="tree")
 ```
 
