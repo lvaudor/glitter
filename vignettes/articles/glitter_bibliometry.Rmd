@@ -18,16 +18,16 @@ Les données contenues dans le triplestore HAL sont a priori utilisables pour g�
 
 On peut ainsi imaginer utiliser ces données pour **générer automatiquement et de manière reproductible** un certain nombre de **tables ou graphiques** en lien avec les **évaluations** du personnel publiant des établissements de recherche.
 
-Dans la suite de cet article je montrerai comment explorer et exploiter ces données à l'aide de R, et (notamment) du package glitter.
+Dans la suite de cet article je montrerai comment explorer et exploiter ces données à l'aide de R, et (notamment) du paquet glitter (pour créer et réaliser les requêtes) et du paquet [sequins](https://lvaudor.github.io/sequins/) (pour visualiser les requêtes).
 
-```{r libs}
+```{r libs, message=FALSE}
 library(glitter)
 library(sequins)
 library(tidyverse)
 ```
 
 
-# Entrée par auteur
+# Entrée par auteur·rice
 
 Essayons par exemple d'examiner s'il existe dans la base quelqu'un qui s'appelle (tout à fait au hasard) "Lise Vaudor":
 
@@ -51,7 +51,7 @@ requete = spq_init("hal") %>%
   spq_add("?interet skos:prefLabel ?interet_label") %>%  # étiquette les centres d'intérêt
   spq_filter(lang(interet_label) == 'fr')
 
-sequins::graph_query(requete, layout="tree")
+sequins::graph_query(requete, layout = "tree")
 ```
 
 
@@ -63,24 +63,24 @@ DT::datatable(interet_LV)
 
 # Documents d'un·e auteur·rice
 
-Une des petites subtilités du modèle de données HAL consiste à considérer que **un document a un créateur -ou auteur- et un créateur correspond à une personne**.
+Une des petites subtilités du modèle de données HAL consiste à considérer que **un document a un créateur·rice -- ou auteur·rice -- et un·e créateur·rice correspond à une personne**.
 
 ## Affiliations
 
 Par exemple, l'article "How sampling influences the statistical power to detect changes in abundance: an application to river restoration" a pour créatrice (entre autres personnes) "Lise Vaudor à l'époque du Cemagref", qui correspond à la personne "Lise Vaudor" qui elle est intemporelle 😉.
 
-Ainsi, c'est en considérant les créateurs de documents que l'on va récupérer les affiliations: **l'affiliation est une information qui se récupère en adoptant une entrée par document plutôt que par auteur**.
+Ainsi, c'est en considérant les créateurs de documents que l'on va récupérer les affiliations: **l'affiliation est une information qui se récupère en adoptant une entrée par document plutôt que par auteur·rice**.
 
 
 ```{r orga_LV_prep, fig.width=7, fig.height=8}
-requete=spq_init("hal") %>%
+requete = spq_init("hal") %>%
   spq_add("?doc dcterms:creator ?createur") %>%        # documents crées par créateur
   spq_add("?createur hal:structure ?affil") %>%        # créateur correspond à une affiliation
   spq_add("?createur hal:person ?personne") %>%        # créateur correspond à une personne
   spq_add("?personne foaf:name 'Lise Vaudor'") %>%     
   spq_add("?affil skos:prefLabel ?affiliation") %>%    # étiquette affiliation
   spq_group_by(affiliation) %>%                        # groupe par affiliation
-  spq_summarise(n=n()) %>% 
+  spq_summarise(n = n()) %>% 
   spq_arrange(desc(n))
 
 requete
@@ -89,7 +89,7 @@ sequins::graph_query(requete, layout="tree")
 ```
 
 ```{r orga_LV_run}
-orga_LV=requete %>%                             # renvoie le nombre d'enregistrements
+orga_LV = requete %>%                             # renvoie le nombre d'enregistrements
   spq_perform()
 
 DT::datatable(orga_LV) 
@@ -100,7 +100,7 @@ DT::datatable(orga_LV)
 Si l'on ne s'intéresse pas aux affiliations mais aux **documents** eux-mêmes:
 
 ```{r docs_LV}
-spq_init(endpoint = "hal") %>%
+docs_LV = spq_init(endpoint = "hal") %>%
   spq_add("?doc dcterms:creator ?createur") %>%
   spq_add("?createur hal:structure ?affil") %>%
   spq_add("?createur hal:person ?personne") %>%
@@ -111,10 +111,12 @@ spq_init(endpoint = "hal") %>%
   spq_filter(lang(type_label) == 'fr') %>% 
   spq_add("?doc dcterms:bibliographicCitation ?citation") %>%
   spq_add("?doc dcterms:issued ?date") %>%
-  spq_mutate(date = str_sub(as.character(date),1,4)) %>%
-  spq_group_by(citation,type_label,date) %>%
-  spq_summarise(affiliation=str_c(affiliation, sep=", ")) %>%
+  spq_mutate(date = str_sub(as.character(date), 1, 4)) %>%
+  spq_group_by(citation, type_label, date) %>%
+  spq_summarise(affiliation = str_c(affiliation, sep = ", ")) %>%
   spq_perform()
+
+docs_LV
 ```
 
 Cette requête renvoie une table comptant `r nrow(docs_LV)`. Voici les 20 documents les plus récents:
@@ -137,20 +139,20 @@ Intéressons-nous maintenant aux **publications issues d'un laboratoire**. Ici, 
 Essayons de le retrouver dans la base de données:
 
 ```{r labo_EVS}
-labo_EVS=spq_init() %>%      
+labo_EVS = spq_init(endpoint = "hal") %>%      
     spq_add("?labo skos:prefLabel ?labo_label") %>%
-    spq_add("?labo dcterms:identifier ?labo_id", .required=FALSE) %>% 
+    spq_add("?labo dcterms:identifier ?labo_id", .required = FALSE) %>% 
     spq_filter(str_detect(labo_label,"EVS|(UMR 5600)|(Environnement Ville Soc)")) %>%
-    spq_perform("hal")
+    spq_perform()
 labo_EVS
 ```
 
 Bon! Eh bien, étant donné la diversité des formats dans la dénomination d'EVS, un petit tri manuel s'impose.
 
 ```{r labo_EVS_filter}
-labo_EVS= labo_EVS %>% 
+labo_EVS = labo_EVS %>% 
   unique() %>% 
-  mutate(num=1:n()) %>% 
+  mutate(num = 1:n()) %>% 
   filter(!(num %in% c(1,2,3,18))) %>%  # ici je retire les labos qui ne correspondent pas à UMR 5600 / EVS
   select(-num)
 DT::datatable(labo_EVS)
@@ -159,22 +161,22 @@ DT::datatable(labo_EVS)
 Créons maintenant une fonction qui permet de récupérer l'**ensemble des documents pour chacune de ces dénominations de laboratoire**.
 
 ```{r get_docs_lab}
-get_docs_lab=function(lab){
-  lab=paste0("<",lab,">")
-  result=spq_init() %>%      
-  spq_add(glue::glue("?createur hal:structure {lab}")) %>% 
-  spq_add("?createur hal:person ?personne") %>%
-  spq_add("?personne foaf:name ?auteur") %>%
-  spq_add("?doc dcterms:creator ?createur") %>% 
-  spq_select(-createur) %>%
-  spq_add("?doc dcterms:type ?type") %>%            # récupère le type de document
-  spq_add("?type skos:prefLabel ?type_label") %>%   # étiquette le type de document
-  spq_filter(lang(type_label) == 'fr') %>%          # ... en français
-  spq_add("?doc dcterms:bibliographicCitation ?citation") %>% # récupère la citation
-  spq_add("?doc dcterms:issued ?date") %>%
-  spq_perform("hal") %>%
-  mutate(date=stringr::str_sub(date,1,4))  %>% 
-  select(auteur, type=type_label, date, citation)
+get_docs_lab = function(lab){
+  lab = paste0("<",lab,">")
+  result = spq_init(endpoint = "hal") %>%      
+    spq_add(glue::glue("?createur hal:structure {lab}")) %>% 
+    spq_add("?createur hal:person ?personne") %>%
+    spq_add("?personne foaf:name ?auteur") %>%
+    spq_add("?doc dcterms:creator ?createur") %>% 
+    spq_select(-createur) %>%
+    spq_add("?doc dcterms:type ?type") %>%            # récupère le type de document
+    spq_add("?type skos:prefLabel ?type_label") %>%   # étiquette le type de document
+    spq_filter(lang(type_label) == 'fr') %>%          # ... en français
+    spq_add("?doc dcterms:bibliographicCitation ?citation") %>% # récupère la citation
+    spq_add("?doc dcterms:issued ?date") %>%
+    spq_perform() %>%
+    mutate(date = stringr::str_sub(date,1,4))  %>% 
+    select(auteur, type = type_label, date, citation)
   return(result)
 }
 ```
@@ -182,10 +184,10 @@ get_docs_lab=function(lab){
 Appliquons maintenant cette fonction à chacune des dénominations possibles pour le labo EVS:
 
 ```{r apply_get_docs_lab}
-docs_EVS=labo_EVS %>% 
-    group_by(labo,labo_label) %>%
+docs_EVS = labo_EVS %>% 
+    group_by(labo, labo_label) %>%
     tidyr::nest() %>% 
-    mutate(data=purrr::map(labo,get_docs_lab)) %>% 
+    mutate(data = purrr::map(labo, get_docs_lab)) %>% 
     tidyr::unnest(cols="data") 
 
 dim(docs_EVS)
@@ -194,11 +196,11 @@ dim(docs_EVS)
 Cette table compte de nombreux enregistrements (`r nrow(docs_EVS)`). On montre ci-dessous les plus récents (à partir de 2020):
 
 ```{r docs_EVS_show}
-docs_EVS_show=docs_EVS %>% 
+docs_EVS_show = docs_EVS %>% 
   select(-labo) %>%
-  filter(date>=2020) %>% 
+  filter(date >= 2020) %>% 
   unique() %>% 
-  select(auteur,date,type=type_label,citation,doc) %>% 
+  select(auteur, date, type, citation, citation) %>% 
   ungroup()
   
 dim(docs_EVS_show)  
@@ -211,20 +213,20 @@ DT::datatable(docs_EVS_show)
 On peut dès lors utiliser ces données pour produire un **certain nombre de graphiques** permettant d'apprécier la production du laboratoire au cours du temps:
 
 ```{r plot_datecitation}
-docs_datecitation=docs_EVS %>%
+docs_datecitation = docs_EVS %>%
   group_by(type) %>% 
-  mutate(ntype=n()) %>% 
+  mutate(ntype = n()) %>% 
   ungroup() %>% 
-  mutate(ntot=n()) %>%
-  mutate(proptype=ntype/ntot) %>% 
-  filter(proptype>0.05) %>% 
-  group_by(date,citation,type) %>%
-  summarise(n=n()) %>% 
-  filter(date>2015)
+  mutate(ntot = n()) %>%
+  mutate(proptype = ntype/ntot) %>% 
+  filter(proptype > 0.05) %>% 
+  group_by(date, citation, type) %>%
+  summarise(n = n()) %>% 
+  filter(date > 2015)
 
-ggplot(docs_datecitation, aes(x=date,y=n, fill=type)) +
-  geom_bar(stat="identity")+
-  facet_grid(rows=vars(type))
+ggplot(docs_datecitation, aes(x = date, y = n, fill = type)) +
+  geom_bar(stat = "identity") +
+  facet_grid(rows = vars(type))
 ```
 
 Il ne s'agit là que d'un exemple (parmi beaucoup d'autres possibilités comme l'exploitation de mots clés, de statistiques par journal, de réseaux d'auteurs) pour exploiter ces données. Nanmoins ces méthodes allant au-delà du "scope" du package glitter nous n'irons pas plus loin en terme d'analyse des résultats des requêtes dans ce document.
