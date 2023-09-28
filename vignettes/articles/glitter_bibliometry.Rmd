@@ -1,7 +1,6 @@
 ---
 title: "glitter for HAL (en français)"
 author: "Lise Vaudor"
-date: "04/11/2021"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{glitter for HAL}
