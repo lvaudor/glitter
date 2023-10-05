@@ -4,6 +4,7 @@
 #' @return A query object
 #' @export
 #' @examples
+#' @keywords internal
 #' spq_init() %>%
 #'  spq_add("?film wdt:P31 wd:Q11424") %>%
 #'  spq_label(film, .languages = c("fr$", "en$")) %>%
