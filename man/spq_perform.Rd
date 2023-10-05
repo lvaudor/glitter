@@ -19,7 +19,7 @@ spq_perform(
 \arguments{
 \item{.query}{a list with elements of the query}
 
-\item{endpoint}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"}
+\item{endpoint}{a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"}
 
 \item{user_agent}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} a string indicating the user agent to send with the query.}
 

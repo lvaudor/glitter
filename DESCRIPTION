@@ -21,8 +21,6 @@ Imports:
     anytime,
     cli,
     dplyr,
-    ggplot2,
-    ggraph,
     glue,
     httr2,
     lifecycle,
@@ -30,7 +28,6 @@ Imports:
     purrr,
     rlang,
     tibble,
-    tidygraph,
     WikidataR,
     xml2,
     xmlparsedata
@@ -40,7 +37,7 @@ Suggests:
     httpuv,
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0),
+    testthat (>= 3.1.10.9000),
     withr
 Config/Needs/website:
     DT,
@@ -57,4 +54,5 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-    
+Remotes:  
+    r-lib/testthat

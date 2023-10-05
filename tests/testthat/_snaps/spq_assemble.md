@@ -2,8 +2,9 @@
 
     Code
       spq_init() %>% spq_filter(lang(itemTitleLOOKTYPO) == "en") %>% spq_assemble()
-    Error <rlang_error>
-      Can't filter on undefined variables: ?itemTitleLOOKTYPO
+    Condition
+      Error in `spq_assemble()`:
+      ! Can't filter on undefined variables: ?itemTitleLOOKTYPO
       i You haven't mentioned them in any triple, VALUES, mutate.
 
 # spq_assemble() called from printing isn't strict

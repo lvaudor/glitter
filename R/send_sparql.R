@@ -1,36 +1,9 @@
 #' Send SPARQL query to endpoint and get tibble as a result
 #' @param query_string a string corresponding to a SPARQL query
-#' @param endpoint a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
-#' @param user_agent `r lifecycle::badge('deprecated')` a string indicating the user agent to send with the query.
-#' @param max_tries,max_seconds `r lifecycle::badge('deprecated')` Cap the maximal number of
-#' attemps with `max_tries` or the total elapsed time from the first request with `max_seconds`.
-#' @param timeout `r lifecycle::badge('deprecated')` maximum number of seconds to wait (`httr2::req_timeout()`).
-#' @param request_type `r lifecycle::badge('deprecated')` a string indicating how the query should be sent: in the
-#' URL (`url`, default, most common) or as a body form (`body-form`).
-#' @param dry_run Boolean indicating whether to return the output of `httr2::req_dry_run()`
-#' rather than of `httr2::req_perform()`. Useful for debugging.
 #' @inheritParams spq_init
-#' @examples
-#' \dontrun{
-#' query_string = spq_init() %>%
-#'   spq_add("?city wdt:P31/wdt:P279* wd:Q486972") %>%
-#'   spq_label(city) %>%
-#'   spq_mutate(coords = wdt::P625(city),
-#'           .within_distance=list(center=c(long=4.84,lat=45.76),
-#'                                radius=5)) %>%
-#'   spq_assemble()
-#' send_sparql(query_string, endpoint = "https://query.wikidata.org/")
-#'  }
-#' @section Request control:
-#'
-#' Control the way the query is performed via the `control_request`
-#' argument of `spq_init()`.
-#' This way you can create a basic spq object with all the correct options
-#' corresponding to the SPARQL service you are using, and then use it as
-#' the basis of all your subsequent glitter pipelines.
-#'
-#'
-#' @export
+#' @inheritParams spq_perform
+#' @noRd
+
 send_sparql = function(query_string,
                        endpoint = NULL,
                        user_agent = lifecycle::deprecated(),

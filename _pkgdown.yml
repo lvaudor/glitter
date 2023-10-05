@@ -28,7 +28,6 @@ reference:
 - title: "Debugging"
 - contents:
   - spq_assemble
-  - send_sparql
 - title: "Wikidata"
 - contents:
   - get_description
@@ -38,7 +37,6 @@ reference:
   - count_items
   - subclasses_of
   - superclasses_of
-  - transform_wikidata_coords
   - wd_properties
 - title: internal
   contents:
