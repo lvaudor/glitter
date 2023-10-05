@@ -99,9 +99,10 @@ test_that("httr2 options", {
 })
 
 test_that("deprecation", {
+      rlang::local_options(lifecycle_verbosity = "warning")
   httptest2::with_mock_dir("hal-dryrun", {
     expect_snapshot({
-      spq_init(endpoint = "hal") %>%
+      req <- spq_init(endpoint = "hal") %>%
         spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>%
         spq_add("?version ?p ?object") %>%
         spq_head(5) %>%
@@ -114,6 +115,7 @@ test_that("deprecation", {
           timeout = 20,
           request_type = "url"
         )
+      req$method
     })
   })
 
