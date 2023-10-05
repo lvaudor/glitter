@@ -1,7 +1,7 @@
 # deprecation
 
     Code
-      spq_init(endpoint = "hal") %>% spq_add(
+      req <- spq_init(endpoint = "hal") %>% spq_add(
         "haldoc:inria-00362381 dcterms:hasVersion ?version") %>% spq_add(
         "?version ?p ?object") %>% spq_head(5) %>% spq_perform(dry_run = TRUE,
         endpoint = "http://sparql.archives-ouvertes.fr/sparql", user_agent = "bla",
@@ -40,28 +40,8 @@
       i Parameters controlling how the request is made have to be passed to `spq_init()`'s `request_control` argument.
       i The deprecated feature was likely used in the glitter package.
         Please report the issue at <https://github.com/lvaudor/glitter/issues>.
+    Code
+      req$method
     Output
-      $method
       [1] "POST"
-      
-      $path
-      [1] "/sparql"
-      
-      $headers
-      $headers$accept
-      [1] "application/sparql-results+json"
-      
-      $headers$`accept-encoding`
-      [1] "deflate, gzip, br"
-      
-      $headers$`content-length`
-      [1] "0"
-      
-      $headers$host
-      [1] "sparql.archives-ouvertes.fr"
-      
-      $headers$`user-agent`
-      [1] "bla"
-      
-      
 
