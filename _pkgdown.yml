@@ -28,7 +28,6 @@ reference:
 - title: "Debugging"
 - contents:
   - spq_assemble
-  - send_sparql
 - title: "Wikidata"
 - contents:
   - get_description
