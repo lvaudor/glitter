@@ -1,0 +1,67 @@
+# deprecation
+
+    Code
+      spq_init(endpoint = "hal") %>% spq_add(
+        "haldoc:inria-00362381 dcterms:hasVersion ?version") %>% spq_add(
+        "?version ?p ?object") %>% spq_head(5) %>% spq_perform(dry_run = TRUE,
+        endpoint = "http://sparql.archives-ouvertes.fr/sparql", user_agent = "bla",
+        max_tries = 4, max_seconds = 10, timeout = 20, request_type = "url")
+    Condition
+      Warning:
+      The `endpoint` argument of `spq_perform()` is deprecated as of glitter 0.3.0.
+      i Please use the `endpoint` argument of `spq_init()` instead.
+      Warning:
+      The `user_agent` argument of `spq_perform()` is deprecated as of glitter 0.3.0.
+      i Please use the `user_agent` argument of `spq_request_control()` instead.
+      i Parameters controlling how the request is made have to be passed to `spq_init()`'s `request_control` argument.
+      i The deprecated feature was likely used in the glitter package.
+        Please report the issue at <https://github.com/lvaudor/glitter/issues>.
+      Warning:
+      The `max_tries` argument of `spq_perform()` is deprecated as of glitter 0.3.0.
+      i Please use the `max_tries` argument of `spq_request_control()` instead.
+      i Parameters controlling how the request is made have to be passed to `spq_init()`'s `request_control` argument.
+      i The deprecated feature was likely used in the glitter package.
+        Please report the issue at <https://github.com/lvaudor/glitter/issues>.
+      Warning:
+      The `max_seconds` argument of `spq_perform()` is deprecated as of glitter 0.3.0.
+      i Please use the `max_seconds` argument of `spq_request_control()` instead.
+      i Parameters controlling how the request is made have to be passed to `spq_init()`'s `request_control` argument.
+      i The deprecated feature was likely used in the glitter package.
+        Please report the issue at <https://github.com/lvaudor/glitter/issues>.
+      Warning:
+      The `timeout` argument of `spq_perform()` is deprecated as of glitter 0.3.0.
+      i Please use the `timeout` argument of `spq_request_control()` instead.
+      i Parameters controlling how the request is made have to be passed to `spq_init()`'s `request_control` argument.
+      i The deprecated feature was likely used in the glitter package.
+        Please report the issue at <https://github.com/lvaudor/glitter/issues>.
+      Warning:
+      The `request_type` argument of `spq_perform()` is deprecated as of glitter 0.3.0.
+      i Please use the `request_type` argument of `spq_request_control()` instead.
+      i Parameters controlling how the request is made have to be passed to `spq_init()`'s `request_control` argument.
+      i The deprecated feature was likely used in the glitter package.
+        Please report the issue at <https://github.com/lvaudor/glitter/issues>.
+    Output
+      $method
+      [1] "POST"
+      
+      $path
+      [1] "/sparql"
+      
+      $headers
+      $headers$accept
+      [1] "application/sparql-results+json"
+      
+      $headers$`accept-encoding`
+      [1] "deflate, gzip, br"
+      
+      $headers$`content-length`
+      [1] "0"
+      
+      $headers$host
+      [1] "sparql.archives-ouvertes.fr"
+      
+      $headers$`user-agent`
+      [1] "bla"
+      
+      
+

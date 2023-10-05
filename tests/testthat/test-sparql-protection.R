@@ -10,6 +10,6 @@ test_that("spq() works", {
     spq(1)
   })
 
-  expect_true(is.spq(spq_example))
+  expect_true(is.spq(as.spq(spq_example)))
   expect_true(is.spq(as.spq("DESC(?length) ?item_label")))
 })
