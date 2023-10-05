@@ -36,8 +36,6 @@ rather than of \code{httr2::req_perform()}. Useful for debugging.}
 
 \item{replace_prefixes}{Boolean indicating whether to replace used prefixes in the results table,
 for instance making, for instance "http://www.wikidata.org/entity/" "wd:".}
-
-\item{query_string}{a string corresponding to a SPARQL query}
 }
 \value{
 A query object

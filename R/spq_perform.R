@@ -3,7 +3,6 @@
 #' @param endpoint `r lifecycle::badge('deprecated')` a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
 #' @param replace_prefixes Boolean indicating whether to replace used prefixes in the results table,
 #' for instance making, for instance "http://www.wikidata.org/entity/" "wd:".
-#' @param query_string a string corresponding to a SPARQL query
 #' @param endpoint a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
 #' @param user_agent `r lifecycle::badge('deprecated')` a string indicating the user agent to send with the query.
 #' @param max_tries,max_seconds `r lifecycle::badge('deprecated')` Cap the maximal number of

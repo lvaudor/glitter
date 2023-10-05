@@ -1,5 +1,5 @@
 #' Send SPARQL query to endpoint and get tibble as a result
-
+#' @param query_string a string corresponding to a SPARQL query
 #' @inheritParams spq_init
 #' @inheritParams spq_perform
 #' @noRd
