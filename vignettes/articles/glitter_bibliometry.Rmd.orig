@@ -8,7 +8,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+```
 
 This article deals with queries on the [HAL](https://hal.science/) (for "Hyper Article en Ligne") triplestore, [dataHAL](https://data.hal.science/). **HAL** is the **bibliograpic open archive** chosen by French research institutions, universities, and grandes écoles. Hence, we suppose this article will only be useful to French-speaking R users and will provide it **in French** from now on...
 
@@ -18,8 +20,7 @@ On peut ainsi imaginer utiliser ces données pour **générer automatiquement et
 
 Dans la suite de cet article je montrerai comment explorer et exploiter ces données à l'aide de R, et (notamment) du paquet glitter (pour créer et réaliser les requêtes) et du paquet [sequins](https://lvaudor.github.io/sequins/) (pour visualiser les requêtes).
 
-
-```r
+```{r libs, message=FALSE}
 library(glitter)
 library(sequins)
 library(dplyr)
@@ -31,12 +32,12 @@ library(ggplot2)
 
 Afin de ne pas trop en demander à HAL, créons une requête de base qui n'envoient pas trop de requêtes d'un coup.
 
-
-```r
+```{r}
 hal_basic_request <- spq_init(
   "hal",
   request_control = spq_control_request(rate = 3/60)
 )
+
 ```
 
 
@@ -44,24 +45,20 @@ hal_basic_request <- spq_init(
 
 Essayons par exemple d'examiner s'il existe dans la base quelqu'un qui s'appelle (tout à fait au hasard) "Lise Vaudor":
 
-
-```r
+```{r test_LV}
 test_LV = hal_basic_request %>%
   spq_add("?personne foaf:name 'Lise Vaudor'")  %>%  # récupère les personnes appelées "Lise Vaudor"
   spq_perform()
 DT::datatable(test_LV)
 ```
 
-![plot of chunk test_LV](figure/test_LV-1.png)
-
-Il existe bien une personne ayant ce nom dans la base de données, qui fait l'objet d'une [fiche consultable](https://data.archives-ouvertes.fr/author/299).
+Il existe bien une personne ayant ce nom dans la base de données, qui fait l'objet d'une [fiche consultable](`r test_LV$personne[1]`).
 
 La consultation de cette page montre que deux propriétés sont souvent renseignées: **foaf:interest** et **foaf:topic_interest**. Cette dernière propriété semble regrouper des mots-clés issus de l'ensemble des publications de l'auteur alors que foaf:interest correspond à des centres d'intérêt déclarés (probablement lors de la création du profil HAL: à vrai dire je ne m'en souviens plus!).
 
 Quoi qu'il en soit, l'information relative aux centres d'intérêt est accessible comme suit:
 
-
-```r
+```{r interet_LV, fig.width=7,fig.height=7}
 requete = hal_basic_request %>%
   spq_add("?personne foaf:name 'Lise Vaudor'")  %>%
   spq_add("?personne foaf:interest ?interet") %>%        # récupère les centres d'intérêt
@@ -70,17 +67,12 @@ requete = hal_basic_request %>%
 sequins::graph_query(requete, layout = "tree")
 ```
 
-![plot of chunk interet_LV](figure/interet_LV-1.png)
 
-
-
-```r
+```{r interet_LV_run}
 interet_LV = requete %>%               # garde seulement les étiquettes en français
   spq_perform()
 DT::datatable(interet_LV)
 ```
-
-![plot of chunk interet_LV_run](figure/interet_LV_run-1.png)
 
 # Documents d'un·e auteur·rice
 
@@ -93,8 +85,7 @@ Par exemple, l'article "How sampling influences the statistical power to detect 
 Ainsi, c'est en considérant les créateurs de documents que l'on va récupérer les affiliations: **l'affiliation est une information qui se récupère en adoptant une entrée par document plutôt que par auteur·rice**.
 
 
-
-```r
+```{r orga_LV_prep, fig.width=7, fig.height=8}
 requete = hal_basic_request %>%
   spq_add("?doc dcterms:creator ?createur") %>%        # documents crées par créateur
   spq_add("?createur hal:structure ?affiliation") %>%        # créateur correspond à une affiliation
@@ -106,50 +97,22 @@ requete = hal_basic_request %>%
   spq_arrange(desc(n))
 
 requete
-```
 
-```
-## PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-## PREFIX dcterms: <http://purl.org/dc/terms/>
-## PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-## PREFIX hal: <http://data.archives-ouvertes.fr/schema/>
-## SELECT ?affiliation (COUNT(*) AS ?n)
-## WHERE {
-## 
-## ?doc dcterms:creator ?createur.
-## ?createur hal:structure ?affiliation0.
-## ?createur hal:person ?personne.
-## ?personne foaf:name 'Lise Vaudor'.
-## OPTIONAL {?affiliation0 skos:prefLabel ?affiliation_labell.}
-## BIND(COALESCE(?affiliation_labell,'') AS ?affiliation)
-## 
-## }
-## GROUP BY ?affiliation
-## ORDER BY DESC(?n)
-```
-
-```r
 sequins::graph_query(requete, layout="tree")
 ```
 
-![plot of chunk orga_LV_prep](figure/orga_LV_prep-1.png)
-
-
-```r
+```{r orga_LV_run}
 orga_LV = requete %>%                             # renvoie le nombre d'enregistrements
   spq_perform()
 
 DT::datatable(orga_LV)
 ```
 
-![plot of chunk orga_LV_run](figure/orga_LV_run-1.png)
-
 ## Documents
 
 Si l'on ne s'intéresse pas aux affiliations mais aux **documents** eux-mêmes:
 
-
-```r
+```{r docs_LV}
 docs_LV = hal_basic_request %>%
   spq_add("?doc dcterms:creator ?createur") %>%
   spq_add("?createur hal:structure ?affiliation") %>%
@@ -168,34 +131,14 @@ docs_LV = hal_basic_request %>%
 docs_LV
 ```
 
-```
-## # A tibble: 106 × 4
-##    citation                                         date  type_label affiliation
-##    <chr>                                            <chr> <chr>      <chr>      
-##  1 "Lise Vaudor, E. Parrot, Hervé Piégay. Describi… 2013  Poster de… Plateforme…
-##  2 "Lise Vaudor, Sébastien Rey-Coyrehourcq, Fabien… 2018  Note de l… Environnem…
-##  3 "Lise Vaudor, Hervé Piégay, Vincent Wawrzyniak,… 2016  Communica… Environnem…
-##  4 "Véronique Benacchio, Hervé Piégay, Thomas Buff… 2017  Article d… Environnem…
-##  5 "V. Benacchio, Hervé Piégay, Thomas Buffin-Bela… 2014  Communica… Environnem…
-##  6 "Thomas Buhler, Emeline Comby, Lise Vaudor, Thi… 2021  Article d… Environnem…
-##  7 "Matthieu Adam, Marylise Cottet, Sylvie Morarde… 2020  Article d… Environnem…
-##  8 "Bastien Bonef, Lionel Gérard, Jean-Luc Rouvièr… 2015  Article d… Nanophysiq…
-##  9 "Hervé Piégay, Fanny Arnaud, Cassel Mathieu, Th… 2016  Article d… Environnem…
-## 10 "Jérémie Riquier, Hervé Piégay, Nicolas Lamouro… 2016  Communica… Environnem…
-## # ℹ 96 more rows
-```
+Cette requête renvoie une table comptant `r nrow(docs_LV)`. Voici les 20 documents les plus récents:
 
-Cette requête renvoie une table comptant 106. Voici les 20 documents les plus récents:
-
-
-```r
+```{r docs_LV_recents}
 docs_LV %>%
   arrange(desc(date)) %>%
   head(20) %>%
   DT::datatable()
 ```
-
-![plot of chunk docs_LV_recents](figure/docs_LV_recents-1.png)
 
 
 # Entrée par laboratoire
@@ -207,8 +150,7 @@ Intéressons-nous maintenant aux **publications issues d'un laboratoire**. Ici, 
 
 Essayons de le retrouver dans la base de données:
 
-
-```r
+```{r labo_EVS}
 labo_EVS = hal_basic_request %>%
     spq_label(labo, .languages = NULL, .required = TRUE) %>%
     spq_add("?labo dcterms:identifier ?labo_id", .required = FALSE) %>%
@@ -217,27 +159,9 @@ labo_EVS = hal_basic_request %>%
 labo_EVS
 ```
 
-```
-## # A tibble: 21 × 3
-##    labo                                               labo_label         labo_id
-##    <chr>                                              <chr>              <chr>  
-##  1 https://data.archives-ouvertes.fr/revue/36364      REVSTAT - Statist… <NA>   
-##  2 https://data.archives-ouvertes.fr/revue/115361     Issue 4 of SCS Tr… <NA>   
-##  3 https://data.archives-ouvertes.fr/structure/54063  GEVSM              <NA>   
-##  4 https://data.archives-ouvertes.fr/structure/145345 Environnement Vil… UMR5600
-##  5 https://data.archives-ouvertes.fr/structure/390864 UMR 5600 EVS       <NA>   
-##  6 https://data.archives-ouvertes.fr/structure/458855 Plateforme ISIG. … <NA>   
-##  7 https://data.archives-ouvertes.fr/structure/493368 Environnement Vil… <NA>   
-##  8 https://data.archives-ouvertes.fr/structure/516259 UMR CNRS 5600 EVS… <NA>   
-##  9 https://data.archives-ouvertes.fr/structure/516301 Environnement Vil… <NA>   
-## 10 https://data.archives-ouvertes.fr/structure/520344 EVS-LAURE          UMR 56…
-## # ℹ 11 more rows
-```
-
 Bon! Eh bien, étant donné la diversité des formats dans la dénomination d'EVS, un petit tri manuel s'impose.
 
-
-```r
+```{r labo_EVS_filter}
 labo_EVS = labo_EVS %>%
   unique() %>%
   mutate(num = 1:n()) %>%
@@ -246,12 +170,9 @@ labo_EVS = labo_EVS %>%
 DT::datatable(labo_EVS)
 ```
 
-![plot of chunk labo_EVS_filter](figure/labo_EVS_filter-1.png)
-
 Créons maintenant une fonction qui permet de récupérer l'**ensemble des documents pour chacune de ces dénominations de laboratoire**.
 
-
-```r
+```{r get_docs_lab}
 get_docs_lab = function(lab){
   Sys.sleep(30) # extra-safe
   lab = paste0("<",lab,">")
@@ -273,72 +194,36 @@ get_docs_lab = function(lab){
 
 Appliquons maintenant cette fonction à chacune des dénominations possibles pour le labo EVS:
 
-
-```r
+```{r apply_get_docs_lab}
 docs_EVS = labo_EVS %>%
     group_by(labo, labo_label) %>%
     tidyr::nest() %>%
     mutate(data = purrr::map(labo, get_docs_lab)) %>%
     tidyr::unnest(cols="data")
-```
 
-```
-## Error in `mutate()`:
-## ℹ In argument: `data = purrr::map(labo, get_docs_lab)`.
-## ℹ In group 8: `labo = "https://data.archives-ouvertes.fr/structure/145345"`,
-##   `labo_label = "Environnement Ville Société"`.
-## Caused by error in `purrr::map()`:
-## ℹ In index: 1.
-## Caused by error in `httr2::req_perform()` at glitter/R/send_sparql.R:113:3:
-## ! HTTP 500 Internal Server Error.
-```
-
-```r
 dim(docs_EVS)
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'docs_EVS' not found
 ```
 
 Cette table compte de nombreux enregistrements. On montre ci-dessous les plus récents (à partir de 2020):
 
-
-```r
+```{r docs_EVS_show}
 docs_EVS_show = docs_EVS %>%
   select(-labo) %>%
   filter(date >= 2020) %>%
   unique() %>%
   select(auteur, date, type, citation, citation) %>%
   ungroup()
-```
 
-```
-## Error in select(., -labo): object 'docs_EVS' not found
-```
-
-```r
 dim(docs_EVS_show)
-```
 
-```
-## Error in eval(expr, envir, enclos): object 'docs_EVS_show' not found
-```
-
-```r
 DT::datatable(docs_EVS_show)
-```
-
-```
-## Error in crosstalk::is.SharedData(data): object 'docs_EVS_show' not found
 ```
 
 # Rendus graphiques
 
 On peut dès lors utiliser ces données pour produire un **certain nombre de graphiques** permettant d'apprécier la production du laboratoire au cours du temps:
 
-
-```r
+```{r plot_datecitation}
 docs_datecitation = docs_EVS %>%
   group_by(type) %>%
   mutate(ntype = n()) %>%
@@ -349,20 +234,10 @@ docs_datecitation = docs_EVS %>%
   group_by(date, citation, type) %>%
   summarise(n = n()) %>%
   filter(date > 2015)
-```
 
-```
-## Error in group_by(., type): object 'docs_EVS' not found
-```
-
-```r
 ggplot(docs_datecitation, aes(x = date, y = n, fill = type)) +
   geom_bar(stat = "identity") +
   facet_grid(rows = vars(type))
-```
-
-```
-## Error in ggplot(docs_datecitation, aes(x = date, y = n, fill = type)): object 'docs_datecitation' not found
 ```
 
 Il ne s'agit là que d'un exemple (parmi beaucoup d'autres possibilités comme l'exploitation de mots clés, de statistiques par journal, de réseaux d'auteurs) pour exploiter ces données. Nanmoins ces méthodes allant au-delà du "scope" du package glitter nous n'irons pas plus loin en terme d'analyse des résultats des requêtes dans ce document.
