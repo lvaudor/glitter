@@ -115,3 +115,22 @@
       }
       
 
+# spq_label() .languages = NULL
+
+    Code
+      spq_init(endpoint = "hal") %>% spq_label(labo, .languages = NULL, .required = TRUE) %>%
+        spq_add("?labo dcterms:identifier ?labo_id", .required = FALSE) %>%
+        spq_filter(str_detect(labo_label, "EVS|(UMR 5600)|(Environnement Ville Soc)"))
+    Output
+      PREFIX dcterms: <http://purl.org/dc/terms/>
+      PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+      SELECT ?labo (COALESCE(?labo_labell,'') AS ?labo_label) ?labo_id
+      WHERE {
+      
+      ?labo skos:prefLabel ?labo_labell.
+      OPTIONAL {?labo dcterms:identifier ?labo_id.}
+      BIND(COALESCE(?labo_labell,'') AS ?labo_label)
+      FILTER(REGEX(?labo_label,"EVS|(UMR 5600)|(Environnement Ville Soc)"))
+      }
+      
+

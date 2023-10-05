@@ -56,3 +56,12 @@ test_that("spq_label() .overwrite", {
       spq_label(mayor, place, .languages = "en$", .overwrite = TRUE)
   )
 })
+
+test_that("spq_label() .languages = NULL", {
+  expect_snapshot(
+    spq_init(endpoint = "hal") %>%
+      spq_label(labo, .languages = NULL, .required = TRUE) %>%
+      spq_add("?labo dcterms:identifier ?labo_id", .required = FALSE) %>%
+      spq_filter(str_detect(labo_label,"EVS|(UMR 5600)|(Environnement Ville Soc)"))
+  )
+})

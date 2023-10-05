@@ -53,7 +53,7 @@ spq_label <- function(.query,
     vars,
     function(query, x) {
       if (is.null(.languages)) {
-        filter = NA
+        filter = NULL
       } else {
 
         languages_filter <- purrr::map_chr(.languages, create_lang_filter, x = x)
@@ -69,7 +69,10 @@ spq_label <- function(.query,
         sprintf("%s %s %s_labell", x, label_property, x),
         .required = .required
       )
-       q = spq_filter(q, spq(filter))
+       if (!is.null(filter)) {
+         q = spq_filter(q, spq(filter))
+       }
+
       } else {
       q = spq_add(
         query,

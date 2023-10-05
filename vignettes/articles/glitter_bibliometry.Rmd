@@ -140,7 +140,7 @@ Essayons de le retrouver dans la base de données:
 
 ```{r labo_EVS}
 labo_EVS = spq_init(endpoint = "hal") %>%      
-    spq_add("?labo skos:prefLabel ?labo_label") %>%
+    spq_label(labo, .languages = NULL, .required = TRUE) %>%
     spq_add("?labo dcterms:identifier ?labo_id", .required = FALSE) %>% 
     spq_filter(str_detect(labo_label,"EVS|(UMR 5600)|(Environnement Ville Soc)")) %>%
     spq_perform()
