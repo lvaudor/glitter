@@ -21,8 +21,6 @@ Imports:
     anytime,
     cli,
     dplyr,
-    ggplot2,
-    ggraph,
     glue,
     httr2,
     lifecycle,
@@ -30,8 +28,6 @@ Imports:
     purrr,
     rlang,
     tibble,
-    tidygraph,
-    WikidataQueryServiceR,
     WikidataR,
     xml2,
     xmlparsedata
@@ -40,10 +36,16 @@ Suggests:
     httptest2,
     httpuv,
     knitr,
-    leaflet,
     rmarkdown,
     testthat (>= 3.0.0),
     withr
+Config/Needs/website:
+    DT,
+    ggplot2,
+    leaflet,
+    lvaudor/sequins,
+    sf,
+    tidyr
 VignetteBuilder: 
     knitr,
     rmarkdown
@@ -52,3 +54,4 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+    
