@@ -31,9 +31,6 @@ reference:
 - title: "Debugging"
 - contents:
   - spq_assemble
-- title: internal
-  contents:
-  - get_triple
 
 navbar:
  components:
