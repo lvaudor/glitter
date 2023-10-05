@@ -78,7 +78,7 @@
 
 
 <dt>endpoint</dt>
-<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"</p></dd>
+<dd><p>a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"</p></dd>
 
 
 <dt>user_agent</dt>
@@ -129,14 +129,22 @@ the basis of all your subsequent glitter pipelines.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span>.subject<span class="op">=</span><span class="st">"?city"</span>,.verb<span class="op">=</span><span class="st">"wdt:P31"</span>,.object<span class="op">=</span><span class="st">"wd:Q515"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="spq_add.html">spq_add</a></span><span class="op">(</span>.subject<span class="op">=</span><span class="st">"?city"</span>,.verb<span class="op">=</span><span class="st">"wdt:P1082"</span>,.object<span class="op">=</span><span class="st">"?pop"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="spq_label.html">spq_label</a></span><span class="op">(</span><span class="va">city</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="spq_head.html">spq_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">5</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">spq_perform</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   city                                 pop     city_label   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> http://www.wikidata.org/entity/Q1947 525953  Juba         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> http://www.wikidata.org/entity/Q1963 5345000 Khartoum     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> http://www.wikidata.org/entity/Q1960 4715000 Dar es Salaam</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> http://www.wikidata.org/entity/Q2028 257275  Verona       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> http://www.wikidata.org/entity/Q2044 380948  Florence     </span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
