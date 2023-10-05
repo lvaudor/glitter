@@ -3,7 +3,15 @@
 #' @param endpoint `r lifecycle::badge('deprecated')` a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
 #' @param replace_prefixes Boolean indicating whether to replace used prefixes in the results table,
 #' for instance making, for instance "http://www.wikidata.org/entity/" "wd:".
-#' @inheritParams send_sparql
+#' @param endpoint a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"
+#' @param user_agent `r lifecycle::badge('deprecated')` a string indicating the user agent to send with the query.
+#' @param max_tries,max_seconds `r lifecycle::badge('deprecated')` Cap the maximal number of
+#' attemps with `max_tries` or the total elapsed time from the first request with `max_seconds`.
+#' @param timeout `r lifecycle::badge('deprecated')` maximum number of seconds to wait (`httr2::req_timeout()`).
+#' @param request_type `r lifecycle::badge('deprecated')` a string indicating how the query should be sent: in the
+#' URL (`url`, default, most common) or as a body form (`body-form`).
+#' @param dry_run Boolean indicating whether to return the output of `httr2::req_dry_run()`
+#' rather than of `httr2::req_perform()`. Useful for debugging.
 #' @return A query object
 #' @export
 #' @examples
@@ -16,7 +24,15 @@
 #'   spq_perform()
 #' }
 #'
-#' @inheritSection send_sparql Request control
+#' @section Request control:
+#'
+#' Control the way the query is performed via the `control_request`
+#' argument of `spq_init()`.
+#' This way you can create a basic spq object with all the correct options
+#' corresponding to the SPARQL service you are using, and then use it as
+#' the basis of all your subsequent glitter pipelines.
+#'
+#'
 spq_perform = function(.query,
                        endpoint = lifecycle::deprecated(),
                        user_agent = lifecycle::deprecated(),
