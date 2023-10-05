@@ -112,7 +112,7 @@ instance:</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P31</span> <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q13442814</span>.</span></span>
 <span><span class="co">#&gt; <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">rdfs</span>:<span style="color: #008700; font-weight: bold;">label</span> <span style="color: #000087;">?itemTitle</span>.</span></span>
-<span><span class="co">#&gt; <span style="color: #008700; font-weight: bold;">FILTER</span>(<span style="color: #008700; font-weight: bold;">REGEX</span>(<span style="color: #008700; font-weight: bold;">LCASE</span>(<span style="color: #000087;">?itemTitle</span>),<span style="color: #AF0000;">"wikidata"</span>))</span></span>
+<span><span class="co">#&gt; <span style="color: #008700; font-weight: bold;">FILTER</span>(REGEX(LC<span style="color: #008700; font-weight: bold;">ASE</span>(<span style="color: #000087;">?itemTitle</span>),<span style="color: #AF0000;">"wikidata"</span>))</span></span>
 <span><span class="co">#&gt; <span style="color: #008700; font-weight: bold;">FILTER</span>(lang(<span style="color: #000087;">?itemTitle</span>)=<span style="color: #AF0000;">"en"</span>)</span></span>
 <span><span class="co">#&gt; }</span></span>
 <span><span class="co">#&gt; </span></span>

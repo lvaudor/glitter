@@ -96,7 +96,7 @@
 <span class="r-in"><span><span class="fu"><a href="spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">linkcount</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span><span class="fu">spq_head</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">PREFIX</span> rdfs: <span style="color: #AF00FF; font-style: italic;">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?item</span> (<span style="color: #008700; font-weight: bold;">COALESCE</span>(<span style="color: #000087;">?item_labell</span>,'') <span style="color: #008700; font-weight: bold;">AS</span> <span style="color: #000087;">?item_label</span>) <span style="color: #000087;">?linkcount</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?item</span> (CO<span style="color: #008700; font-weight: bold;">ALESCE</span>(<span style="color: #000087;">?item_labell</span>,'') <span style="color: #008700; font-weight: bold;">AS</span> <span style="color: #000087;">?item_label</span>) <span style="color: #000087;">?linkcount</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">WHERE</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P31</span> <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q5</span>.</span>
@@ -109,7 +109,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">sitelinks</span> <span style="color: #000087;">?linkcount</span>.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">ORDER BY</span> <span style="color: #008700; font-weight: bold;">DESC</span>(<span style="color: #000087;">?linkcount</span>)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">ORDER BY</span> DESC(<span style="color: #000087;">?linkcount</span>)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">LIMIT</span> 5</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Return 42 items</span></span></span>
@@ -121,7 +121,7 @@
 <span class="r-in"><span><span class="fu"><a href="spq_arrange.html">spq_arrange</a></span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">linkcount</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span><span class="fu">spq_head</span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">PREFIX</span> rdfs: <span style="color: #AF00FF; font-style: italic;">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?item</span> (<span style="color: #008700; font-weight: bold;">COALESCE</span>(<span style="color: #000087;">?item_labell</span>,'') <span style="color: #008700; font-weight: bold;">AS</span> <span style="color: #000087;">?item_label</span>) <span style="color: #000087;">?linkcount</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">SELECT</span> <span style="color: #000087;">?item</span> (CO<span style="color: #008700; font-weight: bold;">ALESCE</span>(<span style="color: #000087;">?item_labell</span>,'') <span style="color: #008700; font-weight: bold;">AS</span> <span style="color: #000087;">?item_label</span>) <span style="color: #000087;">?linkcount</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">WHERE</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wdt</span>:<span style="color: #008700; font-weight: bold;">P31</span> <span style="color: #0000D7; font-weight: bold;">wd</span>:<span style="color: #008700; font-weight: bold;">Q5</span>.</span>
@@ -134,7 +134,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #000087;">?item</span> <span style="color: #0000D7; font-weight: bold;">wikibase</span>:<span style="color: #008700; font-weight: bold;">sitelinks</span> <span style="color: #000087;">?linkcount</span>.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">ORDER BY</span> <span style="color: #008700; font-weight: bold;">DESC</span>(<span style="color: #000087;">?linkcount</span>)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">ORDER BY</span> DESC(<span style="color: #000087;">?linkcount</span>)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #008700; font-weight: bold;">LIMIT</span> 42</span>
 </code></pre></div>
     </div>
