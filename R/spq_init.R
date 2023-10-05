@@ -96,7 +96,7 @@ format.sparqle_query <- function(x, ...) {
   )
 
   text <- gsub(
-    "([A-Z_]*(?=\\())",
+    "([AZ][A-Z_]*(?=\\())",
     "{.emph \\1}",
     text,
     perl = TRUE
