@@ -14,7 +14,6 @@ send_sparql = function(query_string,
                        dry_run = FALSE,
                        request_control = NULL) {
 
-  request_control = request_control %||% spq_control_request()
 
   if (lifecycle::is_present(user_agent)) {
      lifecycle::deprecate_warn(
