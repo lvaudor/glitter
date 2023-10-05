@@ -1,3 +1,4 @@
+# nocov start
 #' Wikidata properties
 #' @format A data frame with 8939 rows and 5 variables:
 #' \describe{
@@ -66,3 +67,4 @@ wikidata_url <- function() {
 "all_correspondences"
 
 globalVariables("all_correspondences")
+# nocov end
