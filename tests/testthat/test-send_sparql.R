@@ -71,6 +71,7 @@ test_that("send_sparql() works with HAL query that mixes things", {
   expect_s3_class(tib, "tbl")
   expect_equal(nrow(tib), 5)
 })
+
 test_that("httr2 options", {
 
   skip_if_not_installed("httpuv")
@@ -95,4 +96,27 @@ test_that("httr2 options", {
   expect_equal(body_form_query[["headers"]][["host"]], "example.com")
   expect_equal(body_form_query[["headers"]][["content-length"]], "53")
   expect_equal(body_form_query[["headers"]][["content-type"]], "application/x-www-form-urlencoded")
+})
+
+test_that("deprecation", {
+      rlang::local_options(lifecycle_verbosity = "warning")
+  httptest2::with_mock_dir("hal-dryrun", {
+    expect_snapshot({
+      req <- spq_init(endpoint = "hal") %>%
+        spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>%
+        spq_add("?version ?p ?object") %>%
+        spq_head(5) %>%
+        spq_perform(
+          dry_run = TRUE,
+          endpoint = "http://sparql.archives-ouvertes.fr/sparql",
+          user_agent = "bla",
+          max_tries = 4,
+          max_seconds = 10,
+          timeout = 20,
+          request_type = "url"
+        )
+      req$method
+    })
+  })
+
 })
