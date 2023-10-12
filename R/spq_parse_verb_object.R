@@ -39,7 +39,7 @@ treat_p_o <- function(predicate) {
     return(sprintf("?%s", property))
   }
 
-  if (grepl("_all$", property)) {
+  if (!is.na(property) & endsWith(property, "_all")) {
     property <- sub("_all$", "*", property)
   }
   sprintf("%s:%s", prefix, property)
