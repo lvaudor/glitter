@@ -76,7 +76,7 @@ spq_label <- function(.query,
       } else {
       q = spq_add(
         query,
-        sprintf("%s %s %s_labell", x,label_property, x),
+        sprintf("%s %s %s_labell", x, label_property, x),
         .required = .required,
         .filter = filter
       )
@@ -93,7 +93,7 @@ spq_label <- function(.query,
       # we add the language of the label
       # because of regional variants
       if (!is.null(.languages)) {
-        if (length(.languages) > 1 || !grepl("\\$$", .languages)) {
+        if (length(.languages) > 1 || !endsWith(.languages, "$")) {
           mutate_left <- sprintf("%s_label_lang", un_question_mark(x))
           mutate_right <- sprintf("lang(%s_labell)", un_question_mark(x))
           args_list <- list(.query = q, m = mutate_right)
@@ -119,7 +119,7 @@ spq_label <- function(.query,
 }
 
 create_lang_filter = function(language, x) {
-  if (grepl("\\$$", language)) {
+  if (endsWith(language, "$")) {
     language <- sub("\\$$", "", language)
     sprintf("lang(%s_labell) IN ('%s')", x, language)
   } else{
