@@ -3,8 +3,8 @@
 #' These functions are inspired by `dplyr::count()` and `dplyr::tally()`.
 #' `spq_tally()` assumes you've already done the grouping.
 #' @inheritParams spq_arrange
-#' @param sort If `TRUE`, will show the largest groups at the top. (like the `sort` argument
-#' of `dplyr::tally()`)
+#' @param sort If `TRUE`, will show the largest groups at the top.
+#' (like the `sort` argument of `dplyr::tally()`)
 #' @param name Name for the count column (like the `name` argument
 #' of `dplyr::tally()`)
 #'
