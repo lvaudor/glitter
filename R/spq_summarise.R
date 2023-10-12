@@ -50,7 +50,7 @@ spq_summarise = function(.query, ...) {
   )
   names(variables[!nzchar(names(variables))]) <- variables[!nzchar(names(variables))]
   # rest ----
-  are_we_tallying = grepl("COUNT\\(\\*\\)", variables, fixed = TRUE)
+  are_we_tallying = grepl("COUNT\\(\\*\\)", variables)
 
   no_grouping = (sum(.query[["structure"]][["grouping"]]) == 0)
 
