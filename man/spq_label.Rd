@@ -38,6 +38,13 @@ A query object
 \description{
 Label variables
 }
+\details{
+\code{spq_label()} uses the property:
+\itemize{
+\item associated with the usual endpoint see \code{usual_endpoints}
+\item the property indicated in \code{\link[=spq_endpoint_info]{spq_endpoint_info()}}
+}
+}
 \section{Example}{
 
 

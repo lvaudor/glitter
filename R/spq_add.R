@@ -1,17 +1,24 @@
 #' Add a triple pattern statement to a query
 #' @param .query query
-#' @param .triple_pattern the triple pattern statement (replaces arguments subject verb and object)
-#' @param .subject an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))
+#' @param .triple_pattern the triple pattern statement
+#' (replaces arguments subject verb and object)
+#' @param .subject an anonymous variable
+#' (for instance, and by default, "?subject") or item (for instance "wd:Q456"))
 #' @param .verb the property (for instance "wdt:P190")
-#' @param .object an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))
-#' @param .required whether the existence of a value for the triple is required or not (defaults to TRUE).
-#'   If set to FALSE, then other triples in the query are returned even if this particular triple is missing)
+#' @param .object an anonymous variable (for instance,
+#' and by default, "?object") or item (for instance "wd:Q456"))
+#' @param .required whether the existence of a value for the triple is required
+#' or not (defaults to TRUE).
+#'   If set to FALSE, then other triples in the query are returned even
+#'   if this particular triple is missing)
 #' @param .label `r lifecycle::badge("deprecated")` See [`spq_label()`].
 #' @param .within_box if provided, rectangular bounding box for the triple query.
 #'   Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))
 #' @param .within_distance if provided, circular bounding box for the triple query.
-#'   Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
-#'   The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.
+#'   Provided as list(center=c(long=...,lat=...), radius=...),
+#'   with radius in kilometers.
+#'   The center can also be provided as a variable (for instance, "?location")
+#'   for the center coordinates to be retrieved directly from the query.
 #' @param .prefixes Custom prefixes
 #' @param .filter Filter for the triple. Only use this with `.required=FALSE`
 #' @export
@@ -81,7 +88,7 @@ spq_add = function(.query = NULL,
   )
 
   # variable tracking ----
-  vars = elts[grepl("^\\?", elts)]
+  vars = purrr::keep(elts, \(x) !is.na(x) && startsWith(x, "?"))
   .query <- purrr::reduce(
     vars,
     add_one_var,
@@ -104,7 +111,8 @@ spq_add = function(.query = NULL,
   .query[["prefixes_used"]] = union(
     .query[["prefixes_used"]],
     purrr::map(unname(elts), keep_prefix) %>%
-    unlist() %>% purrr::discard(is.na)
+      unlist() %>%
+      purrr::discard(is.na)
   ) %>%
     stats::na.omit()
 

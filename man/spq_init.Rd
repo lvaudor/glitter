@@ -10,7 +10,8 @@ spq_init(
     "glitter R package (https://github.com/lvaudor/glitter)"), max_tries =
     getOption("glitter.max_tries", 3L), max_seconds = getOption("glitter.max_seconds",
     120L), timeout = getOption("glitter.timeout", 1000L), request_type = c("url",
-    "body-form"))
+    "body-form")),
+  endpoint_info = spq_endpoint_info(label_property = "rdfs:label")
 )
 }
 \arguments{
@@ -18,6 +19,10 @@ spq_init(
 or an URL}
 
 \item{request_control}{An object as returned by \code{\link[=spq_control_request]{spq_control_request()}}}
+
+\item{endpoint_info}{Do not use for an usual endpoint in \code{usual_endpoints}!
+Information about
+the endpoint}
 }
 \value{
 A query object

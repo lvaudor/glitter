@@ -2,6 +2,9 @@
 #'
 #' @param endpoint Endpoint, either name if it is in `usual_endpoints`,
 #' or an URL
+#' @param endpoint_info Do not use for an usual endpoint in `usual_endpoints`!
+#' Information about
+#' the endpoint
 #' @param request_control An object as returned by [`spq_control_request()`]
 #'
 #' @return A query object
@@ -28,21 +31,34 @@ spq_init = function(
       max_seconds = getOption("glitter.max_seconds", 120L),
       timeout = getOption("glitter.timeout", 1000L),
       request_type = c("url", "body-form")
+    ),
+    endpoint_info = spq_endpoint_info(
+      label_property = "rdfs:label"
     )
   ) {
  if (!inherits(request_control, "glitter_request_control")) {
     cli::cli_abort("{.arg request_control} must be created by {.fun spq_control_request}.")
+ }
+ if (!inherits(endpoint_info, "glitter_endpoint_info")) {
+    cli::cli_abort("{.arg endpoint_info} must be created by {.fun spq_endpoint_info}.")
   }
 
   # if endpoint passed as name, get url
   endpoint = tolower(endpoint)
   usual_endpoint_info = usual_endpoints %>%
     dplyr::filter(.data$name == endpoint)
-  endpoint = if (nrow(usual_endpoint_info) > 0) {
-    dplyr::pull(usual_endpoint_info, .data$url)
+  if (nrow(usual_endpoint_info) > 0) {
+    endpoint = dplyr::pull(usual_endpoint_info, .data$url)
+    label_property = dplyr::pull(usual_endpoint_info, .data$label_property)
   } else {
     endpoint
+    label_property = NULL
   }
+
+  endpoint_info = list(
+    endpoint_url = endpoint,
+    label_property = label_property %||% endpoint_info[["label_property"]]
+  )
 
   query = list(
     prefixes_provided = tibble::tibble(name = NULL, url = NULL),
@@ -56,7 +72,7 @@ spq_init = function(
     group_by = NULL,
     order_by = NULL,
     offset = NULL,
-    endpoint = endpoint,
+    endpoint_info = endpoint_info,
     request_control = request_control
   )
 

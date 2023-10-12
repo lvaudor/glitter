@@ -12,7 +12,7 @@
 #' spq_add("?area wdt:P527 ?item") %>%
 #' spq_group_by(area, area_label)  %>%
 #' spq_summarise(total_folkm = sum(folkm_ngd))
-spq_group_by = function(.query, ...){
+spq_group_by = function(.query, ...) {
 
   vars = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 

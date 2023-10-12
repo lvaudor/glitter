@@ -28,7 +28,6 @@ Imports:
     purrr,
     rlang,
     tibble,
-    WikidataR,
     xml2,
     xmlparsedata
 Suggests: 
@@ -45,7 +44,8 @@ Config/Needs/website:
     leaflet,
     lvaudor/sequins,
     sf,
-    tidyr
+    tidyr,
+    WikidataR
 VignetteBuilder: 
     knitr,
     rmarkdown

@@ -1,28 +1,3 @@
-spq_treat_triple_pattern <- function(triple_pattern) {
-
-  eval_try = try(rlang::eval_tidy(triple_pattern), silent = TRUE)
-
-  if (is.spq(eval_try)) {
-    elts = decompose_triple_pattern(
-      triple_pattern = triple_pattern,
-      subject = NULL,
-      verb = NULL,
-      object = NULL
-    )
-    return(eval_try)
-  }
-
-  code <- if (!inherits(eval_try, "try-error") && is.character(eval_try)) {
-    # e.g. `"desc(length)"`
-    eval_try
-  } else {
-    # e.g. `desc(length)`, without quotes
-    rlang::expr_text(triple_pattern) %>% str_remove("^~")
-  }
-
-  spq_parse_verb_object(code)
-}
-
 spq_parse_verb_object <- function(code, reverse = FALSE) {
 
   code_data = parse_code(code)
@@ -64,7 +39,7 @@ treat_p_o <- function(predicate) {
     return(sprintf("?%s", property))
   }
 
-  if (grepl("_all$", property)) {
+  if (!is.na(property) & endsWith(property, "_all")) {
     property <- sub("_all$", "*", property)
   }
   sprintf("%s:%s", prefix, property)

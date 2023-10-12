@@ -25,22 +25,12 @@ reference:
 - contents:
   - starts_with("is_")
   - set_functions
+- title: Wikidata
+  contents:
+  - wd_properties
 - title: "Debugging"
 - contents:
   - spq_assemble
-- title: "Wikidata"
-- contents:
-  - get_description
-  - get_info
-  - get_thing
-  - get_label
-  - count_items
-  - subclasses_of
-  - superclasses_of
-  - wd_properties
-- title: internal
-  contents:
-  - get_triple
 
 navbar:
  components:

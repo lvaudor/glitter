@@ -1,3 +1,4 @@
+# nocov start
 #' Wikidata properties
 #' @format A data frame with 8939 rows and 5 variables:
 #' \describe{
@@ -20,7 +21,7 @@ wikidata_url <- function() {
 #' \describe{
 #'   \item{name}{the abbreviated name of the SPARQL endpoint}
 #'   \item{url}{the full address of the SPARQL endpoint}
-#'   ...
+#'   \item{label_property}{the property used for labelling}
 #' }
 "usual_endpoints"
 
@@ -66,3 +67,4 @@ wikidata_url <- function() {
 "all_correspondences"
 
 globalVariables("all_correspondences")
+# nocov end

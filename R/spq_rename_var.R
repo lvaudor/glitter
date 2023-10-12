@@ -5,7 +5,7 @@ spq_rename_var <- function(.query, old, new) {
   }
 
   if (question_mark(new) %in% .query[["vars"]][["name"]]) {
-    if (.query[["vars"]][["renamed"]][.query[["vars"]][["name"]] == question_mark(new)]) {
+    if (any(.query[["vars"]][["renamed"]][.query[["vars"]][["name"]] == question_mark(new)])) {
       .query = spq_rename_var(.query, new, sprintf("%s0", new))
     } else {
       cli::cli_abort("Can't rename {.field {old}} to {.field {new}} as {.field {new}} already exists.")

@@ -23,3 +23,4 @@ spq_init() \%>\%
  spq_label(film, .languages = c("fr$", "en$")) \%>\%
  spq_head(10)
 }
+\keyword{internal}
