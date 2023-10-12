@@ -9,14 +9,14 @@
 #' spq_init() |>
 #'   spq_prefix(prefixes = c(dct = "http://purl.org/dc/terms/")) |>
 #'   spq_add(spq('?lexemeId dct:language wd:Q1860')) |>
-#'   spq_mutate(lemma = wikibase::lemma(lexemeId)) |>
+#'   spq_add(spq("?lexemeId wikibase:lemma ?lemma")) |>
 #'   spq_filter(str_detect(lemma, '^pota.*')) |>
 #'   spq_select(- lemma)
 #'
 #' spq_init() |>
 #'   spq_prefix(prefixes = c(dct = "http://purl.org/dc/terms/")) |>
 #'   spq_add(spq('?lexemeId dct:language wd:Q1860')) |>
-#'   spq_mutate(lemma = wikibase::lemma(lexemeId)) |>
+#'   spq_add(spq("?lexemeId wikibase:lemma ?lemma")) |>
 #'   spq_filter(str_detect(lemma, '^pota.*')) |>
 #'   spq_select(lemma)
 spq_select = function(.query = NULL, ..., .spq_duplicate = NULL){
