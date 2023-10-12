@@ -13,13 +13,12 @@
 #'   cat()
 spq_assemble = function(.query, strict = TRUE) {
 
-  endpoint = .query[["endpoint"]]
-
   .query = spq_prefix(.query, auto = TRUE, prefixes = NULL)
 
   # prefixes -----
-  prefixes_known = dplyr::bind_rows(.query[["prefixes_provided"]], usual_prefixes)
-  purrr::walk(.query[["prefixes_used"]], check_prefix, prefixes_known = prefixes_known)
+  prefixes_known = .query[["prefixes_provided"]] %>%
+    dplyr::bind_rows(usual_prefixes)
+  check_prefixes(.query[["prefixes_used"]], prefixes_known = prefixes_known)
 
   part_prefixes <- if (nrow(.query[["prefixes_provided"]]) > 0) {
     glue::glue(
@@ -31,18 +30,17 @@ spq_assemble = function(.query, strict = TRUE) {
 
   group_by <- if (sum(.query[["structure"]][["grouping"]]) > 0) {
     grouping_vars <- .query[["structure"]][["name"]][.query[["structure"]][["grouping"]]]
-    paste0("GROUP BY ", paste0(grouping_vars, collapse = " "),"\n")
+    paste0("GROUP BY ", paste0(grouping_vars, collapse = " "), "\n")
   } else {
     ""
   }
 
-  ordering <- .query[["structure"]][.query[["structure"]][["ordering"]] != "none",]
+  ordering <- .query[["structure"]][.query[["structure"]][["ordering"]] != "none", ]
 
   order_by <- if (!is.null(ordering) && nrow(ordering) > 0) {
     ordering_vars = paste0(ordering[["ordering"]], collapse = " ")
     sprintf("ORDER BY %s", ordering_vars)
-  }
-  else {
+  } else {
     ""
   }
 
@@ -69,7 +67,7 @@ spq_assemble = function(.query, strict = TRUE) {
         # TODO it'd probably be weird to have >1 formula
         # so check that
         dplyr::summarize(selected_pattern = dplyr::if_else(
-          any(!is.na(formula)),
+          !all(is.na(formula)),
           formula[!is.na(formula)][1],
           name[1]
         ))
@@ -81,7 +79,8 @@ spq_assemble = function(.query, strict = TRUE) {
 
       # hack to have formulas last
       # more readability if formulas use vars from select
-      nongrouping_selected <- nongrouping_selected[order(grepl(" AS ", nongrouping_selected))]
+      formulas_last <- order(grepl(" AS ", nongrouping_selected, fixed = TRUE))
+      nongrouping_selected <- nongrouping_selected[formulas_last]
 
       grouping_selected <- dplyr::filter(selected_df, grouping) %>%
         dplyr::group_by(name) %>%
@@ -90,10 +89,10 @@ spq_assemble = function(.query, strict = TRUE) {
 
       # we get this to be sure to include any ancestor
       # of selected var in a BIND
-      selected_vars = .query[["vars"]][.query[["vars"]][["name"]] %in% selected_df[["name"]],]
-      ancestor_vars = selected_vars[!is.na(selected_vars[["ancestor"]]),]
+      selected_vars = .query[["vars"]][.query[["vars"]][["name"]] %in% selected_df[["name"]], ]
+      ancestor_vars = selected_vars[!is.na(selected_vars[["ancestor"]]), ]
 
-      filtered_vars = selected_vars[selected_vars[["name"]] %in% .query[["filters"]][["var"]],]
+      filtered_vars = selected_vars[selected_vars[["name"]] %in% .query[["filters"]][["var"]], ]
 
       potential_binded <- c(grouping_selected, ancestor_vars[["ancestor"]], filtered_vars[["name"]])
       if (length(potential_binded) > 0) {
@@ -115,10 +114,10 @@ spq_assemble = function(.query, strict = TRUE) {
       select = c(grouping_selected, nongrouping_selected)
 
       # put labels near variables
-      any_label = any(grepl("_label", select))
+      any_label = any(grepl("_label", select, fixed = TRUE))
       if (any_label) {
-        new_select = select[!grepl("_label", select)]
-        labels = select[grepl("_label", select)]
+        new_select = select[!grepl("_label", select, fixed = TRUE)]
+        labels = select[grepl("_label", select, fixed = TRUE)]
         select = purrr::reduce2(
           labels,
           names(labels),
@@ -140,7 +139,7 @@ spq_assemble = function(.query, strict = TRUE) {
   triples_present = !is.null(.query[["triples"]])
   body = if (triples_present) {
     purrr::map_chr(
-      split(.query[["triples"]], seq(nrow(.query[["triples"]]))),
+      split(.query[["triples"]], seq_len(nrow(.query[["triples"]]))),
       ~build_part_body(
         query = .query,
         triple = .x[["triple"]],
@@ -156,7 +155,7 @@ spq_assemble = function(.query, strict = TRUE) {
     NULL
   }
 
- valued_vars <- .query[["vars"]][!is.na(.query[["vars"]][["values"]]),]
+ valued_vars <- .query[["vars"]][!is.na(.query[["vars"]][["values"]]), ]
 
  if (!is.null(valued_vars) && nrow(valued_vars) > 0) {
     body <- paste(
@@ -196,12 +195,10 @@ spq_assemble = function(.query, strict = TRUE) {
         !(.query[["filters"]][["var"]] %in% .query[["vars"]][["name"]])
       ]
       if (length(unknown_filtered_variables) > 0) {
-        cli::cli_abort(
-          c(
-            "Can't filter on undefined variables: {toString(unknown_filtered_variables)}",
-            i = "You haven't mentioned them in any triple, VALUES, mutate."
-          )
-        )
+        cli::cli_abort(c(
+          "Can't filter on undefined variables: {toString(unknown_filtered_variables)}",
+          i = "You haven't mentioned them in any triple, VALUES, mutate."
+        ))
       }
     }
 
@@ -213,7 +210,7 @@ spq_assemble = function(.query, strict = TRUE) {
 
   paste0(
     part_prefixes, "\n",
-    "SELECT ", spq_duplicate, paste0(select,collapse = " "), "\n",
+    "SELECT ", spq_duplicate, paste0(select, collapse = " "), "\n",
     "WHERE {\n",
     body, "\n", binded,
     filters, "\n",
@@ -244,4 +241,8 @@ add_label = function(vector, label, label_name, old_select) {
    old_neighbour_current_position = which(vector == old_neighbour)
    append(vector, label, after = old_neighbour_current_position)
 
+}
+
+check_prefixes <- function(prefixes, prefixes_known) {
+  purrr::walk(prefixes, check_prefix, prefixes_known = prefixes_known)
 }
