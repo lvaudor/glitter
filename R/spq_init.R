@@ -92,22 +92,22 @@ format.sparqle_query <- function(x, ...) {
 
   text = spq_assemble(x, strict = FALSE)
 
-  text <- strsplit(text, "\n")[[1]]
+  text <- strsplit(text, "\n", fixed = TRUE)[[1]]
 
-  text <- gsub("\\{", "{{", text)
-  text <- gsub("\\}", "}}", text)
+  text <- gsub("\\{", "{{", text, fixed = TRUE)
+  text <- gsub("\\}", "}}", text, fixed = TRUE)
 
-  text[!grepl("^PREFIX", text)] <- gsub(
+  text[!is.na(text) & !startsWith(text, "PREFIX")] <- gsub(
     "([A-Za-z0-9]*(?=\\:))",
     "{.pkg \\1}",
-    text[!grepl("^PREFIX", text)],
+    text[!is.na(text) & !startsWith(text, "PREFIX")],
     perl = TRUE
   )
 
-  text[!grepl("^PREFIX", text)] <- gsub(
+  text[!is.na(text) & !startsWith(text, "PREFIX")] <- gsub(
     "((?<=\\:)[A-Za-z0-9]*)",
     "{.emph \\1}",
-    text[!grepl("^PREFIX", text)],
+    text[!is.na(text) & !startsWith(text, "PREFIX")],
     perl = TRUE
   )
 
