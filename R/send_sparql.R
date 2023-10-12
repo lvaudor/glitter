@@ -123,7 +123,7 @@ send_sparql = function(query_string,
   content = httr2::resp_body_json(resp)
 
     # Adapted from https://github.com/wikimedia/WikidataQueryServiceR/blob/accff89a06ad4ac4af1bef369f589175c92837b6/R/query.R#L56
-    if (length(content$results$bindings) > 0) {
+    if (length(content[["results"]][["bindings"]]) > 0) {
 
       parsed_results = purrr::map(
         content[["results"]][["bindings"]],
@@ -140,7 +140,7 @@ send_sparql = function(query_string,
 
       if (binding_failed) {
         parsed_results <- purrr::map(
-          content$results$bindings,
+          content[["results"]][["bindings"]],
           parse_result,
           simple = TRUE,
           endpoint = endpoint
@@ -152,8 +152,8 @@ send_sparql = function(query_string,
         data_frame <- dplyr::as_tibble(
           matrix(
             character(),
-            nrow = 0, ncol = length(content$head$vars),
-            dimnames = list(c(), unlist(content$head$vars))
+            nrow = 0, ncol = length(content[["head"]][["vars"]]),
+            dimnames = list(c(), unlist(content[["head"]][["vars"]]))
           )
         )
       }
