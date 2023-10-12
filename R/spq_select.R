@@ -10,8 +10,8 @@
 #' spq_select(query, count = n (human), eyecolor_label, haircolor_label)
 spq_select = function(.query = NULL, ..., .spq_duplicate = NULL){
   if (!is.null(.spq_duplicate)) {
-    original_spq_duplicate <- .spq_duplicate
-    .spq_duplicate <- toupper(.spq_duplicate)
+    original_spq_duplicate = .spq_duplicate
+    .spq_duplicate = toupper(.spq_duplicate)
     if (!(.spq_duplicate %in% c("DISTINCT", "REDUCED"))) {
       rlang::abort(c(
         x = sprintf("Wrong value for `.spq_duplicate` argument (%s).", original_spq_duplicate),
@@ -20,7 +20,7 @@ spq_select = function(.query = NULL, ..., .spq_duplicate = NULL){
       )
     }
   }
-  .query[["spq_duplicate"]] <- .spq_duplicate
+  .query[["spq_duplicate"]] = .spq_duplicate
 
   variables = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
@@ -30,20 +30,53 @@ spq_select = function(.query = NULL, ..., .spq_duplicate = NULL){
     add_as
   )
 
+  plus_variables = variables %>%
+    str_subset("^\\-\\?", negate = TRUE)
+
+  if (length(plus_variables) > 0) {
+
+    check_variables_present(.query, plus_variables)
+
+    if (is.data.frame(.query[["structure"]])) {
+      .query[["structure"]][["selected"]] = FALSE
+    }
+
+    .query = purrr::reduce(
+      plus_variables,
+      \(.query, var) track_structure(.query, name = var, selected = TRUE),
+      .init = .query
+    )
+  }
+
   minus_variables = variables %>%
     str_subset("^\\-\\?") %>%
     str_remove("\\-")
 
-  plus_variables = variables %>%
-    str_subset("^\\-\\?", negate = TRUE)
+  if (length(minus_variables) > 0) {
+    check_variables_present(.query, minus_variables)
 
-  for (var in plus_variables) {
-    .query <- track_structure(.query, name = var, selected = TRUE)
-  }
-
-  for (var in minus_variables) {
-    .query <- track_structure(.query, name = var, selected = FALSE)
+    .query = purrr::reduce(
+      minus_variables,
+      \(.query, var) track_structure(.query, name = var, selected = FALSE),
+      .init = .query
+    )
   }
 
   return(.query)
+}
+
+check_variables_present <- function(query, variables) {
+
+  if (nzchar(Sys.getenv("GLITTER.TESTING.SELECT"))) {
+    return()
+  }
+
+  absent_variables <- setdiff(variables, query[["structure"]][["name"]])
+
+  if (length(absent_variables) > 0) {
+    cli::cli_abort(c(
+      "Can't use {.fun spq_select} on absent variables: {toString(absent_variables)}.",
+      i = "Did you forget a call to {.fun spq_add}, {.fun spq_mutate} or {.fun spq_label}?"
+    ))
+  }
 }
