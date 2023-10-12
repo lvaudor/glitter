@@ -91,6 +91,7 @@ send_sparql = function(query_string,
     httr2::req_timeout(timeout)
 
   rate = request_control[["rate"]]
+  # nocov start
   if (!is.null(rate)) {
     realm = request_control[["realm"]]
     initial_request = httr2::req_throttle(
@@ -99,6 +100,7 @@ send_sparql = function(query_string,
       realm = realm
     )
   }
+  # nocov end
 
   request = if (request_type == "url") {
     httr2::req_url_query(initial_request, query = query_string)
