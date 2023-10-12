@@ -18,7 +18,11 @@
 #'   spq_filter(str_detect(lemma, '^pota.*')) |>
 #'   spq_select(lexemeId, lemma)
 #' ```
-spq_filter = function(.query = NULL, ..., .label = NA, .within_box = c(NA, NA), .within_distance = c(NA, NA)) {
+spq_filter = function(.query = NULL,
+                      ...,
+                      .label = NA,
+                      .within_box = c(NA, NA),
+                      .within_distance = c(NA, NA)) {
   filters = purrr::map(rlang::enquos(...), spq_treat_filter_argument)
 
   # FILTER filters :-)
@@ -75,7 +79,7 @@ spq_treat_filter_argument = function(arg) {
     rlang::expr_text(arg) %>% str_remove("^~")
   }
 
-  if (!grepl("::", code)) {
+  if (!grepl("::", code, fixed = TRUE)) {
     spq_translate_dsl(code)
   } else {
     spq_translate_filter(code)
