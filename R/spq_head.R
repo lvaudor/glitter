@@ -22,7 +22,7 @@
 #' spq_arrange(desc(linkcount)) %>%
 #' spq_head(42)
 #' @inheritSection spq_offset Subsetting
-spq_head = function(.query, n = 5){
+spq_head = function(.query, n = 5) {
 
   if (is.null(n)) return(.query)
 
