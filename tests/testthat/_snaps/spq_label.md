@@ -60,6 +60,30 @@
       }
       
 
+# spq_label() for not rdfs:label
+
+    Code
+      spq_init(endpoint = "hal") %>% spq_add(
+        "haldoc:inria-00362381 dcterms:hasVersion ?version") %>% spq_add(
+        "?version dcterms:type ?type") %>% spq_label(type)
+    Output
+      PREFIX dcterms: <http://purl.org/dc/terms/>
+      PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+      PREFIX haldoc: <https://data.archives-ouvertes.fr/document/>
+      SELECT ?type (COALESCE(?type_labell,'') AS ?type_label) ?version
+      WHERE {
+      
+      haldoc:inria-00362381 dcterms:hasVersion ?version.
+      ?version dcterms:type ?type.
+      OPTIONAL {
+      	?type skos:prefLabel ?type_labell.
+      	FILTER(lang(?type_labell) IN ('en'))
+      }
+      
+      
+      }
+      
+
 # spq_label() .overwrite
 
     Code
@@ -88,6 +112,25 @@
       
       VALUES ?species {wd:Q144 wd:Q146 wd:Q780}
       
+      }
+      
+
+# spq_label() .languages = NULL
+
+    Code
+      spq_init(endpoint = "hal") %>% spq_label(labo, .languages = NULL, .required = TRUE) %>%
+        spq_add("?labo dcterms:identifier ?labo_id", .required = FALSE) %>%
+        spq_filter(str_detect(labo_label, "EVS|(UMR 5600)|(Environnement Ville Soc)"))
+    Output
+      PREFIX dcterms: <http://purl.org/dc/terms/>
+      PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+      SELECT ?labo (COALESCE(?labo_labell,'') AS ?labo_label) ?labo_id
+      WHERE {
+      
+      ?labo skos:prefLabel ?labo_labell.
+      OPTIONAL {?labo dcterms:identifier ?labo_id.}
+      BIND(COALESCE(?labo_labell,'') AS ?labo_label)
+      FILTER(REGEX(?labo_label,"EVS|(UMR 5600)|(Environnement Ville Soc)"))
       }
       
 

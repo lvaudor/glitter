@@ -12,6 +12,12 @@
 #' `spq_select(blop, .overwrite = TRUE)` means you get the label as `blop`,
 #' the "original" blop variable isn't returned.
 #'
+#' @details
+#' `spq_label()` uses the property:
+#' - associated with the usual endpoint see `usual_endpoints`
+#' - the property indicated in [`spq_endpoint_info()`]
+#'
+#'
 #' @return A query object
 #' @export
 #'
@@ -35,6 +41,10 @@ spq_label <- function(.query,
                       .required = FALSE,
                       .languages = getOption("glitter.lang", "en$"),
                       .overwrite = FALSE) {
+
+  label_property <- .query[["endpoint_info"]][["label_property"]] %||%
+    "rdfs:label"
+
   vars = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
   if (!is.null(.languages)) .languages = tolower(.languages)
@@ -43,7 +53,7 @@ spq_label <- function(.query,
     vars,
     function(query, x) {
       if (is.null(.languages)) {
-        filter = NA
+        filter = NULL
       } else {
 
         languages_filter <- purrr::map_chr(.languages, create_lang_filter, x = x)
@@ -56,14 +66,17 @@ spq_label <- function(.query,
       if (.required) {
        q = spq_add(
         query,
-        sprintf("%s rdfs:label %s_labell", x, x),
+        sprintf("%s %s %s_labell", x, label_property, x),
         .required = .required
       )
-       q = spq_filter(q, spq(filter))
+       if (!is.null(filter)) {
+         q = spq_filter(q, spq(filter))
+       }
+
       } else {
       q = spq_add(
         query,
-        sprintf("%s rdfs:label %s_labell", x, x),
+        sprintf("%s %s %s_labell", x,label_property, x),
         .required = .required,
         .filter = filter
       )

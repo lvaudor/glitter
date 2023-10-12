@@ -1,14 +1,2 @@
-endpoints=tibble::tibble(name=c("wikidata",
-                                "dbpedia",
-                                "databnf",
-                                "isidore",
-                                "hal",
-                                "symogih"),
-                         url=c("https://query.wikidata.org/",
-                               "https://dbpedia.org/sparql",
-                               "https://data.bnf.fr/sparql",
-                               "https://isidore.science/sparql",
-                               "http://sparql.archives-ouvertes.fr/sparql",
-                               "http://bhp-publi.ish-lyon.cnrs.fr:8888/sparql"))
 usual_endpoints=readr::read_csv("data-raw/usual_endpoints.csv")
 usethis::use_data(usual_endpoints,overwrite=TRUE)

@@ -1,6 +1,6 @@
-name,url
-wikidata,https://query.wikidata.org/sparql
-dbpedia,https://dbpedia.org/sparql
-databnf,https://data.bnf.fr/sparql
-isidore,https://isidore.science/sparql
-hal,http://sparql.archives-ouvertes.fr/sparql
+name,url,label_property
+wikidata,https://query.wikidata.org/sparql,rdfs:label
+dbpedia,https://dbpedia.org/sparql,rdfs:label
+databnf,https://data.bnf.fr/sparql,rdfs:label
+isidore,https://isidore.science/sparql,rdfs:label
+hal,http://sparql.archives-ouvertes.fr/sparql,skos:prefLabel

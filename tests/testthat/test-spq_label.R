@@ -35,6 +35,15 @@ test_that("spq_label() works", {
   )
 })
 
+test_that("spq_label() for not rdfs:label", {
+  expect_snapshot(
+    spq_init(endpoint = "hal") %>%
+      spq_add("haldoc:inria-00362381 dcterms:hasVersion ?version") %>%
+      spq_add("?version dcterms:type ?type") %>%
+      spq_label(type)
+  )
+})
+
 test_that("spq_label() .overwrite", {
 
   expect_snapshot(
@@ -45,5 +54,14 @@ test_that("spq_label() .overwrite", {
       spq_add("?node ps:P39 wd:Q30185") %>%
       spq_add("?node pq:P642 ?place") %>%
       spq_label(mayor, place, .languages = "en$", .overwrite = TRUE)
+  )
+})
+
+test_that("spq_label() .languages = NULL", {
+  expect_snapshot(
+    spq_init(endpoint = "hal") %>%
+      spq_label(labo, .languages = NULL, .required = TRUE) %>%
+      spq_add("?labo dcterms:identifier ?labo_id", .required = FALSE) %>%
+      spq_filter(str_detect(labo_label,"EVS|(UMR 5600)|(Environnement Ville Soc)"))
   )
 })

@@ -50,7 +50,7 @@ spq_perform = function(.query,
        "spq_init(endpoint)"
     )
   } else {
-    endpoint = .query[["endpoint"]]
+    endpoint = .query[["endpoint_info"]][["endpoint_url"]]
   }
 
 
