@@ -81,6 +81,14 @@ test_that("spq_select tells a variable isn't there", {
       spq_add("?station wdt:P16 wd:Q1552") %>%
       spq_add("?station wdt:P31 wd:Q928830") %>%
       spq_add("?station wdt:P625 ?coords") %>%
+      spq_select(station_label, blop)
+  })
+
+  expect_snapshot(error = TRUE, {
+    spq_init() %>%
+      spq_add("?station wdt:P16 wd:Q1552") %>%
+      spq_add("?station wdt:P31 wd:Q928830") %>%
+      spq_add("?station wdt:P625 ?coords") %>%
       spq_label(station) %>%
       spq_select(station_label, blop)
   })

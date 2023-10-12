@@ -53,8 +53,6 @@ spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within
   for (var in normal_variables) {
     name = sprintf("?%s", names(normal_variables)[normal_variables == var])
 
-    .query = spq_select(.query, spq(name))
-
     formula_df = get_varformula(var)
     .query = track_vars(
       .query = .query,
@@ -63,6 +61,8 @@ spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within
       ancestor = formula_df[["args"]][[1]],
       fun = sub("\\)$", "", sub("\\(.*", "", formula_df[["formula"]]))
     )
+
+    .query = track_structure(.query, name = name, selected = TRUE)
 
   }
 

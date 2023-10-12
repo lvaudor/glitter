@@ -57,13 +57,13 @@ spq_tally = function(.query, sort = FALSE, name = "n") {
 
   .query = track_vars(
     .query,
-    name = sprintf("?%s", name),
+    name = question_mark(name),
     formula = full_formula,
     fun = "COUNT",
     ancestor = "*"
   )
 
-  .query = spq_select(.query, name)
+  .query = track_structure(.query, name = question_mark(name), selected = TRUE)
 
   if (sort) {
     .query <- spq_arrange(.query, spq(sprintf("DESC(?%s)", name)))

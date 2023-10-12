@@ -71,7 +71,7 @@ check_variables_present <- function(query, variables) {
     return()
   }
 
-  absent_variables <- setdiff(variables, query[["structure"]][["name"]])
+  absent_variables <- setdiff(variables, query[["vars"]][["name"]])
 
   if (length(absent_variables) > 0) {
     cli::cli_abort(c(
