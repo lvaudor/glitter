@@ -12,3 +12,47 @@
       }
       
 
+# spq_set() in two examples
+
+    Code
+      spq_init() %>% spq_prefix(prefixes = c(schema = "http://schema.org/")) %>%
+        spq_set(lemma = c("'Wikipedia'@de", "'Wikidata'@de", "'Berlin'@de",
+          "'Technische Universität Berlin'@de")) %>% spq_add(
+        "?sitelink schema:about ?item") %>% spq_add(
+        "?sitelink schema:isPartOf <https://de.wikipedia.org/>") %>% spq_add(
+        "?sitelink schema:name ?lemma") %>% spq_select(lemma, item)
+    Output
+      PREFIX schema: <http://schema.org/>
+      SELECT ?item ?lemma
+      WHERE {
+      
+      ?sitelink schema:about ?item.
+      ?sitelink schema:isPartOf <https://de.wikipedia.org/>.
+      ?sitelink schema:name ?lemma.
+      VALUES ?lemma {'Wikipedia'@de 'Wikidata'@de 'Berlin'@de 'Technische Universität Berlin'@de}
+      
+      }
+      
+
+---
+
+    Code
+      spq_init() %>% spq_prefix(prefixes = c(schema = "http://schema.org/")) %>%
+        spq_set(lemma = c("'Wikipedia'@de", "'Wikidata'@de", "'Berlin'@de",
+          "'Technische Universität Berlin'@de")) %>% spq_mutate(item = schema::about(
+        sitelink)) %>% spq_add(
+        "?sitelink schema:isPartOf <https://de.wikipedia.org/>") %>% spq_mutate(
+        lemma = schema::name(sitelink)) %>% spq_select(lemma, item)
+    Output
+      PREFIX schema: <http://schema.org/>
+      SELECT ?item ?lemma
+      WHERE {
+      
+      ?sitelink schema:about ?item.
+      ?sitelink schema:isPartOf <https://de.wikipedia.org/>.
+      ?sitelink schema:name ?lemma.
+      VALUES ?lemma {'Wikipedia'@de 'Wikidata'@de 'Berlin'@de 'Technische Universität Berlin'@de}
+      
+      }
+      
+
