@@ -21,18 +21,23 @@ spq_add(
 \arguments{
 \item{.query}{query}
 
-\item{.triple_pattern}{the triple pattern statement (replaces arguments subject verb and object)}
+\item{.triple_pattern}{the triple pattern statement
+(replaces arguments subject verb and object)}
 
-\item{.subject}{an anonymous variable (for instance, and by default, "?subject") or item (for instance "wd:Q456"))}
+\item{.subject}{an anonymous variable
+(for instance, and by default, "?subject") or item (for instance "wd:Q456"))}
 
 \item{.verb}{the property (for instance "wdt:P190")}
 
-\item{.object}{an anonymous variable (for instance, and by default, "?object") or item (for instance "wd:Q456"))}
+\item{.object}{an anonymous variable (for instance,
+and by default, "?object") or item (for instance "wd:Q456"))}
 
 \item{.prefixes}{Custom prefixes}
 
-\item{.required}{whether the existence of a value for the triple is required or not (defaults to TRUE).
-If set to FALSE, then other triples in the query are returned even if this particular triple is missing)}
+\item{.required}{whether the existence of a value for the triple is required
+or not (defaults to TRUE).
+If set to FALSE, then other triples in the query are returned even
+if this particular triple is missing)}
 
 \item{.label}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} See \code{\link[=spq_label]{spq_label()}}.}
 
@@ -40,8 +45,10 @@ If set to FALSE, then other triples in the query are returned even if this parti
 Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))}
 
 \item{.within_distance}{if provided, circular bounding box for the triple query.
-Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
-The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.}
+Provided as list(center=c(long=...,lat=...), radius=...),
+with radius in kilometers.
+The center can also be provided as a variable (for instance, "?location")
+for the center coordinates to be retrieved directly from the query.}
 
 \item{.filter}{Filter for the triple. Only use this with \code{.required=FALSE}}
 }

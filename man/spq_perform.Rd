@@ -2,7 +2,8 @@
 % Please edit documentation in R/spq_perform.R
 \name{spq_perform}
 \alias{spq_perform}
-\title{Assemble query parts into a sparql query and send it to endpoint to get a tibble as a result.}
+\title{Assemble query parts into a sparql query and send it to endpoint
+to get a tibble as a result.}
 \usage{
 spq_perform(
   .query,
@@ -19,29 +20,38 @@ spq_perform(
 \arguments{
 \item{.query}{a list with elements of the query}
 
-\item{endpoint}{a string or url corresponding to a SPARQL endpoint. Defaults to "Wikidata"}
+\item{endpoint}{a string or url corresponding to a SPARQL endpoint.
+Defaults to "Wikidata"}
 
-\item{user_agent}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} a string indicating the user agent to send with the query.}
+\item{user_agent}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} a string indicating
+the user agent to send with the query.}
 
-\item{max_tries, max_seconds}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Cap the maximal number of
-attemps with \code{max_tries} or the total elapsed time from the first request with \code{max_seconds}.}
+\item{max_tries, max_seconds}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+Cap the maximal number of
+attemps with \code{max_tries} or the total elapsed time from the first request
+with \code{max_seconds}.}
 
-\item{timeout}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} maximum number of seconds to wait (\code{httr2::req_timeout()}).}
+\item{timeout}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} maximum number of seconds
+to wait (\code{httr2::req_timeout()}).}
 
-\item{request_type}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} a string indicating how the query should be sent: in the
+\item{request_type}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} a string indicating
+how the query should be sent: in the
 URL (\code{url}, default, most common) or as a body form (\code{body-form}).}
 
-\item{dry_run}{Boolean indicating whether to return the output of \code{httr2::req_dry_run()}
+\item{dry_run}{Boolean indicating whether to return the output of
+\code{httr2::req_dry_run()}
 rather than of \code{httr2::req_perform()}. Useful for debugging.}
 
-\item{replace_prefixes}{Boolean indicating whether to replace used prefixes in the results table,
+\item{replace_prefixes}{Boolean indicating whether to replace used
+prefixes in the results table,
 for instance making, for instance "http://www.wikidata.org/entity/" "wd:".}
 }
 \value{
 A query object
 }
 \description{
-Assemble query parts into a sparql query and send it to endpoint to get a tibble as a result.
+Assemble query parts into a sparql query and send it to endpoint
+to get a tibble as a result.
 }
 \section{Request control}{
 

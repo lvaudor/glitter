@@ -24,8 +24,10 @@ spq_mutate(
 Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))}
 
 \item{.within_distance}{if provided, circular bounding box for the triple query.
-Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
-The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.}
+Provided as list(center=c(long=...,lat=...), radius=...),
+with radius in kilometers.
+The center can also be provided as a variable (for instance, "?location")
+for the center coordinates to be retrieved directly from the query.}
 }
 \value{
 A query object
@@ -37,7 +39,8 @@ Create and modify variables in the results
 
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# common name of a plant species in different languages
-# the triplet pattern "wd:Q331676 wdt:P1843 ?statement" creates the variable statement
+# the triplet pattern "wd:Q331676 wdt:P1843 ?statement"
+# creates the variable statement
 # hence our writing it in reverse within the spq_mutate() function
 spq_init() \%>\%
 spq_mutate(statement = wdt::P1843(wd::Q331676)) \%>\%

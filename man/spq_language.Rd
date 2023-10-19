@@ -9,7 +9,8 @@ spq_language(.query = NULL, language = "en")
 \arguments{
 \item{.query}{the query}
 
-\item{language}{the language in which the labels will be provided (defaults to "en" for English). See complete list of Wikimedia language codes \href{https://www.wikidata.org/wiki/Help:Wikimedia_language_codes/lists/all}{here}. You can also set language to "auto" and then the Wikidata SPARQL engine will try and detect your language automatically. Specifying several languages will return labels with languages following the priority specified (e.g. with language="fr,en", the label will be returned preferentially in French, or, if there is not French label for the item, in English).}
+\item{language}{the language in which the labels will be provided
+(defaults to "en" for English). See \href{https://www.wikidata.org/wiki/Help:Wikimedia_language_codes/lists/all}{complete list of Wikimedia language codes}. You can also set language to "auto" and then the Wikidata SPARQL engine will try and detect your language automatically. Specifying several languages will return labels with languages following the priority specified (e.g. with language="fr,en", the label will be returned preferentially in French, or, if there is not French label for the item, in English).}
 }
 \value{
 A query object

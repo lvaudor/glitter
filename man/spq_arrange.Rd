@@ -30,7 +30,8 @@ spq_init() \%>\%
   spq_arrange(desc(length), item_label) \%>\%
   spq_head(50)
 
-# descending length, ascending item_label, "R" syntax with quotes e.g. for a loop
+# descending length, ascending item_label,
+# "R" syntax with quotes e.g. for a loop
 variable = "length"
 spq_init() \%>\%
   spq_add("?item wdt:P31/wdt:P279* wd:Q4022") \%>\%

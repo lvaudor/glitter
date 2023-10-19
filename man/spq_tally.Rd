@@ -12,8 +12,8 @@ spq_count(.query, ..., sort = FALSE, name = "n")
 \arguments{
 \item{.query}{a list with elements of the query}
 
-\item{sort}{If \code{TRUE}, will show the largest groups at the top. (like the \code{sort} argument
-of \code{dplyr::tally()})}
+\item{sort}{If \code{TRUE}, will show the largest groups at the top.
+(like the \code{sort} argument of \code{dplyr::tally()})}
 
 \item{name}{Name for the count column (like the \code{name} argument
 of \code{dplyr::tally()})}

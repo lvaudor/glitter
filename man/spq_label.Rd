@@ -18,8 +18,10 @@ spq_label(
 \item{...}{variables by which to arrange
 (or SPARQL strings escaped with \code{spq()}, or strings, see examples)}
 
-\item{.required}{whether the existence of a value for the triple is required or not (defaults to TRUE).
-If set to FALSE, then other triples in the query are returned even if this particular triple is missing)}
+\item{.required}{whether the existence of a value for the triple is required
+or not (defaults to TRUE).
+If set to FALSE, then other triples in the query are returned even
+if this particular triple is missing)}
 
 \item{.languages}{Languages for which to query labels. Use \code{NULL} for removing
 restrictions on language (defined or not), \code{"*"} for any defined language.
