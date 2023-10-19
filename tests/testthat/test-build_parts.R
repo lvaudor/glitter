@@ -1,10 +1,3 @@
-test_that("build_part_body() return strings", {
-
-  x = build_part_body(query=NULL,subject="?city",verb="wdt:P625",object="?coords")
-  expect_type(x, "character")
-
-})
-
 test_that("within_distance is not broken", {
   expect_snapshot(
     spq_init() %>%

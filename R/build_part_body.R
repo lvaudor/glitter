@@ -1,5 +1,4 @@
 #' Builds the "body" part of a query.
-#' @param query a list with elements of the query
 #' @param subject an anonymous variable (for instance,
 #' and by default, "?subject") or item (for instance "wd:Q456"))
 #' @param verb the property (for instance "wdt:P190")
@@ -14,17 +13,15 @@
 #' @param within_distance if provided, north-west and south-east coordinates of
 #' bounding box for the triple query.
 #' @noRd
-build_part_body = function(query = NA,
-                           triple = NULL,
+build_part_body = function(triple = NULL,
                            subject = NULL,
                            verb = NULL,
                            object = NULL,
                            required = TRUE,
                            within_box = c(NA, NA),
                            within_distance = c(NA, NA),
-                           filter = NA) {
-
-  part_body = query[["body"]]
+                           filter = NA,
+                           other_triples) {
 
   if (!is.null(triple)) {
     elts = decompose_triple_pattern(triple)
@@ -42,7 +39,31 @@ build_part_body = function(query = NA,
       )
   } else {
     new_triple = glue::glue("{subject} {verb} {object}.")
+    if (sub(".$", "", new_triple) %in% other_triples[["sibling_triple"]]) {
+      little_siblings = other_triples[other_triples[["sibling_triple"]] == sub(".$", "", new_triple),]
+      little_siblings = split(little_siblings, seq_len(nrow(little_siblings)))
+
+      sibling_triples = purrr::map_chr(
+        little_siblings,
+        ~build_part_body(
+          triple = .x[["triple"]],
+          required = .x[["required"]],
+          within_box = .x[["within_box"]],
+          within_distance = .x[["within_distance"]],
+          filter = .x[["filter"]],
+          other_triples = other_triples
+        )
+      ) %>%
+        paste(collapse = "")
+    } else {
+      sibling_triples = NA
+    }
   }
+
+  if (!is.na(sibling_triples)) {
+    new_triple = sprintf("\n\t%s\n\t%s\n", new_triple, sibling_triples)
+  }
+
 
   if (!is.na(filter)) {
     new_triple = sprintf("\n\t%s\n\tFILTER(%s)\n", new_triple, filter)
@@ -90,5 +111,5 @@ build_part_body = function(query = NA,
     )
   }
 
-  glue::glue("{part_body}\n{new_triple}")
+  sprintf("\n%s", new_triple)
 }

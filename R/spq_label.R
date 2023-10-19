@@ -54,15 +54,27 @@ spq_label <- function(.query,
       if (is.null(.languages)) {
         filter = NULL
       } else {
-        languages_filter <- purrr::map_chr(.languages, create_lang_filter, x = x)
+        languages_filter = purrr::map_chr(.languages, create_lang_filter, x = x)
         filter = paste(languages_filter, collapse = " || ")
+      }
+
+      triples_for_var = .query[["triples"]][
+        .query[["triples"]][["triple"]] %in%
+          .query[["vars"]][["triple"]][.query[["vars"]][["name"]] == x],
+      ]
+      triple_for_var_optional <- all(!triples_for_var[["required"]])
+      sibling_triple_pattern = if (triple_for_var_optional) {
+        tail(triples_for_var[["triple"]], n = 1)
+      } else {
+        NA
       }
 
       q = spq_add(
         query,
         sprintf("%s %s %s_labell", x, label_property, x),
         .required = .required,
-        .filter = filter
+        .filter = filter,
+        .sibling_triple_pattern = sibling_triple_pattern
       )
 
       mutate_left <- sprintf("%s_label", sub("\\?", "", x))

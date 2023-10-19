@@ -138,17 +138,32 @@ spq_assemble = function(.query, strict = TRUE) {
   # body ----
   triples_present = !is.null(.query[["triples"]])
   body = if (triples_present) {
+
+# loop through lines
+  # if a triple is the sibling of other ones
+  # build the siblings first (which might be the siblings of other triples)
+    # once a thing is built keep it in a string and remove the rows from
+    # the triple table
+    # loop through lines
+  # if a triple is the sibling of other ones
+  # build the siblings first (which might be the siblings of other triples)
+    # once a thing is built keep it in a string and remove the rows from
+    # the triple table
+    firstborn_triples = .query[["triples"]][is.na(.query[["triples"]][["sibling_triple"]]),]
+    firstborn_triples = split(firstborn_triples, seq_len(nrow(firstborn_triples)))
+
+    other_triples = .query[["triples"]][!is.na(.query[["triples"]][["sibling_triple"]]),]
+
     purrr::map_chr(
-      split(.query[["triples"]], seq_len(nrow(.query[["triples"]]))),
+      firstborn_triples,
       ~build_part_body(
-        query = .query,
         triple = .x[["triple"]],
         required = .x[["required"]],
         within_box = .x[["within_box"]],
         within_distance = .x[["within_distance"]],
-        filter = .x[["filter"]]
-      ),
-      .query = .query
+        filter = .x[["filter"]],
+        other_triples = other_triples
+      )
     ) |>
       paste0(collapse = "")
   } else {

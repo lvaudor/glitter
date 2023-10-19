@@ -118,8 +118,8 @@
 # spq_label() .languages = NULL
 
     Code
-      spq_init(endpoint = "hal") %>% spq_label(labo, .languages = NULL, .required = TRUE) %>%
-        spq_add("?labo dcterms:identifier ?labo_id", .required = FALSE) %>%
+      spq_init(endpoint = "hal") %>% spq_add("?labo dcterms:identifier ?labo_id",
+        .required = FALSE) %>% spq_label(labo, .languages = NULL, .required = TRUE) %>%
         spq_filter(str_detect(labo_label, "EVS|(UMR 5600)|(Environnement Ville Soc)"))
     Output
       PREFIX dcterms: <http://purl.org/dc/terms/>
@@ -127,10 +127,55 @@
       SELECT ?labo (COALESCE(?labo_labell,'') AS ?labo_label) ?labo_id
       WHERE {
       
+      OPTIONAL {
+      	?labo dcterms:identifier ?labo_id.
+      	
       ?labo skos:prefLabel ?labo_labell.
-      OPTIONAL {?labo dcterms:identifier ?labo_id.}
+      }
       BIND(COALESCE(?labo_labell,'') AS ?labo_label)
       FILTER(REGEX(?labo_label,"EVS|(UMR 5600)|(Environnement Ville Soc)"))
       }
       
+
+# spq_label() for optional thing
+
+    Code
+      spq_init() %>% spq_add("?film wdt:P31 wd:Q11424") %>% spq_add(
+        "?film wdt:P840 ?loc") %>% spq_add("?loc wdt:P625 ?coords") %>% spq_add(
+        "?film wdt:P3383 ?image") %>% spq_add("?film wdt:P921 ?subject", .required = FALSE) %>%
+        spq_add("?film wdt:P577 ?date") %>% spq_label(film, loc, subject) %>%
+        spq_head(10)
+    Output
+      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+      SELECT ?coords ?date ?film (COALESCE(?film_labell,'') AS ?film_label) ?image ?loc (COALESCE(?loc_labell,'') AS ?loc_label) ?subject (COALESCE(?subject_labell,'') AS ?subject_label)
+      WHERE {
+      
+      ?film wdt:P31 wd:Q11424.
+      ?film wdt:P840 ?loc.
+      ?loc wdt:P625 ?coords.
+      ?film wdt:P3383 ?image.
+      OPTIONAL {
+      	?film wdt:P921 ?subject.
+      	
+      OPTIONAL {
+      	?subject rdfs:label ?subject_labell.
+      	FILTER(lang(?subject_labell) IN ('en'))
+      }
+      
+      }
+      ?film wdt:P577 ?date.
+      OPTIONAL {
+      	?film rdfs:label ?film_labell.
+      	FILTER(lang(?film_labell) IN ('en'))
+      }
+      
+      OPTIONAL {
+      	?loc rdfs:label ?loc_labell.
+      	FILTER(lang(?loc_labell) IN ('en'))
+      }
+      
+      
+      }
+      
+      LIMIT 10
 
