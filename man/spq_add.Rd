@@ -15,7 +15,8 @@ spq_add(
   .label = NA,
   .within_box = c(NA, NA),
   .within_distance = c(NA, NA),
-  .filter = NULL
+  .filter = NULL,
+  .sibling_triple_pattern = NA
 )
 }
 \arguments{
@@ -51,6 +52,9 @@ The center can also be provided as a variable (for instance, "?location")
 for the center coordinates to be retrieved directly from the query.}
 
 \item{.filter}{Filter for the triple. Only use this with \code{.required=FALSE}}
+
+\item{.sibling_triple_pattern}{Triple this triple is to be grouped with,
+especially (only?) useful if the sibling triple is optional.}
 }
 \description{
 Add a triple pattern statement to a query

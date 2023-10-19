@@ -42,8 +42,7 @@ spq_label <- function(.query,
                       .languages = getOption("glitter.lang", "en$"),
                       .overwrite = FALSE) {
 
-  label_property <- .query[["endpoint_info"]][["label_property"]] %||%
-    "rdfs:label"
+  label_property <- .query[["endpoint_info"]][["label_property"]] %||%"rdfs:label"
 
   vars = purrr::map_chr(rlang::enquos(...), spq_treat_argument)
 
@@ -55,33 +54,16 @@ spq_label <- function(.query,
       if (is.null(.languages)) {
         filter = NULL
       } else {
-
         languages_filter <- purrr::map_chr(.languages, create_lang_filter, x = x)
-
-        filter = paste(
-          languages_filter,
-          collapse = " || "
-        )
+        filter = paste(languages_filter, collapse = " || ")
       }
-      if (.required) {
-       q = spq_add(
-        query,
-        sprintf("%s %s %s_labell", x, label_property, x),
-        .required = .required
-      )
-       if (!is.null(filter)) {
-         q = spq_filter(q, spq(filter))
-       }
 
-      } else {
       q = spq_add(
         query,
         sprintf("%s %s %s_labell", x, label_property, x),
         .required = .required,
         .filter = filter
       )
-      }
-
 
       mutate_left <- sprintf("%s_label", sub("\\?", "", x))
       mutate_right <- sprintf("coalesce(%s_labell, '')", un_question_mark(x))
@@ -90,8 +72,7 @@ spq_label <- function(.query,
       q = do.call(spq_mutate, args_list)
       q = spq_select(q, sprintf("-%s_labell", un_question_mark(x)))
 
-      # we add the language of the label
-      # because of regional variants
+      # we add the language of the label because of regional variants
       if (!is.null(.languages)) {
         if (length(.languages) > 1 || !endsWith(.languages, "$")) {
           mutate_left <- sprintf("%s_label_lang", un_question_mark(x))

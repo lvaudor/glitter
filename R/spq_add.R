@@ -21,6 +21,8 @@
 #'   for the center coordinates to be retrieved directly from the query.
 #' @param .prefixes Custom prefixes
 #' @param .filter Filter for the triple. Only use this with `.required=FALSE`
+#' @param .sibling_triple_pattern Triple this triple is to be grouped with,
+#' especially (only?) useful if the sibling triple is optional.
 #' @export
 #' @section Examples:
 #' ```r
@@ -60,7 +62,8 @@ spq_add = function(.query = NULL,
                     .label = NA,
                     .within_box = c(NA, NA),
                     .within_distance = c(NA, NA),
-                    .filter = NULL) {
+                    .filter = NULL,
+                    .sibling_triple_pattern = NA) {
   .query = .query %||% spq_init()
 
   elts = decompose_triple_pattern(
@@ -84,7 +87,8 @@ spq_add = function(.query = NULL,
     required = .required,
     within_box = list(.within_box),
     within_distance = list(.within_distance),
-    filter = .filter
+    filter = .filter,
+    sibling_triple = .sibling_triple_pattern
   )
 
   # variable tracking ----

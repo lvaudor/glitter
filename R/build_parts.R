@@ -44,9 +44,13 @@ build_part_body = function(query = NA,
     new_triple = glue::glue("{subject} {verb} {object}.")
   }
 
+  if (!is.na(filter)) {
+    new_triple = sprintf("\n\t%s\n\tFILTER(%s)\n", new_triple, filter)
+  }
+
   if (!required) {
     new_triple = if (!is.na(filter)) {
-      sprintf("OPTIONAL {\n\t%s\n\tFILTER(%s)\n}\n", new_triple, filter)
+      sprintf("OPTIONAL {%s}\n", new_triple)
     } else {
       sprintf("OPTIONAL {%s}", new_triple)
     }
