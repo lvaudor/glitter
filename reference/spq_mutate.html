@@ -89,8 +89,10 @@ Provided as list(southwest=c(long=...,lat=...),northeast=c(long=...,lat=...))</p
 
 <dt>.within_distance</dt>
 <dd><p>if provided, circular bounding box for the triple query.
-Provided as list(center=c(long=...,lat=...), radius=...), with radius in kilometers.
-The center can also be provided as a variable (for instance, "?location") for the center coordinates to be retrieved directly from the query.</p></dd>
+Provided as list(center=c(long=...,lat=...), radius=...),
+with radius in kilometers.
+The center can also be provided as a variable (for instance, "?location")
+for the center coordinates to be retrieved directly from the query.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -105,7 +107,8 @@ The center can also be provided as a variable (for instance, "?location") for th
 
 
 <p></p><div class="sourceCode r"><pre><code><span><span class="co"># common name of a plant species in different languages</span></span>
-<span><span class="co"># the triplet pattern "wd:Q331676 wdt:P1843 ?statement" creates the variable statement</span></span>
+<span><span class="co"># the triplet pattern "wd:Q331676 wdt:P1843 ?statement"</span></span>
+<span><span class="co"># creates the variable statement</span></span>
 <span><span class="co"># hence our writing it in reverse within the spq_mutate() function</span></span>
 <span><span class="fu"><a href="../reference/spq_init.html">spq_init</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span><span class="fu"><a href="../reference/spq_mutate.html">spq_mutate</a></span><span class="op">(</span>statement <span class="op">=</span> <span class="fu">wdt</span><span class="fu">::</span><span class="fu">P1843</span><span class="op">(</span><span class="fu">wd</span><span class="fu">::</span><span class="va">Q331676</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
