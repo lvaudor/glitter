@@ -179,3 +179,42 @@
       
       LIMIT 10
 
+---
+
+    Code
+      spq_init() %>% spq_add("?film wdt:P31 wd:Q11424") %>% spq_add(
+        "?film wdt:P840 ?loc") %>% spq_add("?loc wdt:P625 ?coords") %>% spq_add(
+        "?film wdt:P3383 ?image") %>% spq_add("?film wdt:P921 ?subject", .required = FALSE) %>%
+        spq_add("?film wdt:P577 ?date") %>% spq_label(film, loc, subject, .required = TRUE) %>%
+        spq_head(10)
+    Output
+      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+      SELECT ?coords ?date ?film (COALESCE(?film_labell,'') AS ?film_label) ?image ?loc (COALESCE(?loc_labell,'') AS ?loc_label) ?subject (COALESCE(?subject_labell,'') AS ?subject_label)
+      WHERE {
+      
+      ?film wdt:P31 wd:Q11424.
+      ?film wdt:P840 ?loc.
+      ?loc wdt:P625 ?coords.
+      ?film wdt:P3383 ?image.
+      OPTIONAL {
+      	?film wdt:P921 ?subject.
+      	
+      
+      	?subject rdfs:label ?subject_labell.
+      	FILTER(lang(?subject_labell) IN ('en'))
+      
+      }
+      ?film wdt:P577 ?date.
+      
+      	?film rdfs:label ?film_labell.
+      	FILTER(lang(?film_labell) IN ('en'))
+      
+      
+      	?loc rdfs:label ?loc_labell.
+      	FILTER(lang(?loc_labell) IN ('en'))
+      
+      
+      }
+      
+      LIMIT 10
+
