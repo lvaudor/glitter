@@ -139,19 +139,10 @@ spq_assemble = function(.query, strict = TRUE) {
   triples_present = !is.null(.query[["triples"]])
   body = if (triples_present) {
 
-# loop through lines
-  # if a triple is the sibling of other ones
-  # build the siblings first (which might be the siblings of other triples)
-    # once a thing is built keep it in a string and remove the rows from
-    # the triple table
-    # loop through lines
-  # if a triple is the sibling of other ones
-  # build the siblings first (which might be the siblings of other triples)
-    # once a thing is built keep it in a string and remove the rows from
-    # the triple table
     firstborn_triples = .query[["triples"]][is.na(.query[["triples"]][["sibling_triple"]]),]
     firstborn_triples = split(firstborn_triples, seq_len(nrow(firstborn_triples)))
 
+    # they'll be built as we build their big siblings
     other_triples = .query[["triples"]][!is.na(.query[["triples"]][["sibling_triple"]]),]
 
     purrr::map_chr(
