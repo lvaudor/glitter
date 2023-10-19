@@ -64,6 +64,19 @@
       }
       
 
+---
+
+    Code
+      spq_select(query, lang, count = n_distinct(article)) %>% spq_select(lang)
+    Output
+      
+      SELECT ?lang
+      WHERE {
+      
+      
+      }
+      
+
 # spq_select works with SPARQL
 
     Code
@@ -138,4 +151,26 @@
 
     x Wrong value for `.spq_duplicate` argument (reduce).
     i Use either `NULL`, "distinct" or "reduced".
+
+# spq_select tells a variable isn't there
+
+    Code
+      spq_init() %>% spq_add("?station wdt:P16 wd:Q1552") %>% spq_add(
+        "?station wdt:P31 wd:Q928830") %>% spq_add("?station wdt:P625 ?coords") %>%
+        spq_select(station_label, blop)
+    Condition
+      Error in `check_variables_present()`:
+      ! Can't use `spq_select()` on absent variables: ?station_label, ?blop.
+      i Did you forget a call to `spq_add()`, `spq_mutate()` or `spq_label()`?
+
+---
+
+    Code
+      spq_init() %>% spq_add("?station wdt:P16 wd:Q1552") %>% spq_add(
+        "?station wdt:P31 wd:Q928830") %>% spq_add("?station wdt:P625 ?coords") %>%
+        spq_label(station) %>% spq_select(station_label, blop)
+    Condition
+      Error in `check_variables_present()`:
+      ! Can't use `spq_select()` on absent variables: ?blop.
+      i Did you forget a call to `spq_add()`, `spq_mutate()` or `spq_label()`?
 

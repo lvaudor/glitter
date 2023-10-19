@@ -81,7 +81,7 @@ spq_summarise = function(.query, ...) {
       ancestor = ancestor,
       fun = fun
     )
-    .query = spq_select(.query, spq(name))
+    .query = track_structure(.query, name, selected = TRUE)
 
   }
 

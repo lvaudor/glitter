@@ -7,13 +7,18 @@
 #'
 #' ```r
 #' # common name of a plant species in different languages
-#' # the triplet pattern "wd:Q331676 wdt:P1843 ?statement" creates the variable statement
+#' # the triplet pattern "wd:Q331676 wdt:P1843 ?statement"
+#' # creates the variable statement
 #' # hence our writing it in reverse within the spq_mutate() function
 #' spq_init() %>%
 #' spq_mutate(statement = wdt::P1843(wd::Q331676)) %>%
 #' spq_mutate(lang = lang(statement))
 #' ```
-spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within_distance = c(NA, NA)) {
+spq_mutate = function(.query,
+                      ...,
+                      .label = NA,
+                      .within_box = c(NA, NA),
+                      .within_distance = c(NA, NA)) {
   variables = purrr::map(rlang::enquos(...), spq_treat_mutate_argument)
   variable_names = names(variables)
 
@@ -53,8 +58,6 @@ spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within
   for (var in normal_variables) {
     name = sprintf("?%s", names(normal_variables)[normal_variables == var])
 
-    .query = spq_select(.query, spq(name))
-
     formula_df = get_varformula(var)
     .query = track_vars(
       .query = .query,
@@ -63,6 +66,8 @@ spq_mutate = function(.query, ..., .label = NA, .within_box = c(NA, NA), .within
       ancestor = formula_df[["args"]][[1]],
       fun = sub("\\)$", "", sub("\\(.*", "", formula_df[["formula"]]))
     )
+
+    .query = track_structure(.query, name = name, selected = TRUE)
 
   }
 
@@ -110,7 +115,7 @@ spq_treat_mutate_argument = function(arg, arg_name) {
     rlang::expr_text(arg) %>% str_remove("^~")
   }
 
-  if (!grepl("::", code)) {
+  if (!grepl("::", code, fixed = TRUE)) {
     spq_translate_dsl(code)
   } else {
     spq_parse_verb_object(code, reverse = TRUE)

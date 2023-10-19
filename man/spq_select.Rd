@@ -23,6 +23,17 @@ Select (and create) particular variables
 }
 \examples{
 
-query = spq_init()
-spq_select(query, count = n (human), eyecolor_label, haircolor_label)
+spq_init() |>
+  spq_prefix(prefixes = c(dct = "http://purl.org/dc/terms/")) |>
+  spq_add(spq('?lexemeId dct:language wd:Q1860')) |>
+  spq_add(spq("?lexemeId wikibase:lemma ?lemma")) |>
+  spq_filter(str_detect(lemma, '^pota.*')) |>
+  spq_select(- lemma)
+
+spq_init() |>
+  spq_prefix(prefixes = c(dct = "http://purl.org/dc/terms/")) |>
+  spq_add(spq('?lexemeId dct:language wd:Q1860')) |>
+  spq_add(spq("?lexemeId wikibase:lemma ?lemma")) |>
+  spq_filter(str_detect(lemma, '^pota.*')) |>
+  spq_select(lemma)
 }

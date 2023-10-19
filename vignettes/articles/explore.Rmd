@@ -220,7 +220,7 @@ query_basis %>%
   spq_prefix(prefixes = c("schema" = "http://schema.org/")) %>%
   spq_add("?s a schema:Organization") %>%
   spq_add("?s ?property ?value") %>%
-  spq_select(-value, -s, class, .spq_duplicate = "distinct") %>%
+  spq_select(-value, -s, .spq_duplicate = "distinct") %>%
   spq_perform() %>%
   knitr::kable()
 ```
@@ -232,7 +232,7 @@ query_basis %>%
   spq_prefix(prefixes = c("schema" = "http://schema.org/")) %>%
   spq_add("?s a schema:PostalAddress") %>%
   spq_add("?s ?property ?value") %>%
-  spq_select(-value, -s, class, .spq_duplicate = "distinct") %>%
+  spq_select(-value, -s, .spq_duplicate = "distinct") %>%
   spq_perform() %>%
   knitr::kable()
 ```

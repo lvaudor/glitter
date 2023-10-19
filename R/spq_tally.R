@@ -3,8 +3,8 @@
 #' These functions are inspired by `dplyr::count()` and `dplyr::tally()`.
 #' `spq_tally()` assumes you've already done the grouping.
 #' @inheritParams spq_arrange
-#' @param sort If `TRUE`, will show the largest groups at the top. (like the `sort` argument
-#' of `dplyr::tally()`)
+#' @param sort If `TRUE`, will show the largest groups at the top.
+#' (like the `sort` argument of `dplyr::tally()`)
 #' @param name Name for the count column (like the `name` argument
 #' of `dplyr::tally()`)
 #'
@@ -57,13 +57,13 @@ spq_tally = function(.query, sort = FALSE, name = "n") {
 
   .query = track_vars(
     .query,
-    name = sprintf("?%s", name),
+    name = question_mark(name),
     formula = full_formula,
     fun = "COUNT",
     ancestor = "*"
   )
 
-  .query = spq_select(.query, name)
+  .query = track_structure(.query, name = question_mark(name), selected = TRUE)
 
   if (sort) {
     .query <- spq_arrange(.query, spq(sprintf("DESC(?%s)", name)))
