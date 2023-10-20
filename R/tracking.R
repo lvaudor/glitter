@@ -62,9 +62,18 @@ track_triples <- function(.query,
                           required,
                           within_box,
                           within_distance,
-                          filter = NULL) {
+                          filter = NULL,
+                          sibling_triple = NA) {
   if (triple %in% .query[["triples"]][["triple"]]) {
-    cli::cli_abort("Duplicate triple {.val triple}")
+    cli::cli_abort("Duplicate triple {.val triple}.")
+  }
+
+  if (!is.na(sibling_triple)) {
+    sibling_absent <- !(sibling_triple %in% .query[["triples"]][["triple"]])
+
+    if (sibling_absent) {
+      cli::cli_abort("Can't find sibling triple {.val sibling_triple}.")
+    }
   }
 
   no_within_box = (sum(is.na(within_box[[1]])) == 2)
@@ -84,7 +93,8 @@ track_triples <- function(.query,
     required = required,
     within_box = within_box,
     within_distance = within_distance,
-    filter = filter
+    filter = filter,
+    sibling_triple = sibling_triple
   )
 
   .query[["triples"]] <- rbind(.query[["triples"]], new_triple)
@@ -92,10 +102,23 @@ track_triples <- function(.query,
   .query
 }
 
-track_filters <- function(.query, filter) {
+track_filters <- function(.query, filter, sibling_triple = NA) {
+
+  if (!is.na(sibling_triple)) {
+    sibling_absent <- !(sibling_triple %in% .query[["triples"]][["triple"]])
+
+    if (sibling_absent) {
+      cli::cli_abort("Can't find sibling triple {.val sibling_triple}.")
+    }
+  }
+
   var <- str_extract(filter, "\\(\\?(.*?)\\)")
   var <- sub("\\,.*", "", sub("\\(", "", sub("\\)", "", var)))
-  new_filter <- tibble::tibble(filter = filter, var = var)
+  new_filter <- tibble::tibble(
+    filter = filter,
+    var = var,
+    sibling_triple = sibling_triple
+  )
 
   .query[["filters"]] <- rbind(.query[["filters"]], new_filter)
 
