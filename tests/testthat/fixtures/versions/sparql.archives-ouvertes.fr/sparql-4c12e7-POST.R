@@ -1,6 +1,6 @@
 structure(list(method = "POST", url = "http://sparql.archives-ouvertes.fr/sparql?query=PREFIX%20dcterms%3A%20%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E%0APREFIX%20haldoc%3A%20%3Chttps%3A%2F%2Fdata.archives-ouvertes.fr%2Fdocument%2F%3E%0ASELECT%20%3Fobject%20%3Fp%20%3Fversion%0AWHERE%20%7B%0A%0Ahaldoc%3Ainria-00362381%20dcterms%3AhasVersion%20%3Fversion.%0A%3Fversion%20%3Fp%20%3Fobject.%0A%0A%7D%0A%0ALIMIT%205", 
     status_code = 200L, headers = structure(list(server = "Virtuoso/07.20.3229 (Linux) x86_64-pc-linux-gnu", 
-        date = "Thu, 28 Sep 2023 08:58:05 GMT", `accept-ranges` = "bytes", 
+        date = "Fri, 20 Oct 2023 14:56:41 GMT", `accept-ranges` = "bytes", 
         `content-type` = "application/sparql-results+json", `transfer-encoding` = "chunked", 
         `content-encoding` = "gzip"), class = "httr2_headers"), 
     body = as.raw(c(0x0a, 0x7b, 0x20, 0x22, 0x68, 0x65, 0x61, 

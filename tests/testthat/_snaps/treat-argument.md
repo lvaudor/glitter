@@ -2,9 +2,8 @@
 
     Code
       spq_treat_argument("something(bla)")
-    Condition
-      Error in `spq_translate_dsl()`:
-      ! x Can't find SPARQL equivalent for something().
+    Error <rlang_error>
+      x Can't find SPARQL equivalent for something().
       i If you think there should be one, open an issue in https://github.com/lvaudor/glitter.
 
 # COUNT()
@@ -14,7 +13,8 @@
         narrative_location = wdt::P840(film)) %>% spq_mutate(count = n()) %>%
         spq_select(-film, -narrative_location)
     Output
-      
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       SELECT (COUNT(*) AS ?count)
       WHERE {
       

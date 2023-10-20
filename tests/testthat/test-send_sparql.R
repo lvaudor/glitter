@@ -118,5 +118,4 @@ test_that("deprecation", {
       req$method
     })
   })
-
 })

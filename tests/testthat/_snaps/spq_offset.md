@@ -6,6 +6,9 @@
         "?item wikibase:sitelinks ?linkcount") %>% spq_arrange(desc(linkcount)) %>%
         spq_head(42) %>% spq_offset(11)
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+      PREFIX wikibase: <http://wikiba.se/ontology#>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?item (COALESCE(?item_labell,'') AS ?item_label) ?linkcount
       WHERE {
