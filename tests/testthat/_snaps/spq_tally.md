@@ -5,6 +5,8 @@
         narrative_location = wdt::P840(film)) %>% spq_label(narrative_location) %>%
         spq_tally()
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT (COUNT(*) AS ?n)
       WHERE {
@@ -27,6 +29,8 @@
         narrative_location = wdt::P840(film)) %>% spq_label(narrative_location) %>%
         spq_group_by(narrative_location_label) %>% spq_tally(sort = TRUE, name = "n_films")
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?narrative_location_label (COUNT(*) AS ?n_films)
       WHERE {
@@ -51,6 +55,8 @@
         narrative_location = wdt::P840(film)) %>% spq_label(narrative_location) %>%
         spq_count()
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT (COUNT(*) AS ?n)
       WHERE {
@@ -73,6 +79,8 @@
         narrative_location = wdt::P840(film)) %>% spq_label(narrative_location) %>%
         spq_count(narrative_location_label, sort = TRUE, name = "n_films")
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?narrative_location_label (COUNT(*) AS ?n_films)
       WHERE {
