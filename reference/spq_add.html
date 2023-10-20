@@ -69,7 +69,8 @@
 <span>  .label <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  .within_box <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>  .within_distance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>  .filter <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  .filter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  .sibling_triple_pattern <span class="op">=</span> <span class="cn">NA</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -128,6 +129,11 @@ for the center coordinates to be retrieved directly from the query.</p></dd>
 
 <dt>.filter</dt>
 <dd><p>Filter for the triple. Only use this with <code>.required=FALSE</code></p></dd>
+
+
+<dt>.sibling_triple_pattern</dt>
+<dd><p>Triple this triple is to be grouped with,
+especially (only?) useful if the sibling triple is optional.</p></dd>
 
 </dl></div>
     <div class="section level2">
