@@ -4,7 +4,8 @@
       spq_init() %>% spq_mutate(statement = wdt::P1843(wd::Q331676)) %>% spq_mutate(
         lang = lang(statement))
     Output
-      
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       SELECT ?statement (lang(?statement) AS ?lang)
       WHERE {
       
@@ -20,6 +21,8 @@
         spq_add("?film wdt:P577 ?date") %>% spq_mutate(date = year(date)) %>%
         spq_head(10)
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?film (COALESCE(?film_labell,'') AS ?film_label) (YEAR(?date0) AS ?date)
       WHERE {
@@ -43,6 +46,8 @@
         spq_add("?film wdt:P577 ?date") %>% spq_mutate(date = year(date)) %>%
         spq_mutate(date = date - 2000)
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?film (COALESCE(?film_labell,'') AS ?film_label) (?date0-2000 AS ?date)
       WHERE {

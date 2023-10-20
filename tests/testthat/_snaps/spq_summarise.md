@@ -6,6 +6,8 @@
         spq_label(area) %>% spq_add("?area wdt:P527 ?item") %>% spq_group_by(area,
         area_label) %>% spq_summarise(total_folkm = sum(folkm_ngd))
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?area ?area_label (SUM(?folkm_ngd) AS ?total_folkm)
       WHERE {
@@ -31,6 +33,8 @@
       spq_init() %>% spq_add("?film wdt:P31 wd:Q11424") %>% spq_add(
         "?film wdt:P840 ?loc") %>% spq_label(film, loc) %>% spq_summarise(n_films = n())
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT (COUNT(*) AS ?n_films)
       WHERE {
@@ -58,6 +62,8 @@
         "?film wdt:P840 ?loc") %>% spq_label(film, loc) %>% spq_group_by(loc) %>%
         spq_summarise(n_films = n())
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?loc (COUNT(*) AS ?n_films)
       WHERE {
@@ -87,7 +93,8 @@
         year) %>% spq_summarise(n_films = n(), one_film = sample(film)) %>% spq_head(
         10)
     Output
-      
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       SELECT ?year (COUNT(*) AS ?n_films) (SAMPLE(?film) AS ?one_film)
       WHERE {
       
@@ -106,7 +113,8 @@
       spq_init() %>% spq_add("?film wdt:P31 wd:Q11424") %>% spq_add(
         "?film wdt:P840 ?loc") %>% spq_summarise(n_films = n())
     Output
-      
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       SELECT (COUNT(*) AS ?n_films)
       WHERE {
       
@@ -124,6 +132,8 @@
         spq_label(area) %>% spq_add("?area wdt:P527 ?item") %>% spq_group_by(area,
         area_label) %>% spq_summarise(folkm_ngd = sum(folkm_ngd))
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?area ?area_label (SUM(?folkm_ngd0) AS ?folkm_ngd)
       WHERE {
@@ -151,7 +161,8 @@
         year = year(date)) %>% spq_mutate(year = min(year)) %>% spq_group_by(loc,
         year) %>% spq_summarize(n_films = n())
     Output
-      
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       SELECT ?loc ?year (COUNT(*) AS ?n_films)
       WHERE {
       
@@ -172,7 +183,8 @@
         "?film wdt:P577 ?date") %>% spq_mutate(year = year(date)) %>% spq_group_by(
         filmLabel, loc) %>% spq_summarise(year = min(year))
     Output
-      
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       SELECT (MIN(?year0) AS ?year)
       WHERE {
       

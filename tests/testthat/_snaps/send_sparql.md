@@ -14,22 +14,32 @@
       The `user_agent` argument of `spq_perform()` is deprecated as of glitter 0.3.0.
       i Please use the `user_agent` argument of `spq_request_control()` instead.
       i Parameters controlling how the request is made have to be passed to `spq_init()`'s `request_control` argument.
+      i The deprecated feature was likely used in the glitter package.
+        Please report the issue at <https://github.com/lvaudor/glitter/issues>.
       Warning:
       The `max_tries` argument of `spq_perform()` is deprecated as of glitter 0.3.0.
       i Please use the `max_tries` argument of `spq_request_control()` instead.
       i Parameters controlling how the request is made have to be passed to `spq_init()`'s `request_control` argument.
+      i The deprecated feature was likely used in the glitter package.
+        Please report the issue at <https://github.com/lvaudor/glitter/issues>.
       Warning:
       The `max_seconds` argument of `spq_perform()` is deprecated as of glitter 0.3.0.
       i Please use the `max_seconds` argument of `spq_request_control()` instead.
       i Parameters controlling how the request is made have to be passed to `spq_init()`'s `request_control` argument.
+      i The deprecated feature was likely used in the glitter package.
+        Please report the issue at <https://github.com/lvaudor/glitter/issues>.
       Warning:
       The `timeout` argument of `spq_perform()` is deprecated as of glitter 0.3.0.
       i Please use the `timeout` argument of `spq_request_control()` instead.
       i Parameters controlling how the request is made have to be passed to `spq_init()`'s `request_control` argument.
+      i The deprecated feature was likely used in the glitter package.
+        Please report the issue at <https://github.com/lvaudor/glitter/issues>.
       Warning:
       The `request_type` argument of `spq_perform()` is deprecated as of glitter 0.3.0.
       i Please use the `request_type` argument of `spq_request_control()` instead.
       i Parameters controlling how the request is made have to be passed to `spq_init()`'s `request_control` argument.
+      i The deprecated feature was likely used in the glitter package.
+        Please report the issue at <https://github.com/lvaudor/glitter/issues>.
     Code
       req$method
     Output

@@ -79,8 +79,17 @@ spq_perform = function(.query,
   )
 
   if (replace_prefixes) {
+    endpoint_url = .query[["endpoint_info"]][["endpoint_url"]]
+   endpoint_is_usual <- (endpoint_url %in% usual_endpoints$url)
+    if (endpoint_is_usual) {
+      endpoint_name = usual_endpoints[["name"]][usual_endpoints[["url"]] == endpoint_url]
+      prefixes = usual_prefixes[["name"]][usual_prefixes[["type"]] == endpoint_name]
+    } else {
+    prefixes = NULL
+   }
+    prefixes = c(prefixes, .query[["prefixes_used"]])
     results = purrr::reduce(
-      .query[["prefixes_used"]],
+      prefixes,
       \(results, x) replace_prefix(x, results, .query = .query),
       .init = results
     )

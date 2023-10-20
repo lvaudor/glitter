@@ -6,6 +6,8 @@
         "CONTAINS(LCASE(?itemTitle),'wikidata')")) %>% spq_filter(spq(
         "LANG(?itemTitle)='en'"))
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?item ?itemTitle
       WHERE {
@@ -24,6 +26,8 @@
         "?item rdfs:label ?itemTitle") %>% spq_filter(str_detect(str_to_lower(
         itemTitle), "wikidata")) %>% spq_filter(lang(itemTitle) == "en")
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?item ?itemTitle
       WHERE {

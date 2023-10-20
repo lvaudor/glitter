@@ -6,6 +6,11 @@
         spq_add("?node ps:P39 wd:Q30185") %>% spq_add("?node pq:P642 ?place") %>%
         spq_label(mayor, place, .languages = "en$")
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+      PREFIX ps: <http://www.wikidata.org/prop/statement/>
+      PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+      PREFIX p: <http://www.wikidata.org/prop/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?mayor (COALESCE(?mayor_labell,'') AS ?mayor_label) ?node ?place (COALESCE(?place_labell,'') AS ?place_label) ?species
       WHERE {
@@ -37,6 +42,11 @@
         spq_add("?node ps:P39 wd:Q30185") %>% spq_add("?node pq:P642 ?place") %>%
         spq_label(mayor, place, .languages = c("fr", "en"))
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+      PREFIX ps: <http://www.wikidata.org/prop/statement/>
+      PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+      PREFIX p: <http://www.wikidata.org/prop/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?mayor (COALESCE(?mayor_labell,'') AS ?mayor_label) (lang(?mayor_labell) AS ?mayor_label_lang) ?node ?place (COALESCE(?place_labell,'') AS ?place_label) (lang(?place_labell) AS ?place_label_lang) ?species
       WHERE {
@@ -92,6 +102,11 @@
         spq_add("?node ps:P39 wd:Q30185") %>% spq_add("?node pq:P642 ?place") %>%
         spq_label(mayor, place, .languages = "en$", .overwrite = TRUE)
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+      PREFIX ps: <http://www.wikidata.org/prop/statement/>
+      PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+      PREFIX p: <http://www.wikidata.org/prop/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?node ?species (COALESCE(?mayor_labell,'') AS ?mayor) (COALESCE(?place_labell,'') AS ?place)
       WHERE {
@@ -146,6 +161,8 @@
         spq_add("?film wdt:P577 ?date") %>% spq_label(film, loc, subject) %>%
         spq_head(10)
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?coords ?date ?film (COALESCE(?film_labell,'') AS ?film_label) ?image ?loc (COALESCE(?loc_labell,'') AS ?loc_label) ?subject (COALESCE(?subject_labell,'') AS ?subject_label)
       WHERE {
@@ -188,6 +205,8 @@
         spq_add("?film wdt:P577 ?date") %>% spq_label(film, loc, subject, .required = TRUE) %>%
         spq_head(10)
     Output
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       SELECT ?coords ?date ?film (COALESCE(?film_labell,'') AS ?film_label) ?image ?loc (COALESCE(?loc_labell,'') AS ?loc_label) ?subject (COALESCE(?subject_labell,'') AS ?subject_label)
       WHERE {
