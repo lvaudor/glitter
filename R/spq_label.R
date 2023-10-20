@@ -64,7 +64,7 @@ spq_label <- function(.query,
       ]
       triple_for_var_optional <- all(!triples_for_var[["required"]])
       sibling_triple_pattern = if (triple_for_var_optional) {
-        tail(triples_for_var[["triple"]], n = 1)
+        utils::tail(triples_for_var[["triple"]], n = 1)
       } else {
         NA
       }
