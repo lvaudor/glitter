@@ -9,7 +9,6 @@
 
     Code
       spq(1)
-    Condition
-      Error in `c_character()`:
-      ! Character input expected
+    Error <rlang_error>
+      Character input expected
 

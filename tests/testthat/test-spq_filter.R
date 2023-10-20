@@ -4,7 +4,8 @@ test_that("spq_filter works with SPARQL syntax", {
       spq_add("?item wdt:P31 wd:Q13442814") %>%
       spq_add("?item rdfs:label ?itemTitle") %>%
       spq_filter(spq("CONTAINS(LCASE(?itemTitle),'wikidata')")) %>%
-      spq_filter(spq("LANG(?itemTitle)='en'"))
+      spq_filter(spq("LANG(?itemTitle)='en'")) %>%
+      spq_head(10)
   )
 })
 
