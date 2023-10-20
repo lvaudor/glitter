@@ -60,8 +60,35 @@ test_that("spq_label() .overwrite", {
 test_that("spq_label() .languages = NULL", {
   expect_snapshot(
     spq_init(endpoint = "hal") %>%
-      spq_label(labo, .languages = NULL, .required = TRUE) %>%
       spq_add("?labo dcterms:identifier ?labo_id", .required = FALSE) %>%
+      spq_label(labo, .languages = NULL, .required = TRUE) %>%
       spq_filter(str_detect(labo_label,"EVS|(UMR 5600)|(Environnement Ville Soc)"))
+  )
+})
+
+
+test_that("spq_label() for optional thing", {
+  expect_snapshot(
+    spq_init() %>%
+      spq_add("?film wdt:P31 wd:Q11424") %>%
+      spq_add("?film wdt:P840 ?loc") %>%
+      spq_add("?loc wdt:P625 ?coords") %>%
+      spq_add("?film wdt:P3383 ?image") %>%
+      spq_add("?film wdt:P921 ?subject", .required=FALSE) %>%
+      spq_add("?film wdt:P577 ?date") %>%
+      spq_label(film,loc,subject) %>%
+      spq_head(10)
+  )
+
+    expect_snapshot(
+    spq_init() %>%
+      spq_add("?film wdt:P31 wd:Q11424") %>%
+      spq_add("?film wdt:P840 ?loc") %>%
+      spq_add("?loc wdt:P625 ?coords") %>%
+      spq_add("?film wdt:P3383 ?image") %>%
+      spq_add("?film wdt:P921 ?subject", .required=FALSE) %>%
+      spq_add("?film wdt:P577 ?date") %>%
+      spq_label(film,loc,subject, .required = TRUE) %>%
+      spq_head(10)
   )
 })
