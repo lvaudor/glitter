@@ -2,7 +2,8 @@
 
     Code
       spq_treat_argument("something(bla)")
-    Error <rlang_error>
+    Condition
+      Error:
       x Can't find SPARQL equivalent for something().
       i If you think there should be one, open an issue in https://github.com/lvaudor/glitter.
 

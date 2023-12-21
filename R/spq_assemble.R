@@ -18,7 +18,11 @@ spq_assemble = function(.query, strict = TRUE) {
   # prefixes -----
   prefixes_known = .query[["prefixes_provided"]] %>%
     dplyr::bind_rows(usual_prefixes)
-  check_prefixes(.query[["prefixes_used"]], prefixes_known = prefixes_known)
+  check_prefixes(
+    .query[["prefixes_used"]],
+    prefixes_known = prefixes_known,
+    call = rlang::caller_env()
+  )
 
   part_prefixes <- if (nrow(.query[["prefixes_provided"]]) > 0) {
     glue::glue(
@@ -249,6 +253,6 @@ add_label = function(vector, label, label_name, old_select) {
 
 }
 
-check_prefixes <- function(prefixes, prefixes_known) {
-  purrr::walk(prefixes, check_prefix, prefixes_known = prefixes_known)
+check_prefixes <- function(prefixes, prefixes_known, call) {
+  purrr::walk(prefixes, check_prefix, prefixes_known = prefixes_known, call = call)
 }

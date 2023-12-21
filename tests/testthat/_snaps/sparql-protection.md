@@ -9,6 +9,7 @@
 
     Code
       spq(1)
-    Error <rlang_error>
-      Character input expected
+    Condition
+      Error:
+      ! Character input expected
 

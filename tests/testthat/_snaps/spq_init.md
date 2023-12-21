@@ -33,6 +33,7 @@
 
     Code
       spq_init(request_control = list(max_tries = 1L))
-    Error <rlang_error>
-      `request_control` must be created by `spq_control_request()`.
+    Condition
+      Error in `spq_init()`:
+      ! `request_control` must be created by `spq_control_request()`.
 

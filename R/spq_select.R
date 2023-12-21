@@ -47,7 +47,7 @@ spq_select = function(.query = NULL, ..., .spq_duplicate = NULL) {
 
   if (length(plus_variables) > 0) {
 
-    check_variables_present(.query, plus_variables)
+    check_variables_present(.query, plus_variables, call = rlang::caller_env())
 
     if (is.data.frame(.query[["structure"]])) {
       .query[["structure"]][["selected"]] = FALSE
@@ -65,7 +65,7 @@ spq_select = function(.query = NULL, ..., .spq_duplicate = NULL) {
     str_remove("\\-")
 
   if (length(minus_variables) > 0) {
-    check_variables_present(.query, minus_variables)
+    check_variables_present(.query, minus_variables, call = rlang::caller_env())
 
     .query = purrr::reduce(
       minus_variables,
@@ -77,7 +77,7 @@ spq_select = function(.query = NULL, ..., .spq_duplicate = NULL) {
   return(.query)
 }
 
-check_variables_present <- function(query, variables) {
+check_variables_present <- function(query, variables, call) {
 
   if (nzchar(Sys.getenv("GLITTER.TESTING.SELECT"))) {
     return()
@@ -89,6 +89,6 @@ check_variables_present <- function(query, variables) {
     cli::cli_abort(c(
       "Can't use {.fun spq_select} on absent variables: {toString(absent_variables)}.",
       i = "Did you forget a call to {.fun spq_add}, {.fun spq_mutate} or {.fun spq_label}?"
-    ))
+    ), call = call)
   }
 }
