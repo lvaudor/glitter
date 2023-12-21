@@ -58,7 +58,7 @@ spq_translate_dsl <- function(code) {
   # Abort if not sparqlish
   not_sparqlish = xml2::xml_find_all(code_data, ".//SYMBOL_FUNCTION_CALL[@sparqlish='false']")
   if (length(not_sparqlish) > 0) {
-    rlang::abort(
+    cli::cli_abort(
       c(
         x = sprintf(
           "Can't find SPARQL equivalent for %s().",
@@ -67,7 +67,8 @@ spq_translate_dsl <- function(code) {
           )
         ),
         i = "If you think there should be one, open an issue in https://github.com/lvaudor/glitter."
-      )
+      ),
+      call = NULL
     )
   }
 

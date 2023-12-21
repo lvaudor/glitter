@@ -46,7 +46,7 @@ is_value = function(string){
 #' @examples
 #' check_prefix(prefixes_used=c("wd","wdt"), prefixes_known = usual_prefixes) # TRUE
 #' check_prefix("blop:blabla", prefixes_known=usual_prefixes) #returns error message
-check_prefix = function(prefixes_used, prefixes_known) {
+check_prefix = function(prefixes_used, prefixes_known, call = NULL) {
   unknown_prefixes <- prefixes_used[!(prefixes_used %in% prefixes_known$name)]
   if (length(unknown_prefixes) == 0) {
     return(TRUE)

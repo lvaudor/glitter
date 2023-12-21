@@ -7,7 +7,7 @@
 #'   expression.
 #' @export
 spq <- function(...) {
-  x <- c_character(...)
+  x <- c_character(..., call = rlang::caller_env())
   structure(x, class = c("spq", "character"))
 }
 
@@ -30,14 +30,17 @@ format.spq <- function(x, ...) {
 #' @export
 is.spq <- function(x) inherits(x, "spq")
 
-c_character <- function(...) {
+c_character <- function(..., call) {
   x <- c(...)
   if (length(x) == 0) {
     return(character())
   }
 
   if (!is.character(x)) {
-    rlang::abort("Character input expected")
+    cli::cli_abort(
+      "Character input expected",
+      call = call
+    )
   }
 
   x

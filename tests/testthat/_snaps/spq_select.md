@@ -117,8 +117,8 @@
 
     i In index: 1.
     i With name: birthyear.
-    Caused by error in `spq_translate_dsl()`:
-    ! x Can't find SPARQL equivalent for collapse().
+    Caused by error:
+    x Can't find SPARQL equivalent for collapse().
     i If you think there should be one, open an issue in https://github.com/lvaudor/glitter.
 
 # spq_select can use DISTINCT and REDUCED
@@ -158,8 +158,9 @@
       spq_init() %>% spq_add("?station wdt:P16 wd:Q1552") %>% spq_add(
         "?station wdt:P31 wd:Q928830") %>% spq_add("?station wdt:P625 ?coords") %>%
         spq_select(station_label, blop)
-    Error <rlang_error>
-      Can't use `spq_select()` on absent variables: ?station_label, ?blop.
+    Condition
+      Error:
+      ! Can't use `spq_select()` on absent variables: ?station_label, ?blop.
       i Did you forget a call to `spq_add()`, `spq_mutate()` or `spq_label()`?
 
 ---
@@ -168,7 +169,8 @@
       spq_init() %>% spq_add("?station wdt:P16 wd:Q1552") %>% spq_add(
         "?station wdt:P31 wd:Q928830") %>% spq_add("?station wdt:P625 ?coords") %>%
         spq_label(station) %>% spq_select(station_label, blop)
-    Error <rlang_error>
-      Can't use `spq_select()` on absent variables: ?blop.
+    Condition
+      Error:
+      ! Can't use `spq_select()` on absent variables: ?blop.
       i Did you forget a call to `spq_add()`, `spq_mutate()` or `spq_label()`?
 
