@@ -79,20 +79,7 @@ spq_perform = function(.query,
   )
 
   if (replace_prefixes) {
-    endpoint_url = .query[["endpoint_info"]][["endpoint_url"]]
-   endpoint_is_usual <- (endpoint_url %in% usual_endpoints$url)
-    if (endpoint_is_usual) {
-      endpoint_name = usual_endpoints[["name"]][usual_endpoints[["url"]] == endpoint_url]
-      prefixes = usual_prefixes[["name"]][usual_prefixes[["type"]] == endpoint_name]
-    } else {
-    prefixes = NULL
-   }
-    prefixes = c(prefixes, .query[["prefixes_used"]])
-    results = purrr::reduce(
-      prefixes,
-      \(results, x) replace_prefix(x, results, .query = .query),
-      .init = results
-    )
+    results = replace_prefixes(results, .query)
   }
 
   results
@@ -105,16 +92,43 @@ replace_prefix = function(prefix, results, .query) {
      .query[["prefixes_provided"]]
     )
 
-   dplyr::mutate(
-     results,
-     dplyr::across(
-       dplyr::where(is.character),
-       \(x) str_replace(
-         x,
-         pattern = prefixes[["url"]][prefixes[["name"]] == prefix],
-         replacement = sprintf("%s:", prefix))
-     )
+   pattern = str_replace(
+     prefixes[["url"]][prefixes[["name"]] == prefix],
+     "http:", "https?:"
    )
+
+   replacement = sprintf("%s:", prefix)
+
+   if (is.data.frame(results)) {
+     dplyr::mutate(
+       results,
+       dplyr::across(
+         dplyr::where(is.character),
+         \(x) str_replace(x, pattern, replacement)
+       )
+     )
+   } else {
+     str_replace(results, pattern, replacement)
+   }
+
+
+}
+
+replace_prefixes <- function(results, .query) {
+  endpoint_url = .query[["endpoint_info"]][["endpoint_url"]]
+  endpoint_is_usual <- (endpoint_url %in% usual_endpoints$url)
+  if (endpoint_is_usual) {
+    endpoint_name = usual_endpoints[["name"]][usual_endpoints[["url"]] == endpoint_url]
+    prefixes = usual_prefixes[["name"]][usual_prefixes[["type"]] == endpoint_name]
+  } else {
+    prefixes = NULL
+  }
+  prefixes = c(prefixes, .query[["prefixes_used"]])
+  purrr::reduce(
+    prefixes,
+    \(results, x) replace_prefix(x, results, .query = .query),
+    .init = results
+  )
 }
 
 control_explanation <- function() {

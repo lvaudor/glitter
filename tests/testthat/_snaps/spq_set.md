@@ -12,6 +12,22 @@
       }
       
 
+# spq_set() works with URLs
+
+    Code
+      spq_init() %>% spq_set(species = c("https://www.wikidata.org/entity/Q144",
+        "https://www.wikidata.org/entity/Q146",
+        "https://www.wikidata.org/entity/Q780"), mayorcode = "wd:Q30185")
+    Output
+      
+      SELECT *
+      WHERE {
+      VALUES ?species {wd:Q144 wd:Q146 wd:Q780}
+      VALUES ?mayorcode {wd:Q30185}
+      
+      }
+      
+
 # spq_set() in two examples
 
     Code
