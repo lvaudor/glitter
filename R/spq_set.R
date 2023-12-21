@@ -28,7 +28,8 @@ spq_set = function(.query, ...) {
   args = rlang::enquos(...)
 
   subjects = names(args)
-  values = purrr::map_chr(args, treat_value)
+
+  values = purrr::map_chr(args, treat_value, .query = .query)
 
   .query <- purrr::reduce2(
     subjects,
@@ -41,8 +42,11 @@ spq_set = function(.query, ...) {
   return(.query)
 }
 
-treat_value = function(value) {
-  sprintf("{%s}", paste0(rlang::eval_tidy(value), collapse = " "))
+treat_value = function(value, .query) {
+  values <- rlang::eval_tidy(value) %>%
+    replace_prefixes(.query = .query) %>%
+    paste(collapse = " ")
+  sprintf("{%s}", values)
 }
 
 add_one_value_var <- function(query, var, values) {

@@ -6,6 +6,19 @@ test_that("spq_set() works", {
   )
 })
 
+test_that("spq_set() works with URLs", {
+  expect_snapshot(
+    spq_init() %>%
+      # dog, cat or chicken
+      spq_set(species = c(
+    'https://www.wikidata.org/entity/Q144',
+    'https://www.wikidata.org/entity/Q146',
+    'https://www.wikidata.org/entity/Q780'
+  ), mayorcode = "wd:Q30185")
+  )
+})
+
+
 test_that("spq_set() in two examples", {
   expect_snapshot(
     spq_init() %>%
