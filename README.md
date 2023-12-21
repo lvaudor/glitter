@@ -14,10 +14,10 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 coverage](https://codecov.io/gh/lvaudor/glitter/branch/master/graph/badge.svg)](https://app.codecov.io/gh/lvaudor/glitter?branch=master)
 <!-- badges: end -->
 
-This package aims at writing and sending SPARQL queries without advanced
-knowledge of the SPARQL language syntax. It makes the exploration and
-use of Linked Open Data (Wikidata in particular) easier for those who do
-not know SPARQL well.
+The glitter package aims at writing and sending SPARQL queries without
+advanced knowledge of the SPARQL language syntax. It makes the
+exploration and use of Linked Open Data (Wikidata in particular) easier
+for those who do not know SPARQL well.
 
 With glitter, compared to writing SPARQL queries by hand, your code
 should be easier to write, and easier to read by your peers who do not
@@ -38,7 +38,7 @@ query <- spq_init() %>%
 
 query
 #> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-#> SELECT ?item ?item_label
+#> SELECT ?item (COALESCE(?item_labell,'') AS ?item_label)
 #> WHERE {
 #> 
 #> ?item wdt:P31 wd:Q13442814.
@@ -47,8 +47,8 @@ query
 #> FILTER(lang(?item_labell) IN ('en'))
 #> }
 #> 
-#> BIND(COALESCE(?item_labell,'') AS
-#> ?item_label)FILTER(REGEX(LCASE(?item_label),"wikidata"))
+#> BIND(COALESCE(?item_labell,'') AS ?item_label)
+#> FILTER(REGEX(LCASE(?item_label),"wikidata"))
 #> }
 #> 
 #> LIMIT 5
@@ -83,22 +83,26 @@ spq_init() %>%
   spq_head(10) %>%
   spq_perform()
 #> # A tibble: 10 × 3
-#>    film                                  date film_label       
-#>    <chr>                                <dbl> <chr>            
-#>  1 http://www.wikidata.org/entity/Q372   2009 We Live in Public
-#>  2 http://www.wikidata.org/entity/Q595   2011 The Intouchables 
-#>  3 http://www.wikidata.org/entity/Q595   2011 The Intouchables 
-#>  4 http://www.wikidata.org/entity/Q595   2012 The Intouchables 
-#>  5 http://www.wikidata.org/entity/Q595   2012 The Intouchables 
-#>  6 http://www.wikidata.org/entity/Q593   2011 A Gang Story     
-#>  7 http://www.wikidata.org/entity/Q1365  1974 Swept Away       
-#>  8 http://www.wikidata.org/entity/Q1365  1974 Swept Away       
-#>  9 http://www.wikidata.org/entity/Q1365  1975 Swept Away       
-#> 10 http://www.wikidata.org/entity/Q1365  1975 Swept Away
+#>    film                                 film_label         date
+#>    <chr>                                <chr>             <dbl>
+#>  1 http://www.wikidata.org/entity/Q372  We Live in Public  2009
+#>  2 http://www.wikidata.org/entity/Q595  The Intouchables   2011
+#>  3 http://www.wikidata.org/entity/Q595  The Intouchables   2011
+#>  4 http://www.wikidata.org/entity/Q595  The Intouchables   2012
+#>  5 http://www.wikidata.org/entity/Q595  The Intouchables   2012
+#>  6 http://www.wikidata.org/entity/Q593  A Gang Story       2011
+#>  7 http://www.wikidata.org/entity/Q1365 Swept Away         1974
+#>  8 http://www.wikidata.org/entity/Q2201 Kick-Ass           2010
+#>  9 http://www.wikidata.org/entity/Q2201 Kick-Ass           2010
+#> 10 http://www.wikidata.org/entity/Q2201 Kick-Ass           2010
 ```
 
 Note that we were able to “overwrite” the date variable, which is
 straightforward in dplyr, but not so much in SPARQL.
+
+If you want to learn more about SPARQL, you could read the [Learning
+SPARQL book by Bob
+DuCharme](https://www.oreilly.com/library/view/learning-sparql-2nd/9781449371449/).
 
 ## Installation
 
@@ -111,8 +115,8 @@ install.packages("glitter", repos = "https://lvaudor.r-universe.dev")
 Or through GitHub:
 
 ``` r
-install.packages("remotes") #if remotes is not already installed
-remotes::install_github("lvaudor/glitter")
+install.packages("pak") #if pak is not already installed
+pak::pak("lvaudor/glitter")
 ```
 
 ## Documentation

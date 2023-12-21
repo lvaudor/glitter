@@ -1,0 +1,42 @@
+The glitter package aims at writing and sending SPARQL queries without advanced knowledge of the SPARQL language syntax.
+It makes the exploration and use of Linked Open Data (Wikidata in particular) easier for those who do not know SPARQL well.
+
+With glitter, compared to writing SPARQL queries by hand, your code should be easier to write, and easier to read by your peers who do not know SPARQL.
+The glitter package supports a "domain-specific language" (DSL) with function names (and syntax) closer to the tidyverse and base R than to SPARQL.
+
+For instance, to find a corpus of 5 articles with a title in English and "wikidata" in that title, instead of writing SPARQL by hand you can run:
+
+```{r}
+library("glitter")
+query <- spq_init() %>%
+  spq_add("?item wdt:P31 wd:Q13442814") %>%
+  spq_label(item) %>%
+  spq_filter(str_detect(str_to_lower(item_label), 'wikidata')) %>%
+  spq_head(n = 5)
+
+query
+```
+
+Note how we were able to use `str_detect()` and `str_to_lower()` (as in the stringr package) instead of SPARQL's functions `REGEX` and `LCASE`.
+
+To perform the query,
+
+```{r}
+spq_perform(query)
+```
+
+To get a random subset of movies with the date they were released, you could use
+
+```{r}
+spq_init() %>%
+  spq_add("?film wdt:P31 wd:Q11424") %>%
+  spq_label(film) %>%
+  spq_add("?film wdt:P577 ?date") %>%
+  spq_mutate(date = year(date)) %>%
+  spq_head(10) %>%
+  spq_perform()
+```
+
+Note that we were able to "overwrite" the date variable, which is straightforward in dplyr, but not so much in SPARQL.
+
+If you want to learn more about SPARQL, you could read the [Learning SPARQL book by Bob DuCharme](https://www.oreilly.com/library/view/learning-sparql-2nd/9781449371449/).
